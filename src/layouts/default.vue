@@ -1,17 +1,39 @@
 <script setup lang="ts">
-import { NMenu } from 'naive-ui'
+import { NMenu, darkTheme, NConfigProvider } from 'naive-ui'
+
+import { RouterLink } from 'vue-router'
 import type { MenuOption } from 'naive-ui'
-import { isDark } from '~/logic'
+// import { isDark } from '~/logic'
 const activeKey = ref<string | null>(null)
-const fontColor = computed(() => { return isDark.value ? 'white' : 'black' })
+// const fontColor = computed(() => { return isDark.value ? 'white' : 'black' })
 
 const MenuOptions: MenuOption[] = [
   {
-    label: 'Home',
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'Home' },
+      ),
     key: 'Home',
   },
   {
-    label: 'Champions',
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/champions',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'Champions' },
+      ),
     key: 'Champions',
   },
   {
@@ -27,18 +49,19 @@ const MenuOptions: MenuOption[] = [
 </script>
 
 <template>
-  <main class="px-4 py-10  text-gray-700 dark:text-gray-200 min-h-screen">
-    <n-menu v-model="activeKey" mode="horizontal" :options="MenuOptions"></n-menu>
-    <!-- <n-button @click="toggleDark()">
-      Click me
-    </n-button> -->
-    <router-view />
-    <Footer></Footer>
-  </main>
+  <div class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
+    <n-config-provider :theme="darkTheme">
+      <nav class="py-3">
+        <n-menu v-model="activeKey" class="text-lg" mode="horizontal" :options="MenuOptions"></n-menu>
+      </nav>
+      <main class="px-4 py-10 min-h-screen">
+        <router-view />
+      </main>
+      <Footer></Footer>
+    </n-config-provider>
+  </div>
 </template>
 
 <style>
-.n-menu-item-content-header{
-  color: v-bind(fontColor) !important;
-}
+
 </style>

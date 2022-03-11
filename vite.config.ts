@@ -11,7 +11,7 @@ import Markdown from 'vite-plugin-md'
 import WindiCSS from 'vite-plugin-windicss'
 // import { VitePWA } from 'vite-plugin-pwa'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import VueI18n from '@intlify/vite-plugin-vue-i18n'
+// import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Inspect from 'vite-plugin-inspect'
 import Prism from 'markdown-it-prism'
 import LinkAttributes from 'markdown-it-link-attributes'
@@ -42,7 +42,7 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
-        'vue-i18n',
+        // 'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
       ],
@@ -127,11 +127,11 @@ export default defineConfig({
     // }),
 
     // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
-    VueI18n({
-      runtimeOnly: true,
-      compositionOnly: true,
-      include: [path.resolve(__dirname, 'locales/**')],
-    }),
+    // VueI18n({
+    //   runtimeOnly: true,
+    //   compositionOnly: true,
+    //   include: [path.resolve(__dirname, 'locales/**')],
+    // }),
 
     // https://github.com/antfu/vite-plugin-inspect
     Inspect({

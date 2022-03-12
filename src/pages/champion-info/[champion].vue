@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NDataTable } from 'naive-ui'
 import type { ChampionInfo } from '~/types'
 import CheckMark from '~/components/CheckMark.vue'
 import WarningIcon from '~/components/WarningIcon.vue'
@@ -18,6 +19,16 @@ async function getChampion() {
 }
 
 getChampion()
+
+let tableColumns
+let champStats
+
+watch(champion, (newVal, oldVal) => {
+  if (champion.value) {
+    tableColumns = ref<string []>(Object.keys(champion.value!.stats))
+    champStats = ref(Object.values(champion.value?.stats))
+  }
+})
 
 </script>
 
@@ -112,6 +123,9 @@ getChampion()
         </li>
       </ul>
     </div>
+
+    <n-data-table :columns="tableColumns" :data="champStats">
+    </n-data-table>
 
     <img
       class="mx-auto"

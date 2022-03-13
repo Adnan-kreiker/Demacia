@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { NDataTable } from 'naive-ui'
-import type { ChampionInfo } from '~/types'
+import { NDataTable, DataTableColumns } from 'naive-ui'
+import type { ChampionInfo, Spell } from '~/types'
 import CheckMark from '~/components/CheckMark.vue'
 import WarningIcon from '~/components/WarningIcon.vue'
 import AttackIcon from '~/components/AttackIcon.vue'
@@ -18,18 +18,54 @@ async function getChampion() {
   champion.value = Object.values(champ.data)[0] as ChampionInfo
 }
 
+// async function getSpellsImages(ability: string) {
+//   const res = await fetch(`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${ability}.png`)
+//   const pic = await res.json()
+//   return pic
+// }
+
 getChampion()
 
-let tableColumns
-let champStats
+type Stats = {
+  [key: string]: string | number
+}
+
+// interface SpellWithImg {
+//   spell: Spell
+//   image: string
+
+// }
+
+const tableColumns: DataTableColumns<Stats> = [{ title: 'Skill', key: 'Skill', align: 'center' }, { title: 'Value', key: 'Value', align: 'center' }]
+
+const champStats = ref<Stats[]>([])
+
+const spells = ref<Spell[]>([])
+
+// const spellNames = ref<string[]>([])
 
 watch(champion, (newVal, oldVal) => {
   if (champion.value) {
-    tableColumns = ref<string []>(Object.keys(champion.value!.stats))
-    champStats = ref(Object.values(champion.value?.stats))
+    champStats.value = Object.entries(champion.value!.stats).map((stat) => {
+      return {
+        Skill: stat[0],
+        Value: stat[1],
+      }
+    })
+
+    spells.value = champion.value.spells
+
+    // spells = champion.value.spells.map((spell) => {
+    //   return {
+    //     spell,
+    //     image: getSpellsImages(spell.name),
+    //   }
+    // })
+    // spellNames.value = champion.value.spells.map((spell) => {
+    //   return spell.name
+    // })
   }
 })
-
 </script>
 
 <template>
@@ -62,6 +98,7 @@ watch(champion, (newVal, oldVal) => {
           </div>
           <div :style="{width: champion.info.attack *10 +'%', maxWidth:70+'%'}" class="bg-red-500 h-4"></div>
         </div>
+
         <div class="flex flex-row items-center">
           <div class=" flex min-w-26 flex-row items-center">
             <ShieldIcon class="h-5 w-5"></ShieldIcon>
@@ -71,6 +108,7 @@ watch(champion, (newVal, oldVal) => {
           </div>
           <div :style="{width: champion.info.defense *10 +'%', maxWidth:70+'%'}" class="bg-green-500 h-4"></div>
         </div>
+
         <div class="flex flex-row items-center">
           <div class=" flex min-w-26 flex-row items-center">
             <MagicIcon class="h-5 w-5"></MagicIcon>
@@ -80,6 +118,7 @@ watch(champion, (newVal, oldVal) => {
           </div>
           <div :style="{width: champion.info.magic *10 +'%', maxWidth:70+'%'}" class="bg-purple-500 h-4"></div>
         </div>
+
         <div class="flex  flex-row items-center">
           <div class=" flex min-w-26 flex-row items-center">
             <BrainIcon class="h-5 w-5"></BrainIcon>
@@ -96,6 +135,7 @@ watch(champion, (newVal, oldVal) => {
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Ally tips
       </h2>
+
       <ul>
         <li v-for="tip in champion.allytips" :key="tip" class="text-base py-2 flex flex-row items-start ">
           <div
@@ -112,6 +152,7 @@ watch(champion, (newVal, oldVal) => {
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Enemy Tip
       </h2>
+
       <ul>
         <li v-for="tip in champion.enemytips" :key="tip" class="text-base flex flex-row items-start py-2 ">
           <div
@@ -124,13 +165,42 @@ watch(champion, (newVal, oldVal) => {
       </ul>
     </div>
 
-    <n-data-table :columns="tableColumns" :data="champStats">
-    </n-data-table>
+    <div class="flex flex-row flex-wrap">
+      <n-data-table
+        :columns="tableColumns"
+        :data="champStats"
+        :max-height="250"
+        virtual-scroll
+        class="my-8 md:w-1/2"
+      >
+      </n-data-table>
+      <div class="md:w-1/2 mt-8 md:h-[300px]">
+        <img
+          class="mx-auto h-full object-cover"
+          :src="`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`"
+        >
+      </div>
+    </div>
 
-    <img
-      class="mx-auto"
-      :src="`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`"
-    >
+    <section>
+      <h2 class="text-lg font-bold underline underline-green-500 underline-2">
+        Abilities
+      </h2>
+      <div>
+        <div v-for="spell in spells" :key="spell.name" class="flex flex-row my-6 border-1 border-white p-3">
+          <div class="min-w-[60px]">
+            <img height="50" width="50" class="" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${spell.image.full}`" alt="">
+          </div>
+          <div>
+            <h2 class="text-base font-bold">
+              {{ spell.name }}
+            </h2>
+            <p>{{ spell.description }}</p>
+            <p v-html="spell.tooltip"></p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

@@ -7,7 +7,9 @@ const servers = ['KR', 'EUW', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
 async function fetchSummonerInfo(summonerName: string): Promise<void> {
   const res = await fetch(`http://localhost:4008/${summonerName}`, {
     headers: {
-      append: ('Access-Control-Allow-Origin', 'http://localhost:3000'),
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Origin': 'http://localhost:4000',
     },
   })
 }

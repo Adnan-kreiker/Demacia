@@ -13,28 +13,20 @@ const route = useRoute()
 const champion = ref<null | ChampionInfo>(null)
 
 async function getChampion() {
-  const res = await fetch(`http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion/${route.params.champion}.json`)
+  const res = await fetch(`http://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion/${route.params.champion}.json`)
   const champ = await res.json()
   champion.value = Object.values(champ.data)[0] as ChampionInfo
 }
 
-// async function getSpellsImages(ability: string) {
-//   const res = await fetch(`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${ability}.png`)
-//   const pic = await res.json()
-//   return pic
-// }
-
 getChampion()
+
+function quotesRemover(input: string) {
+  return input.replace('"', '')
+}
 
 type Stats = {
   [key: string]: string | number
 }
-
-// interface SpellWithImg {
-//   spell: Spell
-//   image: string
-
-// }
 
 const tableColumns: DataTableColumns<Stats> = [{ title: 'Skill', key: 'Skill', align: 'center' }, { title: 'Value', key: 'Value', align: 'center' }]
 
@@ -42,7 +34,7 @@ const champStats = ref<Stats[]>([])
 
 const spells = ref<Spell[]>([])
 
-// const spellNames = ref<string[]>([])
+const e1 = 444
 
 watch(champion, (newVal, oldVal) => {
   if (champion.value) {
@@ -54,16 +46,6 @@ watch(champion, (newVal, oldVal) => {
     })
 
     spells.value = champion.value.spells
-
-    // spells = champion.value.spells.map((spell) => {
-    //   return {
-    //     spell,
-    //     image: getSpellsImages(spell.name),
-    //   }
-    // })
-    // spellNames.value = champion.value.spells.map((spell) => {
-    //   return spell.name
-    // })
   }
 })
 </script>
@@ -195,8 +177,8 @@ watch(champion, (newVal, oldVal) => {
             <h2 class="text-base font-bold">
               {{ spell.name }}
             </h2>
-            <p>{{ spell.description }}</p>
-            <p v-html="spell.tooltip"></p>
+            <p v-html="spell.description"></p>
+            <p v-html="quotesRemover(spell.tooltip)"></p>
           </div>
         </div>
       </div>

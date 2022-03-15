@@ -4,6 +4,14 @@ const searchTerm = ref('')
 
 const servers = ['KR', 'EUW', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
 
+async function fetchSummonerInfo(summonerName: string): Promise<void> {
+  const res = await fetch(`http://localhost:4008/${summonerName}`, {
+    headers: {
+      append: ('Access-Control-Allow-Origin', 'http://localhost:3000'),
+    },
+  })
+}
+
 const selectedServer = ref(null)
 
 const selectOptions = servers.map((server) => {
@@ -27,7 +35,7 @@ const selectOptions = servers.map((server) => {
           placeholder="KR"
           :options="selectOptions"
         />
-        <n-button class="bg-blue-500 text-white font-bold">
+        <n-button class="bg-blue-500 text-white font-bold" @click="fetchSummonerInfo(searchTerm)">
           .GG
         </n-button>
       </template>

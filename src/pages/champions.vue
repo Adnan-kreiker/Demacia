@@ -5,7 +5,7 @@ import { Champion } from '~/types'
 const champions = ref<null | Champion[]>(null)
 
 async function getChampions(): Promise<void> {
-  const champs = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
+  const champs = await fetch('http://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json')
   const res = await champs.json()
   champions.value = Object.values(res.data).slice(0, 50) as Champion[]
 }

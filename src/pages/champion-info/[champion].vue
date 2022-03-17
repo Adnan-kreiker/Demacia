@@ -171,7 +171,7 @@ watch(champion, (newVal, oldVal) => {
       <div>
         <div v-for="spell in spells" :key="spell.name" class="flex flex-row my-6 border-1 border-white p-3">
           <div class="min-w-[60px]">
-            <img height="50" width="50" class="" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${spell.image.full}`" alt="">
+            <img height="50" width="50" class="" :src="`http://ddragon.leagueoflegends.com/cdn/8.1.1/img/spell/${spell.image.full}`" alt="">
           </div>
           <div>
             <h2 class="text-base font-bold">

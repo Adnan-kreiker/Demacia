@@ -5,15 +5,15 @@ const searchTerm = ref('')
 const servers = ['KR', 'EUW', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
 
 async function fetchSummonerInfo(summonerName: string): Promise<void> {
-  const res = await fetch(`http://localhost:4008/${summonerName}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Origin': 'http://localhost:4000',
-    },
-  })
+  try {
+    const res = await fetch(`http://localhost:5000/api/get-summoner/${summonerName}`)
+    const data = await res.json()
+    console.log(data)
+  }
+  catch (error) {
+    console.log(error)
+  }
 }
-
 const selectedServer = ref(null)
 
 const selectOptions = servers.map((server) => {

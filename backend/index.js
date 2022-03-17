@@ -1,22 +1,16 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const app = express()
-const port = 4008
+const port = process.env.PORT || 5000
+
+app.use(cors())
 const qs = require('qs')
 const axios = require('axios')
 
-const url = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
-const api_Key = process.env.API_KEY
-app.get('/', (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*')
-  console.log(req.query)
-  const query = req.query
-  query.api_Key = api_Key
-  const queryString = qs.stringify(query)
-  console.log({ queryString })
-  axios(`${url}${queryString}`)
-    .then(response => console.log(response))
-})
+// Routes
+
+app.use('/api', require('./routes'))
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -5,34 +5,57 @@ require('dotenv').config()
 const needle = require('needle')
 const link = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 const api_key = process.env.API_KEY
+const api_key_name = process.env.API_KEY_NAME
+const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
+const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 
 router.get('/get-summoner/:name', async(req, res) => {
-  // res.set('Access-Control-Allow-Origin', '*')
   try {
     const summonerName = req.params.name
-    // const params = new URLSearchParams({
-    //   [api_key]: api_key,
-    //   ...url.parse(req.url, true).query,
-    // })
+
     const apiRes = await needle('get', `${link}${summonerName}?api_key=${api_key}`)
     const data = apiRes.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    res.status(500).json({ error })
+  }
+})
+
+router.get('/get-matches/:id', async(req, res) => {
+  // console.log(url.parse(req.url, true).query)
+  const params = new URLSearchParams({
+    ...url.parse(req.url, true).query,
+    [api_key_name]: api_key,
+  })
+  try {
+    const id = req.params.id
+    console.log(`${matchesUrl}${id}/ids?${params}`)
+    const result = await needle('get', `${matchesUrl}${id}/ids?${params}`)
+    const data = result.body
     res.status(200).json(data)
     console.log(data)
   }
   catch (error) {
-    res.status(500).json({ error })
     console.log(error)
   }
+})
 
-  // res.set('Access-Control-Allow-Header', 'Origin, Content-Type, Accept')
-
-  // console.log(req.query)
-  // const query = req.query
-  // query.api_Key = api_Key
-  // const queryString = qs.stringify(query)
-  // console.log({ queryString })
-  // axios(`${url}${queryString}`)
-  //   .then(response => console.log(response))
+router.get('/get-match/:id', async(req, res) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  try {
+    const id = req.params.id
+    console.log(`${matchUrl}${id}${params}`)
+    const result = await needle('get', `${matchUrl}${id}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+    console.log(data)
+  }
+  catch (error) {
+    console.log(error)
+  }
 })
 
 module.exports = router

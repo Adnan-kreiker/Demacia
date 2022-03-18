@@ -1,12 +1,12 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-
+import { Summoner } from '../types'
 export const useUserStore = defineStore('user', () => {
   /**
    * Current named of the user.
    */
   const savedName = ref('')
   const previousNames = ref(new Set<string>())
-
+  const summoner = ref<Summoner | null>(null)
   const usedNames = computed(() => Array.from(previousNames.value))
   const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
 
@@ -23,7 +23,13 @@ export const useUserStore = defineStore('user', () => {
     savedName.value = name
   }
 
+  function setSummoner(summonerInfo: Summoner) {
+    summoner.value = summonerInfo
+  }
+
   return {
+    setSummoner,
+    summoner,
     setNewName,
     otherNames,
     savedName,

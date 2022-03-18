@@ -5,8 +5,8 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.use(cors())
-const qs = require('qs')
-const axios = require('axios')
+// const qs = require('qs')
+// const axios = require('axios')
 
 // Routes
 

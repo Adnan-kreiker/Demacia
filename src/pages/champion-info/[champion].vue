@@ -36,7 +36,7 @@ const spells = ref<Spell[]>([])
 
 const e1 = 444
 
-watch(champion, (newVal, oldVal) => {
+watch(champion, () => {
   if (champion.value) {
     champStats.value = Object.entries(champion.value!.stats).map((stat) => {
       return {

@@ -7,7 +7,7 @@ const route = useRoute()
 
 const summonerInfo = ref<null | Summoner>(null)
 
-const matchHistory = shallowRef<null | MatchInfo[]>([])
+const matchHistory = ref<null | MatchInfo[]>([])
 
 function millisToMinutesAndSeconds(millis: number): string {
   const minutes = Math.floor(millis / 60000)
@@ -15,7 +15,7 @@ function millisToMinutesAndSeconds(millis: number): string {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 }
 
-onBeforeMount(async() => {
+const getSummonerInfo = async() => {
   const { summoner } = route.params
   try {
     const res = await fetch(`http://localhost:5000/api/get-summoner/${summoner}`)
@@ -24,7 +24,7 @@ onBeforeMount(async() => {
     summonerInfo.value = data
 
     const matches = await fetch(
-      `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=5`,
+      `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=1`,
     )
 
     const matchesId = await matches.json()
@@ -36,9 +36,12 @@ onBeforeMount(async() => {
     }))
   }
   catch (error) {
-    console.log(error)
+    console.error(error)
   }
-})
+}
+
+getSummonerInfo()
+
 </script>
 
 <template>
@@ -52,33 +55,31 @@ onBeforeMount(async() => {
       <p>Level: {{ summonerInfo.summonerLevel }}</p>
     </n-card>
     <p>{{ new Date(summonerInfo.revisionDate) }}</p>
-    <section>
-      <div v-for="match in matchHistory" :key="match.metadata.matchId" class="border border-green-500">
-        <span>Game mode:{{ match.info.gameMode }}</span>
-        <!-- <span>{{match.}}</span> -->
-        <!-- <span>Game name:{{ match.info.gameName }}</span> -->
-        <span>Game duration:{{ millisToMinutesAndSeconds(match.info.gameDuration) }}</span>
-        <h2>Red team</h2>
-        <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 100)" :key="participant.championName">
-          <p>{{ participant.championName }}</p>
-          <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span>
-          <p>{{ participant.teamPosition }}</p>
-          <p>{{ participant.teamId }}</p>
-          <img
-            class="w-12 h-12"
-            :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/profileicon/${participant.profileIcon}.png`"
-          >
+
+    <section v-if="matchHistory">
+      <div v-for="match in matchHistory" :key="match.metadata.matchId" class="border  border-green-500">
+        <div class="bg-white text-gray-600">
+          <h2>{{ match.info.participants.filter(participant => participant.summonerName.toLocaleLowerCase() === route.params.summoner.toString().toLocaleLowerCase())[0].win ? 'Victory' : 'Defeat' }}</h2>
+
+          <span>Game mode:{{ match.info.gameMode }}</span>
+
+          <span>Game duration:{{ millisToMinutesAndSeconds(match.info.gameDuration) }}</span>
         </div>
-        <h2>Blue team</h2>
-        <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 200)" :key="participant.championName">
-          <p>{{ participant.championName }}</p>
-          <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span>
-          <p>{{ participant.teamPosition }}</p>
-          <p>{{ participant.teamId }}</p>
-          <img
-            class="w-12 h-12"
-            :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/profileicon/${participant.profileIcon}.png`"
-          >
+        <div class="flex flex-row  justify-evenly bg-red-200 text-gray-800 p-4">
+          <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 100)" :key="participant.championName">
+            <p>{{ participant.summonerName }}</p>
+            <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span>
+            <p>{{ participant.teamPosition }}</p>
+            <img class="rounded-3xl" height="45" width="45" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${participant.championName}.png`">
+          </div>
+        </div>
+        <div class="flex flex-row justify-evenly bg-blue-200 text-gray-800 p-4">
+          <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 200)" :key="participant.championName">
+            <p>{{ participant.summonerName }}</p>
+            <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span>
+            <p>{{ participant.teamPosition }}</p>
+            <img class="rounded-3xl" height="45" width="45" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${participant.championName}.png`">
+          </div>
         </div>
       </div>
     </section>

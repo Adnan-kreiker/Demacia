@@ -21,7 +21,7 @@ async function getChampion() {
 getChampion()
 
 function quotesRemover(input: string) {
-  return input.replace('"', '')
+  return input.replaceAll('"', '')
 }
 
 type Stats = {

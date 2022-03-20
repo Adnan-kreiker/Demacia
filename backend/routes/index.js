@@ -23,21 +23,20 @@ router.get('/get-summoner/:name', async(req, res) => {
 })
 
 router.get('/get-matches/:id', async(req, res) => {
-  // console.log(url.parse(req.url, true).query)
   const params = new URLSearchParams({
     ...url.parse(req.url, true).query,
     [api_key_name]: api_key,
   })
   try {
     const id = req.params.id
-    console.log(`${matchesUrl}${id}/ids?${params}`)
+    // console.log(`${matchesUrl}${id}/ids?${params}`)
     const result = await needle('get', `${matchesUrl}${id}/ids?${params}`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
+    // console.log(data)
   }
   catch (error) {
-    console.log(error)
+    console.error(error)
   }
 })
 
@@ -47,14 +46,14 @@ router.get('/get-match/:id', async(req, res) => {
   })
   try {
     const id = req.params.id
-    console.log(`${matchUrl}${id}${params}`)
+    // console.log(`${matchUrl}${id}${params}`)
     const result = await needle('get', `${matchUrl}${id}?${params}`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
+    // console.log(data)
   }
   catch (error) {
-    console.log(error)
+    console.error(error)
   }
 })
 

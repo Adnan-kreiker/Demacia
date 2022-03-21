@@ -66,15 +66,35 @@ const summoner = (participants: Participant[]): Participant => {
         <div class="bg-white text-gray-600">
         </div>
         <section class="flex flex-row w-full">
-          <div class=" flex flex-row w-full">
+          <div class=" flex flex-row w-4/6">
             <div class="w-1/3 flex flex-col justify-center ">
               <h2>{{ match.info.gameMode }}</h2>
               <h2>{{ millisToMinutesAndSeconds(match.info.gameDuration) }}</h2>
 
               <h2>{{ summoner(match.info.participants).win ? 'Victory' : 'Defeat' }}</h2>
             </div>
-            <div>
+            <div class="flex flex-col justify-center items-center">
               <img height="70" width="70" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${summoner(match.info.participants).championName}.png`" alt="">
+              <span>{{ summoner(match.info.participants).championName }}</span> <br>
+              <span>{{ summoner(match.info.participants).kills }} / {{ summoner(match.info.participants).deaths }} / {{ summoner(match.info.participants).assists }}</span>
+
+              <div>
+                <img :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${summoner(match.info.participants).summoner1Casts}.png`" alt="">
+              </div>
+              <div class="flex flex-row">
+                <img v-if="summoner(match.info.participants).item0 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item0}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item1 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item1}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item2 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item2}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item3 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item3}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item4 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item4}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item5 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item5}.png`" alt="">
+                <img v-if="summoner(match.info.participants).item6 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item6}.png`" alt="">
+              </div>
+              <div class="flex flex-col items-center">
+                <span>Level : {{ summoner(match.info.participants).champLevel }}</span> <br>
+                <span>CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span> <br>
+                <span>Wards placed: {{ summoner(match.info.participants).wardsPlaced }}</span> <br>
+              </div>
             </div>
           </div>
           <div class="flex flex-col self-end p-2   w-1/6 bg-red-200 text-gray-800 p-4">
@@ -90,6 +110,7 @@ const summoner = (participants: Participant[]): Participant => {
           <div class="flex flex-col  w-1/6 self-end p-2 bg-blue-200 text-gray-800 p-4">
             <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 200)" :key="participant.championName" class="my-1">
               <div class="flex w-full flex-1 flex-row justify-start items-center">
+                <!-- <p>{{ participant }}</p> -->
                 <!-- <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span> -->
                 <!-- <p>{{ participant.teamPosition }}</p> -->
                 <img class="rounded-3xl mr-2 " height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${participant.championName}.png`">

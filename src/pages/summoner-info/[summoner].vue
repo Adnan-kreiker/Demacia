@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { NCard } from 'naive-ui'
+import { NCard, NTag } from 'naive-ui'
 import { Summoner, MatchInfo, Participant } from '~/types'
 
 const route = useRoute()
@@ -8,6 +8,16 @@ const route = useRoute()
 const summonerInfo = ref<null | Summoner>(null)
 
 const matchHistory = ref<null | MatchInfo[]>([])
+
+function mapSpellKeyToName(spellKey: string) {
+  if (spellKey === '4') return 'SummonerFlash'
+  else if (spellKey === '14') return 'SummonerDot'
+  else if (spellKey === '7') return 'SummonerHeal'
+  else if (spellKey === '3') return 'SummonerExhaust'
+  else if (spellKey === '12') return 'SummonerTeleport'
+  else if (spellKey === '6') return 'SummonerHaste'
+  else if (spellKey === '11') return 'SummonerSmite'
+}
 
 function millisToMinutesAndSeconds(millis: number): string {
   const minutes = Math.floor(millis / 60000)
@@ -24,7 +34,7 @@ const getSummonerInfo = async() => {
     summonerInfo.value = data
 
     const matches = await fetch(
-      `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=1`,
+      `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=10`,
     )
 
     const matchesId = await matches.json()
@@ -63,25 +73,30 @@ const summoner = (participants: Participant[]): Participant => {
 
     <section v-if="matchHistory">
       <div v-for="match in matchHistory" :key="match.metadata.matchId" class="border  border-green-500">
-        <div class="bg-white text-gray-600">
-        </div>
         <section class="flex flex-row w-full">
-          <div class=" flex flex-row w-4/6">
-            <div class="w-1/3 flex flex-col justify-center ">
+          <!-- Game Information -->
+          <div class=" flex flex-row flex-1 text-center  ">
+            <div class=" flex flex-col justify-center max-w-[180px] px-2 ">
               <h2>{{ match.info.gameMode }}</h2>
               <h2>{{ millisToMinutesAndSeconds(match.info.gameDuration) }}</h2>
 
               <h2>{{ summoner(match.info.participants).win ? 'Victory' : 'Defeat' }}</h2>
             </div>
-            <div class="flex flex-col justify-center items-center">
-              <img height="70" width="70" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${summoner(match.info.participants).championName}.png`" alt="">
-              <span>{{ summoner(match.info.participants).championName }}</span> <br>
-              <span>{{ summoner(match.info.participants).kills }} / {{ summoner(match.info.participants).deaths }} / {{ summoner(match.info.participants).assists }}</span>
+            <!-- Summoner Image and Name -->
+            <div class="px-4 flex flex-col relative justify-center">
+              <div><img height="70" width="70" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${summoner(match.info.participants).championName}.png`" alt=""></div>
+              <span class="absolute top-[62%] left-[31%]">{{ summoner(match.info.participants).championName }}</span> <br>
+            </div>
 
-              <div>
-                <img :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${summoner(match.info.participants).summoner1Casts}.png`" alt="">
-              </div>
-              <div class="flex flex-row">
+            <div class="flex flex-row items-center">
+              <img class="w-8 h-8" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${mapSpellKeyToName(summoner(match.info.participants).summoner1Id.toString())}.png`" alt="">
+              <img class="w-8 h-8" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${mapSpellKeyToName(summoner(match.info.participants).summoner2Id.toString())}.png`" alt="">
+            </div>
+            <!-- Summoner Stats -->
+            <div class="flex flex-col justify-center flex-1 items-center">
+              <span class="my-2">{{ summoner(match.info.participants).kills }} / {{ summoner(match.info.participants).deaths }} / {{ summoner(match.info.participants).assists }}</span>
+
+              <div class="flex flex-row gap-1">
                 <img v-if="summoner(match.info.participants).item0 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item0}.png`" alt="">
                 <img v-if="summoner(match.info.participants).item1 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item1}.png`" alt="">
                 <img v-if="summoner(match.info.participants).item2 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item2}.png`" alt="">
@@ -90,31 +105,37 @@ const summoner = (participants: Participant[]): Participant => {
                 <img v-if="summoner(match.info.participants).item5 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item5}.png`" alt="">
                 <img v-if="summoner(match.info.participants).item6 !== 0" height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item6}.png`" alt="">
               </div>
-              <div class="flex flex-col items-center">
-                <span>Level : {{ summoner(match.info.participants).champLevel }}</span> <br>
-                <span>CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span> <br>
-                <span>Wards placed: {{ summoner(match.info.participants).wardsPlaced }}</span> <br>
+              <div class="my-2">
+                <span class="py-1">CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span> <br>
+                <span class="py-1">Level : {{ summoner(match.info.participants).champLevel }}</span> <br>
+                <span class="py-1">Wards placed: {{ summoner(match.info.participants).wardsPlaced }}</span> <br>
+                <n-tag v-if="summoner(match.info.participants).pentaKills || summoner(match.info.participants).quadraKills || summoner(match.info.participants).tripleKills || summoner(match.info.participants).doubleKills" class="my-3" type="error">
+                  {{ summoner(match.info.participants).pentaKills ? 'Penta Kill' : summoner(match.info.participants).quadraKills ? 'Quadra Kill' : summoner(match.info.participants).tripleKills ? 'Triple Kill' : summoner(match.info.participants).doubleKills ? 'Double Kill' : '' }}
+                </n-tag>
               </div>
             </div>
           </div>
-          <div class="flex flex-col self-end p-2   w-1/6 bg-red-200 text-gray-800 p-4">
+          <!-- Red Team -->
+          <div class="flex flex-col self-end p-2  w-[150px]    bg-red-200 text-gray-800 p-4">
             <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 100)" :key="participant.championName" class="my-1">
-              <!-- <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span> -->
-              <!-- <p>{{ participant.teamPosition }}</p> -->
               <div class="flex flex-row flex-1 w-full justify-start items-center">
                 <img class="rounded-3xl mr-2 " height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${participant.championName}.png`">
-                <span>{{ participant.summonerName }}</span>
+                <router-link
+                  :to="`/summoner-info/${participant.summonerName}`"
+                >
+                  <span class="truncate overflow-ellipsis overflow-clip">{{ participant.summonerName }}</span>
+                </router-link>
               </div>
             </div>
           </div>
-          <div class="flex flex-col  w-1/6 self-end p-2 bg-blue-200 text-gray-800 p-4">
+          <!-- Blue Team -->
+          <div class="flex flex-col   self-end p-2 bg-blue-200  w-[150px] text-gray-800 p-4">
             <div v-for="participant in match.info.participants.filter(participant => participant.teamId == 200)" :key="participant.championName" class="my-1">
               <div class="flex w-full flex-1 flex-row justify-start items-center">
-                <!-- <p>{{ participant }}</p> -->
-                <!-- <span>{{ participant.kills }} / {{ participant.deaths }} / {{ participant.assists }}</span> -->
-                <!-- <p>{{ participant.teamPosition }}</p> -->
                 <img class="rounded-3xl mr-2 " height="25" width="25" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${participant.championName}.png`">
-                <span>{{ participant.summonerName }}</span>
+                <router-link :to="`/summoner-info/${participant.summonerName}`">
+                  <span class="truncate overflow-ellipsis overflow-clip">{{ participant.summonerName }}</span>
+                </router-link>
               </div>
             </div>
           </div>

@@ -55,7 +55,7 @@ const MenuOptions: MenuOption[] = [
         <n-menu v-model="activeKey" class="text-lg" mode="horizontal" :options="MenuOptions"></n-menu>
       </nav>
       <main class="px-4 py-10 min-h-screen">
-        <router-view />
+        <router-view :key="$route.fullPath" />
       </main>
       <Footer></Footer>
     </n-config-provider>

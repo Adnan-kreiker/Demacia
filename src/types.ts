@@ -322,4 +322,5 @@ export interface MatchInformation {
 export interface MatchInfo {
   metadata: Metadata
   info: MatchInformation
+  show: boolean
 }

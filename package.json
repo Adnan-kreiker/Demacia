@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "lol",
+  "name": "leageue of legends wiki",
   "scripts": {
     "dev": "vite --port 3333 --open",
     "build": "vite build",

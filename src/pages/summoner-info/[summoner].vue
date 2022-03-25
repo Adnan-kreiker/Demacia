@@ -10,6 +10,58 @@ function toLowerCase(championName: string): string {
   else return championName
 }
 
+function idToRunes(id: number) {
+  switch (id) {
+    case 8112:
+      return 'perk-images/Styles/Domination/Electrocute/Electrocute.png'
+    case 8124:
+      return 'perk-images/Styles/Domination/Predator/Predator.png'
+    case 8128:
+      return 'perk-images/Styles/Domination/DarkHarvest/DarkHarvest.png'
+    case 9923:
+      return 'perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png'
+    case 8126:
+      return 'perk-images/Styles/Domination/CheapShot/CheapShot.png'
+    case 8139:
+      return 'perk-images/Styles/Domination/TasteOfBlood/GreenTerror_TasteOfBlood.png'
+    case 8143:
+      return 'perk-images/Styles/Domination/SuddenImpact/SuddenImpact.png'
+    case 8136:
+      return 'perk-images/Styles/Domination/ZombieWard/ZombieWard.png'
+    case 8120:
+      return 'perk-images/Styles/Domination/GhostPoro/GhostPoro.png'
+    case 8138:
+      return 'perk-images/Styles/Domination/EyeballCollection/EyeballCollection.png'
+    case  8135:
+      return 'perk-images/Styles/Domination/RavenousHunter/RavenousHunter.png'
+    case 8134:
+      return 'perk-images/Styles/Domination/IngeniousHunter/IngeniousHunter.png'
+    case 8105:
+      return 'perk-images/Styles/Domination/RelentlessHunter/RelentlessHunter.png'
+    case 8106:
+      return 'perk-images/Styles/Domination/UltimateHunter/UltimateHunter.png'
+    case 8351:
+      return 'perk-images/Styles/Inspiration/GlacialAugment/GlacialAugment.png'
+    case 8360:
+      return 'perk-images/Styles/Inspiration/UnsealedSpellbook/UnsealedSpellbook.png'
+    case 8369:
+      return 'perk-images/Styles/Inspiration/FirstStrike/FirstStrike.png'
+    case 8306:
+      return 'perk-images/Styles/Inspiration/HextechFlashtraption/HextechFlashtraption.png'
+    case 8304:
+      return 'perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png'
+    case 8313:
+      return 'perk-images/Styles/Inspiration/PerfectTiming/PerfectTiming.png'
+    case 8321:
+      return 'perk-images/Styles/Inspiration/FuturesMarket/FuturesMarket.png'
+    case 8316:
+      return 'perk-images/Styles/Inspiration/MinionDematerializer/MinionDematerializer.png'
+    case 8345:
+      return 'perk-images/Styles/Inspiration/BiscuitDelivery/BiscuitDelivery.png'
+  }
+}
+
+
 const summonerInfo = ref<null | Summoner>(null)
 
 const matchHistory = ref<null | MatchInfo[]>([])
@@ -96,10 +148,12 @@ const summoner = (participants: Participant[]): Participant => {
               <div><img height="70" width="70" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${toLowerCase(summoner(match.info.participants).championName)}.png`" alt=""></div>
               <span class="absolute top-[62%] left-[31%]">{{ summoner(match.info.participants).championName }}</span> <br>
             </div>
-
+            <!-- Summoner's spells -->
             <div class="flex flex-row items-center">
               <img class="w-8 h-8" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${mapSpellKeyToName(summoner(match.info.participants).summoner1Id.toString())}.png`" alt="">
               <img class="w-8 h-8" :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/spell/${mapSpellKeyToName(summoner(match.info.participants).summoner2Id.toString())}.png`" alt="">
+              <img src="https://ddragon.canisback.com/img/" alt="">
+              <p>{{summoner(match.info.participants).perks.styles}}</p>
             </div>
             <!-- Summoner Stats -->
             <div class="flex flex-col justify-center flex-1 items-center">

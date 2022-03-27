@@ -1,0 +1,32 @@
+{
+    "tier": "CHALLENGER",
+    "leagueId": "04a0f903-37c7-316f-af90-5f8eed42011c",
+    "queue": "RANKED_SOLO_5x5",
+    "name": "Nunu's Lancers",
+    "entries": [
+        {
+            "summonerId": "r_2IHVEXj1wRr2T0yOp1u9VFfVKCNFFnQcp9AuhuuISSpkWyiFQVYAmYpA",
+            "summonerName": "SnowySteps",
+            "leaguePoints": 1072,
+            "rank": "I",
+            "wins": 188,
+            "losses": 175,
+            "veteran": true,
+            "inactive": false,
+            "freshBlood": false,
+            "hotStreak": true
+        },
+        {
+            "summonerId": "PTvz6jyj6Uad8eDw9sDpg4bqPSXp9XMs6niReZrd1KXpf8A",
+            "summonerName": "rabstar mid acc",
+            "leaguePoints": 980,
+            "rank": "I",
+            "wins": 143,
+            "losses": 103,
+            "veteran": false,
+            "inactive": false,
+            "freshBlood": false,
+            "hotStreak": false
+        }
+    ]
+}

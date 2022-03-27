@@ -41,7 +41,17 @@ const MenuOptions: MenuOption[] = [
     key: 'Stats',
   },
   {
-    label: 'Leaderboards',
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/leaderboards',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'Leaderboards' },
+      ),
     key: 'Leaderboards',
   },
 

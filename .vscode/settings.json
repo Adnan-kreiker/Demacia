@@ -11,4 +11,7 @@
   "files.associations": {
     "*.css": "postcss",
   },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "johnsoncodehk.volar",
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": true,
 }

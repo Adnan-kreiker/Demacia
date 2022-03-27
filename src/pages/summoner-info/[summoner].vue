@@ -2,7 +2,7 @@
 import { useRoute } from "vue-router";
 import { NCard, NTag, NCollapseTransition, NSpace, NSwitch, NStatistic, NNumberAnimation, NTable, NDivider } from "naive-ui";
 import { Summoner, MatchInfo, Participant, SummonerRankedInfo } from "~/types";
-import { CSSProperties } from "vue";
+import { CSSProperties} from "vue";
 
 const route = useRoute();
 
@@ -38,6 +38,10 @@ const unixToDate = (unix: number) => {
   const sec = date.getSeconds();
   const time = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
   return time;
+};
+
+const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
 
@@ -262,7 +266,7 @@ const summoner = (participants: Participant[]): Participant => {
 
 <template>
   <div v-if="summonerInfo">
-    <div class="flex justify-evenly">
+    <div class="flex flex-wrap  justify-evenly">
       <div>
         <n-card class="max-w-[200px]" :title="summonerInfo.name">
           <template #cover>
@@ -273,53 +277,57 @@ const summoner = (participants: Participant[]): Participant => {
           <p>Level: {{ summonerInfo.summonerLevel }}</p>
         </n-card>
         <p>
-          Last Seen :
+          Last Activity :
           {{ unixToDate(summonerInfo.revisionDate) }}
         </p>
       </div>
-      <div class="flex flex-col items-center justify-center text-center" v-if="summonerRankedInfo">
-        <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo[0].queueType) }}</p>
-        <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo[0].tier }}</n-statistic>
-        <n-statistic label="Rank" tabular-nums>{{ summonerRankedInfo[0].rank }}</n-statistic>
-        <n-statistic label="League Points" tabular-nums>
-          <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo[0].leaguePoints"
-            :active="true"
-            :precision="0"
-          />
-        </n-statistic>
-        <div class="flex gap-3">
-          <n-statistic label="Wins" tabular-nums>
+      <div class="flex items-center justify-evenly text-center" v-if="summonerRankedInfo && summonerRankedInfo?.length > 0">
+        <div class="flex flex-col items-center  text-center">
+          <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo[0].queueType) }}</p>
+          <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo[0].tier }}</n-statistic>
+          <n-statistic label="Rank" tabular-nums>{{ summonerRankedInfo[0].rank }}</n-statistic>
+          <n-statistic label="League Points" tabular-nums>
             <n-number-animation
               ref="numberAnimationInstRef"
               :from="0"
-              :to="summonerRankedInfo[0].wins"
+              :to="summonerRankedInfo[0].leaguePoints"
               :active="true"
               :precision="0"
             />
           </n-statistic>
-          <n-statistic label="Losses" tabular-nums>
+          <div class="flex gap-3">
+            <n-statistic label="Wins" tabular-nums>
+              <n-number-animation
+                ref="numberAnimationInstRef"
+                :from="0"
+                :to="summonerRankedInfo[0].wins"
+                :active="true"
+                :precision="0"
+              />
+            </n-statistic>
+            <n-statistic label="Losses" tabular-nums>
+              <n-number-animation
+                ref="numberAnimationInstRef"
+                :from="0"
+                :to="summonerRankedInfo[0].losses"
+                :active="true"
+                :precision="0"
+              />
+            </n-statistic>
+          </div>
+          <n-statistic label="Win Rate" tabular-nums>
             <n-number-animation
               ref="numberAnimationInstRef"
               :from="0"
-              :to="summonerRankedInfo[0].losses"
+              :to="summonerRankedInfo[0].wins / (summonerRankedInfo[0].losses + summonerRankedInfo[0].wins) * 100"
               :active="true"
               :precision="0"
-            />
+            />%
           </n-statistic>
         </div>
-        <n-statistic label="Win Rate" tabular-nums>
-          <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo[0].wins / (summonerRankedInfo[0].losses + summonerRankedInfo[0].wins) * 100"
-            :active="true"
-            :precision="0"
-          />%
-        </n-statistic>
+        <img class=" max-w-[200px] object-contain" :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo[0].tier)}.png`" alt="">
       </div>
+      
     </div>
 
     <section v-if="matchHistory">

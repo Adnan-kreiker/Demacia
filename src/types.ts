@@ -343,3 +343,46 @@ export interface RankedData {
   freshBlood:   boolean;
   hotStreak:    boolean;
 }
+
+
+export enum QueueTypes {
+  RANKED_SOLO_5x5 = 'RANKED_SOLO_5x5',
+  RANKED_FLEX_SR = 'RANKED_FLEX_SR',
+  RANKED_FLEX_TT = 'RANKED_FLEX_TT',
+}
+
+
+
+// export interface ChallengerPlayer {
+//   summonerId:   string;
+//   summonerName: string;
+//   leaguePoints: number;
+//   rank:         string;
+//   wins:         number;
+//   losses:       number;
+//   veteran:      boolean;
+//   inactive:     boolean;
+//   freshBlood:   boolean;
+//   hotStreak:    boolean;
+// }
+
+export interface ChallengerPlayers {
+  tier:     string;
+  leagueId: string;
+  queue:    string;
+  name:     string;
+  entries:  ChallengerPlayer[];
+}
+
+export interface ChallengerPlayer {
+  summonerId:   string;
+  summonerName: string;
+  leaguePoints: number;
+  rank:         string;
+  wins:         number;
+  losses:       number;
+  veteran:      boolean;
+  inactive:     boolean;
+  freshBlood:   boolean;
+  hotStreak:    boolean;
+}

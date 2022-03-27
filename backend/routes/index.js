@@ -9,6 +9,7 @@ const api_key_name = process.env.API_KEY_NAME
 const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl ='https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
+const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/'
 
 router.get('/get-summoner/:name', async(req, res) => {
   try {
@@ -66,6 +67,23 @@ router.get('/get-ranked-info/:summonerId', async(req, res) => {
     const {summonerId} = req.params
     // console.log(`${matchUrl}${id}${params}`)
     const result = await needle('get', `${rankedUrl}${summonerId}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+    console.log(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-challenger-players/:queue', async(req, res) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  try {
+    const {queue} = req.params
+    // console.log(`${matchUrl}${id}${params}`)
+    const result = await needle('get', `${challengerUrl}${queue}?${params}`)
     const data = result.body
     res.status(200).json(data)
     console.log(data)

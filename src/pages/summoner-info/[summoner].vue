@@ -1,32 +1,36 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { NCard, NTag, NCollapseTransition, NSpace, NSwitch, NStatistic, NNumberAnimation, NTable, NDivider } from "naive-ui";
+import {
+  NCard,
+  NTag,
+  NCollapseTransition,
+  NSpace,
+  NSwitch,
+  NStatistic,
+  NNumberAnimation,
+  NTable,
+  NDivider,
+} from "naive-ui";
 import { Summoner, MatchInfo, Participant, SummonerRankedInfo } from "~/types";
-import { CSSProperties} from "vue";
+import { CSSProperties } from "vue";
 
 const route = useRoute();
 
-const switchStyle = ({
-  focused,
-  checked
-}: {
-  focused: boolean
-  checked: boolean
-}) => {
-  const style: CSSProperties = {}
+const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
+  const style: CSSProperties = {};
   if (checked) {
-    style.background = '#565656'
+    style.background = "#565656";
     if (focused) {
-      style.boxShadow = '0 0 0 2px #d0305040'
+      style.boxShadow = "0 0 0 2px #d0305040";
     }
   } else {
-    style.background = '#565656'
+    style.background = "#565656";
     if (focused) {
-      style.boxShadow = '0 0 0 2px #2080f040'
+      style.boxShadow = "0 0 0 2px #2080f040";
     }
   }
-  return style
-}
+  return style;
+};
 
 const unixToDate = (unix: number) => {
   const date = new Date(unix);
@@ -44,18 +48,16 @@ const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-
 const replaceUnderscoreWithSpace = (str: string) => {
   return str.replace(/_/g, " ");
 };
 
-
-function toLowerCase (championName: string): string {
+function toLowerCase(championName: string): string {
   if (championName === "FiddleSticks") return "Fiddlesticks";
   else return championName;
 }
 
-function idToRunes (id: number) {
+function idToRunes(id: number) {
   switch (id) {
     case 8112:
       return "perk-images/Styles/Domination/Electrocute/Electrocute.png";
@@ -190,10 +192,9 @@ const summonerInfo = ref<null | Summoner>(null);
 
 const matchHistory = ref<null | MatchInfo[]>([]);
 
-const summonerRankedInfo = ref<null | SummonerRankedInfo>(null)
+const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
-
-function mapSpellKeyToName (spellKey: string) {
+function mapSpellKeyToName(spellKey: string) {
   if (spellKey === "4") return "SummonerFlash";
   else if (spellKey === "14") return "SummonerDot";
   else if (spellKey === "7") return "SummonerHeal";
@@ -207,10 +208,7 @@ function mapSpellKeyToName (spellKey: string) {
   else return spellKey;
 }
 
-
-
-
-function formatTime (ms: number) {
+function formatTime(ms: number) {
   let seconds = Math.floor(ms / 1000);
   let minutes = Math.floor(seconds / 60);
   let hours = Math.floor(minutes / 60);
@@ -218,7 +216,6 @@ function formatTime (ms: number) {
   minutes = minutes % 60;
   return `${hours}:${minutes}:${seconds}`;
 }
-
 
 const getSummonerInfo = async () => {
   const { summoner } = route.params;
@@ -228,10 +225,11 @@ const getSummonerInfo = async () => {
 
     summonerInfo.value = data;
 
-    const rankedInfo = await fetch(`http://localhost:5000/api/get-ranked-info/${summonerInfo.value.id
-      }`);
+    const rankedInfo = await fetch(
+      `http://localhost:5000/api/get-ranked-info/${summonerInfo.value.id}`
+    );
 
-    const rankedData = await rankedInfo.json() as SummonerRankedInfo;
+    const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;
     summonerRankedInfo.value = rankedData;
 
     const matches = await fetch(
@@ -266,7 +264,7 @@ const summoner = (participants: Participant[]): Participant => {
 
 <template>
   <div v-if="summonerInfo">
-    <div class="flex flex-wrap  justify-evenly">
+    <div class="flex flex-wrap justify-evenly">
       <div>
         <n-card class="max-w-[200px]" :title="summonerInfo.name">
           <template #cover>
@@ -281,11 +279,20 @@ const summoner = (participants: Participant[]): Participant => {
           {{ unixToDate(summonerInfo.revisionDate) }}
         </p>
       </div>
-      <div class="flex items-center justify-evenly text-center" v-if="summonerRankedInfo && summonerRankedInfo?.length > 0">
-        <div class="flex flex-col items-center  text-center">
-          <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo[0].queueType) }}</p>
-          <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo[0].tier }}</n-statistic>
-          <n-statistic label="Rank" tabular-nums>{{ summonerRankedInfo[0].rank }}</n-statistic>
+      <div
+        class="flex items-center justify-evenly text-center"
+        v-if="summonerRankedInfo && summonerRankedInfo?.length > 0"
+      >
+        <div class="flex flex-col items-center text-center">
+          <p>
+            Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo[0].queueType) }}
+          </p>
+          <n-statistic label="Tier" tabular-nums>{{
+            summonerRankedInfo[0].tier
+          }}</n-statistic>
+          <n-statistic label="Rank" tabular-nums>{{
+            summonerRankedInfo[0].rank
+          }}</n-statistic>
           <n-statistic label="League Points" tabular-nums>
             <n-number-animation
               ref="numberAnimationInstRef"
@@ -319,15 +326,22 @@ const summoner = (participants: Participant[]): Participant => {
             <n-number-animation
               ref="numberAnimationInstRef"
               :from="0"
-              :to="summonerRankedInfo[0].wins / (summonerRankedInfo[0].losses + summonerRankedInfo[0].wins) * 100"
+              :to="
+                (summonerRankedInfo[0].wins /
+                  (summonerRankedInfo[0].losses + summonerRankedInfo[0].wins)) *
+                100
+              "
               :active="true"
               :precision="0"
             />%
           </n-statistic>
         </div>
-        <img class=" max-w-[200px] object-contain" :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo[0].tier)}.png`" alt="">
+        <img
+          class="max-w-[200px] object-contain"
+          :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo[0].tier)}.png`"
+          alt=""
+        />
       </div>
-      
     </div>
 
     <section v-if="matchHistory">
@@ -359,9 +373,7 @@ const summoner = (participants: Participant[]): Participant => {
                 />
               </div>
               <span class="absolute top-[62%] left-[31%]">
-                {{
-                  summoner(match.info.participants).championName
-                }}
+                {{ summoner(match.info.participants).championName }}
               </span>
               <br />
             </div>
@@ -412,58 +424,71 @@ const summoner = (participants: Participant[]): Participant => {
                   v-if="summoner(match.info.participants).item0 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item0
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item0
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item1 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item1
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item1
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item2 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item2
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item2
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item3 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item3
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item3
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item4 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item4
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item4
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item5 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item5
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item5
                   }.png`"
                 />
                 <img
                   v-if="summoner(match.info.participants).item6 !== 0"
                   height="25"
                   width="25"
-                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${summoner(match.info.participants).item6
+                  :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/item/${
+                    summoner(match.info.participants).item6
                   }.png`"
                 />
               </div>
               <div class="my-2">
-                <span class="py-1">CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span>
+                <span class="py-1"
+                  >CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span
+                >
                 <br />
-                <span class="py-1">Level : {{ summoner(match.info.participants).champLevel }}</span>
+                <span class="py-1"
+                  >Level : {{ summoner(match.info.participants).champLevel }}</span
+                >
                 <br />
-                <span class="py-1">Wards placed: {{ summoner(match.info.participants).wardsPlaced }}</span>
+                <span class="py-1"
+                  >Wards placed: {{ summoner(match.info.participants).wardsPlaced }}</span
+                >
                 <br />
                 <n-tag
                   v-if="
@@ -479,12 +504,12 @@ const summoner = (participants: Participant[]): Participant => {
                     summoner(match.info.participants).pentaKills
                       ? "Penta Kill"
                       : summoner(match.info.participants).quadraKills
-                        ? "Quadra Kill"
-                        : summoner(match.info.participants).tripleKills
-                          ? "Triple Kill"
-                          : summoner(match.info.participants).doubleKills
-                            ? "Double Kill"
-                            : ""
+                      ? "Quadra Kill"
+                      : summoner(match.info.participants).tripleKills
+                      ? "Triple Kill"
+                      : summoner(match.info.participants).doubleKills
+                      ? "Double Kill"
+                      : ""
                   }}
                 </n-tag>
               </div>
@@ -517,7 +542,8 @@ const summoner = (participants: Participant[]): Participant => {
                       {{ participant.summonerName }}
                       <span
                         class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center bg-white rounded tooltip-text group-hover:block"
-                      >{{ participant.summonerName }}</span>
+                        >{{ participant.summonerName }}</span
+                      >
                     </p>
                   </div>
                 </router-link>
@@ -551,7 +577,8 @@ const summoner = (participants: Participant[]): Participant => {
                       {{ participant.summonerName }}
                       <span
                         class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center bg-white rounded tooltip-text group-hover:block"
-                      >{{ participant.summonerName }}</span>
+                        >{{ participant.summonerName }}</span
+                      >
                     </p>
                   </div>
                 </router-link>
@@ -569,7 +596,11 @@ const summoner = (participants: Participant[]): Participant => {
             </template>
           </n-switch>
           <keep-alive>
-            <n-collapse-transition class="bg-dark-600" v-if="match.show" :show="match.show">
+            <n-collapse-transition
+              class="bg-dark-600"
+              v-if="match.show"
+              :show="match.show"
+            >
               <div class="flex justify-center">
                 <n-table class="text-gray-600">
                   <tr>
@@ -610,9 +641,7 @@ const summoner = (participants: Participant[]): Participant => {
                     </th>
                     <th>
                       <span class="mx-4">
-                        {{
-                          participant.totalDamageDealtToChampions
-                        }}
+                        {{ participant.totalDamageDealtToChampions }}
                       </span>
                     </th>
                     <th>
@@ -711,9 +740,7 @@ const summoner = (participants: Participant[]): Participant => {
                     </th>
                     <th>
                       <span class="mx-4">
-                        {{
-                          participant.totalDamageDealtToChampions
-                        }}
+                        {{ participant.totalDamageDealtToChampions }}
                       </span>
                     </th>
                     <th>

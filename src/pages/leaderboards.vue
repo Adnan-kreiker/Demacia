@@ -4,7 +4,7 @@ import SummonersList from "~/components/SummonersList.vue";
 import { NPagination } from "naive-ui";
 
 const queueType = ref<QueueTypes>(QueueTypes.RANKED_SOLO_5x5);
-const challengerPlayers = ref<ChallengerPlayer[] | null>(null);
+const challengerPlayers = ref<ChallengerPlayer[] | []>([]);
 
 const sortedChallengerPlayers = computed<ChallengerPlayer[] | []>(() => {
   if (challengerPlayers.value) {
@@ -13,14 +13,15 @@ const sortedChallengerPlayers = computed<ChallengerPlayer[] | []>(() => {
   return [];
 });
 
-const currentPageData = (start: number) => {
+const currentPageData = computed(() => {
   if (sortedChallengerPlayers.value.length > 0) {
-    return sortedChallengerPlayers.value.slice(start, start + 10);
+    let start = page.value * 10;
+    return sortedChallengerPlayers.value.slice(start - 10, start);
   }
   return [];
-};
+});
 
-const page = ref(0);
+const page = ref(1);
 
 const getChallengerPlayers = async () => {
   const res = await fetch(
@@ -39,14 +40,16 @@ getChallengerPlayers();
 </script>
 
 <template>
-  <div>
+  <div v-if="challengerPlayers?.length > 0">
     <summoners-list
       :queue-type="QueueTypes.RANKED_SOLO_5x5"
-      :challenger-players="currentPageData(page * 10)"
+      :challenger-players="currentPageData"
+      :key="page"
     ></summoners-list>
     <div class="flex justify-center mt-5">
       <n-pagination
         v-model="page"
+        :default-page="1"
         :page-count="30"
         v-on:update-page="updatePage($event)"
       ></n-pagination>

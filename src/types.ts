@@ -386,3 +386,23 @@ export interface ChallengerPlayer {
   freshBlood:   boolean;
   hotStreak:    boolean;
 }
+
+export interface ChallengerPlayerWithAdditionalData {
+  summonerId:   string;
+  summonerName: string;
+  leaguePoints: number;
+  rank:         string;
+  wins:         number;
+  losses:       number;
+  veteran:      boolean;
+  inactive:     boolean;
+  freshBlood:   boolean;
+  hotStreak:    boolean;
+  id: string
+  accountId: string
+  puuid: string
+  name: string
+  profileIconId: number
+  revisionDate: number
+  summonerLevel: number
+}

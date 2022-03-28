@@ -252,11 +252,15 @@ const getSummonerInfo = async () => {
 
 getSummonerInfo();
 
+const getSummonerName = (summoner: string) => {
+  return summoner.replace(/\s/g, "").toLowerCase();
+};
+
 const summoner = (participants: Participant[]): Participant => {
   const participant = participants.filter(
     (participant) =>
-      participant.summonerName.toLowerCase() ===
-      route.params.summoner.toString().toLowerCase()
+      getSummonerName(participant.summonerName) ===
+      getSummonerName(route.params.summoner.toString())
   );
   return participant[0];
 };
@@ -344,7 +348,7 @@ const summoner = (participants: Participant[]): Participant => {
       </div>
     </div>
 
-    <section v-if="matchHistory">
+    <section v-if="matchHistory && matchHistory?.length > 0">
       <div
         v-for="match in matchHistory"
         :key="match.metadata.matchId"

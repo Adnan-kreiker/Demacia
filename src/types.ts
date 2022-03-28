@@ -329,19 +329,19 @@ export interface MatchInfo {
 export type SummonerRankedInfo = RankedData[]
 
 export interface RankedData {
-  leagueId:     string;
-  queueType:    string;
-  tier:         string;
-  rank:         string;
-  summonerId:   string;
+  leagueId: string;
+  queueType: string;
+  tier: string;
+  rank: string;
+  summonerId: string;
   summonerName: string;
   leaguePoints: number;
-  wins:         number;
-  losses:       number;
-  veteran:      boolean;
-  inactive:     boolean;
-  freshBlood:   boolean;
-  hotStreak:    boolean;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
 }
 
 
@@ -367,37 +367,63 @@ export enum QueueTypes {
 // }
 
 export interface ChallengerPlayers {
-  tier:     string;
+  tier: string;
   leagueId: string;
-  queue:    string;
-  name:     string;
-  entries:  ChallengerPlayer[];
+  queue: string;
+  name: string;
+  entries: ChallengerPlayer[];
 }
 
 export interface ChallengerPlayer {
-  summonerId:   string;
+  summonerId: string;
   summonerName: string;
   leaguePoints: number;
-  rank:         string;
-  wins:         number;
-  losses:       number;
-  veteran:      boolean;
-  inactive:     boolean;
-  freshBlood:   boolean;
-  hotStreak:    boolean;
+  rank: string;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
 }
 
-export interface ChallengerPlayerWithAdditionalData {
-  summonerId:   string;
+export interface ChallengerPlayer {
+  summonerId: string;
   summonerName: string;
   leaguePoints: number;
-  rank:         string;
-  wins:         number;
-  losses:       number;
-  veteran:      boolean;
-  inactive:     boolean;
-  freshBlood:   boolean;
-  hotStreak:    boolean;
+  rank: string;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
+}
+
+export interface ChallengerPlayerWithIndex {
+  summonerId: string;
+  summonerName: string;
+  leaguePoints: number;
+  rank: string;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
+  idx: number;
+}
+export interface ChallengerPlayerWithAdditionalData {
+  summonerId: string;
+  summonerName: string;
+  leaguePoints: number;
+  rank: string;
+  wins: number;
+  losses: number;
+  veteran: boolean;
+  inactive: boolean;
+  freshBlood: boolean;
+  hotStreak: boolean;
   id: string
   accountId: string
   puuid: string
@@ -405,4 +431,5 @@ export interface ChallengerPlayerWithAdditionalData {
   profileIconId: number
   revisionDate: number
   summonerLevel: number
+  idx: number
 }

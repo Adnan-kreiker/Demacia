@@ -50,8 +50,8 @@ watch(
 </script>
 
 <template>
-  <div v-if="sortedChallengerPlayers.length > 0">
-    <n-table>
+  <div class="min-h-screen">
+    <n-table v-if="sortedChallengerPlayers.length > 0">
       <thead>
         <tr>
           <th>Rank</th>

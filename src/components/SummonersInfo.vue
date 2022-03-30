@@ -1,32 +1,25 @@
 <script setup lang="ts">
-import { SummonerRankedInfo } from "~/types";
+import { RankedData } from "~/types";
 import { NStatistic, NNumberAnimation } from "naive-ui";
 import { replaceUnderscoreWithSpace, capitalize } from "../../utils";
 
 const props = defineProps<{
-  summonerRankedInfo: SummonerRankedInfo;
+  summonerRankedInfo: RankedData;
 }>();
 
-const summonerRankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
+const summonerRankedInfo = ref<RankedData>(props.summonerRankedInfo);
 </script>
 <template>
-  <div
-    class="flex items-center justify-evenly text-center"
-    v-if="summonerRankedInfo && summonerRankedInfo?.length > 0"
-  >
+  <div class="flex items-center justify-evenly text-center" v-if="summonerRankedInfo">
     <div class="flex flex-col items-center text-center">
-      <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo[0].queueType) }}</p>
-      <n-statistic label="Tier" tabular-nums>{{
-        summonerRankedInfo[0].tier
-      }}</n-statistic>
-      <n-statistic label="Rank" tabular-nums>{{
-        summonerRankedInfo[0].rank
-      }}</n-statistic>
+      <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo.queueType) }}</p>
+      <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo.tier }}</n-statistic>
+      <n-statistic label="Rank" tabular-nums>{{ summonerRankedInfo.rank }}</n-statistic>
       <n-statistic label="League Points" tabular-nums>
         <n-number-animation
           ref="numberAnimationInstRef"
           :from="0"
-          :to="summonerRankedInfo[0].leaguePoints"
+          :to="summonerRankedInfo.leaguePoints"
           :active="true"
           :precision="0"
         />
@@ -36,7 +29,7 @@ const summonerRankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
           <n-number-animation
             ref="numberAnimationInstRef"
             :from="0"
-            :to="summonerRankedInfo[0].wins"
+            :to="summonerRankedInfo.wins"
             :active="true"
             :precision="0"
           />
@@ -45,7 +38,7 @@ const summonerRankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
           <n-number-animation
             ref="numberAnimationInstRef"
             :from="0"
-            :to="summonerRankedInfo[0].losses"
+            :to="summonerRankedInfo.losses"
             :active="true"
             :precision="0"
           />
@@ -56,8 +49,8 @@ const summonerRankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
           ref="numberAnimationInstRef"
           :from="0"
           :to="
-            (summonerRankedInfo[0].wins /
-              (summonerRankedInfo[0].losses + summonerRankedInfo[0].wins)) *
+            (summonerRankedInfo.wins /
+              (summonerRankedInfo.losses + summonerRankedInfo.wins)) *
             100
           "
           :active="true"
@@ -67,7 +60,7 @@ const summonerRankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
     </div>
     <img
       class="max-w-[200px] object-contain"
-      :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo[0].tier)}.png`"
+      :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.png`"
       alt=""
     />
   </div>

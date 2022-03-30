@@ -326,7 +326,7 @@ export interface MatchInfo {
 }
 
 
-export type SummonerRankedInfo = RankedData[]
+// export type SummonerRankedInfo = RankedData[]
 
 export interface RankedData {
   leagueId: string;

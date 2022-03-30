@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { NCard, NTag } from "naive-ui";
-import { Summoner, MatchInfo, SummonerRankedInfo } from "~/types";
+import { Summoner, MatchInfo, RankedData } from "~/types";
 import { unixToDate, unicodeToUtf8 } from "../../../utils";
 import SummonersInfo from "../../components/SummonersInfo.vue";
 import MatchHistory from "../..//components/MatchHistory.vue";
@@ -12,7 +12,7 @@ const summonerInfo = ref<null | Summoner>(null);
 
 const matchHistory = ref<null | MatchInfo[]>([]);
 
-const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
+const summonerRankedInfo = ref<null | RankedData>(null);
 
 const summoner = route.params.summoner as string;
 
@@ -29,8 +29,11 @@ const getSummonerInfo = async () => {
       `http://localhost:5000/api/get-ranked-info/${summonerInfo.value.id}`
     );
 
-    const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;
-    summonerRankedInfo.value = rankedData;
+    const rankedData = (await rankedInfo.json()) as RankedData[];
+    console.log(rankedData);
+    const soloQ = rankedData.find((info) => info.queueType === "RANKED_SOLO_5x5");
+    console.log(soloQ);
+    summonerRankedInfo.value = soloQ ? soloQ : null;
 
     const matches = await fetch(
       `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=10`

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CSSProperties } from "vue";
 import { MatchInfo, Participant } from "~/types";
+import { NSwitch, NSpace, NCollapseTransition, NTable } from "naive-ui";
 import {
   getSummonerName,
   formatTime,

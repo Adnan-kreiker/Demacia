@@ -48,7 +48,6 @@ const getChallengerPlayers = async () => {
 
 const updatePage = (pageNumber: number) => {
   page.value = pageNumber;
-  console.log("updated", pageNumber);
 };
 
 getChallengerPlayers();
@@ -62,12 +61,6 @@ getChallengerPlayers();
       :key="page"
       :page="page"
     ></summoners-table>
-    <!-- <summoners-list
-      v-if="challengerPlayers?.length > 0"
-      :queue-type="QueueTypes.RANKED_SOLO_5x5"
-      :challenger-players="currentPageData"
-      :key="page"
-    ></summoners-list> -->
     <div v-else v-for="n in 10" :key="n">
       <div class="flex">
         <div class="flex flex-col gap-2">
@@ -90,3 +83,8 @@ getChallengerPlayers();
     </div>
   </div>
 </template>
+
+<route lang="yaml">
+meta:
+  layout: default
+</route>

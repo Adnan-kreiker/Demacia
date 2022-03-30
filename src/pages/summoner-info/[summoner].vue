@@ -35,7 +35,7 @@ const getSummonerInfo = async () => {
 
     const matchesId = await matches.json();
 
-    Promise.allSettled(
+    await Promise.allSettled(
       matchesId.map(async (matchId: string) => {
         const match = await fetch(`http://localhost:5000/api/get-match/${matchId}`);
         const data = await match.json();
@@ -52,6 +52,7 @@ getSummonerInfo();
 
 <template>
   <div v-if="summonerInfo">
+    <!-- Summoner's Information -->
     <div class="flex flex-wrap justify-evenly">
       <div>
         <n-card class="max-w-[200px]" :title="summonerInfo.name">
@@ -72,7 +73,7 @@ getSummonerInfo();
         :summonerRankedInfo="summonerRankedInfo"
       ></summoners-info>
     </div>
-
+    <!-- Match History  -->
     <section v-if="matchHistory && matchHistory?.length > 0">
       <match-history :match-history="matchHistory"></match-history>
     </section>

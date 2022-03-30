@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { NMenu, darkTheme, NConfigProvider } from 'naive-ui'
+import { NMenu, darkTheme, NConfigProvider, NBackTop } from "naive-ui";
 
-import { RouterLink } from 'vue-router'
-import type { MenuOption } from 'naive-ui'
+import { RouterLink } from "vue-router";
+import type { MenuOption } from "naive-ui";
 // import { isDark } from '~/logic'
-const activeKey = ref<string | null>(null)
+const activeKey = ref<string | null>(null);
 // const fontColor = computed(() => { return isDark.value ? 'white' : 'black' })
 
 const MenuOptions: MenuOption[] = [
@@ -14,13 +14,13 @@ const MenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: '/',
+            path: "/",
           },
-          activeClass: 'router-active',
+          activeClass: "router-active",
         },
-        { default: () => 'Home' },
+        { default: () => "Home" }
       ),
-    key: 'Home',
+    key: "Home",
   },
   {
     label: () =>
@@ -28,17 +28,17 @@ const MenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: '/champions',
+            path: "/champions",
           },
-          activeClass: 'router-active',
+          activeClass: "router-active",
         },
-        { default: () => 'Champions' },
+        { default: () => "Champions" }
       ),
-    key: 'Champions',
+    key: "Champions",
   },
   {
-    label: 'Stats',
-    key: 'Stats',
+    label: "Stats",
+    key: "Stats",
   },
   {
     label: () =>
@@ -46,25 +46,31 @@ const MenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: '/leaderboards',
+            path: "/leaderboards",
           },
-          activeClass: 'router-active',
+          activeClass: "router-active",
         },
-        { default: () => 'Leaderboards' },
+        { default: () => "Leaderboards" }
       ),
-    key: 'Leaderboards',
+    key: "Leaderboards",
   },
-
-]
+];
 </script>
 
 <template>
   <div class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
     <n-config-provider :theme="darkTheme">
       <nav class="py-3">
-        <n-menu v-model="activeKey" class="text-lg" mode="horizontal" :options="MenuOptions"></n-menu>
+        <n-menu
+          v-model="activeKey"
+          class="text-lg"
+          mode="horizontal"
+          :options="MenuOptions"
+        ></n-menu>
       </nav>
       <main class="px-4 py-10 min-h-screen">
+        <n-back-top :right="100" />
+
         <router-view :key="$route.fullPath" />
       </main>
       <Footer></Footer>
@@ -72,6 +78,4 @@ const MenuOptions: MenuOption[] = [
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

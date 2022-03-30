@@ -2,7 +2,7 @@
 import { useRoute } from "vue-router";
 import { NCard, NTag } from "naive-ui";
 import { Summoner, MatchInfo, SummonerRankedInfo } from "~/types";
-import { unixToDate } from "../../../utils";
+import { unixToDate, unicodeToUtf8 } from "../../../utils";
 import SummonersInfo from "../../components/SummonersInfo.vue";
 import MatchHistory from "../..//components/MatchHistory.vue";
 
@@ -14,10 +14,13 @@ const matchHistory = ref<null | MatchInfo[]>([]);
 
 const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
+const summoner = route.params.summoner as string;
+
 const getSummonerInfo = async () => {
-  const { summoner } = route.params;
   try {
-    const res = await fetch(`http://localhost:5000/api/get-summoner/${summoner}`);
+    const res = await fetch(
+      `http://localhost:5000/api/get-summoner/${unicodeToUtf8(summoner)}`
+    );
     const data = (await res.json()) as Summoner;
 
     summonerInfo.value = data;

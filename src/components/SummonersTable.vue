@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { NTable } from "naive-ui";
-import { ChallengerPlayerWithIndex } from "~/types";
-import { ChallengerPlayerWithAdditionalData, Summoner } from "~/types";
-
+import {
+  ChallengerPlayerWithIndex,
+  ChallengerPlayerWithAdditionalData,
+  Summoner,
+} from "~/types";
+import { unicodeToUtf8 } from "../../utils";
 const props = defineProps<{
   challengerPlayers: ChallengerPlayerWithIndex[];
   page: number;
@@ -28,7 +31,7 @@ const getSummonersInfo = async () => {
     await Promise.allSettled(
       props.challengerPlayers.map(async (player) => {
         const res = await fetch(
-          `http://localhost:5000/api/get-summoner/${player.summonerName.toLowerCase()}`
+          `http://localhost:5000/api/get-summoner/${unicodeToUtf8(player.summonerName)}`
         );
         const data = (await res.json()) as Summoner;
         result.push({

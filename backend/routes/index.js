@@ -15,6 +15,7 @@ const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/challengerle
 // Init cache
 const cache = apicache.middleware
 
+// convert accented characters to plain ascii equivalent
 
 
 router.get('/get-summoner/:name', cache('2 minutes'), async (req, res) => {

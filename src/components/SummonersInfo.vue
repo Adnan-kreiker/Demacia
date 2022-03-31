@@ -14,7 +14,9 @@ const summonerRankedInfo = ref<RankedData>(props.summonerRankedInfo);
     <div class="flex flex-col items-center text-center">
       <p>Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo.queueType) }}</p>
       <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo.tier }}</n-statistic>
-      <n-statistic label="Rank" tabular-nums>{{ summonerRankedInfo.rank }}</n-statistic>
+      <n-statistic label="Division" tabular-nums>{{
+        summonerRankedInfo.rank
+      }}</n-statistic>
       <n-statistic label="League Points" tabular-nums>
         <n-number-animation
           ref="numberAnimationInstRef"

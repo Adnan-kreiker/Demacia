@@ -49,17 +49,26 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
     <div
       v-for="match in matchHistory"
       :key="match.metadata.matchId"
-      :class="summoner(match.info.participants).win ? 'bg-green-200' : 'bg-red-200'"
-      class="border-2 my-3"
+      :class="
+        summoner(match.info.participants).win ? 'border-green-500' : 'border-red-500'
+      "
+      class="border-3 my-3"
     >
-      <section class="flex flex-row text-gray-800 w-full">
+      <section class="flex text-white flex-row w-full">
         <!-- Game Information -->
         <div class="flex flex-row flex-1 text-center">
-          <div class="flex flex-col justify-center max-w-[180px] px-2">
+          <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
             <h2>{{ match.info.gameMode }}</h2>
             <h2>{{ formatTime(match.info.gameDuration) }}</h2>
-
-            <h2>{{ summoner(match.info.participants).win ? "Victory" : "Defeat" }}</h2>
+            <n-tag
+              class="my-2"
+              :type="summoner(match.info.participants).win ? 'success' : 'error'"
+            >
+              <span>{{
+                summoner(match.info.participants).win ? "Victory" : "Defeat"
+              }}</span>
+            </n-tag>
+            <h2></h2>
             <p>{{ unixToDate(match.info.gameStartTimestamp) }}</p>
           </div>
           <!-- Summoner Image and Name -->
@@ -217,7 +226,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           </div>
         </div>
         <!-- Red Team -->
-        <div class="flex flex-col self-end p-2 text-gray-600 w-[150px] p-4">
+        <div class="flex flex-col self-end p-2 text-gray-300 w-[150px] p-4">
           <div
             v-for="participant in match.info.participants.filter(
               (participant) => participant.teamId == 100
@@ -242,7 +251,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <p class="truncate overflow-ellipsis space-nowrap">
                     {{ participant.summonerName }}
                     <span
-                      class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center bg-white rounded tooltip-text group-hover:block"
+                      class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center text-black bg-white rounded tooltip-text group-hover:block"
                       >{{ participant.summonerName }}</span
                     >
                   </p>
@@ -252,7 +261,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           </div>
         </div>
         <!-- Blue Team -->
-        <div class="flex flex-col self-end p-2 text-gray-600 w-[150px] p-4">
+        <div class="flex flex-col self-end p-2 text-gray-300 w-[150px] p-4">
           <div
             v-for="participant in match.info.participants.filter(
               (participant) => participant.teamId == 200
@@ -277,7 +286,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <p class="truncate overflow-ellipsis space-nowrap">
                     {{ participant.summonerName }}
                     <span
-                      class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center bg-white rounded tooltip-text group-hover:block"
+                      class="absolute z-50 hidden p-3 px-6 py-2 -mt-8 -ml-36 text-center text-black bg-white rounded tooltip-text group-hover:block"
                       >{{ participant.summonerName }}</span
                     >
                   </p>
@@ -287,7 +296,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           </div>
         </div>
       </section>
-      <n-space vertical>
+      <n-space class="m-3" vertical>
         <n-switch v-model:value="match.show" :rail-style="switchStyle">
           <template #checked>
             <span>Less Information</span>

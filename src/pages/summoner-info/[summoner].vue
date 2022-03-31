@@ -18,6 +18,7 @@ const summoner = route.params.summoner as string;
 
 const getSummonerInfo = async () => {
   try {
+    // Fetch Summoner's Info
     const res = await fetch(
       `http://localhost:5000/api/get-summoner/${unicodeToUtf8(summoner)}`
     );
@@ -25,6 +26,10 @@ const getSummonerInfo = async () => {
 
     summonerInfo.value = data;
 
+    // Get Match History Info
+    getMatchHistory();
+
+    // Fetch Summoner's Ranked Info
     const rankedInfo = await fetch(
       `http://localhost:5000/api/get-ranked-info/${summonerInfo.value.id}`
     );
@@ -34,13 +39,21 @@ const getSummonerInfo = async () => {
     const soloQ = rankedData.find((info) => info.queueType === "RANKED_SOLO_5x5");
     console.log(soloQ);
     summonerRankedInfo.value = soloQ ? soloQ : null;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
+const getMatchHistory = async () => {
+  if (summonerInfo.value) {
+    // Fetch Summoner's Match IDs
     const matches = await fetch(
       `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=10`
     );
 
     const matchesId = await matches.json();
 
+    // Fetch Summoner's Matches
     await Promise.allSettled(
       matchesId.map(async (matchId: string) => {
         const match = await fetch(`http://localhost:5000/api/get-match/${matchId}`);
@@ -48,8 +61,6 @@ const getSummonerInfo = async () => {
         matchHistory.value?.push({ ...data, show: false });
       })
     );
-  } catch (error) {
-    console.error(error);
   }
 };
 

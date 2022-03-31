@@ -5,6 +5,7 @@ import {
   ChallengerPlayerWithAdditionalData,
   Summoner,
 } from "~/types";
+import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import { unicodeToUtf8 } from "../../utils";
 const props = defineProps<{
   challengerPlayers: ChallengerPlayerWithIndex[];
@@ -23,8 +24,6 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithAdditionalData[]>((
   }
   return [];
 });
-let jax: any[] = [];
-console.log("pre jax", jax);
 const getSummonersInfo = async () => {
   if (props.challengerPlayers) {
     const result: ChallengerPlayerWithAdditionalData[] = [];
@@ -43,16 +42,8 @@ const getSummonersInfo = async () => {
     challengerPlayersWithData.value = result;
   }
 };
+
 getSummonersInfo();
-// watch(
-//   challengerPlayersData,
-//   () => {
-//     getSummonersInfo();
-//   },
-//   {
-//     immediate: true,
-//   }
-// );
 </script>
 
 <template>
@@ -99,5 +90,6 @@ getSummonersInfo();
         </router-link>
       </tbody></n-table
     >
+    <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>
 </template>

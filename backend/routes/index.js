@@ -1,8 +1,8 @@
-const url = require('url')
 const express = require('express')
-const router = express.Router()
-const apicache = require('apicache')
+const url = require('url')
 require('dotenv').config()
+const apicache = require('apicache')
+const router = express.Router()
 const needle = require('needle')
 const link = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 const api_key = process.env.API_KEY
@@ -10,7 +10,8 @@ const api_key_name = process.env.API_KEY_NAME
 const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
-const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/'
+const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
+const grandMasterUrl = 'https://euw1.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/'
 
 // Init cache
 const cache = apicache.middleware
@@ -84,14 +85,16 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) 
   }
 })
 
-router.get('/get-challenger-players/:queue', cache('2 minutes'), async (req, res) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('2 minutes'), async (req, res) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
   try {
     const { queue } = req.params
+    const { rank } = req.params
     // console.log(`${matchUrl}${id}${params}`)
-    const result = await needle('get', `${challengerUrl}${queue}?${params}`)
+    const result = await needle('get', `${challengerUrl}${rank}/by-queue/${queue}?${params}`)
+    console.log(`${challengerUrl}${rank}${queue}?${params}`)
     const data = result.body
     res.status(200).json(data)
     console.log(data)
@@ -100,5 +103,21 @@ router.get('/get-challenger-players/:queue', cache('2 minutes'), async (req, res
     console.error(error)
   }
 })
+
+// router.get('/get-grandMaster-players/:queue', cache('2 minutes'), async (req, res) => {
+//   const params = new URLSearchParams({
+//     [api_key_name]: api_key,
+//   })
+//   try {
+//     const { queue } = req.params
+//     const result = await needle('get', `${grandMasterUrl}${queue}?${params}`)
+//     const data = result.body
+//     res.status(200).json(data)
+//     console.log(data)
+//   }
+//   catch (error) {
+//     console.error(error)
+//   }
+// })
 
 module.exports = router

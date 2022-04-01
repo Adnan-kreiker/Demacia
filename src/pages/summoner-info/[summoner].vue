@@ -72,8 +72,17 @@ getSummonerInfo();
     <!-- Summoner's Information -->
     <div class="flex flex-wrap justify-evenly">
       <div>
-        <n-card class="max-w-[200px]" :title="summonerInfo.name">
+        <n-card class="max-w-[400px]" :title="summonerInfo.name">
           <template #cover>
+            <!-- <img
+              v-if="summonerRankedInfo && summonerRankedInfo.tier"
+              width="400"
+              height="400"
+              :src="`https://raw.communitydragon.org/12.6/game/assets/loadouts/regalia/crests/ranked/${rankToOrderMapper(
+                summonerRankedInfo?.tier as Tier
+              )}/${rankToOrderMapper(summonerRankedInfo?.tier as Tier)}_base.csscraps.png`"
+              alt=""
+            /> -->
             <img
               :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/profileicon/${summonerInfo.profileIconId}.png`"
             />

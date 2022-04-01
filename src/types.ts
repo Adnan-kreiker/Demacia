@@ -351,7 +351,9 @@ export enum QueueTypes {
   RANKED_FLEX_TT = 'RANKED_FLEX_TT',
 }
 
+export type Ranks = 'challengerleagues' | 'grandMasterleagues' | 'masterleagues'
 
+export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 
 // export interface ChallengerPlayer {
 //   summonerId:   string;
@@ -433,3 +435,4 @@ export interface ChallengerPlayerWithAdditionalData {
   summonerLevel: number
   idx: number
 }
+

@@ -1,3 +1,5 @@
+import { Tier } from "~/types";
+
 export function idToRunes (id: number) {
   switch (id) {
     case 8112:
@@ -183,4 +185,27 @@ export const getSummonerName = (summoner: string) => {
 
 export const unicodeToUtf8 = (str: string) => {
   return unescape(encodeURIComponent(str));
+};
+
+export const rankToOrderMapper = (tier: Tier) => {
+  switch (tier) {
+    case "IRON":
+      return "01_iron";
+    case "BRONZE":
+      return "02_bronze";
+    case "SILVER":
+      return "03_silver";
+    case "GOLD":
+      return "04_gold";
+    case "PLATINUM":
+      return "05_platinum";
+    case "DIAMOND":
+      return "06_diamond";
+    case "MASTER":
+      return "07_master";
+    case "GRANDMASTER":
+      return "08_grandmaster";
+    case "CHALLENGER":
+      return "09_challenger";
+  }
 };

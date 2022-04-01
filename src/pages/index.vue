@@ -7,7 +7,7 @@ const router = useRouter();
 
 const navigate = () => router.push(`/summoner-info/${summonerName.value}`);
 
-const servers = ["KR", "EUW", "EUNE", "JP", "BR", "LAN", "LAS"];
+const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
 const selectedServer = ref(null);
 
@@ -35,17 +35,16 @@ const selectOptions = servers.map((server) => {
           v-model:value="selectedServer"
           class="absolute right-20 text-xs"
           style="width: 50px !important"
-          placeholder="KR"
+          placeholder="EUW"
           :options="selectOptions"
         />
-        <router-link :to="`/summoner-info/${summonerName}`">
-          <n-button
-            :disabled="!(summonerName.length > 0)"
-            class="bg-blue-500 text-white font-bold"
-          >
-            .GG
-          </n-button>
-        </router-link>
+        <n-button
+          @click="navigate"
+          :disabled="!(summonerName.length > 0)"
+          class="bg-blue-500 text-white font-bold"
+        >
+          .GG
+        </n-button>
       </template>
     </n-input>
   </div>

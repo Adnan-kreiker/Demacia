@@ -4,13 +4,26 @@ import {
   ChallengerPlayerWithIndex,
   ChallengerPlayerWithAdditionalData,
   Summoner,
+  Ranks,
 } from "~/types";
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import { unicodeToUtf8 } from "../../utils";
 const props = defineProps<{
   challengerPlayers: ChallengerPlayerWithIndex[];
   page: number;
+  rank: Ranks;
 }>();
+
+const summonersRank = computed(() => {
+  switch (props.rank) {
+    case "challengerleagues":
+      return "Challenger";
+    case "grandMasterleagues":
+      return "Grandmaster";
+    case "masterleagues":
+      return "Master";
+  }
+});
 
 // const challengerPlayersData = ref<ChallengerPlayerWithIndex[]>(props.challengerPlayers);
 
@@ -80,7 +93,7 @@ getSummonersInfo();
                 {{ player.summonerName }}
               </span>
             </td>
-            <td>Challenger</td>
+            <td>{{ summonersRank }}</td>
             <td>{{ player.leaguePoints }}</td>
             <td>{{ player.summonerLevel }}</td>
             <td>

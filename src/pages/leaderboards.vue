@@ -3,12 +3,13 @@ import {
   ChallengerPlayers,
   ChallengerPlayer,
   ChallengerPlayerWithIndex,
+  Ranks,
 } from "../../src/types";
 import { NPagination, NSelect, NSpace, NH3, NText } from "naive-ui";
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import SummonersTable from "~/components/SummonersTable.vue";
 
-const options = [
+const queueOptions = [
   {
     label: "RANKED SOLO 5x5",
     value: "RANKED_SOLO_5x5",
@@ -19,7 +20,24 @@ const options = [
   },
 ];
 
+const rankOptions = [
+  {
+    label: "CHALLENGER",
+    value: "challengerleagues",
+  },
+  {
+    label: "GRANDMASTER",
+    value: "grandmasterleagues",
+  },
+  {
+    label: "MASTER",
+    value: "masterleagues",
+  },
+];
+
 const queue = ref("RANKED_SOLO_5x5");
+const rank = ref<Ranks>("challengerleagues");
+
 const challengerPlayers = ref<ChallengerPlayer[] | []>([]);
 
 getChallengerPlayers();
@@ -45,7 +63,7 @@ const page = ref(1);
 async function getChallengerPlayers() {
   challengerPlayers.value = [];
   const res = await fetch(
-    `http://localhost:5000/api/get-challenger-players/${queue.value}`
+    `http://localhost:5000/api/get-leaderboards-players/${rank.value}/${queue.value}`
   );
   const data = (await res.json()) as ChallengerPlayers;
   challengerPlayers.value = data.entries;
@@ -54,6 +72,11 @@ async function getChallengerPlayers() {
 const summonersTableKey = ref(0);
 
 watch(queue, () => {
+  getChallengerPlayers();
+  summonersTableKey.value++;
+});
+
+watch(rank, () => {
   getChallengerPlayers();
   summonersTableKey.value++;
 });
@@ -74,9 +97,11 @@ const updatePage = (pageNumber: number) => {
       <n-h3 class="mx-4" prefix="bar" align-text type="success">
         <n-text type="success"> Choose queue type </n-text>
       </n-h3>
-      <n-select class="min-w-56" v-model:value="queue" :options="options" />
+      <n-select class="min-w-56 pr-4" v-model:value="queue" :options="queueOptions" />
+      <n-select class="min-w-56" v-model:value="rank" :options="rankOptions" />
     </n-space>
     <summoners-table
+      :rank="rank"
       v-if="challengerPlayers && challengerPlayers.length > 0"
       :challenger-players="sortedChallengerPlayers"
       :key="summonersTableKey"

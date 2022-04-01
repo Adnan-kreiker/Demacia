@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { NMenu, darkTheme, NConfigProvider, NBackTop } from "naive-ui";
-
 import { RouterLink } from "vue-router";
 import type { MenuOption } from "naive-ui";
-// import { isDark } from '~/logic'
+import ChevronTop from "~/components/Icons/ChevronTop.vue";
+
 const activeKey = ref<string | null>(null);
-// const fontColor = computed(() => { return isDark.value ? 'white' : 'black' })
+
+const { y } = useWindowScroll();
+
+const scrollButtonVisibility = computed(() => y.value >= 200);
 
 const MenuOptions: MenuOption[] = [
   {
@@ -68,9 +71,18 @@ const MenuOptions: MenuOption[] = [
           :options="MenuOptions"
         ></n-menu>
       </nav>
+      <n-back-top :right="40" :bottom="20" show>
+        <div
+          v-show="scrollButtonVisibility"
+          style="width: 50px; height: 50px; text-align: center; border-radius: 100%"
+          :style="{
+            transition: 'all .3s cubic-bezier(.4, 0, .2, 1)',
+          }"
+        >
+          <chevron-top></chevron-top>
+        </div>
+      </n-back-top>
       <main class="px-4 py-10 min-h-screen">
-        <n-back-top :right="100" />
-
         <router-view :key="$route.fullPath" />
       </main>
       <Footer></Footer>
@@ -78,4 +90,8 @@ const MenuOptions: MenuOption[] = [
   </div>
 </template>
 
-<style></style>
+<style>
+.n-back-top {
+  --n-color: transparent !important;
+}
+</style>

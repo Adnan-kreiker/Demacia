@@ -45,7 +45,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
 };
 </script>
 <template>
-  <section v-if="matchHistory && matchHistory?.length > 0">
+  <section>
     <div
       v-for="match in matchHistory"
       :key="match.metadata.matchId"
@@ -128,7 +128,6 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
               {{ summoner(match.info.participants).deaths }} /
               {{ summoner(match.info.participants).assists }}
             </span>
-
             <div class="flex flex-row gap-1">
               <img
                 v-if="summoner(match.info.participants).item0 !== 0"

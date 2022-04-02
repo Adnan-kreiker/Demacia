@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { NCard, NTag } from "naive-ui";
+import { NSkeleton, NSpace } from "naive-ui";
 import { Summoner, MatchInfo, RankedData } from "~/types";
-import { unixToDate, unicodeToUtf8 } from "../../../utils";
-import SummonersInfo from "../../components/SummonersInfo.vue";
+import { unicodeToUtf8 } from "../../../utils";
+import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistory from "../..//components/MatchHistory.vue";
 
 const route = useRoute();
@@ -52,15 +52,18 @@ const getMatchHistory = async () => {
     );
 
     const matchesId = await matches.json();
+    const matchHistoryData: MatchInfo[] = [];
 
     // Fetch Summoner's Matches
     await Promise.allSettled(
       matchesId.map(async (matchId: string) => {
         const match = await fetch(`http://localhost:5000/api/get-match/${matchId}`);
         const data = await match.json();
-        matchHistory.value?.push({ ...data, show: false });
+        matchHistoryData.push({ ...data, show: false });
       })
     );
+
+    matchHistory.value = matchHistoryData;
   }
 };
 
@@ -68,40 +71,33 @@ getSummonerInfo();
 </script>
 
 <template>
-  <div v-if="summonerInfo">
+  <div>
     <!-- Summoner's Information -->
-    <div class="flex flex-wrap justify-evenly">
-      <div>
-        <n-card class="max-w-[400px]" :title="summonerInfo.name">
-          <template #cover>
-            <!-- <img
-              v-if="summonerRankedInfo && summonerRankedInfo.tier"
-              width="400"
-              height="400"
-              :src="`https://raw.communitydragon.org/12.6/game/assets/loadouts/regalia/crests/ranked/${rankToOrderMapper(
-                summonerRankedInfo?.tier as Tier
-              )}/${rankToOrderMapper(summonerRankedInfo?.tier as Tier)}_base.csscraps.png`"
-              alt=""
-            /> -->
-            <img
-              :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/profileicon/${summonerInfo.profileIconId}.png`"
-            />
-          </template>
-          <p>Level: {{ summonerInfo.summonerLevel }}</p>
-        </n-card>
-        <n-tag type="info" class="my-3">
-          Last Activity :
-          {{ unixToDate(summonerInfo.revisionDate) }}
-        </n-tag>
-      </div>
-      <summoners-info
-        v-if="summonerRankedInfo"
+    <div
+      v-if="summonerInfo && summonerRankedInfo"
+      class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
+    >
+      <summoners-info :summoner-info="summonerInfo"></summoners-info>
+      <summoners-ranked-info
         :summonerRankedInfo="summonerRankedInfo"
-      ></summoners-info>
+      ></summoners-ranked-info>
+    </div>
+    <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">
+      <n-space vertical class="w-[240px]">
+        <n-skeleton height="330px" width="100%" />
+        <n-skeleton height="30px" width="100%" />
+      </n-space>
+      <div class="w-1/2 flex gap-3 flex-row">
+        <n-skeleton height="330px" width="50%" />
+        <n-skeleton height="330px" width="50%" />
+      </div>
     </div>
     <!-- Match History  -->
     <section v-if="matchHistory && matchHistory?.length > 0">
       <match-history :match-history="matchHistory"></match-history>
+    </section>
+    <section class="flex flex-col gap-3 justify-center items-center" v-else>
+      <n-skeleton v-for="i in 10" :key="i" height="256px" width="100%" />
     </section>
   </div>
 </template>

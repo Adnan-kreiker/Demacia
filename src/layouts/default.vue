@@ -16,7 +16,6 @@ import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
 import StatsIcon from "~/components/Icons/StatsIcon.vue";
-import type { MaybeElementRef } from "@vueuse/core";
 
 const activeKey = ref<string | null>(null);
 
@@ -32,7 +31,7 @@ function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
-const sidePanel = ref<MaybeElementRef>(null);
+const sidePanel = ref(null);
 
 onClickOutside(sidePanel, () => (collapsed.value = true));
 

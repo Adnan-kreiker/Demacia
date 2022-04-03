@@ -8,16 +8,11 @@ const props = defineProps<{
   queueType: QueueTypes;
 }>();
 
-// const summonerRankedInfo = ref<RankedData | RankedDataTFT>(props.summonerRankedInfo.filter(
-//   (info) => info.queueType === props.queueType
-// ));
-
 const rankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
   return rankedInfo.value.filter((info) => info.queueType === props.queueType)[0];
 });
-// const queue = ref(props.queueType);
 </script>
 <template>
   <div
@@ -87,7 +82,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
     </div>
     <img
       class="max-w-[200px] object-contain"
-      :src="`/public/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.png`"
+      :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.png`"
       alt=""
     />
   </div>
@@ -152,5 +147,3 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
   </div>
   <template v-else></template>
 </template>
-
-<style scoped></style>

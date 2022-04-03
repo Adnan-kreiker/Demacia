@@ -90,7 +90,7 @@ getSummonersInfo();
                 v-if="player.profileIconId"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${player.profileIconId}.png`"
               />
-              <img class="h-10 w-10" v-else src="/public/defaultPic.png" alt="" />
+              <img class="h-10 w-10" v-else src="/defaultPic.png" alt="" />
               <span class="ml-4">
                 {{ player.summonerName }}
               </span>

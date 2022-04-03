@@ -75,6 +75,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           <div class="px-4 flex flex-col relative justify-center">
             <div>
               <img
+                loading="lazy"
                 height="70"
                 width="70"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
@@ -91,12 +92,14 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           <div class="flex flex-col justify-center items-center">
             <div class="flex gap-1">
               <img
+                loading="lazy"
                 class="w-8 h-8"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
                   summoner(match.info.participants).summoner1Id.toString()
                 )}.png`"
               />
               <img
+                loading="lazy"
                 class="w-8 h-8"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
                   summoner(match.info.participants).summoner2Id.toString()
@@ -105,6 +108,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             </div>
             <div class="flex">
               <img
+                loading="lazy"
                 height="40"
                 width="40"
                 :src="`https://ddragon.canisback.com/img/${idToRunes(
@@ -112,6 +116,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 )}`"
               />
               <img
+                loading="lazy"
                 height="30"
                 width="30"
                 class="mx-auto object-contain"
@@ -130,6 +135,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             </span>
             <div class="flex flex-row gap-1">
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item0 !== 0"
                 height="25"
                 width="25"
@@ -138,6 +144,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item1 !== 0"
                 height="25"
                 width="25"
@@ -146,6 +153,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item2 !== 0"
                 height="25"
                 width="25"
@@ -154,6 +162,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item3 !== 0"
                 height="25"
                 width="25"
@@ -162,6 +171,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item4 !== 0"
                 height="25"
                 width="25"
@@ -170,6 +180,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item5 !== 0"
                 height="25"
                 width="25"
@@ -178,6 +189,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 }.png`"
               />
               <img
+                loading="lazy"
                 v-if="summoner(match.info.participants).item6 !== 0"
                 height="25"
                 width="25"
@@ -235,6 +247,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           >
             <div class="flex flex-row flex-1 w-full justify-start items-center">
               <img
+                loading="lazy"
                 class="rounded-3xl mr-2"
                 height="25"
                 width="25"
@@ -270,6 +283,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           >
             <div class="flex w-full flex-1 flex-row justify-start items-center">
               <img
+                loading="lazy"
                 class="rounded-3xl mr-2"
                 height="25"
                 width="25"
@@ -326,6 +340,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <th class="flex flex-row items-center">
                     <div class="mr-2">
                       <img
+                        loading="lazy"
                         height="40"
                         width="40"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
@@ -358,42 +373,49 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <th>
                     <div class="flex flex-row gap-1">
                       <img
+                        loading="lazy"
                         v-if="participant.item0 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item0}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item1 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item1}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item2 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item2}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item3 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item3}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item4 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item4}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item5 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item5}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item6 !== 0"
                         height="25"
                         width="25"
@@ -425,6 +447,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <th class="flex flex-row items-center">
                     <div class="mr-2">
                       <img
+                        loading="lazy"
                         height="40"
                         width="40"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
@@ -457,42 +480,49 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <th>
                     <div class="flex flex-row gap-1">
                       <img
+                        loading="lazy"
                         v-if="participant.item0 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item0}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item1 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item1}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item2 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item2}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item3 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item3}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item4 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item4}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item5 !== 0"
                         height="25"
                         width="25"
                         :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item5}.png`"
                       />
                       <img
+                        loading="lazy"
                         v-if="participant.item6 !== 0"
                         height="25"
                         width="25"

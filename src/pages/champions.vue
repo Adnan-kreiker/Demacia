@@ -6,7 +6,7 @@ const champions = ref<null | Champion[]>(null);
 
 async function getChampions(): Promise<void> {
   const champs = await fetch(
-    "http://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json"
+    "https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json"
   );
   const res = await champs.json();
   champions.value = Object.values(res.data).slice(0, 50) as Champion[];
@@ -40,7 +40,7 @@ getChampions();
           <template #cover>
             <img
               height="98"
-              :src="`http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champ.id}.png`"
+              :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champ.id}.png`"
             />
             <div class="bottom-10.5 absolute right-0">
               <p

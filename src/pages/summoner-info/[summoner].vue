@@ -33,7 +33,9 @@ const getSummonerInfo = async () => {
   try {
     // Fetch Summoner's Info
     const res = await fetch(
-      `http://localhost:5000/api/get-summoner/${unicodeToUtf8(summoner)}`
+      `https://league-of-legends-wikis-backend.vercel.app/api/get-summoner/${unicodeToUtf8(
+        summoner
+      )}`
     );
     const data = (await res.json()) as Summoner;
 
@@ -44,7 +46,7 @@ const getSummonerInfo = async () => {
 
     // Fetch Summoner's Ranked Info
     const rankedInfo = await fetch(
-      `http://localhost:5000/api/get-ranked-info/${summonerInfo.value.id}`
+      `https://league-of-legends-wikis-backend.vercel.app/api/get-ranked-info/${summonerInfo.value.id}`
     );
 
     const rankedData = (await rankedInfo.json()) as RankedData[];
@@ -59,7 +61,7 @@ const getMatchHistory = async () => {
   if (summonerInfo.value) {
     // Fetch Summoner's Match IDs
     const matches = await fetch(
-      `http://localhost:5000/api/get-matches/${summonerInfo.value.puuid}?start=0&count=10`
+      `https://league-of-legends-wikis-backend.vercel.app/api/get-matches/${summonerInfo.value.puuid}?start=0&count=10`
     );
 
     const matchesId = await matches.json();
@@ -68,7 +70,9 @@ const getMatchHistory = async () => {
     // Fetch Summoner's Matches
     await Promise.allSettled(
       matchesId.map(async (matchId: string) => {
-        const match = await fetch(`http://localhost:5000/api/get-match/${matchId}`);
+        const match = await fetch(
+          `https://league-of-legends-wikis-backend.vercel.app/api/get-match/${matchId}`
+        );
         const data = await match.json();
         matchHistory.value.push({ ...data, show: false });
       })

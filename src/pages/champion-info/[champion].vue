@@ -14,7 +14,7 @@ const champion = ref<null | ChampionInfo>(null);
 
 async function getChampion() {
   const res = await fetch(
-    `http://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion/${route.params.champion}.json`
+    `https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion/${route.params.champion}.json`
   );
   const champ = await res.json();
   champion.value = Object.values(champ.data)[0] as ChampionInfo;
@@ -65,7 +65,7 @@ watch(champion, () => {
         <img
           class="my-auto"
           height="98"
-          :src="`http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champion.id}.png`"
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champion.id}.png`"
         />
         <div class="absolute bottom-1 right-0">
           <p
@@ -180,7 +180,7 @@ watch(champion, () => {
       <div class="md:w-1/2 mt-8 md:h-[300px]">
         <img
           class="mx-auto h-full object-cover"
-          :src="`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`"
+          :src="`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`"
         />
       </div>
     </div>
@@ -200,7 +200,7 @@ watch(champion, () => {
               height="50"
               width="50"
               class=""
-              :src="`http://ddragon.leagueoflegends.com/cdn/8.1.1/img/spell/${spell.image.full}`"
+              :src="`https://ddragon.leagueoflegends.com/cdn/8.1.1/img/spell/${spell.image.full}`"
               alt=""
             />
           </div>

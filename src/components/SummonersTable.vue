@@ -43,7 +43,9 @@ const getSummonersInfo = async () => {
     await Promise.allSettled(
       props.challengerPlayers.map(async (player) => {
         const res = await fetch(
-          `http://localhost:5000/api/get-summoner/${unicodeToUtf8(player.summonerName)}`
+          `https://league-of-legends-wikis-backend.vercel.app/api/get-summoner/${unicodeToUtf8(
+            player.summonerName
+          )}`
         );
         const data = (await res.json()) as Summoner;
         result.push({
@@ -86,7 +88,7 @@ getSummonersInfo();
               <img
                 class="h-10 w-10 rounded-full my-auto"
                 v-if="player.profileIconId"
-                :src="`http://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${player.profileIconId}.png`"
+                :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${player.profileIconId}.png`"
               />
               <img class="h-10 w-10" v-else src="/public/defaultPic.png" alt="" />
               <span class="ml-4">

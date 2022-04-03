@@ -65,7 +65,7 @@ watch(champion, () => {
         <img
           class="my-auto"
           height="98"
-          :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${champion.id}.png`"
+          :src="`http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champion.id}.png`"
         />
         <div class="absolute bottom-1 right-0">
           <p

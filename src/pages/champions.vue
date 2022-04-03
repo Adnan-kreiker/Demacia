@@ -40,7 +40,7 @@ getChampions();
           <template #cover>
             <img
               height="98"
-              :src="`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${champ.id}.png`"
+              :src="`http://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champ.id}.png`"
             />
             <div class="bottom-10.5 absolute right-0">
               <p

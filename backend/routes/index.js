@@ -11,7 +11,6 @@ const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puu
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
-const grandMasterUrl = 'https://euw1.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/'
 
 // Init cache
 const cache = apicache.middleware
@@ -104,20 +103,6 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('2 minutes'), async (
   }
 })
 
-// router.get('/get-grandMaster-players/:queue', cache('2 minutes'), async (req, res) => {
-//   const params = new URLSearchParams({
-//     [api_key_name]: api_key,
-//   })
-//   try {
-//     const { queue } = req.params
-//     const result = await needle('get', `${grandMasterUrl}${queue}?${params}`)
-//     const data = result.body
-//     res.status(200).json(data)
-//     console.log(data)
-//   }
-//   catch (error) {
-//     console.error(error)
-//   }
-// })
+
 
 module.exports = router

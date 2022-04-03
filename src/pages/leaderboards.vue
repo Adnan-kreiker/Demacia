@@ -67,18 +67,13 @@ async function getChallengerPlayers() {
   );
   const data = (await res.json()) as ChallengerPlayers;
   challengerPlayers.value = data.entries;
+  summonersTableKey.value++;
 }
 
 const summonersTableKey = ref(0);
 
-watch(queue, () => {
+watch([queue, rank], () => {
   getChallengerPlayers();
-  summonersTableKey.value++;
-});
-
-watch(rank, () => {
-  getChallengerPlayers();
-  summonersTableKey.value++;
 });
 
 watch(page, () => {

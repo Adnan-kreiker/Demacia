@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { NSkeleton, NSpace } from "naive-ui";
-import { Summoner, MatchInfo, RankedData } from "~/types";
-import { unicodeToUtf8 } from "../../../utils";
+import { NSkeleton, NSpace, NSelect } from "naive-ui";
+import { Summoner, MatchInfo, RankedData, SummonerRankedInfo, QueueTypes } from "~/types";
+import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistory from "../..//components/MatchHistory.vue";
 
@@ -10,11 +10,24 @@ const route = useRoute();
 
 const summonerInfo = ref<null | Summoner>(null);
 
-const matchHistory = ref<null | MatchInfo[]>([]);
+const matchHistory = ref<MatchInfo[]>([]);
 
-const summonerRankedInfo = ref<null | RankedData>(null);
+const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
 const summoner = route.params.summoner as string;
+
+const rankedType = computed(() => {
+  return summonerRankedInfo.value?.map((info) => {
+    return {
+      label: replaceUnderscoreWithSpace(info.queueType),
+      value: info.queueType,
+    };
+  });
+});
+
+const queueOptions = rankedType;
+
+const queueType = ref<QueueTypes>("RANKED_SOLO_5x5");
 
 const getSummonerInfo = async () => {
   try {
@@ -36,9 +49,7 @@ const getSummonerInfo = async () => {
 
     const rankedData = (await rankedInfo.json()) as RankedData[];
     console.log(rankedData);
-    const soloQ = rankedData.find((info) => info.queueType === "RANKED_SOLO_5x5");
-    console.log(soloQ);
-    summonerRankedInfo.value = soloQ ? soloQ : null;
+    summonerRankedInfo.value = rankedData;
   } catch (error) {
     console.error(error);
   }
@@ -52,18 +63,16 @@ const getMatchHistory = async () => {
     );
 
     const matchesId = await matches.json();
-    const matchHistoryData: MatchInfo[] = [];
+    // const matchHistoryData: MatchInfo[] = [];
 
     // Fetch Summoner's Matches
     await Promise.allSettled(
       matchesId.map(async (matchId: string) => {
         const match = await fetch(`http://localhost:5000/api/get-match/${matchId}`);
         const data = await match.json();
-        matchHistoryData.push({ ...data, show: false });
+        matchHistory.value.push({ ...data, show: false });
       })
     );
-
-    matchHistory.value = matchHistoryData;
   }
 };
 
@@ -77,9 +86,18 @@ getSummonerInfo();
       v-if="summonerInfo && summonerRankedInfo"
       class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
     >
-      <summoners-info :summoner-info="summonerInfo"></summoners-info>
+      <div>
+        <n-space
+          :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }"
+          v-if="summonerRankedInfo.length > 0"
+        >
+          <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+        </n-space>
+        <summoners-info :summoner-info="summonerInfo"></summoners-info>
+      </div>
       <summoners-ranked-info
         :summonerRankedInfo="summonerRankedInfo"
+        :queue-type="queueType"
       ></summoners-ranked-info>
     </div>
     <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">

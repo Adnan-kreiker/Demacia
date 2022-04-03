@@ -303,6 +303,7 @@ export interface Team {
   win: boolean
 }
 
+
 export interface MatchInformation {
   gameCreation: number
   gameDuration: number
@@ -326,11 +327,11 @@ export interface MatchInfo {
 }
 
 
-// export type SummonerRankedInfo = RankedData[]
+export type SummonerRankedInfo = (RankedData | RankedDataTFT)[]
 
 export interface RankedData {
   leagueId: string;
-  queueType: string;
+  queueType: 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR';
   tier: string;
   rank: string;
   summonerId: string;
@@ -344,12 +345,27 @@ export interface RankedData {
   hotStreak: boolean;
 }
 
-
-export enum QueueTypes {
-  RANKED_SOLO_5x5 = 'RANKED_SOLO_5x5',
-  RANKED_FLEX_SR = 'RANKED_FLEX_SR',
-  RANKED_FLEX_TT = 'RANKED_FLEX_TT',
+export interface RankedDataTFT {
+  freshBlood: boolean
+  hotStreak: boolean
+  inactive: boolean
+  leaguePoints: number
+  losses: number
+  queueType: "RANKED_TFT_PAIRS"
+  summonerId: string
+  summonerName: string
+  veteran: false
+  wins: number
 }
+
+
+// export enum QueueTypes {
+//   RANKED_SOLO_5x5 = 'RANKED_SOLO_5x5',
+//   RANKED_FLEX_SR = 'RANKED_FLEX_SR',
+//   RANKED_FLEX_TT = 'RANKED_FLEX_TT',
+// }
+
+export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_FLEX_TT'
 
 export type Ranks = 'challengerleagues' | 'grandMasterleagues' | 'masterleagues'
 

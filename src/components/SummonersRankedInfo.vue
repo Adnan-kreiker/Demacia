@@ -81,6 +81,8 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
       >
     </div>
     <img
+      width="200"
+      height="228"
       class="max-w-[200px] object-contain"
       :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.png`"
       alt=""

@@ -37,13 +37,14 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithAdditionalData[]>((
   }
   return [];
 });
+
 const getSummonersInfo = async () => {
   if (props.challengerPlayers) {
     const result: ChallengerPlayerWithAdditionalData[] = [];
     await Promise.allSettled(
       props.challengerPlayers.map(async (player) => {
         const res = await fetch(
-          `https://league-of-legends-wikis-backend.vercel.app/api/get-summoner/${unicodeToUtf8(
+          `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(
             player.summonerName
           )}`
         );

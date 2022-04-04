@@ -63,7 +63,9 @@ const page = ref(1);
 async function getChallengerPlayers() {
   challengerPlayers.value = [];
   const res = await fetch(
-    `https://league-of-legends-wikis-backend.vercel.app/api/get-leaderboards-players/${rank.value}/${queue.value}`
+    `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${rank.value}/${
+      queue.value
+    }`
   );
   const data = (await res.json()) as ChallengerPlayers;
   challengerPlayers.value = data.entries;

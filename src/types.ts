@@ -327,8 +327,19 @@ export interface MatchInfo {
 }
 
 
-export type SummonerRankedInfo = (RankedData | RankedDataTFT)[]
-
+export type SummonerRankedInfo = [RankedData, RankedDataTFT, RankedData] | []
+export interface RankedDataTFT {
+  freshBlood: boolean
+  hotStreak: boolean
+  inactive: boolean
+  leaguePoints: number
+  losses: number
+  queueType: "RANKED_TFT_PAIRS"
+  summonerId: string
+  summonerName: string
+  veteran: false
+  wins: number
+}
 export interface RankedData {
   leagueId: string;
   queueType: 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR';
@@ -345,25 +356,8 @@ export interface RankedData {
   hotStreak: boolean;
 }
 
-export interface RankedDataTFT {
-  freshBlood: boolean
-  hotStreak: boolean
-  inactive: boolean
-  leaguePoints: number
-  losses: number
-  queueType: "RANKED_TFT_PAIRS"
-  summonerId: string
-  summonerName: string
-  veteran: false
-  wins: number
-}
 
 
-// export enum QueueTypes {
-//   RANKED_SOLO_5x5 = 'RANKED_SOLO_5x5',
-//   RANKED_FLEX_SR = 'RANKED_FLEX_SR',
-//   RANKED_FLEX_TT = 'RANKED_FLEX_TT',
-// }
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_FLEX_TT'
 
@@ -371,18 +365,7 @@ export type Ranks = 'challengerleagues' | 'grandMasterleagues' | 'masterleagues'
 
 export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 
-// export interface ChallengerPlayer {
-//   summonerId:   string;
-//   summonerName: string;
-//   leaguePoints: number;
-//   rank:         string;
-//   wins:         number;
-//   losses:       number;
-//   veteran:      boolean;
-//   inactive:     boolean;
-//   freshBlood:   boolean;
-//   hotStreak:    boolean;
-// }
+
 
 export interface ChallengerPlayers {
   tier: string;

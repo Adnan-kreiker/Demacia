@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QueueTypes, RankedData, RankedDataTFT, SummonerRankedInfo } from "~/types";
+import { QueueTypes, RankedData, SummonerRankedInfo, RankedDataTFT } from "../types";
 import { NStatistic, NNumberAnimation, NTag } from "naive-ui";
 import { replaceUnderscoreWithSpace, capitalize } from "../../utils";
 
@@ -11,7 +11,7 @@ const props = defineProps<{
 const rankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
-  return rankedInfo.value.filter((info) => info.queueType === props.queueType)[0];
+  return rankedInfo.value.filter((info) => info?.queueType === props.queueType)[0];
 });
 </script>
 <template>
@@ -90,7 +90,10 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
   </div>
   <div
     class="flex flex-col"
-    v-if="props.summonerRankedInfo.length > 0 && (summonerRankedInfo as RankedDataTFT).queueType === 'RANKED_TFT_PAIRS'"
+    v-if="
+      props.summonerRankedInfo.length > 0 &&
+      summonerRankedInfo.queueType === 'RANKED_TFT_PAIRS'
+    "
   >
     <div class="flex flex-col items-center text-center">
       <p class="text-lg mb-3">

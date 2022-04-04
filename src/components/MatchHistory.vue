@@ -93,12 +93,16 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             <div class="flex gap-1">
               <img
                 loading="lazy"
+                height="32"
+                width="32"
                 class="w-8 h-8"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
                   summoner(match.info.participants).summoner1Id.toString()
                 )}.png`"
               />
               <img
+                height="32"
+                width="32"
                 loading="lazy"
                 class="w-8 h-8"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(

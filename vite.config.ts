@@ -104,12 +104,30 @@ export default ({ mode }: { mode: string }) => {
 
       // https://github.com/antfu/vite-plugin-pwa
       VitePWA({
-        registerType: 'autoUpdate',
-        includeAssets: ['favicon.svg', 'robots.txt', 'safari-pinned-tab.svg'],
+        //   strategies: 'injectManifest',
+        //   srcDir: 'src',
+        //   filename: 'sw.ts',
+        //   registerType: 'autoUpdate',
+        //   includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
+        //   manifest: {
+        //     name: 'Vitesse',
+        //     short_name: 'Vitesse',
+        //     theme_color: '#ffffff',
+
+        //   },
+        // }),
+        base: "/",
+        srcDir: "src",
+        filename: "sw.ts",
+        includeAssets: ["/favicon.png"],
+        strategies: "injectManifest",
         manifest: {
-          name: 'Vitesse',
-          short_name: 'Vitesse',
-          theme_color: '#ffffff',
+          name: "LOL Wikis",
+          short_name: "Test",
+          theme_color: "#ffffff",
+          start_url: "/",
+          display: "standalone",
+          background_color: "#ffffff",
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -130,6 +148,7 @@ export default ({ mode }: { mode: string }) => {
           ],
         },
       }),
+
 
       // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
       // VueI18n({

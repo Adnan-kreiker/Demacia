@@ -22,6 +22,7 @@ declare module 'vue' {
     MatchHistory: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MatchHistory.vue')['default']
     MenuIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/MenuIcon.vue')['default']
     README: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/README.md')['default']
+    ReloadPWA: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ReloadPWA.vue')['default']
     ShieldIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ShieldIcon.vue')['default']
     StatisticsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/StatisticsIcon.vue')['default']
     StatsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/StatsIcon.vue')['default']

@@ -2,9 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "ESNext",
-    "target": "es2016",
-    "lib": ["DOM", "ESNext"],
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "WebWorker"],
     "strict": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "incremental": false,
     "skipLibCheck": true,
@@ -23,5 +24,12 @@
       "~/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test",
+    "test.ts",
+    "**/*.spec.ts",
+    "**/*.worker.ts"
+  ]
 }

@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { NCard, NSkeleton } from "naive-ui";
 import { Champion } from "~/types";
+import VLazyImage from "v-lazy-image";
 
 const champions = ref<null | Champion[]>(null);
 
 async function getChampions(): Promise<void> {
-  const champs = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json"
-  );
+  const champs = await fetch(`${import.meta.env.VITE_URL}/api/get-champions`);
   const res = await champs.json();
-  champions.value = Object.values(res.data).slice(0, 50) as Champion[];
+  champions.value = res.data;
 }
 
 getChampions();
 </script>
 
 <template>
-  <div>
+  <div class="md:px-8">
     <h1
       class="text-white text-3xl font-bold mb-12 underline-green-500 underline-2 underline"
     >
@@ -38,7 +37,7 @@ getChampions();
           class="w-[98px] h-[138.39px] justify-self-center"
         >
           <template #cover>
-            <img
+            <v-lazy-image
               height="98"
               :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champ.id}.png`"
             />

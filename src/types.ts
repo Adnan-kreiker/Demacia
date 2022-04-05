@@ -361,7 +361,7 @@ export interface RankedData {
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_FLEX_TT'
 
-export type Ranks = 'challengerleagues' | 'grandMasterleagues' | 'masterleagues'
+export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues'
 
 export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 

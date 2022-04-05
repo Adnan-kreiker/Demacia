@@ -26,6 +26,7 @@ specifiers:
   unplugin-auto-import: ^0.6.9
   unplugin-icons: ^0.11.4
   unplugin-vue-components: ^0.15.6
+  v-lazy-image: ^2.1.1
   vite: ^2.6.1
   vite-plugin-inspect: ^0.3.7
   vite-plugin-md: ^0.11.1
@@ -47,6 +48,7 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.0-rc.9_typescript@4.4.3+vue@3.2.31
   prism-theme-vars: 0.2.2
+  v-lazy-image: 2.1.1
   vue: 3.2.31
   vue-demi: 0.11.4_vue@3.2.31
   vue-i18n: 9.1.7_vue@3.2.31
@@ -6611,6 +6613,10 @@ packages:
     resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}
     engines: {node: '>= 0.4.0'}
     dev: true
+
+  /v-lazy-image/2.1.1:
+    resolution: {integrity: sha512-QC6Jcok99CRhhsO7svfI3hcBaT945dSuaHk3jr7WHm+QJMzbB/f32xKkdF45qL5ezd5KeoqHKh4gD92mQtjfXQ==}
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}

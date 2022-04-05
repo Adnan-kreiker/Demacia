@@ -18,14 +18,12 @@ const summonersRank = computed(() => {
   switch (props.rank) {
     case "challengerleagues":
       return "Challenger";
-    case "grandMasterleagues":
+    case "grandmasterleagues":
       return "Grandmaster";
     case "masterleagues":
       return "Master";
   }
 });
-
-// const challengerPlayersData = ref<ChallengerPlayerWithIndex[]>(props.challengerPlayers);
 
 const challengerPlayersWithData = ref<ChallengerPlayerWithAdditionalData[]>([]);
 

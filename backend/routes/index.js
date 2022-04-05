@@ -11,12 +11,10 @@ const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puu
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
+const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json'
 
 // Init cache
 const cache = apicache.middleware
-
-// convert non english characters to english ones
-
 
 
 router.get('/get-summoner/:name', cache('2 minutes'), async (req, res) => {
@@ -39,11 +37,9 @@ router.get('/get-matches/:id', cache('2 minutes'), async (req, res) => {
   })
   try {
     const id = req.params.id
-    // console.log(`${matchesUrl}${id}/ids?${params}`)
     const result = await needle('get', `${matchesUrl}${id}/ids?${params}`)
     const data = result.body
     res.status(200).json(data)
-    // console.log(data)
   }
   catch (error) {
     console.error(error)
@@ -56,11 +52,9 @@ router.get('/get-match/:id', cache('2 minutes'), async (req, res) => {
   })
   try {
     const id = req.params.id
-    // console.log(`${matchUrl}${id}${params}`)
     const result = await needle('get', `${matchUrl}${id}?${params}`)
     const data = result.body
     res.status(200).json(data)
-    // console.log(data)
   }
   catch (error) {
     console.error(error)
@@ -73,27 +67,34 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) 
   })
   try {
     const { summonerId } = req.params
-    // console.log(`${matchUrl}${id}${params}`)
     const result = await needle('get', `${rankedUrl}${summonerId}?${params}`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
   }
   catch (error) {
     console.error(error)
   }
 })
 
-router.get('/get-leaderboards-players/:rank/:queue', cache('2 minutes'), async (req, res) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('200 minutes'), async (req, res) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
   try {
     const { queue } = req.params
     const { rank } = req.params
-    // console.log(`${matchUrl}${id}${params}`)
     const result = await needle('get', `${challengerUrl}${rank}/by-queue/${queue}?${params}`)
-    console.log(`${challengerUrl}${rank}${queue}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-champions', cache('1000 minutes'), async (req, res) => {
+  try {
+    const result = await needle('get', `${championsUrl}`)
     const data = result.body
     res.status(200).json(data)
     console.log(data)

@@ -32,7 +32,7 @@ export default defineComponent({
       <button v-if="needRefresh" @click="updateServiceWorker()" class="button">
         Reload
       </button>
-      <button @click="close" class="button">Close</button>
+      <button v-if="needRefresh" @click="close" class="button">Close</button>
     </div>
   </div>
 </template>

@@ -11,6 +11,10 @@ interface AppContext<HasRouter extends boolean = true> {
 
 export type UserModule = (ctx: AppContext) => void
 
+
+export interface ChampionObject {
+  [key: string]: Champion
+}
 export interface Champion {
   version: string
   id: string
@@ -357,6 +361,11 @@ export interface RankedData {
 }
 
 
+export interface FreeChampionRotations {
+  freeChampionIds: number[];
+  freeChampionIdsForNewPlayers: number[];
+  maxNewPlayerLevel: number;
+}
 
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_FLEX_TT'

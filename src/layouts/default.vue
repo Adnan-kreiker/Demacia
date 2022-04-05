@@ -77,6 +77,21 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
+            path: "/champion-rotations",
+          },
+          activeClass: "router-active",
+        },
+        { default: () => "Champion Rotations" }
+      ),
+    key: "Rotations",
+    icon: renderIcon(ChampionsIcon),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
             path: "/leaderboards",
           },
           activeClass: "router-active",
@@ -120,6 +135,20 @@ const menuOptions: MenuOption[] = [
   {
     label: "Stats",
     key: "Stats",
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/champion-rotations",
+          },
+          activeClass: "router-active",
+        },
+        { default: () => "Champion Rotations" }
+      ),
+    key: "Rotations",
   },
   {
     label: () =>

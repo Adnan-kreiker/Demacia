@@ -13,6 +13,7 @@ const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summo
 const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json'
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
+const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/'
 // Init cache
 const cache = apicache.middleware
 
@@ -110,6 +111,19 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) =
   })
   try {
     const result = await needle('get', `${championsRotationsUrl}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+    console.log(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
+  const { item } = req.params
+  try {
+    const result = await needle('get', `${itemUrl}/${item}.png`)
     const data = result.body
     res.status(200).json(data)
     console.log(data)

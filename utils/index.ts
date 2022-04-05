@@ -209,3 +209,12 @@ export const rankToOrderMapper = (tier: Tier) => {
       return "09_challenger";
   }
 };
+
+export interface ObjectOfObjects<T> {
+  [key: string]: T;
+}
+
+export const convertToArrayOfObjects = <T> (objectOfObjects: ObjectOfObjects<T>): { [key: string]: T }[] => {
+  return Object.entries(objectOfObjects).map((T) => ({ [T[0]]: T[1] }));
+}
+

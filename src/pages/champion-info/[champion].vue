@@ -14,7 +14,7 @@ const champion = ref<null | ChampionInfo>(null);
 
 async function getChampion() {
   const res = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion/${route.params.champion}.json`
+    `https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion/${route.params.champion}.json`
   );
   const champ = await res.json();
   champion.value = Object.values(champ.data)[0] as ChampionInfo;
@@ -200,7 +200,7 @@ watch(champion, () => {
               height="50"
               width="50"
               class=""
-              :src="`https://ddragon.leagueoflegends.com/cdn/8.1.1/img/spell/${spell.image.full}`"
+              :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${spell.image.full}`"
               alt=""
             />
           </div>

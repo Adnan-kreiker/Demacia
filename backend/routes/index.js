@@ -11,8 +11,8 @@ const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puu
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
-const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/8.1.1/data/en_US/champion.json'
-
+const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json'
+const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 // Init cache
 const cache = apicache.middleware
 
@@ -95,6 +95,21 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('200 minutes'), async
 router.get('/get-champions', cache('1000 minutes'), async (req, res) => {
   try {
     const result = await needle('get', `${championsUrl}`)
+    const data = result.body
+    res.status(200).json(data)
+    console.log(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  try {
+    const result = await needle('get', `${championsRotationsUrl}?${params}`)
     const data = result.body
     res.status(200).json(data)
     console.log(data)

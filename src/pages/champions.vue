@@ -58,7 +58,7 @@ getChampions();
       </router-link>
     </div>
     <div class="flex flex-row flex-wrap gap-2 justify-center" v-else>
-      <n-skeleton v-for="skeleton in 50" :key="skeleton" height="138px" width="98px">
+      <n-skeleton v-for="skeleton in 70" :key="skeleton" height="138px" width="98px">
       </n-skeleton>
     </div>
   </div>

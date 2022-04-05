@@ -23,8 +23,10 @@ export default defineComponent({
 <template>
   <div v-if="offlineReady || needRefresh" class="flex flex-wrap" role="alert">
     <div class="message mt-1">
-      <span v-if="offlineReady"> App ready to work offline </span>
-      <span v-else>New content available, click on reload button to update.</span>
+      <!-- <span v-if="offlineReady"> App ready to work offline </span> -->
+      <span v-if="!offlineReady"
+        >New content available, click on reload button to update.</span
+      >
     </div>
     <div class="buttons flex align-middle mt-2 md:mt-0">
       <button v-if="needRefresh" @click="updateServiceWorker()" class="button">

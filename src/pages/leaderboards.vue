@@ -76,6 +76,7 @@ const summonersTableKey = ref(0);
 
 watch([queue, rank], () => {
   getChallengerPlayers();
+  page.value = 1;
 });
 
 watch(page, () => {

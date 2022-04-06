@@ -10,7 +10,7 @@ const api_key_name = process.env.API_KEY_NAME
 const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
-const challengerUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
+const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json'
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/'
@@ -84,7 +84,7 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('200 minutes'), async
   try {
     const { queue } = req.params
     const { rank } = req.params
-    const result = await needle('get', `${challengerUrl}${rank}/by-queue/${queue}?${params}`)
+    const result = await needle('get', `${leaderboardsUrl}${rank}/by-queue/${queue}?${params}`)
     const data = result.body
     res.status(200).json(data)
   }

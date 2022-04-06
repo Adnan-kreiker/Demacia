@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NTable, NProgress } from "naive-ui";
+import { NProgress, NDataTable, DataTableColumns } from "naive-ui";
 import {
   ChallengerPlayerWithIndex,
   ChallengerPlayerWithAdditionalData,
@@ -58,11 +58,141 @@ const getSummonersInfo = async () => {
 };
 
 getSummonersInfo();
+
+const data = ref<
+  | {
+      rank: number;
+      summoner: string;
+      tier: string;
+      lp: number;
+      level: number;
+      winRatio: number;
+      icon: number;
+    }[]
+  | null
+>(null);
+
+const loading = computed(() => {
+  if (!data.value) {
+    return false;
+  }
+  return data.value.length === 0;
+});
+
+watch(
+  sortedChallengerPlayers,
+  () => {
+    if (sortedChallengerPlayers.value) {
+      data.value = sortedChallengerPlayers.value.map((player) => {
+        return {
+          rank: player.idx,
+          summoner: player.summonerName,
+          tier: summonersRank.value,
+          lp: player.leaguePoints,
+          level: player.summonerLevel,
+          winRatio: Math.floor((player.wins / (player.wins + player.losses)) * 100),
+          icon: player.profileIconId,
+        };
+      });
+    }
+  },
+  {
+    immediate: true,
+  }
+);
+
+const columns: DataTableColumns = [
+  {
+    title: "Rank",
+    key: "rank",
+    align: "center",
+  },
+  {
+    title: "Summoner",
+    key: "summoner",
+    // align: "center",
+    width: "200px",
+    render(row) {
+      const iconId = row.icon as number;
+      return h(
+        "div",
+        {
+          style: {
+            display: "flex",
+            alignItems: "center",
+          },
+        },
+        [
+          h("img", {
+            src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
+            height: "40",
+            width: "40",
+            style: {
+              borderRadius: "50%",
+            },
+          }),
+          h(
+            "span",
+            {
+              style: {
+                marginLeft: "15px",
+              },
+            },
+            row.summoner
+          ),
+        ]
+      );
+    },
+    ellipsis: {
+      tooltip: true,
+    },
+  },
+  {
+    title: "Tier",
+    key: "tier",
+    align: "center",
+  },
+  {
+    title: "LP",
+    key: "lp",
+    align: "center",
+  },
+  {
+    title: "Level",
+    key: "level",
+    align: "center",
+  },
+  {
+    title: "Win Ratio",
+    key: "winRatio",
+    align: "center",
+    render(row) {
+      const winRate = row.winRatio as number;
+      return h(NProgress, {
+        style: {
+          height: "24px",
+          borderRadius: "4",
+        },
+        type: "line",
+        railColor: "#ee5a52",
+        percentage: winRate,
+      });
+    },
+  },
+];
 </script>
 
 <template>
   <div>
-    <n-table v-if="sortedChallengerPlayers.length > 0">
+    <n-data-table
+      v-if="data"
+      :loading="loading"
+      :columns="columns"
+      scroll-x="800"
+      :data="data"
+      min-height="350"
+    ></n-data-table>
+    <!-- <n-table bordered v-if="sortedChallengerPlayers.length > 0">
       <thead>
         <tr>
           <th>Rank</th>
@@ -111,7 +241,7 @@ getSummonersInfo();
             </td>
           </tr>
         </router-link></tbody
-    ></n-table>
+    ></n-table> -->
     <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>
 </template>

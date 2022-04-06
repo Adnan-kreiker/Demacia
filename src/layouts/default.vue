@@ -172,7 +172,7 @@ const menuOptions: MenuOption[] = [
     <n-config-provider :theme="darkTheme">
       <nav class="py-3">
         <n-menu
-          v-if="width > 470"
+          v-if="width > 700"
           v-model="activeKey"
           class="text-lg"
           mode="horizontal"

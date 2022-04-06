@@ -14,6 +14,8 @@ const summonerInfo = ref<Summoner | null>(props.summonerInfo);
     <n-card class="max-w-[220px]" :title="summonerInfo.name">
       <template #cover>
         <img
+          height="220"
+          width="220"
           :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${summonerInfo.profileIconId}.png`"
         />
       </template>

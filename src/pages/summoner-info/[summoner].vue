@@ -85,41 +85,43 @@ getSummonerInfo();
 
 <template>
   <div>
-    <!-- Summoner's Information -->
-    <div
-      v-if="summonerInfo && (summonerRankedInfo === [] || summonerRankedInfo)"
-      class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
-    >
-      <div>
-        <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }">
-          <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+    <div>
+      <!-- Summoner's Information -->
+      <div
+        v-if="summonerInfo && (summonerRankedInfo === [] || summonerRankedInfo)"
+        class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
+      >
+        <div>
+          <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }">
+            <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+          </n-space>
+          <summoners-info :summoner-info="summonerInfo"></summoners-info>
+        </div>
+        <template v-if="summonerRankedInfo.length > 0">
+          <summoners-ranked-info
+            :summonerRankedInfo="summonerRankedInfo"
+            :queue-type="queueType"
+          ></summoners-ranked-info>
+        </template>
+      </div>
+      <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">
+        <n-space vertical class="w-[240px]">
+          <n-skeleton height="330px" width="100%" />
+          <n-skeleton height="30px" width="100%" />
         </n-space>
-        <summoners-info :summoner-info="summonerInfo"></summoners-info>
+        <div class="w-1/2 flex gap-3 flex-row">
+          <n-skeleton height="330px" width="50%" />
+          <n-skeleton height="330px" width="50%" />
+        </div>
       </div>
-      <template v-if="summonerRankedInfo.length > 0">
-        <summoners-ranked-info
-          :summonerRankedInfo="summonerRankedInfo"
-          :queue-type="queueType"
-        ></summoners-ranked-info>
-      </template>
+      <!-- Match History  -->
+      <section v-if="matchHistory && matchHistory?.length > 0">
+        <match-history :match-history="matchHistory"></match-history>
+      </section>
+      <section class="flex flex-col gap-3 justify-center items-center" v-else>
+        <n-skeleton v-for="i in 10" :key="i" height="256px" width="100%" />
+      </section>
     </div>
-    <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">
-      <n-space vertical class="w-[240px]">
-        <n-skeleton height="330px" width="100%" />
-        <n-skeleton height="30px" width="100%" />
-      </n-space>
-      <div class="w-1/2 flex gap-3 flex-row">
-        <n-skeleton height="330px" width="50%" />
-        <n-skeleton height="330px" width="50%" />
-      </div>
-    </div>
-    <!-- Match History  -->
-    <section v-if="matchHistory && matchHistory?.length > 0">
-      <match-history :match-history="matchHistory"></match-history>
-    </section>
-    <section class="flex flex-col gap-3 justify-center items-center" v-else>
-      <n-skeleton v-for="i in 10" :key="i" height="256px" width="100%" />
-    </section>
+    <div v-if="error">An Error Occured</div>
   </div>
-  <div v-if="error">An Error Occured</div>
 </template>

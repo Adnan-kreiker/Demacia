@@ -8,6 +8,7 @@ import {
 } from "~/types";
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import { unicodeToUtf8 } from "../../utils";
+import { RouterLink } from "vue-router";
 const props = defineProps<{
   challengerPlayers: ChallengerPlayerWithIndex[];
   page: number;
@@ -115,33 +116,67 @@ const columns: DataTableColumns = [
     render(row) {
       const iconId = row.icon as number;
       return h(
-        "div",
+        resolveComponent("RouterLink"),
         {
+          to: `/summoner-info/${row.summoner}`,
           style: {
             display: "flex",
             alignItems: "center",
           },
+          key: row.summoner,
         },
-        [
-          h("img", {
-            src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
-            height: "40",
-            width: "40",
-            style: {
-              borderRadius: "50%",
-            },
-          }),
-          h(
-            "span",
-            {
-              style: {
-                marginLeft: "15px",
-              },
-            },
-            row.summoner
-          ),
-        ]
+        {
+          default: () => {
+            return [
+              h("img", {
+                src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
+                height: "40",
+                width: "40",
+                style: {
+                  borderRadius: "50%",
+                },
+              }),
+              h(
+                "span",
+                {
+                  style: {
+                    marginLeft: "15px",
+                  },
+                },
+                row.summoner
+              ),
+            ];
+          },
+        }
       );
+      // h(
+      //   "div",
+      //   {
+      //     style: {
+      //       display: "flex",
+      //       alignItems: "center",
+      //     },
+      //   },
+      //   [
+      //     h("img", {
+      //       src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
+      //       height: "40",
+      //       width: "40",
+      //       style: {
+      //         borderRadius: "50%",
+      //       },
+      //     }),
+      //     h(
+      //       "span",
+      //       {
+      //         style: {
+      //           marginLeft: "15px",
+      //         },
+      //       },
+      //       row.summoner
+      //     ),
+      //   ]
+      // );
     },
     ellipsis: {
       tooltip: true,

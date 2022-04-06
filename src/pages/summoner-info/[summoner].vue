@@ -29,6 +29,8 @@ const queueOptions = rankedType;
 
 const queueType = ref<QueueTypes>("RANKED_SOLO_5x5");
 
+const error = ref(false);
+
 const getSummonerInfo = async () => {
   try {
     // Fetch Summoner's Info
@@ -48,10 +50,10 @@ const getSummonerInfo = async () => {
     );
 
     const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;
-    console.log(rankedData);
     summonerRankedInfo.value = rankedData;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err, "dsadsd");
+    error.value = true;
   }
 };
 
@@ -119,4 +121,5 @@ getSummonerInfo();
       <n-skeleton v-for="i in 10" :key="i" height="256px" width="100%" />
     </section>
   </div>
+  <div v-if="error">An Error Occured</div>
 </template>

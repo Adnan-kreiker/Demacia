@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NTable } from "naive-ui";
+import { NTable, NProgress } from "naive-ui";
 import {
   ChallengerPlayerWithIndex,
   ChallengerPlayerWithAdditionalData,
@@ -61,7 +61,7 @@ getSummonersInfo();
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div>
     <n-table v-if="sortedChallengerPlayers.length > 0">
       <thead>
         <tr>
@@ -98,12 +98,20 @@ getSummonersInfo();
             <td>{{ player.leaguePoints }}</td>
             <td>{{ player.summonerLevel }}</td>
             <td>
-              {{ Math.floor((player.wins / (player.wins + player.losses)) * 100) }} %
+              <n-progress
+                type="line"
+                :percentage="
+                  Math.floor((player.wins / (player.wins + player.losses)) * 100)
+                "
+                :height="24"
+                :border-radius="4"
+                :fill-border-radius="0"
+                rail-color="#ee5a52"
+              />
             </td>
           </tr>
-        </router-link>
-      </tbody></n-table
-    >
+        </router-link></tbody
+    ></n-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>
 </template>

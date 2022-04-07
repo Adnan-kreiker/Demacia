@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { NSkeleton, NSpace, NSelect, NH2, NText } from "naive-ui";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
+import NSelect from "naive-ui/es/select/src/Select";
+import NSpace from "naive-ui/es/space/src/Space";
+import { NText } from "naive-ui/es/typography";
+import { NH2 } from "naive-ui/es/typography";
 import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
 import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";

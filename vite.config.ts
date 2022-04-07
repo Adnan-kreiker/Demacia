@@ -31,28 +31,48 @@ export default ({ mode }: { mode: string }) => {
       target: 'modules',
       assetsInlineLimit: 4096,
       cssCodeSplit: true,
+
+
       minify: 'esbuild',
       sourcemap: false,
       rollupOptions: {
+        preserveEntrySignatures: 'exports-only',
         input: {
           index: resolve(__dirname, 'index.html'),
         },
+        treeshake: true,
         output: {
-          // chunkFileNames: 'static/js/[name]-[hash]. JS', // chunkfilenames will be automatically split within rollup. You can use manualchunks to specify the split explicitly.
-          // entryFileNames: 'static/js/[name].js',
-          // assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-          manualChunks: (id) => {
-            if (id.includes("node_modules")) {
-              if (id.includes("naive-ui")) {
-                return "naive-ui";
-              } else if (id.includes("lodash-es")) {
-                return "lodash-es";
-              }
+        }
+        // output: [
+        //   {
+        //     format: 'es',
 
-              return "vendor"; // all other package goes here
-            }
-          },
-        },
+        //     dir: 'public/module',
+        //     // preserveModules: true,
+        //     // entryFileNames: 'entry-[name].js'
+        //     // preserveModulesRoot: 'src',
+
+        //   }
+        // ]
+        // output: {
+        //   // chunkFileNames: 'static/js/[name]-[hash]. JS', // chunkfilenames will be automatically split within rollup. You can use manualchunks to specify the split explicitly.
+        //   // entryFileNames: 'static/js/[name].js',
+        //   // assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        //   dir: 'dist',
+        //   preserveModules: true,
+
+        //   // manualChunks: (id) => {
+        //   //   if (id.includes("node_modules")) {
+        //   //     if (id.includes("naive-ui")) {
+        //   //       return "naive-ui";
+        //   //     } else if (id.includes("lodash-es")) {
+        //   //       return "lodash-es";
+        //   //     }
+
+        //   //     return "vendor"; // all other package goes here
+        //   //   }
+        //   // },
+        // },
         //Limit of chunk size warning
       }
     },

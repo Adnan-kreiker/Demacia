@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { NProgress, NDataTable, DataTableColumns } from "naive-ui";
+import type { DataTableColumns } from "naive-ui";
+import NDataTable from "naive-ui/es/data-table/src/DataTable";
+import NProgress from "naive-ui/es/progress/src/Progress";
+
 import {
   ChallengerPlayerWithIndex,
   ChallengerPlayerWithAdditionalData,

@@ -1,0 +1,1 @@
+import r from"../../node_modules/.pnpm/nprogress@0.2.0/node_modules/nprogress/entry-nprogress.js";const a=({router:o})=>{o.beforeEach(()=>{r.start()}),o.afterEach(()=>{r.done()})};export{a as install};

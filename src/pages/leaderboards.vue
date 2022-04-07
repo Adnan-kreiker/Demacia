@@ -5,10 +5,13 @@ import {
   ChallengerPlayerWithIndex,
   Ranks,
 } from "../../src/types";
-import { NPagination, NSelect, NSpace, NH3, NText } from "naive-ui";
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import SummonersTable from "~/components/SummonersTable.vue";
-
+import NSelect from "naive-ui/es/select/src/Select";
+import NSpace from "naive-ui/es/space/src/Space";
+import NPagination from "naive-ui/es/pagination/src/Pagination";
+import { NText } from "naive-ui/es/typography";
+import { NH3 } from "naive-ui/es/typography";
 const queueOptions = [
   {
     label: "RANKED SOLO 5x5",

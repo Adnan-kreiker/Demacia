@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NResult, NButton } from "naive-ui";
+import NResult from "naive-ui/es/result/src/Result";
+import NButton from "naive-ui/es/button/src/Button";
 import { ErrorStatusCode } from "~/types";
 const props = defineProps<{
   status: ErrorStatusCode;

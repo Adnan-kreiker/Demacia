@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Champion, ChampionObject, FreeChampionRotations } from "~/types";
-import { NCard, NH1, NText, NDivider } from "naive-ui";
+import { NText } from "naive-ui/es/typography";
+import { NH1 } from "naive-ui/es/typography";
+import NCard from "naive-ui/es/card/src/Card";
+import NDivider from "naive-ui/es/divider/src/Divider";
 import VLazyImage from "v-lazy-image";
 // import { convertToArrayOfObjects } from "../../utils";
 

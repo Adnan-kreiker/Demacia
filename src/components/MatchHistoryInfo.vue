@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { CSSProperties } from "vue";
 import { MatchInfo, Participant } from "~/types";
-import {
-  NSwitch,
-  NSpace,
-  NCollapseTransition,
-  NTable,
-  NTag,
-  NDivider,
-  NScrollbar,
-} from "naive-ui";
+import NSpace from "naive-ui/es/space/src/Space";
+import NSwitch from "naive-ui/es/switch/src/Switch";
+import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
+import NTag from "naive-ui/es/tag/src/Tag";
+import NDivider from "naive-ui/es/divider/src/Divider";
+import NScrollbar from "naive-ui/es/scrollbar/src/ScrollBar";
+import NTable from "naive-ui/es/table/src/Table";
 import {
   getSummonerName,
   formatTime,

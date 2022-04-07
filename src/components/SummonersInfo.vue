@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NCard, NTag } from "naive-ui";
+import NCard from "naive-ui/es/card/src/Card";
+import NTag from "naive-ui/es/tag/src/Tag";
 import { Summoner } from "~/types";
 import { unixToDate } from "../../utils";
 

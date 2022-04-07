@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { NSkeleton } from "naive-ui";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 </script>
 
 <template>

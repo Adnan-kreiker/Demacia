@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NDataTable, DataTableColumns } from "naive-ui";
+import { DataTableColumns } from "naive-ui";
+import NDataTable from "naive-ui/es/data-table/src/DataTable";
 import type { ChampionInfo, Spell } from "~/types";
 import CheckMark from "~/components/Icons/CheckMark.vue";
 import WarningIcon from "~/components/Icons/WarningIcon.vue";

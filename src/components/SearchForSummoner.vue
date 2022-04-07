@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { NInput, NButton, NSelect } from "naive-ui";
+import NInput from "naive-ui/es/input/src/Input";
+import NButton from "naive-ui/es/button/src/Button";
+import NSelect from "naive-ui/es/select/src/Select";
 import { useRouter } from "vue-router";
 const summonerName = ref("");
 
@@ -30,6 +32,7 @@ const selectOptions = servers.map((server) => {
   >
     <template #suffix>
       <n-select
+        r
         v-model:value="selectedServer"
         class="absolute right-20 text-xs"
         style="width: 50px !important"

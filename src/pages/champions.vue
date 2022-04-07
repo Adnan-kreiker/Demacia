@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { NCard, NSkeleton } from "naive-ui";
+import NCard from "naive-ui/es/card/src/Card";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import { Champion } from "~/types";
 import VLazyImage from "v-lazy-image";
 

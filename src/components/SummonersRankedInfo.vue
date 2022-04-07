@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { QueueTypes, RankedData, SummonerRankedInfo, RankedDataTFT } from "../types";
-import { NStatistic, NNumberAnimation, NTag } from "naive-ui";
+import NStatistic from "naive-ui/es/statistic/src/Statistic";
+import NNumberAnimation from "naive-ui/es/number-animation/src/NumberAnimation";
+import NTag from "naive-ui/es/tag/src/Tag";
 import { replaceUnderscoreWithSpace, capitalize } from "../../utils";
 
 const props = defineProps<{
@@ -10,14 +12,19 @@ const props = defineProps<{
 
 const rankedInfo = ref<SummonerRankedInfo>(props.summonerRankedInfo);
 
-const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
-  return rankedInfo.value.filter((info) => info?.queueType === props.queueType)[0];
+const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
+  if (Array.isArray(rankedInfo.value)) {
+    return rankedInfo.value.filter((info) => info?.queueType === props.queueType)[0];
+  } else {
+    return undefined;
+  }
 });
 </script>
 <template>
   <div
     class="flex items-center justify-evenly text-center"
     v-if="
+      Array.isArray(props.summonerRankedInfo) &&
       props.summonerRankedInfo.length > 0 &&
       (summonerRankedInfo.queueType === 'RANKED_FLEX_SR' ||
         summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
@@ -91,6 +98,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT>(() => {
   <div
     class="flex flex-col"
     v-if="
+      Array.isArray(props.summonerRankedInfo) &&
       props.summonerRankedInfo.length > 0 &&
       summonerRankedInfo.queueType === 'RANKED_TFT_PAIRS'
     "

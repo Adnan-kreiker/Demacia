@@ -1,1 +1,0 @@
-import{createPinia as n}from"../../node_modules/.pnpm/pinia@2.0.13_typescript@4.6.3_vue@3.2.31/node_modules/pinia/dist/entry-pinia.esm-browser.js";const a=({app:i})=>{const t=n();i.use(t)};export{a as install};

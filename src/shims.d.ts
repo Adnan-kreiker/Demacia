@@ -14,3 +14,8 @@ declare module '*.md' {
 declare module 'v-lazy-image' {
 
 }
+
+declare module 'rollup-plugin-analyzer' {
+
+}
+

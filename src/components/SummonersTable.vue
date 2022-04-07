@@ -116,9 +116,13 @@ const columns: DataTableColumns = [
     render(row) {
       const iconId = row.icon as number;
       return h(
-        resolveComponent("RouterLink"),
+        RouterLink,
         {
           to: `/summoner-info/${row.summoner}`,
+          props: {
+            custom: true,
+            vSlot: "navigate",
+          },
           style: {
             display: "flex",
             alignItems: "center",

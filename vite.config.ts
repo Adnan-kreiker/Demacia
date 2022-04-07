@@ -1,4 +1,4 @@
-import path from 'path'
+import path, { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
@@ -11,12 +11,51 @@ import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
+// import analyze from 'rollup-plugin-analyzer'
+import visualizer from "rollup-plugin-visualizer"
+
+
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
+
   return defineConfig({
+    // build: {
+    //   rollupOptions: {
+    //     plugins: [analyze()],
+    //   },
+    // },
+    build: {
+      target: 'modules',
+      assetsInlineLimit: 4096,
+      cssCodeSplit: true,
+      minify: 'esbuild',
+      sourcemap: false,
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'index.html'),
+        },
+        output: {
+          // chunkFileNames: 'static/js/[name]-[hash]. JS', // chunkfilenames will be automatically split within rollup. You can use manualchunks to specify the split explicitly.
+          // entryFileNames: 'static/js/[name].js',
+          // assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+          manualChunks: (id) => {
+            if (id.includes("node_modules")) {
+              if (id.includes("naive-ui")) {
+                return "naive-ui";
+              } else if (id.includes("lodash-es")) {
+                return "lodash-es";
+              }
+
+              return "vendor"; // all other package goes here
+            }
+          },
+        },
+        //Limit of chunk size warning
+      }
+    },
     define: {
       'process.env': {}
     },
@@ -26,6 +65,10 @@ export default ({ mode }: { mode: string }) => {
       },
     },
     plugins: [
+      visualizer({
+        brotliSize: true,
+        gzipSize: true
+      }),
       Vue({
         include: [/\.vue$/, /\.md$/],
       }),
@@ -149,5 +192,6 @@ export default ({ mode }: { mode: string }) => {
         'vue-demi',
       ],
     },
+
   })
 }

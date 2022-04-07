@@ -143,6 +143,10 @@ export interface Summoner {
   profileIconId: number
   revisionDate: number
   summonerLevel: number
+  status: {
+    status_code: number
+    message: string
+  }
 }
 
 /// ////////////////////////////////////////////////
@@ -330,8 +334,13 @@ export interface MatchInfo {
   show: boolean
 }
 
-
-export type SummonerRankedInfo = [RankedData, RankedDataTFT, RankedData] | []
+export interface Error {
+  status: {
+    message: string
+    status_code: number
+  }
+}
+export type SummonerRankedInfo = [RankedData, RankedDataTFT, RankedData] | [] | Error
 export interface RankedDataTFT {
   freshBlood: boolean
   hotStreak: boolean
@@ -444,3 +453,4 @@ export interface ChallengerPlayerWithAdditionalData {
   idx: number
 }
 
+export type ErrorStatusCode = "500" | "error" | "info" | "success" | "warning" | "404" | "403" | "418" | undefined

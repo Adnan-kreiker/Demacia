@@ -21,7 +21,7 @@ specifiers:
   nprogress: ^0.2.0
   pinia: ^2.0.0-rc.9
   pnpm: ^6.16.0
-  prism-theme-vars: ^0.2.2
+  rollup-plugin-visualizer: ^5.6.0
   typescript: ^4.4.3
   unplugin-auto-import: ^0.6.9
   unplugin-icons: ^0.11.4
@@ -47,7 +47,6 @@ dependencies:
   '@vueuse/head': 0.6.0_vue@3.2.31
   nprogress: 0.2.0
   pinia: 2.0.0-rc.9_typescript@4.4.3+vue@3.2.31
-  prism-theme-vars: 0.2.2
   v-lazy-image: 2.1.1
   vue: 3.2.31
   vue-demi: 0.11.4_vue@3.2.31
@@ -71,6 +70,7 @@ devDependencies:
   markdown-it-prism: 2.2.1
   naive-ui: 2.26.3_vue@3.2.31
   pnpm: 6.16.0
+  rollup-plugin-visualizer: 5.6.0
   typescript: 4.4.3
   unplugin-auto-import: 0.6.9_@vueuse+core@8.2.3+vite@2.6.1
   unplugin-icons: 0.11.4_106496589e1ca1d7161f7c98c51411fd
@@ -2838,6 +2838,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /define-lazy-prop/2.0.0:
+    resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==}
+    engines: {node: '>=8'}
+    dev: true
+
   /define-properties/1.1.3:
     resolution: {integrity: sha512-3MqfYKj2lLzdMSf8ZIZE/V+Zuy+BgD6f164e8K2w7dgnpKArBDerGYpM46IYYcjnkdPNMjPk9A6VFB8+3SKlXQ==}
     engines: {node: '>= 0.4'}
@@ -4255,6 +4260,12 @@ packages:
       has-tostringtag: 1.0.0
     dev: true
 
+  /is-docker/2.2.1:
+    resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
+    engines: {node: '>=8'}
+    hasBin: true
+    dev: true
+
   /is-expression/4.0.0:
     resolution: {integrity: sha512-zMIXX63sxzG3XrkHkrAPvm/OVZVSCPNkwMHU8oTX7/U3AL78I0QXCEICXUM13BIa8TYGZ68PiTKfQz3yaTNr4A==}
     dependencies:
@@ -4392,6 +4403,13 @@ packages:
 
   /is-weakset/2.0.1:
     resolution: {integrity: sha512-pi4vhbhVHGLxohUw7PhGsueT4vRGFoXhP7+RGN0jKIv9+8PWYCQTqtADngrxOm2g46hoH0+g8uZZBzMrvVGDmw==}
+    dev: true
+
+  /is-wsl/2.2.0:
+    resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
+    engines: {node: '>=8'}
+    dependencies:
+      is-docker: 2.2.1
     dev: true
 
   /isarray/1.0.0:
@@ -4927,6 +4945,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanoid/3.3.2:
+    resolution: {integrity: sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: true
+
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
@@ -5077,6 +5101,15 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       mimic-fn: 2.1.0
+    dev: true
+
+  /open/8.4.0:
+    resolution: {integrity: sha512-XgFPPM+B28FtCCgSb9I+s9szOC1vZRSwgWsRUA5ylIxRTgKozqjOCrVOqGsYABPYK5qnfqClxZTFBa8PKt2v6Q==}
+    engines: {node: '>=12'}
+    dependencies:
+      define-lazy-prop: 2.0.0
+      is-docker: 2.2.1
+      is-wsl: 2.2.0
     dev: true
 
   /optionator/0.8.3:
@@ -5351,10 +5384,6 @@ packages:
       ansi-styles: 5.2.0
       react-is: 17.0.2
     dev: true
-
-  /prism-theme-vars/0.2.2:
-    resolution: {integrity: sha512-EL9ifuU/F8tEldoCa2sspiiLWysCL54xDbf2gN/ubwdtbuJROqOGopG5kSwunapwaioT+jLUQ/Ky+7jnv62xJA==}
-    dev: false
 
   /prismjs/1.25.0:
     resolution: {integrity: sha512-WCjJHl1KEWbnkQom1+SzftbtXMKQoezOCYs5rECqMN+jP+apI7ftoflyqigqzopSO3hMhTEb0mFClA8lkolgEg==}
@@ -5741,6 +5770,19 @@ packages:
       rollup: 2.70.1
       serialize-javascript: 4.0.0
       terser: 5.8.0
+    dev: true
+
+  /rollup-plugin-visualizer/5.6.0:
+    resolution: {integrity: sha512-CKcc8GTUZjC+LsMytU8ocRr/cGZIfMR7+mdy4YnlyetlmIl/dM8BMnOEpD4JPIGt+ZVW7Db9ZtSsbgyeBH3uTA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    peerDependencies:
+      rollup: ^2.0.0
+    dependencies:
+      nanoid: 3.3.2
+      open: 8.4.0
+      source-map: 0.7.3
+      yargs: 17.4.0
     dev: true
 
   /rollup/2.57.0:

@@ -107,7 +107,10 @@ getSummonerInfo();
         class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
       >
         <div>
-          <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }">
+          <n-space
+            v-if="Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0"
+            :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }"
+          >
             <n-select v-model:value="queueType" :options="queueOptions"></n-select>
           </n-space>
           <summoners-info :summoner-info="summonerInfo"></summoners-info>

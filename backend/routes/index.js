@@ -98,7 +98,6 @@ router.get('/get-champions', cache('1000 minutes'), async (req, res) => {
     const result = await needle('get', `${championsUrl}`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
   }
   catch (error) {
     console.error(error)
@@ -113,7 +112,6 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) =
     const result = await needle('get', `${championsRotationsUrl}?${params}`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
   }
   catch (error) {
     console.error(error)
@@ -126,7 +124,6 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
     const result = await needle('get', `${itemUrl}/${item}.png`)
     const data = result.body
     res.status(200).json(data)
-    console.log(data)
   }
   catch (error) {
     console.error(error)

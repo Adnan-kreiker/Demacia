@@ -2,6 +2,7 @@
 import NCard from "naive-ui/es/card/src/Card";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import { Champion } from "~/types";
+import useChampions from "~/hooks/useChampions";
 import VLazyImage from "v-lazy-image";
 
 const champions = ref<null | Champion[]>(null);
@@ -11,6 +12,8 @@ async function getChampions(): Promise<void> {
   const res = await champs.json();
   champions.value = res.data;
 }
+
+// const { champions } = useChampions();
 
 getChampions();
 </script>

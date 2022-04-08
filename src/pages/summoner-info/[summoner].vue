@@ -5,7 +5,13 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NSpace from "naive-ui/es/space/src/Space";
 import { NText } from "naive-ui/es/typography";
 import { NH2 } from "naive-ui/es/typography";
-import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
+import {
+  Summoner,
+  MatchInfo,
+  SummonerRankedInfo,
+  QueueTypes,
+  ChampionMastery,
+} from "~/types";
 import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
@@ -19,6 +25,8 @@ const summonerInfo = ref<null | Summoner>(null);
 const matchHistory = ref<MatchInfo[]>([]);
 
 const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
+
+const championsMastery = ref<null | ChampionMastery[]>(null);
 
 const summoner = route.params.summoner as string;
 
@@ -55,6 +63,8 @@ const getSummonerInfo = async () => {
 
     // Get Match History Info
     getMatchHistory();
+    // Get Champions Mastery
+    getChampionsMastery();
 
     // Fetch Summoner's Ranked Info
     const rankedInfo = await fetch(
@@ -95,7 +105,21 @@ const getMatchHistory = async () => {
       error.value = true;
       console.log(err);
     }
-    // Fetch Summoner's Match IDs
+  }
+};
+
+const getChampionsMastery = async () => {
+  if (summonerInfo.value) {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${summonerInfo.value.id}`
+      );
+      const data = await res.json();
+      championsMastery.value = data;
+    } catch (err) {
+      error.value = true;
+      console.log(err);
+    }
   }
 };
 

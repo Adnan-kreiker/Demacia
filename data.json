@@ -1,33 +1,11 @@
 {
-  "freeChampionIds": [
-      3,
-      8,
-      14,
-      35,
-      44,
-      51,
-      59,
-      61,
-      64,
-      86,
-      91,
-      161,
-      350,
-      427,
-      498,
-      887
-  ],
-  "freeChampionIdsForNewPlayers": [
-      222,
-      254,
-      427,
-      82,
-      131,
-      147,
-      54,
-      17,
-      18,
-      37
-  ],
-  "maxNewPlayerLevel": 10
-}
+  "championId": 86,
+  "championLevel": 7,
+  "championPoints": 1254845,
+  "lastPlayTime": 1616055292000,
+  "championPointsSinceLastLevel": 1233245,
+  "championPointsUntilNextLevel": 0,
+  "chestGranted": false,
+  "tokensEarned": 0,
+  "summonerId": "23FcOh0iZNiUD-SkkPp5cxxazzYnQhlaD04mLTIfBjUxSpQ"
+},

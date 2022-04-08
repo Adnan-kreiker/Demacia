@@ -454,3 +454,15 @@ export interface ChallengerPlayerWithAdditionalData {
 }
 
 export type ErrorStatusCode = "500" | "error" | "info" | "success" | "warning" | "404" | "403" | "418" | undefined
+
+export interface ChampionMastery {
+  championId: number;
+  championLevel: number;
+  championPoints: number;
+  lastPlayTime: number;
+  championPointsSinceLastLevel: number;
+  championPointsUntilNextLevel: number;
+  chestGranted: boolean;
+  tokensEarned: number;
+  summonerId: string;
+}

@@ -14,6 +14,7 @@ const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json'
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/'
+const championMasteryUrl = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
 // Init cache
 const cache = apicache.middleware
 
@@ -122,6 +123,21 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
   const { item } = req.params
   try {
     const result = await needle('get', `${itemUrl}/${item}.png`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req, res) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { summonerId } = req.params
+  try {
+    const result = await needle('get', `${championMasteryUrl}${summonerId}?${params}`)
     const data = result.body
     res.status(200).json(data)
   }

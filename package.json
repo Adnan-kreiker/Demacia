@@ -16,7 +16,8 @@
     "v-lazy-image": "^2.1.1",
     "vue": "^3.2.31",
     "vue-demi": "^0.11.4",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vue-virtual-scroller": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.9.0",

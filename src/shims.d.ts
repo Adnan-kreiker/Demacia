@@ -19,3 +19,7 @@ declare module 'rollup-plugin-analyzer' {
 
 }
 
+// declare module 'vue-virtual-scroller' {
+
+
+// }

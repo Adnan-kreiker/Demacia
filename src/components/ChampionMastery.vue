@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useChampions from "~/hooks/useChampions";
 import { Champion, ChampionMastery, Summoner } from "~/types";
-import { getChampionInfoById } from "../../utils";
+import { getChampionInfoById, formatNumber } from "../../utils";
 import VLazyImage from "v-lazy-image";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 
@@ -52,27 +52,30 @@ getChampionsMastery();
     class="flex flex-wrap flex-row justify-center"
     v-if="champsArray.length && championsMastery"
   >
-    <div
-      class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row"
+    <router-link
+      :to="`/champion-info/${getChampionInfoById(champsArray, champ.championId)?.name}`"
+      class="hover:cursor-pointer hover:scale-105 transform transition-all duration-500 ease"
       v-for="champ in championsMastery"
       :key="champ.championId"
     >
-      <v-lazy-image
-        height="h-[130px] object-cover"
-        :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
-          getChampionInfoById(champsArray, champ.championId)?.image.full
-        }`"
-      />
-      <section class="text-gray-300 text-md py-1 px-3">
-        <p class="text-lg font-bold">
-          {{ getChampionInfoById(champsArray, champ.championId)?.name }}
-        </p>
-        <p>Points: {{ champ.championPoints }}</p>
-        <p>Level: {{ champ.championLevel }}</p>
-        <p>Tokens earned: {{ champ.tokensEarned }}</p>
-        <p>Chest: {{ champ.chestGranted ? "Obtained" : "Available" }}</p>
-      </section>
-    </div>
+      <div class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row">
+        <v-lazy-image
+          height="h-[130px] object-cover"
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+            getChampionInfoById(champsArray, champ.championId)?.image.full
+          }`"
+        />
+        <section class="text-gray-300 text-md py-1 px-3">
+          <p class="text-lg font-bold">
+            {{ getChampionInfoById(champsArray, champ.championId)?.name }}
+          </p>
+          <p><b>Points:</b> {{ formatNumber(champ.championPoints) }}</p>
+          <p><b>Level:</b> {{ champ.championLevel }}</p>
+          <p><b>Tokens earned:</b> {{ champ.tokensEarned }}</p>
+          <p><b>Chest:</b> {{ champ.chestGranted ? "Obtained" : "Available" }}</p>
+        </section>
+      </div>
+    </router-link>
   </div>
   <section class="flex flex-row flex-wrap gap-3 justify-center" v-else>
     <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />

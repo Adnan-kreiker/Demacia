@@ -4,6 +4,7 @@ import { NText } from "naive-ui/es/typography";
 import { NH1 } from "naive-ui/es/typography";
 import NCard from "naive-ui/es/card/src/Card";
 import NDivider from "naive-ui/es/divider/src/Divider";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import VLazyImage from "v-lazy-image";
 import { getChampionInfoById } from "../../utils";
 
@@ -43,11 +44,14 @@ watch(
 
 <template>
   <div>
-    <section v-if="rotations && champsArray.length > 0">
+    <section>
       <n-h1>
         <n-text type="primary"> Free Champions </n-text>
       </n-h1>
-      <div class="flex flex-row flex-wrap gap-2 justify-center">
+      <div
+        v-if="rotations && champsArray.length > 0"
+        class="flex flex-row flex-wrap gap-2 justify-center"
+      >
         <router-link
           v-for="(champ, index) in rotations.freeChampionIds"
           :key="index"
@@ -75,14 +79,21 @@ watch(
           </n-card>
         </router-link>
       </div>
+      <section class="flex flex-row flex-wrap gap-2 justify-center" v-else>
+        <n-skeleton v-for="n in 16" :key="n" height="138px" width="98px" />
+      </section>
     </section>
+
     <n-divider></n-divider>
 
-    <section v-if="rotations && champsArray.length > 0">
+    <section>
       <n-h1>
         <n-text type="primary"> Free Champions For New Players </n-text>
       </n-h1>
-      <div class="flex flex-row flex-wrap gap-2 justify-center">
+      <div
+        v-if="rotations && champsArray.length > 0"
+        class="flex flex-row flex-wrap gap-2 justify-center"
+      >
         <router-link
           v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers"
           :key="index"
@@ -110,6 +121,9 @@ watch(
           </n-card>
         </router-link>
       </div>
+      <section class="flex flex-wrap flex-row gap-2 justify-center" v-else>
+        <n-skeleton v-for="n in 10" :key="n" height="138px" width="98px" />
+      </section>
     </section>
   </div>
 </template>

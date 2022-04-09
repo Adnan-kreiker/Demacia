@@ -7,6 +7,7 @@ import { NText } from "naive-ui/es/typography";
 import { NH2 } from "naive-ui/es/typography";
 import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
+import NDivider from "naive-ui/es/divider/src/Divider";
 import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
 import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
@@ -124,6 +125,7 @@ getSummonerInfo();
                 </n-space>
                 <summoners-info :summoner-info="summonerInfo"></summoners-info>
               </div>
+              <n-divider class="h-[450px]" vertical></n-divider>
               <template v-if="summonerRankedInfo">
                 <summoners-ranked-info
                   :summonerRankedInfo="summonerRankedInfo"
@@ -153,7 +155,7 @@ getSummonerInfo();
         <match-history-info :match-history="matchHistory"></match-history-info>
       </section>
       <section class="flex flex-col gap-3 justify-center items-center" v-else>
-        <n-skeleton v-for="i in 10" :key="i" height="256px" width="100%" />
+        <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
       </section>
     </div>
     <div v-if="error" class="flex flex-col justify-start items-center">
@@ -169,3 +171,9 @@ getSummonerInfo();
     </div>
   </div>
 </template>
+
+<style>
+.n-divider.n-divider--vertical {
+  height: 450px;
+}
+</style>

@@ -14,12 +14,12 @@ const summonerInfo = ref<Summoner | null>(props.summonerInfo);
   <div v-if="summonerInfo" class="flex flex-col justify-center">
     <img
       height="220"
-      width="220"
-      class="object-contain rounded-md hover:scale-110 transform transition-all duration-500"
+      width="240"
+      class="object-contain mx-auto rounded-md hover:scale-110 transform transition-all duration-500"
       :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${summonerInfo.profileIconId}.png`"
     />
 
-    <p class="text-4xl font-bold text-true-gray-200 mt-3 mr-4">
+    <p class="text-4xl font-bold text-center text-true-gray-200 mt-3">
       {{ summonerInfo.name }}
     </p>
     <n-tag class="mt-4" type="primary">

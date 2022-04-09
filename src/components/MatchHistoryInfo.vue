@@ -51,17 +51,17 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
 };
 </script>
 <template>
-  <section class="flex flex-col">
+  <section class="">
     <div
       v-for="match in matchHistory"
       :key="match.metadata.matchId"
       :class="
         summoner(match.info.participants).win ? 'border-green-500' : 'border-red-500'
       "
-      class="border-3 p-4 my-3"
+      class="border-3 p-4 my-3 max-w-4xl mx-auto"
     >
       <n-scrollbar x-scrollable>
-        <div class="min-w-[850px]">
+        <div class="min-w-[840px]">
           <section class="flex text-white flex-row w-full">
             <!-- Game Information -->
             <div class="flex flex-row flex-1 text-center">
@@ -529,5 +529,3 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
     </div>
   </section>
 </template>
-
-<style lang="scss" scoped></style>

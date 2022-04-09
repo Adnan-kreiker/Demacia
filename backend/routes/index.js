@@ -15,6 +15,7 @@ const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/'
 const championMasteryUrl = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
+const liveGameUrl = 'https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
 // Init cache
 const cache = apicache.middleware
 
@@ -78,7 +79,7 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) 
   }
 })
 
-router.get('/get-leaderboards-players/:rank/:queue', cache('200 minutes'), async (req, res) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req, res) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -132,6 +133,21 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
 })
 
 router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req, res) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { summonerId } = req.params
+  try {
+    const result = await needle('get', `${championMasteryUrl}${summonerId}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req, res) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })

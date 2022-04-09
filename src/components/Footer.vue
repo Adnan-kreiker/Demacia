@@ -26,7 +26,7 @@
           </svg>
         </a>
         <a
-          href="https://github.com/Adnan-kreiker"
+          href="https://www.linkedin.com/in/adnan-kreiker/"
           target="_blank"
           class="mr-9 text-white hover:text-green-500"
         >
@@ -47,7 +47,7 @@
           </svg>
         </a>
         <a
-          href="https://www.linkedin.com/in/adnan-kreiker/"
+          href="https://github.com/Adnan-kreiker"
           target="_blank"
           class="text-white hover:text-green-500"
         >
@@ -73,7 +73,7 @@
     <div class="text-center text-white p-4" style="background-color: rgba(0, 0, 0, 0.2)">
       © 2022 Copyright:
       <a class="text-white" href="https://tailwind-elements.com/"
-        >League of Legends Wiki</a
+        >League of Legends Wikis</a
       >
       <p class="text-sm">By Adnan Kreiker 🦄</p>
     </div>

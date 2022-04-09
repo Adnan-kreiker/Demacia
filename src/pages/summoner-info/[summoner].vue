@@ -5,21 +5,15 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NSpace from "naive-ui/es/space/src/Space";
 import { NText } from "naive-ui/es/typography";
 import { NH2 } from "naive-ui/es/typography";
-import {
-  Summoner,
-  MatchInfo,
-  SummonerRankedInfo,
-  QueueTypes,
-  ChampionMastery,
-} from "~/types";
+import NTabs from "naive-ui/es/tabs/src/Tabs";
+import NTabPane from "naive-ui/es/tabs/src/TabPane";
+import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
 import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
-import useChampions from "~/hooks/useChampions";
-
-const { champions } = useChampions();
+import ChampionMastery from "~/components/ChampionMastery.vue";
 
 const route = useRoute();
 
@@ -28,8 +22,6 @@ const summonerInfo = ref<null | Summoner>(null);
 const matchHistory = ref<MatchInfo[]>([]);
 
 const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
-
-const championsMastery = ref<null | ChampionMastery[]>(null);
 
 const summoner = route.params.summoner as string;
 
@@ -67,7 +59,6 @@ const getSummonerInfo = async () => {
     // Get Match History Info
     getMatchHistory();
     // Get Champions Mastery
-    getChampionsMastery();
 
     // Fetch Summoner's Ranked Info
     const rankedInfo = await fetch(
@@ -111,21 +102,6 @@ const getMatchHistory = async () => {
   }
 };
 
-const getChampionsMastery = async () => {
-  if (summonerInfo.value) {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${summonerInfo.value.id}`
-      );
-      const data = await res.json();
-      championsMastery.value = data;
-    } catch (err) {
-      error.value = true;
-      console.log(err);
-    }
-  }
-};
-
 getSummonerInfo();
 </script>
 
@@ -133,26 +109,35 @@ getSummonerInfo();
   <div>
     <div v-if="!error">
       <!-- Summoner's Information -->
-      <div
-        v-if="summonerInfo && summonerRankedInfo"
-        class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
-      >
-        <div>
-          <n-space
-            v-if="Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0"
-            :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }"
-          >
-            <n-select v-model:value="queueType" :options="queueOptions"></n-select>
-          </n-space>
-          <summoners-info :summoner-info="summonerInfo"></summoners-info>
-        </div>
-        <template v-if="summonerRankedInfo">
-          <summoners-ranked-info
-            :summonerRankedInfo="summonerRankedInfo"
-            :queue-type="queueType"
-          ></summoners-ranked-info>
-        </template>
+      <div v-if="summonerInfo && summonerRankedInfo">
+        <n-tabs animated size="large" type="card">
+          <n-tab-pane name="summonerInfo" tab="Summoner Info">
+            <div class="flex flex-wrap my-8 justify-evenly min-h-[382px]">
+              <div>
+                <n-space
+                  v-if="
+                    Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0
+                  "
+                  :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }"
+                >
+                  <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+                </n-space>
+                <summoners-info :summoner-info="summonerInfo"></summoners-info>
+              </div>
+              <template v-if="summonerRankedInfo">
+                <summoners-ranked-info
+                  :summonerRankedInfo="summonerRankedInfo"
+                  :queue-type="queueType"
+                ></summoners-ranked-info>
+              </template>
+            </div>
+          </n-tab-pane>
+          <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
+            <champion-mastery :summoner-info="summonerInfo"></champion-mastery>
+          </n-tab-pane>
+        </n-tabs>
       </div>
+
       <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">
         <n-space vertical class="w-[240px]">
           <n-skeleton height="330px" width="100%" />

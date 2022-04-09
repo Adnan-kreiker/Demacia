@@ -1,4 +1,5 @@
-import { Tier } from "~/types";
+import { Champion, Tier } from './../src/types';
+import { Ref } from 'vue';
 
 export function idToRunes (id: number) {
   switch (id) {
@@ -218,3 +219,13 @@ export const convertToArrayOfObjects = <T> (objectOfObjects: ObjectOfObjects<T>)
   return Object.entries(objectOfObjects).map((T) => ({ [T[0]]: T[1] }));
 }
 
+export const getChampionInfoById = (champsArray: Champion[], champId: number) => {
+  if (champsArray.length > 0) {
+    let champInfo =
+      champsArray.find((champ) => champ.key === champId.toString()
+      );
+    if (champInfo) {
+      return champInfo;
+    }
+  }
+};

@@ -1,0 +1,78 @@
+<script setup lang="ts">
+import useChampions from "~/hooks/useChampions";
+import { Champion, ChampionMastery, Summoner } from "~/types";
+import { getChampionInfoById } from "../../utils";
+import VLazyImage from "v-lazy-image";
+
+const props = defineProps<{
+  summonerInfo: Summoner;
+}>();
+
+const { champions } = useChampions();
+
+const error = ref(false);
+
+const championsMastery = ref<null | ChampionMastery[]>(null);
+
+let champsArray = shallowRef<Champion[]>([]);
+
+watch(
+  champions,
+  () => {
+    if (champions.value) {
+      champsArray.value = Object.values(toRaw(champions.value));
+    }
+  },
+  {
+    immediate: true,
+  }
+);
+
+const getChampionsMastery = async () => {
+  if (props.summonerInfo) {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${props.summonerInfo.id}`
+      );
+      const data = await res.json();
+      championsMastery.value = data;
+    } catch (err) {
+      error.value = true;
+      console.log(err);
+    }
+  }
+};
+
+getChampionsMastery();
+</script>
+
+<template>
+  <div
+    class="flex flex-wrap flex-row justify-center"
+    v-if="champsArray && championsMastery"
+  >
+    <div
+      class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row"
+      v-for="champ in championsMastery"
+      :key="champ.championId"
+    >
+      <v-lazy-image
+        height="h-[130px] object-cover"
+        :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+          getChampionInfoById(champsArray, champ.championId)?.image.full
+        }`"
+      />
+      <section class="text-gray-300 text-md py-1 px-3">
+        <p class="text-lg font-bold">
+          {{ getChampionInfoById(champsArray, champ.championId)?.name }}
+        </p>
+        <p>Points: {{ champ.championPoints }}</p>
+        <p>Level: {{ champ.championLevel }}</p>
+        <p>Tokens earned: {{ champ.tokensEarned }}</p>
+        <p>Chest: {{ champ.chestGranted }}</p>
+      </section>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>

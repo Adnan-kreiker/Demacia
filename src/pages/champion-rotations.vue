@@ -5,9 +5,10 @@ import { NH1 } from "naive-ui/es/typography";
 import NCard from "naive-ui/es/card/src/Card";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import VLazyImage from "v-lazy-image";
+import { getChampionInfoById } from "../../utils";
 
 const rotations = ref<FreeChampionRotations | null>(null);
-const champions = ref<ChampionObject | null>(null);
+const champions = shallowRef<ChampionObject | null>(null);
 
 async function getChampions() {
   const champs = await fetch(`${import.meta.env.VITE_URL}/api/get-champions`);
@@ -25,7 +26,7 @@ getChampions();
 
 getChampionRotations();
 
-let champsArray = ref<Champion[]>([]);
+let champsArray = shallowRef<Champion[]>([]);
 
 watch(
   champions,
@@ -38,15 +39,6 @@ watch(
     immediate: true,
   }
 );
-
-const getChampionInfoById = (champId: number) => {
-  if (champsArray.value.length > 0) {
-    let res = champsArray.value.find((champ) => champ.key === champId.toString());
-    if (res) {
-      return { image: res.image.full, name: res.id };
-    }
-  }
-};
 </script>
 
 <template>
@@ -59,7 +51,7 @@ const getChampionInfoById = (champId: number) => {
         <router-link
           v-for="(champ, index) in rotations.freeChampionIds"
           :key="index"
-          :to="`/champion-info/${getChampionInfoById(champ)?.name}`"
+          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`"
           class="hover:cursor-pointer"
         >
           <n-card
@@ -71,12 +63,14 @@ const getChampionInfoById = (champId: number) => {
               <v-lazy-image
                 height="98"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
-                  getChampionInfoById(champ)?.image
+                  getChampionInfoById(champsArray, champ)?.image.full
                 }`"
               />
             </template>
             <h1 class="text-center py-2">
-              {{ getChampionInfoById(champ)?.image.replace(".png", "") }}
+              {{
+                getChampionInfoById(champsArray, champ)?.image.full.replace(".png", "")
+              }}
             </h1>
           </n-card>
         </router-link>
@@ -92,7 +86,7 @@ const getChampionInfoById = (champId: number) => {
         <router-link
           v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers"
           :key="index"
-          :to="`/champion-info/${getChampionInfoById(champ)?.name}`"
+          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`"
           class="hover:cursor-pointer"
         >
           <n-card
@@ -104,12 +98,14 @@ const getChampionInfoById = (champId: number) => {
               <v-lazy-image
                 height="98"
                 :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
-                  getChampionInfoById(champ)?.image
+                  getChampionInfoById(champsArray, champ)?.image.full
                 }`"
               />
             </template>
             <h1 class="text-center py-2">
-              {{ getChampionInfoById(champ)?.image?.replace(".png", "") }}
+              {{
+                getChampionInfoById(champsArray, champ)?.image?.full.replace(".png", "")
+              }}
             </h1>
           </n-card>
         </router-link>

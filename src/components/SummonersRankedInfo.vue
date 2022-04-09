@@ -158,5 +158,13 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
       >
     </div>
   </div>
-  <template v-else></template>
+  <div
+    v-if="
+      Array.isArray(props.summonerRankedInfo) && props.summonerRankedInfo.length === 0
+    "
+    class="border-light-300 border-1"
+  >
+    <img src="/unranked.png" alt="" />
+    <p class="text-center text-gray-300font-bold text-xl">Unranked</p>
+  </div>
 </template>

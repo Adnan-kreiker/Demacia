@@ -17,6 +17,9 @@ import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
+import useChampions from "~/hooks/useChampions";
+
+const { champions } = useChampions();
 
 const route = useRoute();
 
@@ -131,7 +134,7 @@ getSummonerInfo();
     <div v-if="!error">
       <!-- Summoner's Information -->
       <div
-        v-if="summonerInfo && (summonerRankedInfo === [] || summonerRankedInfo)"
+        v-if="summonerInfo && summonerRankedInfo"
         class="flex flex-wrap mb-8 justify-evenly min-h-[382px]"
       >
         <div>
@@ -143,9 +146,7 @@ getSummonerInfo();
           </n-space>
           <summoners-info :summoner-info="summonerInfo"></summoners-info>
         </div>
-        <template
-          v-if="Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0"
-        >
+        <template v-if="summonerRankedInfo">
           <summoners-ranked-info
             :summonerRankedInfo="summonerRankedInfo"
             :queue-type="queueType"

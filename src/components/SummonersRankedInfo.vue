@@ -164,7 +164,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
     "
     class="border-light-300 border-1"
   >
-    <img src="/unranked.png" alt="" />
+    <img height="280" width="280" src="/unranked.png" alt="" />
     <p class="text-center text-gray-300font-bold text-xl">Unranked</p>
   </div>
 </template>

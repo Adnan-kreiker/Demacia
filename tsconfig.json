@@ -5,6 +5,7 @@
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "WebWorker"],
     "strict": true,
+    "jsx": "preserve",
     "sourceMap": true,
     "esModuleInterop": true,
     "incremental": false,

@@ -3,6 +3,7 @@ import useChampions from "~/hooks/useChampions";
 import { Champion, ChampionMastery, Summoner } from "~/types";
 import { getChampionInfoById } from "../../utils";
 import VLazyImage from "v-lazy-image";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 
 const props = defineProps<{
   summonerInfo: Summoner;
@@ -49,7 +50,7 @@ getChampionsMastery();
 <template>
   <div
     class="flex flex-wrap flex-row justify-center"
-    v-if="champsArray && championsMastery"
+    v-if="champsArray.length && championsMastery"
   >
     <div
       class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row"
@@ -69,10 +70,11 @@ getChampionsMastery();
         <p>Points: {{ champ.championPoints }}</p>
         <p>Level: {{ champ.championLevel }}</p>
         <p>Tokens earned: {{ champ.tokensEarned }}</p>
-        <p>Chest: {{ champ.chestGranted }}</p>
+        <p>Chest: {{ champ.chestGranted ? "Obtained" : "Available" }}</p>
       </section>
     </div>
   </div>
+  <section class="flex flex-row flex-wrap gap-3 justify-center" v-else>
+    <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />
+  </section>
 </template>
-
-<style scoped></style>

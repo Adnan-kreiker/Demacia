@@ -112,7 +112,7 @@ getSummonerInfo();
       <div v-if="summonerInfo && summonerRankedInfo">
         <n-tabs animated size="large" type="card">
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
-            <div class="flex flex-wrap my-8 justify-evenly min-h-[382px]">
+            <div class="flex flex-wrap my-8 justify-evenly min-h-[340px]">
               <div>
                 <n-space
                   v-if="

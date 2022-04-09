@@ -1,5 +1,4 @@
 import { Champion, Tier } from './../src/types';
-import { Ref } from 'vue';
 
 export function idToRunes (id: number) {
   switch (id) {

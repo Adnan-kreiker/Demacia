@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NResult from "naive-ui/es/result/src/Result";
+// import NResult from "naive-ui/es/result/src/Result";
 import NButton from "naive-ui/es/button/src/Button";
 import { ErrorStatusCode } from "~/types";
 const props = defineProps<{
@@ -14,15 +14,15 @@ const navigateHome = () => router.push("/");
 </script>
 
 <template>
-  <main class="px-4 py-10 text-center text-teal-700 dark:text-gray-200">
-    <n-result
-      :status="props.status"
-      :title="props.title"
-      :description="props.description"
-    >
-      <template #footer>
-        <n-button @click="navigateHome" ghost>Return Home</n-button>
-      </template>
-    </n-result>
+  <main class="px-4 py-4 text-center dark:text-gray-200">
+    <div class="flex flex-row items-center">
+      <img height="200" class="h-50" src="/notFound.png" alt="" />
+      <div class="my-3 text-xl">
+        <p>{{ props.status }}</p>
+        <p>{{ props.title }}</p>
+        <p>{{ props.description }}</p>
+        <n-button class="mt-4" @click="navigateHome" ghost>Return Home</n-button>
+      </div>
+    </div>
   </main>
 </template>

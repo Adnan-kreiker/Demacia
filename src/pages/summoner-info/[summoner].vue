@@ -3,8 +3,6 @@ import { useRoute } from "vue-router";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import NSelect from "naive-ui/es/select/src/Select";
 import NSpace from "naive-ui/es/space/src/Space";
-import { NText } from "naive-ui/es/typography";
-import { NH2 } from "naive-ui/es/typography";
 import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
 import NDivider from "naive-ui/es/divider/src/Divider";
@@ -164,9 +162,6 @@ getSummonerInfo();
         :description="'Make sure you have to correct name'"
         :title="'Summoner Not Found!'"
       ></error-component>
-      <n-h2 class="mt-0">
-        <n-text type="primary">Try Again</n-text>
-      </n-h2>
       <search-for-summoner></search-for-summoner>
     </div>
   </div>

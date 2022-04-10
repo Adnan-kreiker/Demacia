@@ -4,12 +4,30 @@ import SearchForSummoner from "~/components/SearchForSummoner.vue";
 
 <template>
   <div class="flex flex-col justify-center h-full items-center">
-    <img height="221" width="400" class="max-w-sm my-4" src="/bg.webp" alt="" />
+    <img height="280" class="object-cover yummi-img h-70 my-4" src="/yummi.png" alt="" />
     <search-for-summoner></search-for-summoner>
   </div>
 </template>
 
-<style></style>
+<style scoped>
+.yummi-img {
+  overflow: hidden;
+  transform: translatey(0px);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+</style>
 
 <route lang="yaml">
 meta:

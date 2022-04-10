@@ -7,12 +7,13 @@ import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
-import { unicodeToUtf8, replaceUnderscoreWithSpace } from "../../../utils";
+import { unicodeToUtf8 } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
 import ChampionMastery from "~/components/ChampionMastery.vue";
+import LiveGame from "~/components/LiveGame.vue";
 
 const route = useRoute();
 
@@ -24,18 +25,20 @@ const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
 const summoner = route.params.summoner as string;
 
-const rankedType = computed(() => {
-  if (summonerRankedInfo.value && Array.isArray(summonerRankedInfo.value)) {
-    return summonerRankedInfo.value?.map((info) => {
-      return {
-        label: replaceUnderscoreWithSpace(info.queueType),
-        value: info.queueType,
-      };
-    });
-  }
-});
-
-const queueOptions = rankedType;
+const queueOptions = [
+  {
+    label: "RANKED FLEX SR",
+    value: "RANKED_FLEX_SR",
+  },
+  {
+    label: "RANKED SOLO 5x5",
+    value: "RANKED_SOLO_5x5",
+  },
+  {
+    label: "RANKED TFT PAIRS",
+    value: "RANKED_TFT_PAIRS",
+  },
+];
 
 const queueType = ref<QueueTypes>("RANKED_SOLO_5x5");
 
@@ -67,7 +70,7 @@ const getSummonerInfo = async () => {
     const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;
     summonerRankedInfo.value = rankedData;
   } catch (err) {
-    console.error(err, "dsadsd");
+    console.error(err);
     error.value = true;
   }
 };
@@ -82,7 +85,6 @@ const getMatchHistory = async () => {
       );
 
       const matchesId = await matches.json();
-      // const matchHistoryData: MatchInfo[] = [];
 
       // Fetch Summoner's Matches
       await Promise.allSettled(
@@ -111,8 +113,14 @@ getSummonerInfo();
       <div v-if="summonerInfo && summonerRankedInfo">
         <n-tabs animated size="large" type="card">
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
-            <div class="flex flex-wrap my-8 justify-evenly min-h-[340px]">
+            <div
+              class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]"
+            >
               <div>
+                <summoners-info :summoner-info="summonerInfo"></summoners-info>
+              </div>
+              <n-divider class="h-[450px] divider-class" vertical></n-divider>
+              <div v-if="summonerRankedInfo">
                 <n-space
                   v-if="
                     Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0
@@ -121,19 +129,25 @@ getSummonerInfo();
                 >
                   <n-select v-model:value="queueType" :options="queueOptions"></n-select>
                 </n-space>
-                <summoners-info :summoner-info="summonerInfo"></summoners-info>
-              </div>
-              <n-divider class="h-[450px]" vertical></n-divider>
-              <template v-if="summonerRankedInfo">
                 <summoners-ranked-info
                   :summonerRankedInfo="summonerRankedInfo"
                   :queue-type="queueType"
                 ></summoners-ranked-info>
-              </template>
+              </div>
             </div>
+            <!-- Match History  -->
+            <section v-if="matchHistory && matchHistory?.length > 0">
+              <match-history-info :match-history="matchHistory"></match-history-info>
+            </section>
+            <section class="flex flex-col gap-3 justify-center items-center" v-else>
+              <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
+            </section>
           </n-tab-pane>
           <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
             <champion-mastery :summoner-info="summonerInfo"></champion-mastery>
+          </n-tab-pane>
+          <n-tab-pane name="liveGame" tab="Live Game">
+            <live-game :summoner-id="summonerInfo.id"></live-game>
           </n-tab-pane>
         </n-tabs>
       </div>
@@ -148,13 +162,6 @@ getSummonerInfo();
           <n-skeleton height="330px" width="50%" />
         </div>
       </div>
-      <!-- Match History  -->
-      <section v-if="matchHistory && matchHistory?.length > 0">
-        <match-history-info :match-history="matchHistory"></match-history-info>
-      </section>
-      <section class="flex flex-col gap-3 justify-center items-center" v-else>
-        <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
-      </section>
     </div>
     <div v-if="error" class="flex flex-col justify-start items-center">
       <error-component
@@ -170,5 +177,12 @@ getSummonerInfo();
 <style>
 .n-divider.n-divider--vertical {
   height: 450px;
+  margin-inline: 20px;
+  @media (max-width: 626px) {
+    display: none;
+  }
+}
+
+.divider-class {
 }
 </style>

@@ -1,11 +1,36 @@
 {
-  "championId": 86,
-  "championLevel": 7,
-  "championPoints": 1254845,
-  "lastPlayTime": 1616055292000,
-  "championPointsSinceLastLevel": 1233245,
-  "championPointsUntilNextLevel": 0,
-  "chestGranted": false,
-  "tokensEarned": 0,
-  "summonerId": "23FcOh0iZNiUD-SkkPp5cxxazzYnQhlaD04mLTIfBjUxSpQ"
-},
+  "gameId": 5817177102,
+  "mapId": 11,
+  "gameMode": "CLASSIC",
+  "gameType": "MATCHED_GAME",
+  "gameQueueConfigId": 420,
+  "participants": [
+      {
+          "teamId": 100,
+          "spell1Id": 4,
+          "spell2Id": 14,
+          "championId": 43,
+          "profileIconId": 5227,
+          "summonerName": "TraYtoN PXXL",
+          "bot": false,
+          "summonerId": "imVpyhL2SaevKSH4TKX-_kLJFF0MSqw0YIBFQsveKflRsWU",
+          "gameCustomizationObjects": [],
+          "perks": {
+              "perkIds": [
+                  8229,
+                  8226,
+                  8234,
+                  8232,
+                  8304,
+                  8345,
+                  5008,
+                  5008,
+                  5002
+              ],
+              "perkStyle": 8200,
+              "perkSubStyle": 8300
+          }
+      }
+  ]
+}
+  

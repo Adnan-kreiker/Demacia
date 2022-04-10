@@ -8,10 +8,10 @@ import {
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import SummonersTable from "~/components/SummonersTable.vue";
 import NSelect from "naive-ui/es/select/src/Select";
-import NSpace from "naive-ui/es/space/src/Space";
 import NPagination from "naive-ui/es/pagination/src/Pagination";
 import { NText } from "naive-ui/es/typography";
 import { NH3 } from "naive-ui/es/typography";
+
 const queueOptions = [
   {
     label: "RANKED SOLO 5x5",
@@ -39,6 +39,7 @@ const rankOptions = [
 ];
 
 const queue = ref("RANKED_SOLO_5x5");
+
 const rank = ref<Ranks>("challengerleagues");
 
 const challengerPlayers = ref<ChallengerPlayer[] | []>([]);
@@ -94,13 +95,23 @@ const updatePage = (pageNumber: number) => {
 
 <template>
   <div class="min-h-screen">
-    <n-space>
+    <div class="flex flex-row flex-wrap mb-4">
       <n-h3 class="mx-4" prefix="bar" align-text type="success">
         <n-text type="success"> Choose queue type </n-text>
       </n-h3>
-      <n-select class="min-w-56 pr-4" v-model:value="queue" :options="queueOptions" />
-      <n-select class="min-w-56" v-model:value="rank" :options="rankOptions" />
-    </n-space>
+      <div class="flex flex-row flex-grow">
+        <n-select
+          class="pr-4 min-w-36 max-w-[170px] my-1"
+          v-model:value="queue"
+          :options="queueOptions"
+        />
+        <n-select
+          class="max-w-[120px] min-w-20 my-1"
+          v-model:value="rank"
+          :options="rankOptions"
+        />
+      </div>
+    </div>
     <summoners-table
       :rank="rank"
       v-if="challengerPlayers && challengerPlayers.length > 0"

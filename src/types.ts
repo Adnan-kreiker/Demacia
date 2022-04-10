@@ -377,7 +377,7 @@ export interface FreeChampionRotations {
 }
 
 
-export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_FLEX_TT'
+export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_TFT_PAIRS'
 
 export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues'
 
@@ -465,4 +465,33 @@ export interface ChampionMastery {
   chestGranted: boolean;
   tokensEarned: number;
   summonerId: string;
+}
+
+
+export interface LiveGame {
+  gameId: number;
+  mapId: number;
+  gameMode: string;
+  gameType: string;
+  gameQueueConfigId: number;
+  participants: Participant[];
+}
+
+export interface Participant {
+  teamId: number;
+  spell1Id: number;
+  spell2Id: number;
+  championId: number;
+  profileIconId: number;
+  summonerName: string;
+  bot: boolean;
+  summonerId: string;
+  gameCustomizationObjects: any[];
+  perks: Perks;
+}
+
+export interface Perks {
+  perkIds: number[];
+  perkStyle: number;
+  perkSubStyle: number;
 }

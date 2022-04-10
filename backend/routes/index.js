@@ -153,7 +153,7 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req, res) =>
   })
   const { summonerId } = req.params
   try {
-    const result = await needle('get', `${championMasteryUrl}${summonerId}?${params}`)
+    const result = await needle('get', `${liveGameUrl}${summonerId}?${params}`)
     const data = result.body
     res.status(200).json(data)
   }

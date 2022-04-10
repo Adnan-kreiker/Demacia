@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LiveGame, Participant } from "~/types";
+import ErrorComponent from "~/components/ErrorComponent.vue";
 
 const props = defineProps<{
   summonerId: string;
@@ -14,7 +15,13 @@ const getActiveGame = async (): Promise<void> => {
     const response = await fetch(
       `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}`
     );
+
     const data = await response.json();
+
+    if (data.status && data.status.status_code == 404) {
+      error.value = true;
+      return;
+    }
     gameData.value = data;
   } catch (err) {
     console.error(err);
@@ -33,7 +40,6 @@ getActiveGame();
 </script>
 
 <template>
-  <!-- <div>{{ gameData }}</div> -->
   <div v-if="!error">
     <p>{{ gameData?.gameMode }}</p>
     <section v-if="gameData">
@@ -49,5 +55,11 @@ getActiveGame();
       </div>
     </section>
   </div>
-  <div v-if="error">You Got an Error</div>
+  <div v-if="error" class="flex flex-row justify-center">
+    <error-component
+      status="404"
+      title="Game not found!"
+      description="Summoner is not in an active game!"
+    ></error-component>
+  </div>
 </template>

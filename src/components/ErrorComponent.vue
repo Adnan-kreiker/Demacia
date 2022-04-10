@@ -2,11 +2,18 @@
 // import NResult from "naive-ui/es/result/src/Result";
 import NButton from "naive-ui/es/button/src/Button";
 import { ErrorStatusCode } from "~/types";
-const props = defineProps<{
+
+interface Props {
   status: ErrorStatusCode;
   title: string;
+  showReturnHomeButton: boolean;
   description: string;
-}>();
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  status: "404",
+  showReturnHomeButton: true,
+});
 
 const router = useRouter();
 
@@ -21,7 +28,9 @@ const navigateHome = () => router.push("/");
         <p>{{ props.status }}</p>
         <p>{{ props.title }}</p>
         <p>{{ props.description }}</p>
-        <n-button class="mt-4" @click="navigateHome" ghost>Return Home</n-button>
+        <n-button v-if="showReturnHomeButton" class="mt-4" @click="navigateHome" ghost
+          >Return Home</n-button
+        >
       </div>
     </div>
   </main>

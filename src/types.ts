@@ -475,6 +475,10 @@ export interface LiveGame {
   gameType: string;
   gameQueueConfigId: number;
   participants: Participant[];
+  status?: {
+    status_code: number
+    message: string
+  }
 }
 
 export interface Participant {

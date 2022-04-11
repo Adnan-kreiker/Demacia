@@ -474,14 +474,14 @@ export interface LiveGame {
   gameMode: string;
   gameType: string;
   gameQueueConfigId: number;
-  participants: Participant[];
+  participants: ParticipantLiveGame[];
   status?: {
     status_code: number
     message: string
   }
 }
 
-export interface Participant {
+export interface ParticipantLiveGame {
   teamId: number;
   spell1Id: number;
   spell2Id: number;

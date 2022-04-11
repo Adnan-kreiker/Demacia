@@ -1,6 +1,18 @@
 <script setup lang="ts">
-import { LiveGame, Participant } from "~/types";
+import { LiveGame, ParticipantLiveGame, Summoner, SummonerRankedInfo } from "~/types";
+import { getChampionInfoById, unicodeToUtf8 } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
+import useChampions from "~/hooks/useChampions";
+
+const { championsArray } = useChampions();
+
+const summonersNames = ref<string[]>([]);
+
+const summonersData = ref<null | Summoner[]>();
+
+const summonersIds = ref<string[]>([]);
+
+const summonersRankedData = ref<SummonerRankedInfo[]>([]);
 
 const props = defineProps<{
   summonerId: string;
@@ -9,6 +21,8 @@ const props = defineProps<{
 const gameData = ref<null | LiveGame>(null);
 
 const error = ref(false);
+
+const initialSummonersData: Summoner[] = [];
 
 const getActiveGame = async (): Promise<void> => {
   try {
@@ -23,43 +37,90 @@ const getActiveGame = async (): Promise<void> => {
       return;
     }
     gameData.value = data;
+    summonersNames.value = data.participants.map(
+      (participant: ParticipantLiveGame) => participant.summonerName
+    );
+
+    await getSummonersInfoByName();
+
+    if (summonersData.value) {
+      summonersIds.value = summonersData.value?.map((summoner: Summoner) => summoner.id);
+    }
+    summonersData.value = initialSummonersData;
+    await getSummonersRankedInfoById();
   } catch (err) {
     console.error(err);
     error.value = true;
   }
 };
 
-const team = (teamId: 100 | 200): Participant[] => {
+const getSummonersInfoByName = async () => {
+  await Promise.allSettled(
+    summonersNames.value.map(async (summoner) => {
+      const res = await fetch(
+        `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}`
+      );
+      // return (await res.json()) as Summoner;
+      const summonerData = (await res.json()) as Summoner;
+      initialSummonersData.push(summonerData);
+    })
+  );
+  summonersData.value = initialSummonersData;
+  // return res;
+};
+
+const getSummonersRankedInfoById = async () => {
+  const initialRankedData: SummonerRankedInfo[] = [];
+  await Promise.allSettled(
+    summonersIds.value.map(async (summonerId) => {
+      const rankedInfo = await fetch(
+        `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}`
+      );
+      const data = (await rankedInfo.json()) as SummonerRankedInfo;
+      initialRankedData.push(data);
+    })
+  );
+  summonersRankedData.value = initialRankedData;
+};
+
+const team = (teamId: 100 | 200): ParticipantLiveGame[] => {
   if (gameData.value) {
     return gameData.value.participants.filter(
       (participant) => participant.teamId === teamId
     );
   } else return [];
 };
+
 getActiveGame();
 </script>
 
 <template>
-  <div v-if="!error">
+  <div v-if="!error && gameData">
     <p>{{ gameData?.gameMode }}</p>
-    <section v-if="gameData">
-      <div v-for="participant in team(100)" :key="participant.summonerId">
+    <section class="flex mt-6 flex-row gap-5">
+      <div
+        class="w-[300px] bg-dark-50 bg-opacity-40"
+        v-for="participant in team(100)"
+        :key="participant.summonerId"
+      >
+        <p class="text-lg text-center">{{ participant.summonerName }}</p>
         <img
-          height="220"
-          width="240"
-          class="object-contain mx-auto rounded-md hover:scale-110 transform transition-all duration-500"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${participant.profileIconId}.png`"
+          class="mx-auto"
+          height="100"
+          width="100"
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+            getChampionInfoById(championsArray, participant.championId)?.image.full
+          }
+          `"
         />
-        <p>{{ participant.summonerName }}</p>
-        <p>{{ participant.teamPosition }}</p>
+        <p>{{ participant }}</p>
       </div>
     </section>
   </div>
   <div v-if="error" class="flex flex-row justify-center">
-    <error-component
-      status="404"
-      title="Game not found!"
+    <ErrorComponent
+      title="No Game Found!"
       description="Summoner is not in an active game!"
-    ></error-component>
+    />
   </div>
 </template>

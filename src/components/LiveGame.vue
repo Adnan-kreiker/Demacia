@@ -59,6 +59,20 @@ const getActiveGame = async (): Promise<void> => {
   }
 };
 
+const teams: {
+  id: number;
+  value: 100 | 200;
+}[] = [
+  {
+    id: 1,
+    value: 100,
+  },
+  {
+    id: 2,
+    value: 200,
+  },
+];
+
 const getSummonersInfoByName = async () => {
   await Promise.allSettled(
     summonersNames.value.map(async (summoner) => {
@@ -104,14 +118,11 @@ getActiveGame();
       </n-text>
     </n-h1>
     <LiveGameTeamInfo
+      v-for="team in teams"
       :game-data="gameData"
+      :key="team.id"
       :summoners-ranked-data="summonersRankedData"
-      :team="100"
-    ></LiveGameTeamInfo>
-    <LiveGameTeamInfo
-      :game-data="gameData"
-      :summoners-ranked-data="summonersRankedData"
-      :team="200"
+      :team="team.value"
     ></LiveGameTeamInfo>
   </div>
   <div v-if="error" class="flex flex-row justify-center">

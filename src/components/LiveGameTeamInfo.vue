@@ -7,7 +7,13 @@ import {
   SummonerRankedInfo,
   SummonerHasRankedInfo,
 } from "~/types";
-import { getChampionInfoById, capitalize, queueNameMapper } from "../../utils";
+import {
+  getChampionInfoById,
+  capitalize,
+  queueNameMapper,
+  idToRunes,
+  mapSpellKeyToName,
+} from "../../utils";
 import useChampions from "~/hooks/useChampions";
 
 const { championsArray } = useChampions();
@@ -57,9 +63,12 @@ const summonersRankedInfo = (
 };
 </script>
 <template>
-  <section class="flex mt-6 flex-row overflow-x-scroll gap-5">
+  <section
+    v-if="props.gameData && championsArray"
+    class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5"
+  >
     <div
-      class="w-[300px] bg-dark-50 bg-opacity-40 p-2"
+      class="w-[300px] min-w-[250px] bg-dark-50 bg-opacity-40 p-2"
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
     >
@@ -75,6 +84,32 @@ const summonersRankedInfo = (
         }
           `"
       />
+      <div class="flex flex-row justify-center">
+        <img
+          height="38"
+          width="42"
+          class="object-cover -mt-1"
+          :src="`https://ddragon.canisback.com/img/${idToRunes(
+            participant.perks.perkIds[0]
+          )}`"
+        />
+        <img
+          height="32"
+          width="32"
+          class="w-8 h-8 mr-2 ml-1"
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+            participant.spell1Id.toString()
+          )}.png`"
+        />
+        <img
+          height="32"
+          width="32"
+          class="w-8 h-8"
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+            participant.spell2Id.toString()
+          )}.png`"
+        />
+      </div>
       <section v-if="summonersRankedInfo(participant.summonerId)">
         <div v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo">
           <section class="">
@@ -135,5 +170,3 @@ const summonersRankedInfo = (
     </div>
   </section>
 </template>
-
-<style scoped></style>

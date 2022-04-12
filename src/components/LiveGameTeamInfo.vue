@@ -15,6 +15,7 @@ import {
   mapSpellKeyToName,
 } from "../../utils";
 import useChampions from "~/hooks/useChampions";
+import NTag from "naive-ui/es/tag/src/Tag";
 
 const { championsArray } = useChampions();
 
@@ -68,7 +69,7 @@ const summonersRankedInfo = (
     class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5"
   >
     <div
-      class="w-[300px] min-w-[250px] bg-dark-50 bg-opacity-40 p-2"
+      class="w-[250px] min-w-[250px] bg-dark-50 bg-opacity-40 p-2"
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
     >
@@ -166,6 +167,26 @@ const summonersRankedInfo = (
             </div>
           </section>
         </div>
+        <section class="flex flex-row flex-wrap gap-3 justify-center">
+          <n-tag
+            type="error"
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.hotStreak"
+          >
+            Hot Streak
+          </n-tag>
+          <n-tag
+            type="warning"
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.veteran"
+          >
+            Veteran
+          </n-tag>
+          <n-tag
+            type="default"
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.freshBlood"
+          >
+            Fresh Blood
+          </n-tag>
+        </section>
       </section>
     </div>
   </section>

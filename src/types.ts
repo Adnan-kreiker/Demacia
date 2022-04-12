@@ -343,7 +343,9 @@ export interface Error {
 }
 export type SummonerRankedInfo = SummonerHasRankedInfo | [] | Error
 
-export type SummonerHasRankedInfo = [RankedData, RankedDataTFT, RankedData]
+// export type SummonerHasRankedInfo = [RankedData, RankedDataTFT, RankedData]
+
+export type SummonerHasRankedInfo = (RankedData | RankedDataTFT)[]
 
 export type SummonerRankedInfoInterface = { summonerId: string, rankedInfo: SummonerRankedInfo }[]
 export interface RankedDataTFT {

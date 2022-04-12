@@ -4,9 +4,9 @@ import NButton from "naive-ui/es/button/src/Button";
 import { ErrorStatusCode } from "~/types";
 
 interface Props {
-  status: ErrorStatusCode;
+  status?: ErrorStatusCode;
   title: string;
-  showReturnHomeButton: boolean;
+  showReturnHomeButton?: boolean;
   description: string;
 }
 

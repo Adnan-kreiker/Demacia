@@ -233,3 +233,13 @@ export const getChampionInfoById = (champsArray: Champion[], champId: number) =>
 export const formatNumber = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+
+export const queueNameMapper = (queue: string) => {
+  switch (queue) {
+    case "RANKED_SOLO_5x5":
+      return "Solo Queue"
+    case "RANKED_FLEX_SR":
+      return "Ranked Flex"
+  }
+}

@@ -73,7 +73,10 @@ const summonersRankedInfo = (
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
     >
-      <p class="text-lg text-center pb-2 border-b border-green-400">
+      <p
+        class="text-lg text-center pb-2 border-b-2"
+        :class="props.team === 100 ? 'border-blue-400' : 'border-red-500'"
+      >
         {{ participant.summonerName }}
       </p>
       <img

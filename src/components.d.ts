@@ -21,6 +21,7 @@ declare module 'vue' {
     Footer: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Footer.vue')['default']
     HomeIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/HomeIcon.vue')['default']
     LiveGame: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/LiveGame.vue')['default']
+    LiveGameTeamInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/LiveGameTeamInfo.vue')['default']
     MagicIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/MagicIcon.vue')['default']
     MatchHistory: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MatchHistory.vue')['default']
     MatchHistoryInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MatchHistoryInfo.vue')['default']

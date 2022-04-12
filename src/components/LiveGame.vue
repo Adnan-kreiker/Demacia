@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { LiveGame, ParticipantLiveGame, Summoner, SummonerRankedInfo } from "~/types";
+import {
+  LiveGame,
+  ParticipantLiveGame,
+  RankedData,
+  Summoner,
+  SummonerHasRankedInfo,
+  SummonerRankedInfo,
+  SummonerRankedInfoInterface,
+} from "~/types";
 import { getChampionInfoById, unicodeToUtf8 } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import useChampions from "~/hooks/useChampions";
@@ -12,7 +20,7 @@ const summonersData = ref<null | Summoner[]>();
 
 const summonersIds = ref<string[]>([]);
 
-const summonersRankedData = ref<SummonerRankedInfo[]>([]);
+const summonersRankedData = ref<SummonerRankedInfoInterface | null>(null);
 
 const props = defineProps<{
   summonerId: string;
@@ -70,14 +78,17 @@ const getSummonersInfoByName = async () => {
 };
 
 const getSummonersRankedInfoById = async () => {
-  const initialRankedData: SummonerRankedInfo[] = [];
+  const initialRankedData: SummonerRankedInfoInterface = [];
   await Promise.allSettled(
     summonersIds.value.map(async (summonerId) => {
       const rankedInfo = await fetch(
         `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}`
       );
       const data = (await rankedInfo.json()) as SummonerRankedInfo;
-      initialRankedData.push(data);
+      initialRankedData.push({
+        summonerId,
+        rankedInfo: data,
+      });
     })
   );
   summonersRankedData.value = initialRankedData;
@@ -91,13 +102,37 @@ const team = (teamId: 100 | 200): ParticipantLiveGame[] => {
   } else return [];
 };
 
+const isRankedInfo = (value: any): value is SummonerHasRankedInfo => {
+  return (
+    value &&
+    value.hasOwnProperty("leaguePoints") &&
+    value.hasOwnProperty("wins") &&
+    value.hasOwnProperty("losses")
+  );
+};
+
+const summonersRankedInfo = (summonerId: string): RankedData[] | undefined => {
+  if (Array.isArray(summonersRankedData.value) && summonersRankedData.value.length > 0) {
+    const rankedInfo = summonersRankedData.value.find(
+      (summoner) => summoner.summonerId === summonerId
+    );
+    if (rankedInfo && isRankedInfo(rankedInfo.rankedInfo)) {
+      const filtered = rankedInfo.rankedInfo.filter((info) => {
+        return info.queueType !== "RANKED_TFT_PAIRS";
+      });
+      return filtered;
+    }
+  }
+  // return [];
+};
+
 getActiveGame();
 </script>
 
 <template>
   <div v-if="!error && gameData">
     <p>{{ gameData?.gameMode }}</p>
-    <section class="flex mt-6 flex-row gap-5">
+    <section class="flex mt-6 flex-row overflow-x-scroll gap-5">
       <div
         class="w-[300px] bg-dark-50 bg-opacity-40"
         v-for="participant in team(100)"
@@ -113,6 +148,11 @@ getActiveGame();
           }
           `"
         />
+        <section v-if="summonersRankedInfo(participant.summonerId)">
+          <p v-for="rankedInfo in summonersRankedInfo(participant.summonerId)">
+            {{ rankedInfo }}
+          </p>
+        </section>
         <p>{{ participant }}</p>
       </div>
     </section>
@@ -120,7 +160,9 @@ getActiveGame();
   <div v-if="error" class="flex flex-row justify-center">
     <ErrorComponent
       title="No Game Found!"
+      status="404"
       description="Summoner is not in an active game!"
+      :show-return-home-button="false"
     />
   </div>
 </template>

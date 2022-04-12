@@ -335,12 +335,17 @@ export interface MatchInfo {
 }
 
 export interface Error {
+
   status: {
     message: string
     status_code: number
   }
 }
-export type SummonerRankedInfo = [RankedData, RankedDataTFT, RankedData] | [] | Error
+export type SummonerRankedInfo = SummonerHasRankedInfo | [] | Error
+
+export type SummonerHasRankedInfo = [RankedData, RankedDataTFT, RankedData]
+
+export type SummonerRankedInfoInterface = { summonerId: string, rankedInfo: SummonerRankedInfo }[]
 export interface RankedDataTFT {
   freshBlood: boolean
   hotStreak: boolean

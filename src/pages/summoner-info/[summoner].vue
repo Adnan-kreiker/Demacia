@@ -152,15 +152,26 @@ getSummonerInfo();
         </n-tabs>
       </div>
 
-      <div v-else class="w-full mb-8 flex gap-3 justify-center flex-row">
-        <n-space vertical class="w-[240px]">
-          <n-skeleton height="330px" width="100%" />
-          <n-skeleton height="30px" width="100%" />
-        </n-space>
-        <div class="w-1/2 flex gap-3 flex-row">
-          <n-skeleton height="330px" width="50%" />
-          <n-skeleton height="330px" width="50%" />
-        </div>
+      <div class="" v-else>
+        <section class="flex flex-row gap-2 mb-8">
+          <n-skeleton height="42px" width="143px" :sharp="false" />
+          <n-skeleton height="42px" width="174px" :sharp="false" />
+          <n-skeleton height="42px" width="107px" :sharp="false" />
+        </section>
+        <section class="w-full mx-8 flex-grow mb-8 flex gap-3 justify-center flex-row">
+          <n-space vertical class="w-1/3 mx-auto">
+            <n-skeleton class="mx-auto" height="240px" width="240px" :sharp="false" />
+            <n-skeleton class="mx-auto" height="40px" width="50%" :sharp="false" />
+            <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
+            <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
+          </n-space>
+          <div class="w-2/3">
+            <n-skeleton class="mx-auto" height="451px" width="80%" />
+          </div>
+        </section>
+        <section class="flex flex-col gap-3 justify-center items-center">
+          <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
+        </section>
       </div>
     </div>
     <div v-if="error" class="flex flex-col justify-start items-center">

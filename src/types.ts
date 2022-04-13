@@ -482,11 +482,27 @@ export interface LiveGame {
   gameType: string;
   gameQueueConfigId: number;
   participants: ParticipantLiveGame[];
+  observers: Observers;
+  platformId: string;
+  bannedChampions: BannedChampion[];
+  gameStartTime: number;
+  gameLength: number;
   status?: {
     status_code: number
     message: string
   }
 }
+
+export interface BannedChampion {
+  championId: number;
+  teamId: number;
+  pickTurn: number;
+}
+
+export interface Observers {
+  encryptionKey: string;
+}
+
 
 export interface ParticipantLiveGame {
   teamId: number;

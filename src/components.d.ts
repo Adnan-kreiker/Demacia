@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AttackIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/AttackIcon.vue')['default']
+    BannedChampions: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/BannedChampions.vue')['default']
     BrainIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/BrainIcon.vue')['default']
     CarbonDicomOverlay: typeof import('~icons/carbon/dicom-overlay')['default']
     CarbonLanguage: typeof import('~icons/carbon/language')['default']

@@ -66,7 +66,7 @@ watch(
             <template #cover>
               <v-lazy-image
                 height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
                   getChampionInfoById(champsArray, champ)?.image.full
                 }`"
               />
@@ -108,7 +108,7 @@ watch(
             <template #cover>
               <v-lazy-image
                 height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
                   getChampionInfoById(champsArray, champ)?.image.full
                 }`"
               />

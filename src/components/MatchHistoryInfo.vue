@@ -85,7 +85,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   <img
                     height="70"
                     width="70"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
                       summoner(match.info.participants).championName
                     )}.png`"
                   />
@@ -102,7 +102,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     height="32"
                     width="32"
                     class="w-8 h-8"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
                       summoner(match.info.participants).summoner1Id.toString()
                     )}.png`"
                   />
@@ -110,7 +110,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     height="32"
                     width="32"
                     class="w-8 h-8"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
                       summoner(match.info.participants).summoner2Id.toString()
                     )}.png`"
                   />
@@ -145,7 +145,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item0 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item0
                     }.png`"
                   />
@@ -153,7 +153,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item1 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item1
                     }.png`"
                   />
@@ -161,7 +161,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item2 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item2
                     }.png`"
                   />
@@ -169,7 +169,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item3 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item3
                     }.png`"
                   />
@@ -177,7 +177,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item4 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item4
                     }.png`"
                   />
@@ -185,7 +185,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item5 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item5
                     }.png`"
                   />
@@ -193,7 +193,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     v-if="summoner(match.info.participants).item6 !== 0"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
                       summoner(match.info.participants).item6
                     }.png`"
                   />
@@ -251,7 +251,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     class="rounded-3xl mr-2"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
                       participant.championName
                     )}.png`"
                   />
@@ -286,7 +286,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     class="rounded-3xl mr-2"
                     height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
                       participant.championName
                     )}.png`"
                   />
@@ -345,7 +345,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                           <img
                             height="40"
                             width="40"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
                               participant.championName
                             )}.png`"
                           />
@@ -378,43 +378,43 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                             v-if="participant.item0 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item0}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item0}.png`"
                           />
                           <img
                             v-if="participant.item1 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item1}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item1}.png`"
                           />
                           <img
                             v-if="participant.item2 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item2}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item2}.png`"
                           />
                           <img
                             v-if="participant.item3 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item3}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item3}.png`"
                           />
                           <img
                             v-if="participant.item4 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item4}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item4}.png`"
                           />
                           <img
                             v-if="participant.item5 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item5}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item5}.png`"
                           />
                           <img
                             v-if="participant.item6 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item6}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item6}.png`"
                           />
                         </div>
                       </th>
@@ -444,7 +444,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                           <img
                             height="40"
                             width="40"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${toLowerCase(
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
                               participant.championName
                             )}.png`"
                           />
@@ -477,43 +477,43 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                             v-if="participant.item0 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item0}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item0}.png`"
                           />
                           <img
                             v-if="participant.item1 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item1}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item1}.png`"
                           />
                           <img
                             v-if="participant.item2 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item2}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item2}.png`"
                           />
                           <img
                             v-if="participant.item3 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item3}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item3}.png`"
                           />
                           <img
                             v-if="participant.item4 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item4}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item4}.png`"
                           />
                           <img
                             v-if="participant.item5 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item5}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item5}.png`"
                           />
                           <img
                             v-if="participant.item6 !== 0"
                             height="25"
                             width="25"
-                            :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/${participant.item6}.png`"
+                            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item6}.png`"
                           />
                         </div>
                       </th>

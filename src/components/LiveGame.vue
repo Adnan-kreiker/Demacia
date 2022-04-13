@@ -6,10 +6,14 @@ import {
   SummonerRankedInfo,
   SummonerRankedInfoInterface,
 } from "~/types";
-import { unicodeToUtf8 } from "../../utils";
+import { unicodeToUtf8, capitalize } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
+import BannedChampions from "~/components/BannedChampions.vue";
 import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
-import { NH1, NText } from "naive-ui";
+import { NH1, NH2, NText } from "naive-ui";
+import useChampions from "~/hooks/useChampions";
+
+const { championsArray } = useChampions();
 
 const summonersNames = ref<string[]>([]);
 
@@ -42,6 +46,7 @@ const getActiveGame = async (): Promise<void> => {
       return;
     }
     gameData.value = data;
+
     summonersNames.value = data.participants.map(
       (participant: ParticipantLiveGame) => participant.summonerName
     );
@@ -110,13 +115,15 @@ getActiveGame();
   <div v-if="!error && gameData">
     <n-h1 prefix="bar">
       <n-text type="primary">
-        {{
-          gameData?.gameMode.substring(0, 1) +
-          gameData?.gameMode.substring(1).toLowerCase()
-        }}
+        {{ capitalize(gameData?.gameMode) }}
         Game
       </n-text>
     </n-h1>
+    <banned-champions
+      v-if="championsArray && gameData?.bannedChampions"
+      :champions-array="championsArray"
+      :banned-champions="gameData.bannedChampions"
+    ></banned-champions>
     <LiveGameTeamInfo
       v-for="team in teams"
       :game-data="gameData"

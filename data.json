@@ -1,36 +1,59 @@
-{
-  "gameId": 5817177102,
-  "mapId": 11,
-  "gameMode": "CLASSIC",
-  "gameType": "MATCHED_GAME",
-  "gameQueueConfigId": 420,
-  "participants": [
-      {
-          "teamId": 100,
-          "spell1Id": 4,
-          "spell2Id": 14,
-          "championId": 43,
-          "profileIconId": 5227,
-          "summonerName": "TraYtoN PXXL",
-          "bot": false,
-          "summonerId": "imVpyhL2SaevKSH4TKX-_kLJFF0MSqw0YIBFQsveKflRsWU",
-          "gameCustomizationObjects": [],
-          "perks": {
-              "perkIds": [
-                  8229,
-                  8226,
-                  8234,
-                  8232,
-                  8304,
-                  8345,
-                  5008,
-                  5008,
-                  5002
-              ],
-              "perkStyle": 8200,
-              "perkSubStyle": 8300
-          }
-      }
-  ]
+{"observers": {
+    "encryptionKey": "1iXE6j5WzXMmGQ0mJqhSy6k0vCoT9rbO"
+},
+"platformId": "EUW1",
+"bannedChampions": [
+    {
+        "championId": 245,
+        "teamId": 100,
+        "pickTurn": 1
+    },
+    {
+        "championId": 111,
+        "teamId": 100,
+        "pickTurn": 2
+    },
+    {
+        "championId": 222,
+        "teamId": 100,
+        "pickTurn": 3
+    },
+    {
+        "championId": 350,
+        "teamId": 100,
+        "pickTurn": 4
+    },
+    {
+        "championId": 221,
+        "teamId": 100,
+        "pickTurn": 5
+    },
+    {
+        "championId": 555,
+        "teamId": 200,
+        "pickTurn": 6
+    },
+    {
+        "championId": 103,
+        "teamId": 200,
+        "pickTurn": 7
+    },
+    {
+        "championId": 7,
+        "teamId": 200,
+        "pickTurn": 8
+    },
+    {
+        "championId": 64,
+        "teamId": 200,
+        "pickTurn": 9
+    },
+    {
+        "championId": 114,
+        "teamId": 200,
+        "pickTurn": 10
+    }
+],
+"gameStartTime": 1649546425235,
+"gameLength": 388
 }
-  

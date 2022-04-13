@@ -61,7 +61,7 @@ getChampionsMastery();
       <div class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row">
         <v-lazy-image
           height="h-[130px] object-cover"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
             getChampionInfoById(champsArray, champ.championId)?.image.full
           }`"
         />

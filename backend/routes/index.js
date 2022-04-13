@@ -11,9 +11,9 @@ const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puu
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
-const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/data/en_US/champion.json'
+const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion.json'
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
-const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.6.1/img/item/'
+const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/'
 const championMasteryUrl = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
 const liveGameUrl = 'https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
 // Init cache

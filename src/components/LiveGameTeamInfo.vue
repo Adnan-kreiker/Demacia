@@ -83,7 +83,7 @@ const summonersRankedInfo = (
         class="mx-auto mt-2 mb-2"
         height="100"
         width="100"
-        :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${
+        :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
           getChampionInfoById(championsArray, participant.championId)?.image.full
         }
           `"
@@ -101,7 +101,7 @@ const summonersRankedInfo = (
           height="32"
           width="32"
           class="w-8 h-8 mr-2 ml-1"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
             participant.spell1Id.toString()
           )}.png`"
         />
@@ -109,7 +109,7 @@ const summonersRankedInfo = (
           height="32"
           width="32"
           class="w-8 h-8"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/spell/${mapSpellKeyToName(
+          :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
             participant.spell2Id.toString()
           )}.png`"
         />

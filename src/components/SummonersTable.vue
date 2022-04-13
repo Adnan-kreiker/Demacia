@@ -136,7 +136,7 @@ const columns: DataTableColumns = [
           default: () => {
             return [
               h("img", {
-                src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
+                src: `https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${iconId}.png`,
                 height: "40",
                 width: "40",
                 style: {
@@ -166,7 +166,7 @@ const columns: DataTableColumns = [
       //   },
       //   [
       //     h("img", {
-      //       src: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`,
+      //       src: `https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${iconId}.png`,
       //       height: "40",
       //       width: "40",
       //       style: {
@@ -259,7 +259,7 @@ const columns: DataTableColumns = [
               <img
                 class="h-10 w-10 rounded-full my-auto"
                 v-if="player.profileIconId"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${player.profileIconId}.png`"
+                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${player.profileIconId}.png`"
               />
               <img class="h-10 w-10" v-else src="/defaultPic.png" alt="" />
               <span class="ml-4">

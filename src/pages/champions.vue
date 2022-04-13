@@ -43,7 +43,7 @@ getChampions();
           <template #cover>
             <v-lazy-image
               height="98"
-              :src="`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${champ.id}.png`"
+              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${champ.id}.png`"
             />
             <div class="bottom-10.5 absolute right-0">
               <p

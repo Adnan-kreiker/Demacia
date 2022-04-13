@@ -177,8 +177,9 @@ getSummonerInfo();
     <div v-if="error" class="flex flex-col justify-start items-center">
       <error-component
         :status="'404'"
+        :imageUrl="'/garenNotFound.png'"
         :description="'Make sure you have to correct name'"
-        :title="'Summoner Not Found!'"
+        :title="'Summoner Not Found! &#128373'"
       ></error-component>
       <search-for-summoner></search-for-summoner>
     </div>

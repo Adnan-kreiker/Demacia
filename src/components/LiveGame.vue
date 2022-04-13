@@ -10,7 +10,7 @@ import { unicodeToUtf8, capitalize } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import BannedChampions from "~/components/BannedChampions.vue";
 import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
-import { NH1, NH2, NText } from "naive-ui";
+import { NH1, NText } from "naive-ui";
 import useChampions from "~/hooks/useChampions";
 
 const { championsArray } = useChampions();
@@ -115,22 +115,25 @@ getActiveGame();
   <div v-if="!error && gameData">
     <n-h1 prefix="bar">
       <n-text type="primary">
-        {{ capitalize(gameData?.gameMode) }}
+        {{ capitalize(gameData.gameMode) }}
         Game
       </n-text>
     </n-h1>
     <banned-champions
-      v-if="championsArray && gameData?.bannedChampions"
+      v-if="championsArray"
       :champions-array="championsArray"
       :banned-champions="gameData.bannedChampions"
     ></banned-champions>
-    <LiveGameTeamInfo
-      v-for="team in teams"
-      :game-data="gameData"
-      :key="team.id"
-      :summoners-ranked-data="summonersRankedData"
-      :team="team.value"
-    ></LiveGameTeamInfo>
+    <div v-if="championsArray">
+      <LiveGameTeamInfo
+        v-for="team in teams"
+        :champions-array="championsArray"
+        :game-data="gameData"
+        :key="team.id"
+        :summoners-ranked-data="summonersRankedData"
+        :team="team.value"
+      ></LiveGameTeamInfo>
+    </div>
   </div>
   <div v-if="error" class="flex flex-row justify-center">
     <ErrorComponent

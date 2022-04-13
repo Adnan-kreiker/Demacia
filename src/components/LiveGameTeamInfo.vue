@@ -6,6 +6,7 @@ import {
   RankedData,
   SummonerRankedInfo,
   SummonerHasRankedInfo,
+  Champion,
 } from "~/types";
 import {
   getChampionInfoById,
@@ -14,15 +15,13 @@ import {
   idToRunes,
   mapSpellKeyToName,
 } from "../../utils";
-import useChampions from "~/hooks/useChampions";
 import NTag from "naive-ui/es/tag/src/Tag";
-
-const { championsArray } = useChampions();
 
 const props = defineProps<{
   gameData: null | LiveGame;
   summonersRankedData: null | SummonerRankedInfoInterface;
   team: 100 | 200;
+  championsArray: Champion[];
 }>();
 
 const team = (teamId: 100 | 200): ParticipantLiveGame[] => {
@@ -65,7 +64,7 @@ const summonersRankedInfo = (
 </script>
 <template>
   <section
-    v-if="props.gameData && championsArray"
+    v-if="props.gameData"
     class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5"
   >
     <div
@@ -73,18 +72,20 @@ const summonersRankedInfo = (
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
     >
-      <p
-        class="text-lg text-center pb-2 border-b-2"
-        :class="props.team === 100 ? 'border-blue-400' : 'border-red-500'"
-      >
-        {{ participant.summonerName }}
-      </p>
+      <router-link :to="`/summoner-info/${participant.summonerName}`">
+        <p
+          class="text-lg text-center pb-2 border-b-2"
+          :class="props.team === 100 ? 'border-blue-400' : 'border-red-500'"
+        >
+          {{ participant.summonerName }}
+        </p>
+      </router-link>
       <img
         class="mx-auto mt-2 mb-2"
         height="100"
         width="100"
         :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
-          getChampionInfoById(championsArray, participant.championId)?.image.full
+          getChampionInfoById(props.championsArray, participant.championId)?.image.full
         }
           `"
       />

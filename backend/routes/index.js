@@ -20,7 +20,7 @@ const liveGameUrl = 'https://euw1.api.riotgames.com/lol/spectator/v4/active-game
 const cache = apicache.middleware
 
 
-router.get('/get-summoner/:name', cache('2 minutes'), async (req, res) => {
+router.get('/get-summoner/:name', async (req, res) => {
   try {
     const summonerName = req.params.name
 

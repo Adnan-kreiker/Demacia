@@ -188,7 +188,7 @@ const summonersRankedInfo = (
             type="default"
             v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.freshBlood"
           >
-            Fresh Blood
+            Waking Up
           </n-tag>
         </section>
       </section>

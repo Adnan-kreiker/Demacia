@@ -15,6 +15,7 @@ import {
   toLowerCase,
   mapSpellKeyToName,
   idToRunes,
+  secondsToHrsMinsSecs,
 } from "../../utils";
 
 const props = defineProps<{
@@ -67,7 +68,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             <div class="flex flex-row flex-1 text-center">
               <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
                 <h2>{{ match.info.gameMode }}</h2>
-                <h2>{{ formatTime(match.info.gameDuration) }}</h2>
+                <p>{{ secondsToHrsMinsSecs(match.info.gameDuration) }}</p>
                 <n-tag
                   class="my-2"
                   :type="summoner(match.info.participants).win ? 'success' : 'error'"
@@ -77,7 +78,6 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   }}</span>
                 </n-tag>
                 <h2></h2>
-                <p>{{ unixToDate(match.info.gameStartTimestamp) }}</p>
               </div>
               <!-- Summoner Image and Name -->
               <div class="px-4 relative flex flex-col text-center justify-center">

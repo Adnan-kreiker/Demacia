@@ -243,3 +243,11 @@ export const queueNameMapper = (queue: string) => {
       return "Ranked Flex"
   }
 }
+
+// seconds to hrs:mins:secs
+export const secondsToHrsMinsSecs = (seconds: number) => {
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${hrs}:${mins}:${secs}`;
+}

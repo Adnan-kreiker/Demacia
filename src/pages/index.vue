@@ -4,7 +4,13 @@ import SearchForSummoner from "~/components/SearchForSummoner.vue";
 
 <template>
   <div class="flex flex-col justify-center h-full items-center">
-    <img height="280" class="object-cover yummi-img h-70 my-4" src="/yummi.png" alt="" />
+    <img
+      fetchpriority="high"
+      height="280"
+      class="object-cover yummi-img h-70 my-4"
+      src="/yummi.png"
+      alt="Yummi hovering"
+    />
     <search-for-summoner></search-for-summoner>
   </div>
 </template>
@@ -21,9 +27,11 @@ import SearchForSummoner from "~/components/SearchForSummoner.vue";
   0% {
     transform: translatey(0px);
   }
+
   50% {
     transform: translatey(-20px);
   }
+
   100% {
     transform: translatey(0px);
   }

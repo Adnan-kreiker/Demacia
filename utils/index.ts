@@ -153,7 +153,7 @@ export const unixToDate = (unix: number) => {
   const hour = date.getHours();
   const min = date.getMinutes();
   const sec = date.getSeconds();
-  const time = `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+  const time = `${year}-${month}-${day} ${hour <= 9 ? '0' + hour : hour}:${min <= 9 ? '0' + min : min}:${sec <= 9 ? '0' + sec : sec}`;
   return time;
 };
 
@@ -251,5 +251,6 @@ export const secondsToHrsMinsSecs = (seconds: number) => {
   const hrs = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
   const secs = Math.floor(seconds % 60);
-  return `${hrs}:${mins}:${secs}`;
+  return `${hrs <= 9 ? '0' + hrs : hrs}:${mins <= 9 ? '0' + mins : mins}:${secs <= 9 ? '0' + secs : secs}`;
 }
+

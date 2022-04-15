@@ -24,7 +24,13 @@ const navigateHome = () => router.push("/");
 <template>
   <main class="px-4 py-4 text-center dark:text-gray-200">
     <div class="flex flex-row flex-wraps items-center">
-      <img height="300" class="h-[300px]" :src="props.imageUrl" alt="" />
+      <img
+        height="300"
+        width="300"
+        class="h-[300px] object-cover"
+        :src="props.imageUrl"
+        alt=""
+      />
       <div class="my-3 text-xl">
         <p>{{ props.status }}</p>
         <p>{{ props.title }}</p>

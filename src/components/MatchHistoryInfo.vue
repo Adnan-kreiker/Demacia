@@ -12,6 +12,7 @@ import {
   getSummonerName,
   formatTime,
   toLowerCase,
+  unixToDate,
   mapSpellKeyToName,
   idToRunes,
   secondsToHrsMinsSecs,
@@ -66,11 +67,14 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             <!-- Game Information -->
             <div class="flex flex-row flex-1 text-center">
               <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
-                <h2>{{ match.info.gameMode }}</h2>
-                <h2 v-if="match.info.gameEndTimestamp">
-                  {{ secondsToHrsMinsSecs(match.info.gameDuration) }}
-                </h2>
-                <h2 v-else>{{ formatTime(match.info.gameDuration) }}</h2>
+                <p class="border-blue-400 text-blue-300 my-1 border p-1 rounded-sm">
+                  {{ unixToDate(match.info.gameCreation) }}
+                </p>
+                <p class="my-1">{{ match.info.gameMode }}</p>
+                <p class="my-1" v-if="match.info.gameEndTimestamp">
+                  ⏳ {{ secondsToHrsMinsSecs(match.info.gameDuration) }}
+                </p>
+                <h2 v-else>⏳ {{ formatTime(match.info.gameDuration) }}</h2>
                 <n-tag
                   class="my-2"
                   :type="summoner(match.info.participants).win ? 'success' : 'error'"

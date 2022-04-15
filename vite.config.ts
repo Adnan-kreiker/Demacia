@@ -211,6 +211,7 @@ export default ({ mode }: { mode: string }) => {
       include: [
         // 'vue',
         'vue-router',
+        'naive-ui',
         '@vueuse/core',
         '@vueuse/head',
       ],

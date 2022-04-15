@@ -16,6 +16,7 @@ import {
   mapSpellKeyToName,
 } from "../../utils";
 import NTag from "naive-ui/es/tag/src/Tag";
+import { NDivider } from "naive-ui";
 
 const props = defineProps<{
   gameData: null | LiveGame;
@@ -82,12 +83,12 @@ const summonersRankedInfo = (
       </router-link>
       <img
         class="mx-auto mt-2 mb-2"
-        height="100"
-        width="100"
+        height="80"
+        width="80"
         :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
           getChampionInfoById(props.championsArray, participant.championId)?.image.full
         }
-          `"
+      `"
       />
       <div class="flex flex-row justify-center">
         <img
@@ -115,6 +116,7 @@ const summonersRankedInfo = (
           )}.png`"
         />
       </div>
+      <n-divider></n-divider>
       <section v-if="summonersRankedInfo(participant.summonerId)">
         <div v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo">
           <section class="">

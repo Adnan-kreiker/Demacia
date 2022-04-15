@@ -7,6 +7,8 @@ dist-ssr
 node_modules
 .idea/
 *.log
-.env
+*.env
 .env.production
-.stats.html
+.stats
+.eslintrc
+.eslintignore

@@ -22,6 +22,12 @@ export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
 
   return defineConfig({
+    test: {
+      api: {
+        port: 3002
+      },
+      exclude: ['**/node_modules/**', '**/vite.config.js', '**/vite.config.ts', '**/vite.config.js.map', '**/vite.config.ts.map']
+    },
     // build: {
     //   rollupOptions: {
     //     plugins: [analyze()],
@@ -203,13 +209,14 @@ export default ({ mode }: { mode: string }) => {
 
     optimizeDeps: {
       include: [
-        'vue',
+        // 'vue',
         'vue-router',
         '@vueuse/core',
         '@vueuse/head',
       ],
       exclude: [
         'vue-demi',
+        'vue'
       ],
     },
 

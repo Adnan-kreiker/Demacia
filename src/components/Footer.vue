@@ -3,7 +3,7 @@
 <template>
   <footer class="text-center text-white" style="background-color: #2f2f2f">
     <div class="pt-9">
-      <div class="flex justify-center mb-9">
+      <div data-testid="svg-container" class="flex justify-center mb-9">
         <a
           href="https://twitter.com/AdnanKreiker"
           target="_blank"
@@ -47,6 +47,7 @@
           </svg>
         </a>
         <a
+          data-testid="github-link"
           href="https://github.com/Adnan-kreiker"
           target="_blank"
           class="text-white hover:text-green-500"
@@ -72,10 +73,10 @@
 
     <div class="text-center text-white p-4" style="background-color: rgba(0, 0, 0, 0.2)">
       © 2022 Copyright:
-      <a class="text-white" href="https://tailwind-elements.com/"
+      <a class="text-white" href="https://adnan-kreiker.netlify.app/"
         >League of Legends Wikis</a
       >
-      <p class="text-sm">By Adnan Kreiker 🦄</p>
+      <p data-testid="made-by" class="text-sm">By Adnan Kreiker 🦄</p>
     </div>
   </footer>
 </template>

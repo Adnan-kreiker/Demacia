@@ -6,8 +6,7 @@ import NSwitch from "naive-ui/es/switch/src/Switch";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
 import NDivider from "naive-ui/es/divider/src/Divider";
-import NScrollbar from "naive-ui/es/scrollbar/src/ScrollBar";
-// import NTable from "naive-ui/es/table/src/Table";
+// import NScrollbar from "naive-ui/es/scrollbar/src/ScrollBar";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
 import {
@@ -62,7 +61,8 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
       "
       class="border-3 p-4 my-3 max-w-4xl mx-auto"
     >
-      <n-scrollbar x-scrollable>
+      <!-- <n-scrollbar x-scrollable> -->
+      <div class="overflow-x-scroll scroll-div">
         <div class="min-w-[840px]">
           <section class="flex text-white flex-row w-full">
             <!-- Game Information -->
@@ -237,10 +237,12 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                 </div>
               </div>
             </div>
+            <!-- Red and Blue Teams -->
             <match-history-team
               :participants="match.info.participants"
             ></match-history-team>
           </section>
+          <!-- More Info Switch and DataTables -->
           <n-space class="mx-3" vertical>
             <n-switch v-model:value="match.show" :rail-style="switchStyle">
               <template #checked>
@@ -276,7 +278,16 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
             </keep-alive>
           </n-space>
         </div>
-      </n-scrollbar>
+      </div>
+      <!-- </n-scrollbar> -->
     </div>
   </section>
 </template>
+
+<style scoped>
+.scroll-div {
+  @media (min-width: 917px) {
+    overflow-x: hidden !important;
+  }
+}
+</style>

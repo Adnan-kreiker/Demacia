@@ -522,3 +522,9 @@ export interface Perks {
   perkStyle: number;
   perkSubStyle: number;
 }
+
+
+export interface TeamType {
+  id: number,
+  val: 100 | 200
+}

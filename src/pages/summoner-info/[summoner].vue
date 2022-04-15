@@ -79,8 +79,7 @@ const getMatchHistory = async () => {
   if (summonerInfo.value) {
     try {
       const matches = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-matches/${
-          summonerInfo.value.puuid
+        `${import.meta.env.VITE_URL}/api/get-matches/${summonerInfo.value.puuid
         }?start=0&count=10`
       );
 
@@ -113,26 +112,19 @@ getSummonerInfo();
       <div v-if="summonerInfo && summonerRankedInfo">
         <n-tabs animated size="large" type="card">
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
-            <div
-              class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]"
-            >
+            <div class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]">
               <div>
                 <summoners-info :summoner-info="summonerInfo"></summoners-info>
               </div>
               <n-divider class="h-[450px] divider-class" vertical></n-divider>
               <div v-if="summonerRankedInfo">
-                <n-space
-                  v-if="
-                    Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0
-                  "
-                  :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }"
-                >
+                <n-space v-if="
+                  Array.isArray(summonerRankedInfo) && summonerRankedInfo.length > 0
+                " :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }">
                   <n-select v-model:value="queueType" :options="queueOptions"></n-select>
                 </n-space>
-                <summoners-ranked-info
-                  :summonerRankedInfo="summonerRankedInfo"
-                  :queue-type="queueType"
-                ></summoners-ranked-info>
+                <summoners-ranked-info :summonerRankedInfo="summonerRankedInfo" :queue-type="queueType">
+                </summoners-ranked-info>
               </div>
             </div>
             <!-- Match History  -->
@@ -175,26 +167,20 @@ getSummonerInfo();
       </div>
     </div>
     <div v-if="error" class="flex flex-col justify-start items-center">
-      <error-component
-        :status="'404'"
-        :imageUrl="'/garenNotFound.png'"
-        :description="'Make sure you have to correct name'"
-        :title="'Summoner Not Found! &#128373'"
-      ></error-component>
+      <error-component :status="'404'" :imageUrl="'/garenNotFound.png'"
+        :description="'Make sure you have to correct name'" :title="'Summoner Not Found! &#128373'"></error-component>
       <search-for-summoner></search-for-summoner>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .n-divider.n-divider--vertical {
   height: 450px;
   margin-inline: 20px;
+
   @media (max-width: 626px) {
     display: none;
   }
-}
-
-.divider-class {
 }
 </style>

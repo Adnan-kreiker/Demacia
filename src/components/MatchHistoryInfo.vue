@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { CSSProperties } from "vue";
 import { MatchInfo, Participant } from "~/types";
 import NSpace from "naive-ui/es/space/src/Space";
-import NSwitch from "naive-ui/es/switch/src/Switch";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
+import ChevronTop from "./Icons/ChevronTop.vue";
 import {
   getSummonerName,
   formatTime,
@@ -26,6 +25,12 @@ const route = useRoute();
 
 const matchHistory = ref<MatchInfo[]>(props.matchHistory);
 
+const backgroundColorCalc = (val: boolean): string => {
+  return val
+    ? "rgba(16, 185, 129, var(--tw-border-opacity))"
+    : "rgba(239, 68, 68, var(--tw-border-opacity))";
+};
+
 const summoner = (participants: Participant[]): Participant => {
   const participant = participants.filter(
     (participant) =>
@@ -33,22 +38,6 @@ const summoner = (participants: Participant[]): Participant => {
       getSummonerName(route.params.summoner.toString())
   );
   return participant[0];
-};
-
-const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
-  const style: CSSProperties = {};
-  if (checked) {
-    style.background = "#565656";
-    if (focused) {
-      style.boxShadow = "0 0 0 2px #d0305040";
-    }
-  } else {
-    style.background = "#565656";
-    if (focused) {
-      style.boxShadow = "0 0 0 2px #2080f040";
-    }
-  }
-  return style;
 };
 </script>
 <template>
@@ -59,7 +48,7 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
       :class="
         summoner(match.info.participants).win ? 'border-green-500' : 'border-red-500'
       "
-      class="border-3 p-4 my-3 max-w-4xl mx-auto"
+      class="border-3 p-3 my-3 max-w-4xl mx-auto"
     >
       <div class="overflow-x-scroll scroll-div">
         <div class="min-w-[840px]">
@@ -83,64 +72,94 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                     summoner(match.info.participants).win ? "Victory" : "Defeat"
                   }}</span>
                 </n-tag>
-                <h2></h2>
+                <button
+                  class="mx-auto border flex flex-row border-gray-600 px-2 py-1"
+                  @click="match.show = !match.show"
+                >
+                  <span class="mr-2 text-gray-300">More Info</span>
+                  <chevron-top
+                    :class="{ 'rotate-[360deg]': match.show }"
+                    class="h-5 w-5 text-gray-300 transform rotate-180 ease-linear duration-300"
+                  />
+                </button>
               </div>
+              <n-divider
+                :style="{
+                  backgroundColor: backgroundColorCalc(
+                    summoner(match.info.participants).win
+                  ),
+                }"
+                vertical
+              ></n-divider>
+
               <!-- Summoner Image and Name -->
-              <div class="px-4 relative flex flex-col text-center justify-center">
-                <img
-                  height="70"
-                  width="70"
-                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
-                    summoner(match.info.participants).championName
-                  )}.png`"
-                />
-                <p class="text-center">
-                  {{ summoner(match.info.participants).championName }}
-                </p>
-                <br />
-              </div>
-              <!-- Summoner's spells -->
-              <div class="flex flex-col justify-center items-center">
-                <div class="flex gap-1">
+              <div>
+                <div class="px-4 relative flex flex-col text-center justify-center">
                   <img
-                    height="32"
-                    width="32"
-                    class="w-8 h-8"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
-                      summoner(match.info.participants).summoner1Id.toString()
+                    height="70"
+                    width="70"
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
+                      summoner(match.info.participants).championName
                     )}.png`"
                   />
-                  <img
-                    height="32"
-                    width="32"
-                    class="w-8 h-8"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
-                      summoner(match.info.participants).summoner2Id.toString()
-                    )}.png`"
-                  />
+                  <p class="text-center">
+                    {{ summoner(match.info.participants).championName }}
+                  </p>
+                  <br />
                 </div>
-                <div class="flex">
-                  <img
-                    height="40"
-                    width="40"
-                    :src="`https://ddragon.canisback.com/img/${idToRunes(
-                      summoner(match.info.participants).perks.styles[0].selections[0].perk
-                    )}`"
-                  />
-                  <img
-                    height="30"
-                    width="30"
-                    class="mx-auto object-contain"
-                    :src="`https://ddragon.canisback.com/img/${idToRunes(
-                      summoner(match.info.participants).perks.styles[1].selections[1].perk
-                    )}`"
-                  />
+                <!-- Summoner's spells -->
+                <div class="flex flex-col justify-center items-center">
+                  <div class="flex gap-1">
+                    <img
+                      height="32"
+                      width="32"
+                      class="w-8 h-8"
+                      :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
+                        summoner(match.info.participants).summoner1Id.toString()
+                      )}.png`"
+                    />
+                    <img
+                      height="32"
+                      width="32"
+                      class="w-8 h-8"
+                      :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
+                        summoner(match.info.participants).summoner2Id.toString()
+                      )}.png`"
+                    />
+                  </div>
+                  <div class="flex justify-center items-center">
+                    <img
+                      height="40"
+                      width="40"
+                      :src="`https://ddragon.canisback.com/img/${idToRunes(
+                        summoner(match.info.participants).perks.styles[0].selections[0]
+                          .perk
+                      )}`"
+                    />
+                    <img
+                      height="30"
+                      width="30"
+                      class="mx-auto object-contain"
+                      :src="`https://ddragon.canisback.com/img/${idToRunes(
+                        summoner(match.info.participants).perks.styles[1].selections[1]
+                          .perk
+                      )}`"
+                    />
+                  </div>
                 </div>
               </div>
+              <n-divider
+                :style="{
+                  backgroundColor: backgroundColorCalc(
+                    summoner(match.info.participants).win
+                  ),
+                }"
+                vertical
+              ></n-divider>
               <!-- Summoner Stats -->
-              <div class="flex flex-col justify-center flex-1 items-center">
-                <span class="my-2">
-                  {{ summoner(match.info.participants).kills }} /
+              <div class="flex flex-col text-gray-100 justify-center flex-1 items-center">
+                <span class="my-2"
+                  >KDA: {{ summoner(match.info.participants).kills }} /
                   {{ summoner(match.info.participants).deaths }} /
                   {{ summoner(match.info.participants).assists }}
                 </span>
@@ -203,19 +222,22 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   />
                 </div>
                 <div class="my-2">
-                  <span class="py-1"
-                    >CS :{{ summoner(match.info.participants).totalMinionsKilled }}</span
-                  >
-                  <br />
-                  <span class="py-1"
-                    >Level : {{ summoner(match.info.participants).champLevel }}</span
-                  >
-                  <br />
-                  <span class="py-1"
-                    >Wards placed:
-                    {{ summoner(match.info.participants).wardsPlaced }}</span
-                  >
-                  <br />
+                  <div class="">
+                    <span class="py-1"
+                      >CS :{{
+                        summoner(match.info.participants).totalMinionsKilled
+                      }}</span
+                    >
+                    <br />
+                    <span class="py-1"
+                      >Level : {{ summoner(match.info.participants).champLevel }}</span
+                    >
+                    <br />
+                    <span class="py-1"
+                      >Wards placed:
+                      {{ summoner(match.info.participants).wardsPlaced }}</span
+                    >
+                  </div>
                   <n-tag
                     v-if="
                       summoner(match.info.participants).pentaKills ||
@@ -240,6 +262,14 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
                   </n-tag>
                 </div>
               </div>
+              <n-divider
+                :style="{
+                  backgroundColor: backgroundColorCalc(
+                    summoner(match.info.participants).win
+                  ),
+                }"
+                vertical
+              ></n-divider>
             </div>
             <!-- Red and Blue Teams -->
             <match-history-team
@@ -248,21 +278,14 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           </section>
           <!-- More Info Switch and DataTables -->
           <n-space class="mx-3" vertical>
-            <n-switch v-model:value="match.show" :rail-style="switchStyle">
-              <template #checked>
-                <span>Less Information</span>
-              </template>
-              <template #unchecked>
-                <span>More Information</span>
-              </template>
-            </n-switch>
             <keep-alive>
               <n-collapse-transition
                 class="bg-dark-600"
                 v-if="match.show"
                 :show="match.show"
+                appear
               >
-                <div class="flex justify-center">
+                <div class="flex justify-center mt-4">
                   <match-history-team-data-table
                     :participants="match.info.participants"
                     :team="200"
@@ -292,5 +315,10 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
   @media (min-width: 917px) {
     overflow-x: hidden !important;
   }
+}
+
+.n-divider {
+  height: 100%;
+  background-color: rgb(75, 74, 74);
 }
 </style>

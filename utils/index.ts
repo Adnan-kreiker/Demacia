@@ -179,6 +179,8 @@ export function formatTime (ms: number) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
+
+
 export const getSummonerName = (summoner: string) => {
   return summoner.replace(/\s/g, "").toLowerCase();
 };

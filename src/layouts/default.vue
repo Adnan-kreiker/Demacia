@@ -11,11 +11,11 @@ import {
 import type { MenuOption } from "naive-ui";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
-import { Component } from "vue";
 import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
 import StatsIcon from "~/components/Icons/StatsIcon.vue";
+import type { Component } from "vue";
 
 const activeKey = ref<string | null>(null);
 
@@ -212,7 +212,11 @@ const menuOptions: MenuOption[] = [
         </div>
       </n-back-top>
       <main class="px-4 py-10 min-h-screen">
-        <router-view :key="$route.fullPath" />
+        <router-view v-slot="{ Component }">
+          <transition mode="out-in" name="fade">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </main>
       <Footer></Footer>
     </n-config-provider>

@@ -177,7 +177,8 @@ const menuOptions: MenuOption[] = [
           class="text-lg"
           mode="horizontal"
           :options="menuOptions"
-        ></n-menu>
+        >
+        </n-menu>
         <n-layout v-else has-sider>
           <n-layout-sider
             ref="sidePanel"
@@ -212,9 +213,9 @@ const menuOptions: MenuOption[] = [
         </div>
       </n-back-top>
       <main class="px-4 py-10 min-h-screen">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">
-            <component :is="Component" />
+            <component :is="Component" :key="route.params" />
           </transition>
         </router-view>
       </main>
@@ -227,6 +228,7 @@ const menuOptions: MenuOption[] = [
 .n-back-top {
   --n-color: transparent !important;
 }
+
 .n-layout-sider .n-layout-toggle-button {
   transition: color 0.3s var(--n-bezier), right 0.3s var(--n-bezier),
     left 0.3s var(--n-bezier), border-color 0.3s var(--n-bezier),
@@ -250,6 +252,7 @@ const menuOptions: MenuOption[] = [
   transform: translateX(50%) translateY(-50%);
   z-index: 1;
 }
+
 .n-layout-sider {
   flex-shrink: 0;
   box-sizing: border-box;

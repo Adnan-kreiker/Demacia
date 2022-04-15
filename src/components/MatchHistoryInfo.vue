@@ -6,7 +6,6 @@ import NSwitch from "naive-ui/es/switch/src/Switch";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
 import NDivider from "naive-ui/es/divider/src/Divider";
-// import NScrollbar from "naive-ui/es/scrollbar/src/ScrollBar";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
 import {
@@ -61,7 +60,6 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
       "
       class="border-3 p-4 my-3 max-w-4xl mx-auto"
     >
-      <!-- <n-scrollbar x-scrollable> -->
       <div class="overflow-x-scroll scroll-div">
         <div class="min-w-[840px]">
           <section class="flex text-white flex-row w-full">
@@ -279,7 +277,6 @@ const switchStyle = ({ focused, checked }: { focused: boolean; checked: boolean 
           </n-space>
         </div>
       </div>
-      <!-- </n-scrollbar> -->
     </div>
   </section>
 </template>

@@ -14,11 +14,11 @@ const props = defineProps<{
         (participant) => participant.teamId === props.team
       )"
       :key="participant.championName"
-      class="my-1"
+      class="mb-1"
     >
       <div class="flex flex-row flex-1 w-full justify-start items-center">
         <img
-          class="rounded-3xl mr-2"
+          class="rounded-sm mr-2"
           height="25"
           width="25"
           :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(

@@ -3,18 +3,18 @@ import { MatchInfo, Participant } from "~/types";
 import NSpace from "naive-ui/es/space/src/Space";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
-import NDivider from "naive-ui/es/divider/src/Divider";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
 import ChevronTop from "./Icons/ChevronTop.vue";
 import {
   getSummonerName,
   formatTime,
+  timeToDaysAgo,
   toLowerCase,
-  unixToDate,
   mapSpellKeyToName,
   idToRunes,
   secondsToHrsMinsSecs,
+  secondsToMinutes,
 } from "../../utils";
 
 const props = defineProps<{
@@ -25,12 +25,6 @@ const route = useRoute();
 
 const matchHistory = ref<MatchInfo[]>(props.matchHistory);
 
-const backgroundColorCalc = (val: boolean): string => {
-  return val
-    ? "rgba(16, 185, 129, var(--tw-border-opacity))"
-    : "rgba(239, 68, 68, var(--tw-border-opacity))";
-};
-
 const summoner = (participants: Participant[]): Participant => {
   const participant = participants.filter(
     (participant) =>
@@ -39,16 +33,24 @@ const summoner = (participants: Participant[]): Participant => {
   );
   return participant[0];
 };
+
+const matchHistoryBackground = (result: boolean): string => {
+  if (result) {
+    return "#1e2b5e";
+  } else {
+    return "#3e213b";
+  }
+};
 </script>
 <template>
   <section class="">
     <div
       v-for="match in matchHistory"
       :key="match.metadata.matchId"
-      :class="
-        summoner(match.info.participants).win ? 'border-green-500' : 'border-red-500'
-      "
-      class="border-3 p-3 my-3 max-w-4xl mx-auto"
+      :style="{
+        background: matchHistoryBackground(summoner(match.info.participants).win),
+      }"
+      class="rounded p-3 my-3 max-w-4xl mx-auto"
     >
       <div class="overflow-x-scroll scroll-div">
         <div class="min-w-[840px]">
@@ -56,55 +58,55 @@ const summoner = (participants: Participant[]): Participant => {
             <!-- Game Information -->
             <div class="flex flex-row flex-1 text-center">
               <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
-                <p class="border-blue-400 text-blue-300 my-1 border p-1 rounded-sm">
-                  {{ unixToDate(match.info.gameCreation) }}
+                <p class="my-1 font-bold">{{ match.info.gameMode }}</p>
+                <p class="text-xs text-gray-300">
+                  {{ timeToDaysAgo(match.info.gameCreation) }}
                 </p>
-                <p class="my-1">{{ match.info.gameMode }}</p>
                 <p class="my-1" v-if="match.info.gameEndTimestamp">
                   ⏳ {{ secondsToHrsMinsSecs(match.info.gameDuration) }}
                 </p>
                 <h2 v-else>⏳ {{ formatTime(match.info.gameDuration) }}</h2>
                 <n-tag
-                  class="my-2"
-                  :type="summoner(match.info.participants).win ? 'success' : 'error'"
+                  class="my-2 font-bold"
+                  :type="summoner(match.info.participants).win ? 'info' : 'error'"
                 >
                   <span>{{
                     summoner(match.info.participants).win ? "Victory" : "Defeat"
                   }}</span>
                 </n-tag>
                 <button
-                  class="mx-auto border flex flex-row border-gray-600 px-2 py-1"
+                  class="mx-auto flex flex-row px-2 py-1"
                   @click="match.show = !match.show"
                 >
-                  <span class="mr-2 text-gray-300">More Info</span>
                   <chevron-top
                     :class="{ 'rotate-[360deg]': match.show }"
                     class="h-5 w-5 text-gray-300 transform rotate-180 ease-linear duration-300"
                   />
                 </button>
               </div>
-              <n-divider
-                :style="{
-                  backgroundColor: backgroundColorCalc(
-                    summoner(match.info.participants).win
-                  ),
-                }"
-                vertical
-              ></n-divider>
 
               <!-- Summoner Image and Name -->
-              <div>
-                <div class="px-4 relative flex flex-col text-center justify-center">
-                  <img
-                    height="70"
-                    width="70"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
-                      summoner(match.info.participants).championName
-                    )}.png`"
-                  />
+              <div class="flex flex-row">
+                <div class="px-4 flex flex-col mt-8 text-center justify-center">
+                  <div class="relative">
+                    <img
+                      class="rounded-sm"
+                      height="70"
+                      width="70"
+                      :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
+                        summoner(match.info.participants).championName
+                      )}.png`"
+                    />
+                    <span
+                      class="text-sm px-[2px] rounded-sm bg-blue-gray-800 absolute top-12 w-min text-white right-0.5"
+                    >
+                      {{ summoner(match.info.participants).champLevel }}
+                    </span>
+                  </div>
                   <p class="text-center">
                     {{ summoner(match.info.participants).championName }}
                   </p>
+
                   <br />
                 </div>
                 <!-- Summoner's spells -->
@@ -113,7 +115,7 @@ const summoner = (participants: Participant[]): Participant => {
                     <img
                       height="32"
                       width="32"
-                      class="w-8 h-8"
+                      class="w-8 rounded-sm h-8"
                       :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
                         summoner(match.info.participants).summoner1Id.toString()
                       )}.png`"
@@ -121,7 +123,7 @@ const summoner = (participants: Participant[]): Participant => {
                     <img
                       height="32"
                       width="32"
-                      class="w-8 h-8"
+                      class="w-8 h-8 rounded-sm"
                       :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
                         summoner(match.info.participants).summoner2Id.toString()
                       )}.png`"
@@ -131,6 +133,7 @@ const summoner = (participants: Participant[]): Participant => {
                     <img
                       height="40"
                       width="40"
+                      class="rounded-sm"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
                         summoner(match.info.participants).perks.styles[0].selections[0]
                           .perk
@@ -139,7 +142,7 @@ const summoner = (participants: Participant[]): Participant => {
                     <img
                       height="30"
                       width="30"
-                      class="mx-auto object-contain"
+                      class="mx-auto rounded-sm object-contain"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
                         summoner(match.info.participants).perks.styles[1].selections[1]
                           .perk
@@ -148,95 +151,53 @@ const summoner = (participants: Participant[]): Participant => {
                   </div>
                 </div>
               </div>
-              <n-divider
-                :style="{
-                  backgroundColor: backgroundColorCalc(
-                    summoner(match.info.participants).win
-                  ),
-                }"
-                vertical
-              ></n-divider>
+
               <!-- Summoner Stats -->
-              <div class="flex flex-col text-gray-100 justify-center flex-1 items-center">
-                <span class="my-2"
-                  >KDA: {{ summoner(match.info.participants).kills }} /
-                  {{ summoner(match.info.participants).deaths }} /
-                  {{ summoner(match.info.participants).assists }}
-                </span>
-                <div class="flex flex-row gap-1">
-                  <img
-                    v-if="summoner(match.info.participants).item0 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item0
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item1 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item1
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item2 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item2
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item3 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item3
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item4 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item4
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item5 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item5
-                    }.png`"
-                  />
-                  <img
-                    v-if="summoner(match.info.participants).item6 !== 0"
-                    height="25"
-                    width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
-                      summoner(match.info.participants).item6
-                    }.png`"
-                  />
+              <div
+                class="flex flex-col max-w-[150px] text-gray-100 justify-center flex-1 items-center"
+              >
+                <div class="font-bold">
+                  <span class="pr-1"
+                    >{{ summoner(match.info.participants).kills }} /</span
+                  >
+                  <span class="pr-1 text-red-400">{{
+                    summoner(match.info.participants).deaths
+                  }}</span>
+                  <span class="pr-1"
+                    >/ {{ summoner(match.info.participants).assists }}</span
+                  >
                 </div>
-                <div class="my-2">
+                <p>
+                  <span class="text-orange-400">
+                    {{
+                      (
+                        (summoner(match.info.participants).kills +
+                          summoner(match.info.participants).assists) /
+                        summoner(match.info.participants).deaths
+                      ).toFixed(2) ?? 0
+                    }}
+                  </span>
+                  <span class="text-gray-400 ml-1 text-sm">KDA</span>
+                </p>
+                <div>
                   <div class="">
-                    <span class="py-1"
-                      >CS :{{
-                        summoner(match.info.participants).totalMinionsKilled
-                      }}</span
+                    <span class="py-1">{{
+                      summoner(match.info.participants).totalMinionsKilled
+                    }}</span>
+                    <span class="text-gray-400 ml-1"
+                      >CS ({{
+                        (
+                          summoner(match.info.participants).totalMinionsKilled /
+                          secondsToMinutes(match.info.gameDuration)
+                        ).toFixed(1)
+                      }})</span
                     >
                     <br />
-                    <span class="py-1"
-                      >Level : {{ summoner(match.info.participants).champLevel }}</span
-                    >
-                    <br />
-                    <span class="py-1"
-                      >Wards placed:
+
+                    <span class="py-1">
                       {{ summoner(match.info.participants).wardsPlaced }}</span
                     >
+                    <span class="text-sm ml-1 text-gray-400">vision</span>
                   </div>
                   <n-tag
                     v-if="
@@ -262,14 +223,66 @@ const summoner = (participants: Participant[]): Participant => {
                   </n-tag>
                 </div>
               </div>
-              <n-divider
-                :style="{
-                  backgroundColor: backgroundColorCalc(
-                    summoner(match.info.participants).win
-                  ),
-                }"
-                vertical
-              ></n-divider>
+              <div
+                class="flex flex-row flex-wrap items-center content-center max-w-[120px] gap-1"
+              >
+                <img
+                  v-if="summoner(match.info.participants).item0 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item0
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item1 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item1
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item2 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item2
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item3 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item3
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item4 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item4
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item5 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item5
+                  }.png`"
+                />
+                <img
+                  v-if="summoner(match.info.participants).item6 !== 0"
+                  height="25"
+                  width="25"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${
+                    summoner(match.info.participants).item6
+                  }.png`"
+                />
+              </div>
             </div>
             <!-- Red and Blue Teams -->
             <match-history-team

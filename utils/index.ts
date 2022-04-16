@@ -254,3 +254,15 @@ export const secondsToHrsMinsSecs = (seconds: number) => {
   return `${hrs <= 9 ? '0' + hrs : hrs}:${mins <= 9 ? '0' + mins : mins}:${secs <= 9 ? '0' + secs : secs}`;
 }
 
+export const timeToDaysAgo = (time: number) => {
+  const date = new Date(time);
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return `${days} days ago`;
+}
+
+export const secondsToMinutes = (seconds: number) => {
+  const mins = Math.floor(seconds / 60);
+  return mins;
+}

@@ -11,10 +11,18 @@ const props = defineProps<{
 const teamColor = computed(() => {
   return props.team === 100 ? "Blue Team" : "Red Team";
 });
+
+const tableColor = (team: number): string => {
+  if (team === 100) {
+    return "#1f306a";
+  } else {
+    return "#3e213b";
+  }
+};
 </script>
 
 <template>
-  <n-table class="text-gray-600">
+  <n-table :style="{ '--n-th-color': tableColor(props.team) }" class="text-gray-600">
     <tr>
       <th>{{ teamColor }}</th>
       <th>Tier</th>
@@ -111,3 +119,9 @@ const teamColor = computed(() => {
     </tr>
   </n-table>
 </template>
+
+<style scoped>
+/* .n-table {
+  --n-th-color: red !important;
+} */
+</style>

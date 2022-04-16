@@ -3,6 +3,7 @@ import { MatchInfo, Participant } from "~/types";
 import NSpace from "naive-ui/es/space/src/Space";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
+import { NDivider } from "naive-ui";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
 import ChevronTop from "./Icons/ChevronTop.vue";
@@ -34,11 +35,19 @@ const summoner = (participants: Participant[]): Participant => {
   return participant[0];
 };
 
-const matchHistoryBackground = (result: boolean): string => {
-  if (result) {
-    return "#1e2b5e";
+const matchHistoryBackground = (result: boolean, show: boolean): string => {
+  if (show) {
+    if (result) {
+      return "#1e2b5e";
+    } else {
+      return "#301f3a";
+    }
   } else {
-    return "#3e213b";
+    if (result && !show) {
+      return "#1f306a";
+    } else {
+      return "#3e213b";
+    }
   }
 };
 </script>
@@ -48,7 +57,10 @@ const matchHistoryBackground = (result: boolean): string => {
       v-for="match in matchHistory"
       :key="match.metadata.matchId"
       :style="{
-        background: matchHistoryBackground(summoner(match.info.participants).win),
+        background: matchHistoryBackground(
+          summoner(match.info.participants).win,
+          match.show
+        ),
       }"
       class="rounded p-3 my-3 max-w-4xl mx-auto"
     >
@@ -79,8 +91,8 @@ const matchHistoryBackground = (result: boolean): string => {
                   @click="match.show = !match.show"
                 >
                   <chevron-top
-                    :class="{ 'rotate-[360deg]': match.show }"
-                    class="h-5 w-5 text-gray-300 transform rotate-180 ease-linear duration-300"
+                    :class="{ 'rotate-180': match.show }"
+                    class="h-5 w-5 text-gray-300 transform rotate-90 ease-linear duration-300"
                   />
                 </button>
               </div>
@@ -170,11 +182,17 @@ const matchHistoryBackground = (result: boolean): string => {
                 <p>
                   <span class="text-orange-400">
                     {{
-                      (
+                      isNaN(
                         (summoner(match.info.participants).kills +
                           summoner(match.info.participants).assists) /
-                        summoner(match.info.participants).deaths
-                      ).toFixed(2) ?? 0
+                          summoner(match.info.participants).deaths
+                      )
+                        ? 0
+                        : (
+                            (summoner(match.info.participants).kills +
+                              summoner(match.info.participants).assists) /
+                            summoner(match.info.participants).deaths
+                          ).toFixed(2)
                     }}
                   </span>
                   <span class="text-gray-400 ml-1 text-sm">KDA</span>

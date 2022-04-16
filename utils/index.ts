@@ -259,7 +259,7 @@ export const timeToDaysAgo = (time: number) => {
   const now = new Date();
   const diff = now.getTime() - date.getTime();
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  return `${days} days ago`;
+  return days === 0 ? 'Today' : `${days} Days ago`;
 }
 
 export const secondsToMinutes = (seconds: number) => {

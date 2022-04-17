@@ -25,6 +25,16 @@ const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
 const summoner = route.params.summoner as string;
 
+const params = route.params
+const query = route.query.region
+
+console.log({ params })
+console.log({ query })
+
+// const region = route.params.region as string;
+
+const region = ref(route.query.region)
+
 const queueOptions = [
   {
     label: "RANKED FLEX SR",
@@ -48,7 +58,7 @@ const getSummonerInfo = async () => {
   try {
     // Fetch Summoner's Info
     const res = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}`
+      `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}?region=${region.value}`
     );
     const data = (await res.json()) as Summoner;
 

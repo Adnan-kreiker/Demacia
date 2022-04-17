@@ -76,7 +76,7 @@
       <a class="text-white" href="https://adnan-kreiker.netlify.app/"
         >League of Legends Wikis</a
       >
-      <p data-testid="made-by" class="text-sm">By Adnan Kreiker 🦄</p>
+      <p data-testid="made-by" class="text-sm">By Adnan Kreiker 🚀 🦄</p>
     </div>
   </footer>
 </template>

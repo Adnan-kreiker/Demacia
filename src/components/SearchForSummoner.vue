@@ -7,16 +7,22 @@ const summonerName = ref("");
 
 const router = useRouter();
 
-const navigate = () => router.push(`/summoner-info/${summonerName.value}`);
+const navigate = () =>
+  // router.push(`/summoner-info/${summonerName.value}?region=${region.value}`);
+  router.push({
+    path: `/summoner-info/${summonerName.value}`,
+    // params: { region: region.value },
+    query: { region: region.value },
+  });
 
 const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
-const selectedServer = ref(null);
+const region = ref("euw1");
 
 const selectOptions = servers.map((server) => {
   return {
     label: server,
-    value: server,
+    value: server.toLowerCase() + "1",
   };
 });
 </script>
@@ -33,7 +39,7 @@ const selectOptions = servers.map((server) => {
     <template #suffix>
       <n-select
         r
-        v-model:value="selectedServer"
+        v-model:value="region"
         class="absolute right-20 text-xs"
         style="width: 50px !important"
         placeholder="EUW"
@@ -44,7 +50,7 @@ const selectOptions = servers.map((server) => {
         :disabled="!(summonerName.length > 0)"
         class="bg-blue-500 text-white font-bold"
       >
-        .GG
+        GO
       </n-button>
     </template>
   </n-input>
@@ -56,6 +62,7 @@ const selectOptions = servers.map((server) => {
   text-overflow: inherit;
   overflow: visible;
 }
+
 .n-base-select-menu .n-base-select-option {
   justify-content: center;
   padding-inline: 2px;
@@ -76,10 +83,12 @@ const selectOptions = servers.map((server) => {
   justify-content: center;
   padding: 0;
 }
+
 .n-input .n-input__suffix .n-base-loading,
 .n-input .n-input__prefix .n-base-loading {
   margin-left: 6px;
 }
+
 .n-base-selection .n-base-suffix {
   cursor: pointer;
   position: absolute;

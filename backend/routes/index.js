@@ -4,9 +4,9 @@ require('dotenv').config()
 const apicache = require('apicache')
 const router = express.Router()
 const needle = require('needle')
-const link = 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'
 const api_key = process.env.API_KEY
 const api_key_name = process.env.API_KEY_NAME
+// const summonerUrl = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/`
 const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
 const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
@@ -16,6 +16,7 @@ const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/ch
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/'
 const championMasteryUrl = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
 const liveGameUrl = 'https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
+
 // Init cache
 const cache = apicache.middleware
 
@@ -23,8 +24,10 @@ const cache = apicache.middleware
 router.get('/get-summoner/:name', async (req, res) => {
   try {
     const summonerName = req.params.name
+    const { region } = req.query
 
-    const apiRes = await needle('get', `${link}${summonerName}?api_key=${api_key}`)
+    const apiRes = await needle('get', `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${api_key}`)
+    console.log(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${api_key}`)
     const data = apiRes.body
     res.status(200).json(data)
   }

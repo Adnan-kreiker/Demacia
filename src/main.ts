@@ -24,4 +24,4 @@ app.use(router)
 // install all modules under `modules/`
 Object.values(import.meta.globEager('./modules/*.ts')).map(i => i.install?.({ app, router, routes }))
 
-app.mount('#app')
+router.isReady().then(() => app.mount('#app'))

@@ -37,8 +37,10 @@ const getChampionsMastery = async () => {
       );
       const data = await res.json();
       championsMastery.value = data;
-    } catch (err) {
-      error.value = true;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        error.value = true;
+      }
       console.log(err);
     }
   }

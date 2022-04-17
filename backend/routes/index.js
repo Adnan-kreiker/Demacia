@@ -6,9 +6,7 @@ const router = express.Router()
 const needle = require('needle')
 const api_key = process.env.API_KEY
 const api_key_name = process.env.API_KEY_NAME
-const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion.json'
-const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/'
 
 // Init cache
@@ -117,6 +115,7 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) =
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
+  const championsRotationsUrl = `https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations`
   try {
     const result = await needle('get', `${championsRotationsUrl}?${params}`)
     const data = result.body

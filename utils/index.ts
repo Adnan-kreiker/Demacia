@@ -266,3 +266,48 @@ export const secondsToMinutes = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
   return mins;
 }
+
+export const regionToRegionParamMapper = (region: string): string => {
+  switch (region) {
+    case 'EUW':
+      return 'euw1'
+    case 'NA':
+      return 'na1'
+    case 'BR':
+      return 'br1'
+    case 'EUNE':
+      return 'eun1'
+    case 'JP':
+      return 'jp1'
+    case 'KR':
+      return 'kr'
+    case 'LAN':
+      return 'la1'
+    case 'LAS':
+      return 'la2'
+    case 'OCE':
+      return 'oc1'
+    case 'RU':
+      return 'ru'
+    case 'TR':
+      return 'tr1'
+    default:
+      return 'euw1'
+  }
+}
+
+export const regionParamToContinentMapper = (region: string): string => {
+  const asia = ['jp1', 'kr', 'tr1'];
+  const americas = ['na1', 'br1', 'la1', 'la2', 'oc1'];
+  const europe = ['euw1', 'eun1', 'ru'];
+
+  if (asia.includes(region)) {
+    return 'asia';
+  } else if (americas.includes(region)) {
+    return 'americas';
+  } else if (europe.includes(region)) {
+    return 'europe';
+  }
+
+  return 'europe';
+}

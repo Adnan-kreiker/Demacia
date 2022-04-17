@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { Participant } from "~/types";
 import { toLowerCase } from "../../utils";
+import { regionStore } from "~/stores/region";
+import { storeToRefs } from "pinia";
+
+const store = regionStore();
+const { region } = storeToRefs(store);
+
 const props = defineProps<{
   participants: Participant[];
   team: 100 | 200;
@@ -27,7 +33,10 @@ const props = defineProps<{
         />
         <router-link
           class="truncate overflow-ellipsis space-nowrap"
-          :to="`/summoner-info/${participant.summonerName}`"
+          :to="{
+            path: `/summoner-info/${participant.summonerName}`,
+            query: { region: region },
+          }"
         >
           <div class="group">
             <p class="truncate overflow-ellipsis space-nowrap">

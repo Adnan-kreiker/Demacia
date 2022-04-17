@@ -8,7 +8,6 @@ const api_key = process.env.API_KEY
 const api_key_name = process.env.API_KEY_NAME
 // const summonerUrl = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/`
 const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
-const matchUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/'
 const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion.json'
@@ -27,7 +26,6 @@ router.get('/get-summoner/:name', async (req, res) => {
     const { region } = req.query
 
     const apiRes = await needle('get', `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${api_key}`)
-    console.log(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${api_key}`)
     const data = apiRes.body
     res.status(200).json(data)
   }
@@ -41,7 +39,11 @@ router.get('/get-matches/:id', cache('2 minutes'), async (req, res) => {
     ...url.parse(req.url, true).query,
     [api_key_name]: api_key,
   })
+  const { region } = req.query
+  const matchesUrl = `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/`
+
   try {
+
     const id = req.params.id
     const result = await needle('get', `${matchesUrl}${id}/ids?${params}`)
     const data = result.body
@@ -56,6 +58,10 @@ router.get('/get-match/:id', cache('2 minutes'), async (req, res) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
+
+  const { region } = req.query
+  const matchUrl = `https://${region}.api.riotgames.com/lol/match/v5/matches/`
+
   try {
     const id = req.params.id
     const result = await needle('get', `${matchUrl}${id}?${params}`)

@@ -7,13 +7,14 @@ import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
-import { unicodeToUtf8 } from "../../../utils";
+import { unicodeToUtf8, regionParamToContinentMapper } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
 import ChampionMastery from "~/components/ChampionMastery.vue";
 import LiveGame from "~/components/LiveGame.vue";
+import { Ref } from "vue";
 
 const route = useRoute();
 
@@ -33,7 +34,7 @@ console.log({ query })
 
 // const region = route.params.region as string;
 
-const region = ref(route.query.region)
+const region = ref(route.query.region) as Ref<string>
 
 const queueOptions = [
   {
@@ -90,7 +91,7 @@ const getMatchHistory = async () => {
     try {
       const matches = await fetch(
         `${import.meta.env.VITE_URL}/api/get-matches/${summonerInfo.value.puuid
-        }?start=0&count=10`
+        }?start=0&count=10&region=${regionParamToContinentMapper(region.value)}`
       );
 
       const matchesId = await matches.json();
@@ -99,7 +100,7 @@ const getMatchHistory = async () => {
       await Promise.allSettled(
         matchesId.map(async (matchId: string) => {
           const match = await fetch(
-            `${import.meta.env.VITE_URL}/api/get-match/${matchId}`
+            `${import.meta.env.VITE_URL}/api/get-match/${matchId}?region=${regionParamToContinentMapper(region.value)}`
           );
           const data = await match.json();
           matchHistory.value.push({ ...data, show: false });

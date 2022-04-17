@@ -3,26 +3,32 @@ import NInput from "naive-ui/es/input/src/Input";
 import NButton from "naive-ui/es/button/src/Button";
 import NSelect from "naive-ui/es/select/src/Select";
 import { useRouter } from "vue-router";
+import { regionToRegionParamMapper } from "../../utils";
+import { regionStore } from "~/stores/region";
 const summonerName = ref("");
 
 const router = useRouter();
 
-const navigate = () =>
-  // router.push(`/summoner-info/${summonerName.value}?region=${region.value}`);
-  router.push({
-    path: `/summoner-info/${summonerName.value}`,
-    // params: { region: region.value },
-    query: { region: region.value },
-  });
+const store = regionStore();
 
 const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
 const region = ref("euw1");
 
+watch(region, (newVal) => {
+  store.setRegion(newVal);
+});
+
+const navigate = () =>
+  router.push({
+    path: `/summoner-info/${summonerName.value}`,
+    query: { region: region.value },
+  });
+
 const selectOptions = servers.map((server) => {
   return {
     label: server,
-    value: server.toLowerCase() + "1",
+    value: regionToRegionParamMapper(server),
   };
 });
 </script>

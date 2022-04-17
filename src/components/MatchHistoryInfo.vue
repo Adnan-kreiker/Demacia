@@ -38,7 +38,7 @@ const summoner = (participants: Participant[]): Participant => {
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
   if (show) {
     if (result) {
-      return "#1e2b5e";
+      return "#1b224b";
     } else {
       return "#301f3a";
     }
@@ -87,13 +87,11 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
                   }}</span>
                 </n-tag>
                 <button
-                  class="mx-auto flex flex-row px-2 py-1"
+                  class="mx-auto flex flex-row px-2 py-1 transform ease-linear duration-300"
+                  :style="{ transform: match.show ? 'rotate(180deg)' : 'rotate(90deg)' }"
                   @click="match.show = !match.show"
                 >
-                  <chevron-top
-                    :class="{ 'rotate-180': match.show }"
-                    class="h-5 w-5 text-gray-300 transform rotate-90 ease-linear duration-300"
-                  />
+                  <chevron-top class="h-5 w-5 text-gray-300" />
                 </button>
               </div>
 

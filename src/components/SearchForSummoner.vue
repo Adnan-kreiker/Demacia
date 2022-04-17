@@ -84,7 +84,6 @@ const selectOptions = servers.map((server) => {
 }
 
 .n-base-selection .n-base-selection-label .n-base-selection-input {
-  /* padding: 7px; */
   display: flex;
   justify-content: center;
   padding: 0;

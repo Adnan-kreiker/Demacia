@@ -11,13 +11,7 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NPagination from "naive-ui/es/pagination/src/Pagination";
 import { NText } from "naive-ui/es/typography";
 import { NH3 } from "naive-ui/es/typography";
-// import { regionStore } from "~/stores/region";
-// import { storeToRefs } from "pinia";
 import { regionToRegionParamMapper } from "../../utils";
-
-// const store = regionStore();
-
-// const { region } = storeToRefs(store);
 
 const queueOptions = [
   {
@@ -55,10 +49,6 @@ const regionOptions = servers.map((server) => {
 });
 
 const regionVal = ref("euw1");
-
-// watch(regionVal, (newVal) => {
-//   store.setRegion(newVal);
-// });
 
 const queue = ref("RANKED_SOLO_5x5");
 
@@ -117,8 +107,8 @@ const updatePage = (pageNumber: number) => {
 
 <template>
   <div class="min-h-screen">
-    <div class="flex flex-row flex-wrap mb-4">
-      <n-h3 class="mx-4" prefix="bar" align-text type="success">
+    <div class="flex flex-row flex-wrap items-center mb-4">
+      <n-h3 class="mx-4 my-auto" prefix="bar" align-text type="success">
         <n-text type="success"> Choose queue type </n-text>
       </n-h3>
       <div class="flex flex-row flex-wrap flex-grow">
@@ -128,7 +118,7 @@ const updatePage = (pageNumber: number) => {
           :options="queueOptions"
         />
         <n-select
-          class="max-w-[120px] min-w-20 my-1 pr-5"
+          class="max-w-[150px] min-w-20 my-1 pr-5"
           v-model:value="rank"
           :options="rankOptions"
         />
@@ -161,6 +151,11 @@ const updatePage = (pageNumber: number) => {
   </div>
 </template>
 
+<style scoped>
+.n-h:first-child {
+  margin-top: 7px;
+}
+</style>
 <route lang="yaml">
 meta:
   layout: default

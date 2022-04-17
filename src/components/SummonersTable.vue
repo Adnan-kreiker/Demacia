@@ -12,10 +12,12 @@ import {
 import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import { unicodeToUtf8 } from "../../utils";
 import { RouterLink } from "vue-router";
+
 const props = defineProps<{
   challengerPlayers: ChallengerPlayerWithIndex[];
   page: number;
   rank: Ranks;
+  region: string;
 }>();
 
 const summonersRank = computed(() => {
@@ -48,7 +50,7 @@ const getSummonersInfo = async () => {
         const res = await fetch(
           `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(
             player.summonerName
-          )}`
+          )}?region=${props.region}`
         );
         const data = (await res.json()) as Summoner;
         result.push({
@@ -121,7 +123,7 @@ const columns: DataTableColumns = [
       return h(
         RouterLink,
         {
-          to: `/summoner-info/${row.summoner}`,
+          to: `/summoner-info/${row.summoner}?region=${props.region}`,
           props: {
             custom: true,
             vSlot: "navigate",
@@ -156,34 +158,6 @@ const columns: DataTableColumns = [
           },
         }
       );
-      // h(
-      //   "div",
-      //   {
-      //     style: {
-      //       display: "flex",
-      //       alignItems: "center",
-      //     },
-      //   },
-      //   [
-      //     h("img", {
-      //       src: `https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${iconId}.png`,
-      //       height: "40",
-      //       width: "40",
-      //       style: {
-      //         borderRadius: "50%",
-      //       },
-      //     }),
-      //     h(
-      //       "span",
-      //       {
-      //         style: {
-      //           marginLeft: "15px",
-      //         },
-      //       },
-      //       row.summoner
-      //     ),
-      //   ]
-      // );
     },
     ellipsis: {
       tooltip: true,
@@ -233,57 +207,8 @@ const columns: DataTableColumns = [
       scroll-x="800"
       :data="data"
       min-height="350"
-    ></n-data-table>
-    <!-- <n-table bordered v-if="sortedChallengerPlayers.length > 0">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Summoner</th>
-          <th>Tier</th>
-          <th>LP</th>
-          <th>Level</th>
-          <th>Win Ratio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <router-link
-          :to="`/summoner-info/${player.summonerName}`"
-          v-for="player in sortedChallengerPlayers"
-          :key="player.summonerId"
-          custom
-          v-slot="{ navigate }"
-        >
-          <tr @click="navigate" class="hover:cursor-pointer">
-            <td>{{ player.idx }}</td>
-            <td class="flex flex-row items-center">
-              <img
-                class="h-10 w-10 rounded-full my-auto"
-                v-if="player.profileIconId"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${player.profileIconId}.png`"
-              />
-              <img class="h-10 w-10" v-else src="/defaultPic.png" alt="" />
-              <span class="ml-4">
-                {{ player.summonerName }}
-              </span>
-            </td>
-            <td>{{ summonersRank }}</td>
-            <td>{{ player.leaguePoints }}</td>
-            <td>{{ player.summonerLevel }}</td>
-            <td>
-              <n-progress
-                type="line"
-                :percentage="
-                  Math.floor((player.wins / (player.wins + player.losses)) * 100)
-                "
-                :height="24"
-                :border-radius="4"
-                :fill-border-radius="0"
-                rail-color="#ee5a52"
-              />
-            </td>
-          </tr>
-        </router-link></tbody
-    ></n-table> -->
+    >
+    </n-data-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>
 </template>

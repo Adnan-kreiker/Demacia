@@ -6,15 +6,10 @@ const router = express.Router()
 const needle = require('needle')
 const api_key = process.env.API_KEY
 const api_key_name = process.env.API_KEY_NAME
-// const summonerUrl = `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/`
-const matchesUrl = 'https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/'
-const rankedUrl = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'
 const leaderboardsUrl = 'https://euw1.api.riotgames.com/lol/league/v4/'
 const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion.json'
 const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
 const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/'
-const championMasteryUrl = 'https://euw1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'
-const liveGameUrl = 'https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'
 
 // Init cache
 const cache = apicache.middleware
@@ -24,7 +19,6 @@ router.get('/get-summoner/:name', async (req, res) => {
   try {
     const summonerName = req.params.name
     const { region } = req.query
-
     const apiRes = await needle('get', `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${api_key}`)
     const data = apiRes.body
     res.status(200).json(data)
@@ -79,6 +73,8 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) 
   })
   try {
     const { summonerId } = req.params
+    const { region } = req.query
+    const rankedUrl = `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/`
     const result = await needle('get', `${rankedUrl}${summonerId}?${params}`)
     const data = result.body
     res.status(200).json(data)
@@ -92,6 +88,8 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
+  const { region } = req.query
+  const leaderboardsUrl = `https://${region}.api.riotgames.com/lol/league/v4/`
   try {
     const { queue } = req.params
     const { rank } = req.params
@@ -146,6 +144,8 @@ router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (re
     [api_key_name]: api_key,
   })
   const { summonerId } = req.params
+  const { region } = req.query
+  const championMasteryUrl = `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/`
   try {
     const result = await needle('get', `${championMasteryUrl}${summonerId}?${params}`)
     const data = result.body
@@ -161,6 +161,9 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req, res) =>
     [api_key_name]: api_key,
   })
   const { summonerId } = req.params
+  const { region } = req.query
+  const liveGameUrl = `https://${region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/`
+
   try {
     const result = await needle('get', `${liveGameUrl}${summonerId}?${params}`)
     const data = result.body

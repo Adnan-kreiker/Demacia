@@ -75,7 +75,7 @@ const getSummonerInfo = async () => {
 
     // Fetch Summoner's Ranked Info
     const rankedInfo = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerInfo.value.id}`
+      `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerInfo.value.id}?region=${region.value}`
     );
 
     const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;

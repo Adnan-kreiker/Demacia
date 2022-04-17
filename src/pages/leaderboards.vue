@@ -11,6 +11,13 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NPagination from "naive-ui/es/pagination/src/Pagination";
 import { NText } from "naive-ui/es/typography";
 import { NH3 } from "naive-ui/es/typography";
+// import { regionStore } from "~/stores/region";
+// import { storeToRefs } from "pinia";
+import { regionToRegionParamMapper } from "../../utils";
+
+// const store = regionStore();
+
+// const { region } = storeToRefs(store);
 
 const queueOptions = [
   {
@@ -37,6 +44,21 @@ const rankOptions = [
     value: "masterleagues",
   },
 ];
+
+const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
+
+const regionOptions = servers.map((server) => {
+  return {
+    label: server,
+    value: regionToRegionParamMapper(server),
+  };
+});
+
+const regionVal = ref("euw1");
+
+// watch(regionVal, (newVal) => {
+//   store.setRegion(newVal);
+// });
 
 const queue = ref("RANKED_SOLO_5x5");
 
@@ -69,7 +91,7 @@ async function getChallengerPlayers() {
   const res = await fetch(
     `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${rank.value}/${
       queue.value
-    }`
+    }?region=${regionVal.value}`
   );
   const data = (await res.json()) as ChallengerPlayers;
   challengerPlayers.value = data.entries;
@@ -78,7 +100,7 @@ async function getChallengerPlayers() {
 
 const summonersTableKey = ref(0);
 
-watch([queue, rank], () => {
+watch([queue, rank, regionVal], () => {
   getChallengerPlayers();
   page.value = 1;
 });
@@ -99,16 +121,21 @@ const updatePage = (pageNumber: number) => {
       <n-h3 class="mx-4" prefix="bar" align-text type="success">
         <n-text type="success"> Choose queue type </n-text>
       </n-h3>
-      <div class="flex flex-row flex-grow">
+      <div class="flex flex-row flex-wrap flex-grow">
         <n-select
-          class="pr-4 min-w-36 max-w-[170px] my-1"
+          class="pr-5 min-w-36 max-w-[170px] my-1"
           v-model:value="queue"
           :options="queueOptions"
         />
         <n-select
-          class="max-w-[120px] min-w-20 my-1"
+          class="max-w-[120px] min-w-20 my-1 pr-5"
           v-model:value="rank"
           :options="rankOptions"
+        />
+        <n-select
+          class="max-w-[40px] min-w-20 my-1"
+          v-model:value="regionVal"
+          :options="regionOptions"
         />
       </div>
     </div>
@@ -118,7 +145,9 @@ const updatePage = (pageNumber: number) => {
       :challenger-players="sortedChallengerPlayers"
       :key="summonersTableKey"
       :page="page"
-    ></summoners-table>
+      :region="regionVal"
+    >
+    </summoners-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
     <div class="flex justify-center mt-5">
       <n-pagination

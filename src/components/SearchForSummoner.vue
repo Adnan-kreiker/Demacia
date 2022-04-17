@@ -11,8 +11,6 @@ const router = useRouter();
 
 const store = regionStore();
 
-const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
-
 const region = ref("euw1");
 
 watch(region, (newVal) => {
@@ -24,6 +22,8 @@ const navigate = () =>
     path: `/summoner-info/${summonerName.value}`,
     query: { region: region.value },
   });
+
+const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
 const selectOptions = servers.map((server) => {
   return {

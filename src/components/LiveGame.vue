@@ -12,6 +12,12 @@ import BannedChampions from "~/components/BannedChampions.vue";
 import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
 import { NH1, NText } from "naive-ui";
 import useChampions from "~/hooks/useChampions";
+import { regionStore } from "~/stores/region";
+import { storeToRefs } from "pinia";
+
+const store = regionStore();
+
+const { region } = storeToRefs(store);
 
 const { championsArray } = useChampions();
 
@@ -36,7 +42,9 @@ const initialSummonersData: Summoner[] = [];
 const getActiveGame = async (): Promise<void> => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}`
+      `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}?region=${
+        region.value
+      }`
     );
 
     const data = await response.json();
@@ -96,7 +104,9 @@ const getSummonersRankedInfoById = async () => {
   await Promise.allSettled(
     summonersIds.value.map(async (summonerId) => {
       const rankedInfo = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}`
+        `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}?region=${
+          region.value
+        }`
       );
       const data = (await rankedInfo.json()) as SummonerRankedInfo;
       initialRankedData.push({

@@ -4,6 +4,12 @@ import { Champion, ChampionMastery, Summoner } from "~/types";
 import { getChampionInfoById, formatNumber } from "../../utils";
 import VLazyImage from "v-lazy-image";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
+import { regionStore } from "~/stores/region";
+import { storeToRefs } from "pinia";
+
+const store = regionStore();
+
+const { region } = storeToRefs(store);
 
 const props = defineProps<{
   summonerInfo: Summoner;
@@ -33,7 +39,9 @@ const getChampionsMastery = async () => {
   if (props.summonerInfo) {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${props.summonerInfo.id}`
+        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${
+          props.summonerInfo.id
+        }?region=${region.value}`
       );
       const data = await res.json();
       championsMastery.value = data;

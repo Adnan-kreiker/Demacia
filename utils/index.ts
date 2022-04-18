@@ -142,6 +142,12 @@ export function mapSpellKeyToName (spellKey: string) {
   else if (spellKey === "1") return "SummonerBoost";
   else if (spellKey === "32") return "SummonerSnowball";
   else if (spellKey === "21") return "SummonerBarrier";
+  else if (spellKey === "13") return "SummonerMana";
+  else if (spellKey === "31") return "SummonerPoroThrow";
+  else if (spellKey === "30") return "SummonerPoroRecall";
+  else if (spellKey === "39") return "SummonerSnowURFSnowball_Mark";
+  else if (spellKey === "54") return "Summoner_UltBookPlaceholder";
+  else if (spellKey === "55") return "Summoner_UltBookSmitePlaceholder";
   else return spellKey;
 }
 

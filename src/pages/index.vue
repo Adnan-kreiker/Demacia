@@ -8,7 +8,7 @@ import SearchForSummoner from "~/components/SearchForSummoner.vue";
       fetchpriority="high"
       height="280"
       class="object-cover yummi-img h-70 my-4"
-      src="/yummi.png"
+      src="/yummi.webp"
       alt="Yummi hovering"
     />
     <search-for-summoner></search-for-summoner>

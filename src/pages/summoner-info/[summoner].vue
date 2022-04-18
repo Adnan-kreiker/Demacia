@@ -14,7 +14,10 @@ import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
 import ChampionMastery from "~/components/ChampionMastery.vue";
 import LiveGame from "~/components/LiveGame.vue";
-import { Ref } from "vue";
+import type { Ref } from "vue";
+import { regionStore } from "~/stores/region";
+
+const store = regionStore()
 
 const route = useRoute();
 
@@ -27,6 +30,14 @@ const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 const summoner = route.params.summoner as string;
 
 const region = ref(route.query.region) as Ref<string>
+
+watch(region, (newRegion) => {
+  if (newRegion) {
+    store.setRegion(newRegion);
+  }
+}, {
+  immediate: true,
+})
 
 const queueOptions = [
   {

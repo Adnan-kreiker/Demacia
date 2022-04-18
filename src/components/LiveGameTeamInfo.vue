@@ -127,7 +127,7 @@ const summonersRankedInfo = (
                 class="max-w-[200px] object-cover"
                 :src="`/emblems/Emblem_${capitalize(
                   summonersRankedInfo(participant.summonerId)?.soloQInfo?.tier
-                )}.png`"
+                )}.webp`"
                 alt=""
               />
               <section class="mt-3">

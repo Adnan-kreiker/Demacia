@@ -26,14 +26,6 @@ const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 
 const summoner = route.params.summoner as string;
 
-const params = route.params
-const query = route.query.region
-
-console.log({ params })
-console.log({ query })
-
-// const region = route.params.region as string;
-
 const region = ref(route.query.region) as Ref<string>
 
 const queueOptions = [

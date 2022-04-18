@@ -95,12 +95,14 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
         </n-statistic>
       </div>
 
-      <n-tag v-if="summonerRankedInfo.hotStreak" class="mt-3 font-bold p-4" type="error"
-        >Hot Streak</n-tag
-      >
-      <n-tag v-if="summonerRankedInfo.veteran" class="mt-3 font-bold p-4" type="error"
-        >Veteran</n-tag
-      >
+      <div class="flex flex-row flex-wrap gap-4">
+        <n-tag v-if="summonerRankedInfo.hotStreak" class="mt-3 font-bold p-4" type="error"
+          >Hot Streak</n-tag
+        >
+        <n-tag v-if="summonerRankedInfo.veteran" class="mt-3 font-bold p-4" type="error"
+          >Veteran</n-tag
+        >
+      </div>
     </div>
     <!-- <img
         width="200"

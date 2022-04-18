@@ -188,7 +188,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
           <button
             ref="menuButton"
             @click="triggerCollapse"
-            class="absolute w-10 h-10 top-0 right-0"
+            class="absolute w-10 h-10 top-0 right-3"
           >
             <MenuIcon></MenuIcon>
           </button>

@@ -126,7 +126,9 @@ getSummonerInfo();
       <div v-if="summonerInfo && summonerRankedInfo">
         <n-tabs animated size="large" type="card">
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
+
             <div class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]">
+              <n-divider class="h-[450px] divider-class" vertical></n-divider>
               <div>
                 <summoners-info :summoner-info="summonerInfo"></summoners-info>
               </div>
@@ -158,25 +160,25 @@ getSummonerInfo();
         </n-tabs>
       </div>
 
-      <div class="" v-else>
-        <section class="flex flex-row gap-2 mb-8">
+      <div v-else>
+        <section class="flex flex-row justify-start gap-2 mb-8">
           <n-skeleton height="42px" width="143px" :sharp="false" />
           <n-skeleton height="42px" width="174px" :sharp="false" />
           <n-skeleton height="42px" width="107px" :sharp="false" />
         </section>
-        <section class="w-full mx-8 flex-grow mb-8 flex gap-3 justify-center flex-row">
-          <n-space vertical class="w-1/3 mx-auto">
+        <section class="w-full flex-grow mb-8 flex-wrap md:flex-nowrap flex gap-3 justify-center flex-col sm:flex-row">
+          <n-space vertical class="sm:w-1/3 mx-auto">
             <n-skeleton class="mx-auto" height="240px" width="240px" :sharp="false" />
             <n-skeleton class="mx-auto" height="40px" width="50%" :sharp="false" />
             <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
             <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
           </n-space>
-          <div class="w-2/3">
+          <div class="sm:w-2/3">
             <n-skeleton class="mx-auto" height="451px" width="80%" />
           </div>
         </section>
         <section class="flex flex-col gap-3 justify-center items-center">
-          <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
+          <n-skeleton v-for="i in 10" :key="i" height="185px" width="80%" />
         </section>
       </div>
     </div>

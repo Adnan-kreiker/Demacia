@@ -19,7 +19,7 @@ specifiers:
   happy-dom: ^2.55.0
   https-localhost: ^4.7.0
   jsdom: ^19.0.0
-  naive-ui: ^2.26.3
+  naive-ui: ^2.28.0
   nprogress: ^0.2.0
   pinia: ^2.0.0-rc.9
   pnpm: ^6.16.0
@@ -69,7 +69,7 @@ devDependencies:
   happy-dom: 2.55.0
   https-localhost: 4.7.1
   jsdom: 19.0.0
-  naive-ui: 2.27.0_vue@3.2.33
+  naive-ui: 2.28.0_vue@3.2.33
   pnpm: 6.32.4
   rollup-plugin-visualizer: 5.6.0
   typescript: 4.6.3
@@ -4871,8 +4871,8 @@ packages:
     resolution: {integrity: sha512-0ZIR9PasPxGXmRsEF8jsDzndzHDj7tIav+JUmvIFB/WHswliFnquxECT/De7GR4yg99ky/NlRKJT82G1y271bw==}
     dev: true
 
-  /naive-ui/2.27.0_vue@3.2.33:
-    resolution: {integrity: sha512-g9A2uulbQKMuJpUjAyiAqBHQ4xrcbwRPdv+OS2FeNC5u/SrRWFiO64X10YDyMwQNudrwc3VVqKUrw3ZArxtFCg==}
+  /naive-ui/2.28.0_vue@3.2.33:
+    resolution: {integrity: sha512-/yXMF0nrciLrs5Os88omN4dbKlLU7D51lU60+di/o2dx7faJM7wsiXa0nS1fwTGTF9L19x6GBGSvBTxYtvx+lg==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
@@ -4889,8 +4889,8 @@ packages:
       lodash: 4.17.21
       lodash-es: 4.17.21
       seemly: 0.3.3
-      treemate: 0.3.10
-      vdirs: 0.1.7_vue@3.2.33
+      treemate: 0.3.11
+      vdirs: 0.1.8_vue@3.2.33
       vfonts: 0.0.3
       vooks: 0.2.12_vue@3.2.33
       vue: 3.2.33
@@ -6126,8 +6126,8 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /treemate/0.3.10:
-    resolution: {integrity: sha512-uxN98H84/zXAkn02rEeip9SNnOR889QIBXfpZnwjaanp8JRElxjdmDaKmVULclrn54J8RcJVCqfeQZsdeMjwow==}
+  /treemate/0.3.11:
+    resolution: {integrity: sha512-M8RGFoKtZ8dF+iwJfAJTOH/SM4KluKOKRJpjCMhI8bG3qB74zrFoArKZ62ll0Fr3mqkMJiQOmWYkdYgDeITYQg==}
     dev: true
 
   /tsconfig-paths/3.14.1:
@@ -6445,8 +6445,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vdirs/0.1.7_vue@3.2.33:
-    resolution: {integrity: sha512-MEUaLhV1jJyUqA2Ar4DfvlQx8jWs+PpCZ2dbM0ILelpMWGOybzt8ddL456VxeIbY/tkuDGT/Wzb8GG4LCuLuHw==}
+  /vdirs/0.1.8_vue@3.2.33:
+    resolution: {integrity: sha512-H9V1zGRLQZg9b+GdMk8MXDN2Lva0zx72MPahDKc30v+DtwKjfyOSXWRIX4t2mhDubM1H09gPhWeth/BJWPHGUw==}
     peerDependencies:
       vue: ^3.0.11
     dependencies:
@@ -6808,7 +6808,7 @@ packages:
       evtd: 0.2.3
       resize-observer-polyfill: 1.5.1
       seemly: 0.3.3
-      vdirs: 0.1.7_vue@3.2.33
+      vdirs: 0.1.8_vue@3.2.33
       vooks: 0.2.12_vue@3.2.33
       vue: 3.2.33
     dev: true

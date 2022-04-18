@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import {
-  NMenu,
-  darkTheme,
-  NConfigProvider,
-  NBackTop,
-  NLayoutSider,
-  NIcon,
-  NLayout,
-} from "naive-ui";
 import type { MenuOption } from "naive-ui";
+import NMenu from "naive-ui/es/menu/src/Menu";
+import { darkTheme } from "naive-ui";
+import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
+import NBackTop from "naive-ui/es/back-top/src/BackTop";
+import NLayoutSider from "naive-ui/es/layout/src/LayoutSider";
+import { NIcon } from "naive-ui/es/icon/src/Icon";
+import NLayout from "naive-ui/es/layout/src/Layout";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
 import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
 import StatsIcon from "~/components/Icons/StatsIcon.vue";
+import MenuIcon from "~/components/Icons/MenuIcon.vue";
 import type { Component } from "vue";
 
 const activeKey = ref<string | null>(null);
@@ -33,7 +32,11 @@ function renderIcon(icon: Component) {
 
 const sidePanel = ref(null);
 
-onClickOutside(sidePanel, () => (collapsed.value = true));
+const menuButton = ref(null);
+
+onClickOutside(sidePanel, () => (collapsed.value = true), {
+  ignore: [menuButton],
+});
 
 const mobileMenuOptions: MenuOption[] = [
   {
@@ -165,6 +168,8 @@ const menuOptions: MenuOption[] = [
     key: "Leaderboards",
   },
 ];
+
+const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>
 
 <template>
@@ -180,6 +185,13 @@ const menuOptions: MenuOption[] = [
         >
         </n-menu>
         <n-layout v-else has-sider>
+          <button
+            ref="menuButton"
+            @click="triggerCollapse"
+            class="absolute w-10 h-10 top-0 right-0"
+          >
+            <MenuIcon></MenuIcon>
+          </button>
           <n-layout-sider
             ref="sidePanel"
             bordered
@@ -187,7 +199,7 @@ const menuOptions: MenuOption[] = [
             :collapsed-width="0"
             :width="240"
             :collapsed="collapsed"
-            show-trigger="bar"
+            :show-trigger="false"
             @collapse="collapsed = true"
             @expand="collapsed = false"
           >
@@ -197,6 +209,7 @@ const menuOptions: MenuOption[] = [
               :collapsed-width="64"
               :collapsed-icon-size="22"
               :options="mobileMenuOptions"
+              :on-update:value="() => (collapsed = true)"
             />
           </n-layout-sider>
         </n-layout>

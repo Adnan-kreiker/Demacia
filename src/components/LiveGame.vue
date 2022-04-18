@@ -90,7 +90,9 @@ const getSummonersInfoByName = async () => {
   await Promise.allSettled(
     summonersNames.value.map(async (summoner) => {
       const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}`
+        `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}?region=${
+          region.value
+        }`
       );
       const summonerData = (await res.json()) as Summoner;
       initialSummonersData.push(summonerData);
@@ -140,6 +142,7 @@ getActiveGame();
         :champions-array="championsArray"
         :game-data="gameData"
         :key="team.id"
+        :region="region"
         :summoners-ranked-data="summonersRankedData"
         :team="team.value"
       ></LiveGameTeamInfo>

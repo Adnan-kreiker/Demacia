@@ -23,6 +23,7 @@ const props = defineProps<{
   summonersRankedData: null | SummonerRankedInfoInterface;
   team: 100 | 200;
   championsArray: Champion[];
+  region: string;
 }>();
 
 const team = (teamId: 100 | 200): ParticipantLiveGame[] => {
@@ -73,7 +74,12 @@ const summonersRankedInfo = (
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
     >
-      <router-link :to="`/summoner-info/${participant.summonerName}`">
+      <router-link
+        :to="{
+          path: `/summoner-info/${participant.summonerName}`,
+          query: { region: props.region },
+        }"
+      >
         <p
           class="text-lg text-center pb-2 border-b-2"
           :class="props.team === 100 ? 'border-blue-400' : 'border-red-500'"

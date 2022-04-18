@@ -22,8 +22,10 @@ const navigateHome = () => router.push("/");
 </script>
 
 <template>
-  <main class="px-4 py-4 text-center dark:text-gray-200">
-    <div class="flex flex-row flex-wraps items-center">
+  <main
+    class="px-4 py-4 text-center border border-gray-600 mx-6 sm:mx-16 mt-6 bg-dark-200 dark:text-gray-200"
+  >
+    <div class="flex flex-row justify-center flex-wrap items-center">
       <img
         height="300"
         width="300"

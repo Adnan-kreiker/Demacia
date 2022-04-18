@@ -193,7 +193,7 @@ getSummonerInfo();
 <style scoped>
 .n-divider.n-divider--vertical {
   height: 450px;
-  margin-inline: 20px;
+  margin-inline: 5px;
 
   @media (max-width: 626px) {
     display: none;

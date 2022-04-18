@@ -23,7 +23,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
 <template>
   <div>
     <div
-      class="flex items-center justify-evenly text-center"
+      class="flex items-center flex-col flex-wrap justify-evenly text-center"
       v-if="
         Array.isArray(props.summonerRankedInfo) &&
         summonerRankedInfo &&
@@ -31,14 +31,28 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
           summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
       "
     >
-      <div class="flex flex-col items-center text-center">
-        <p class="text-lg mb-3">
-          Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo.queueType) }}
-        </p>
-        <n-statistic label="Tier" tabular-nums>{{ summonerRankedInfo.tier }}</n-statistic>
-        <n-statistic label="Division" tabular-nums>{{
-          summonerRankedInfo.rank
-        }}</n-statistic>
+      <div class="flex flex-row flex-wrap items-center justify-center">
+        <div class="flex flex-col items-center text-center">
+          <p class="text-lg mb-3">
+            Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo.queueType) }}
+          </p>
+          <n-statistic label="Tier" tabular-nums>{{
+            summonerRankedInfo.tier
+          }}</n-statistic>
+          <n-statistic label="Division" tabular-nums>{{
+            summonerRankedInfo.rank
+          }}</n-statistic>
+        </div>
+        <img
+          width="200"
+          height="228"
+          class="max-w-[200px] m-2 block object-contain"
+          :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`"
+          alt=""
+        />
+      </div>
+
+      <div class="flex gap-4">
         <n-statistic label="League Points" tabular-nums>
           <n-number-animation
             ref="numberAnimationInstRef"
@@ -48,26 +62,24 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
             :precision="0"
           />
         </n-statistic>
-        <div class="flex gap-3">
-          <n-statistic label="Wins" tabular-nums>
-            <n-number-animation
-              ref="numberAnimationInstRef"
-              :from="0"
-              :to="summonerRankedInfo.wins"
-              :active="true"
-              :precision="0"
-            />
-          </n-statistic>
-          <n-statistic label="Losses" tabular-nums>
-            <n-number-animation
-              ref="numberAnimationInstRef"
-              :from="0"
-              :to="summonerRankedInfo.losses"
-              :active="true"
-              :precision="0"
-            />
-          </n-statistic>
-        </div>
+        <n-statistic label="Wins" tabular-nums>
+          <n-number-animation
+            ref="numberAnimationInstRef"
+            :from="0"
+            :to="summonerRankedInfo.wins"
+            :active="true"
+            :precision="0"
+          />
+        </n-statistic>
+        <n-statistic label="Losses" tabular-nums>
+          <n-number-animation
+            ref="numberAnimationInstRef"
+            :from="0"
+            :to="summonerRankedInfo.losses"
+            :active="true"
+            :precision="0"
+          />
+        </n-statistic>
         <n-statistic label="Win Rate" tabular-nums>
           <n-number-animation
             ref="numberAnimationInstRef"
@@ -81,21 +93,23 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
             :precision="0"
           />%
         </n-statistic>
-        <n-tag v-if="summonerRankedInfo.hotStreak" class="mt-3 font-bold p-4" type="error"
-          >Hot Streak</n-tag
-        >
-        <n-tag v-if="summonerRankedInfo.veteran" class="mt-3 font-bold p-4" type="error"
-          >Veteran</n-tag
-        >
       </div>
-      <img
+
+      <n-tag v-if="summonerRankedInfo.hotStreak" class="mt-3 font-bold p-4" type="error"
+        >Hot Streak</n-tag
+      >
+      <n-tag v-if="summonerRankedInfo.veteran" class="mt-3 font-bold p-4" type="error"
+        >Veteran</n-tag
+      >
+    </div>
+    <!-- <img
         width="200"
         height="228"
         class="max-w-[200px] object-contain"
         :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`"
         alt=""
       />
-    </div>
+    </div> -->
     <div
       class="flex flex-col"
       v-if="

@@ -23,9 +23,9 @@ const tableColor = (team: number): string => {
 
 <template>
   <n-table :style="{ '--n-th-color': tableColor(props.team) }" class="text-gray-600">
-    <tr>
+    <tr class="text-center">
       <th>{{ teamColor }}</th>
-      <th>Tier</th>
+      <th>Level</th>
       <th>KDA</th>
       <th>Damage</th>
       <th>Wards</th>
@@ -48,7 +48,9 @@ const tableColor = (team: number): string => {
             )}.png`"
           />
         </div>
-        <span class="mr-2">{{ participant.summonerName }}</span>
+        <span class="truncate text-xs max-w-[80px] overflow-ellipsis space-nowrap">{{
+          participant.summonerName
+        }}</span>
       </th>
       <th>
         <span class="mx-4">{{ participant.summonerLevel }}</span>

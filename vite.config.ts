@@ -102,6 +102,8 @@ export default ({ mode }: { mode: string }) => {
       // https://github.com/hannoeru/vite-plugin-pages
       Pages({
         extensions: ['vue', 'md'],
+
+
       }),
 
       // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
@@ -161,10 +163,10 @@ export default ({ mode }: { mode: string }) => {
         manifest: {
           name: "LOL Wikis",
           short_name: "Test",
-          theme_color: "#ffffff",
+          theme_color: "#0f0f0f",
           start_url: "/",
           display: "standalone",
-          background_color: "#ffffff",
+          background_color: "#0f0f0f",
           icons: [
             {
               src: '/pwa-192x192.png',

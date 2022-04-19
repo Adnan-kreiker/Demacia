@@ -1,10 +1,10 @@
 {
   "name": "Leauge of Legends Wikis",
  "short_name": "LOL Wikis",
-  "theme_color": "#ffffff",
+  "theme_color": "#0f0f0f",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0f0f0f",
   "icons": [
     {
       "src": "/pwa-192x192.png",

@@ -26,7 +26,7 @@ const { width } = useWindowSize();
 
 const scrollButtonVisibility = computed(() => y.value >= 200);
 
-function renderIcon(icon: Component) {
+function renderIcon (icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
 
@@ -173,62 +173,34 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>
 
 <template>
-  <div class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
+  <div id="layout-scroll-container" class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
     <n-config-provider :theme="darkTheme">
       <nav class="py-3">
-        <n-menu
-          v-if="width > 700"
-          v-model="activeKey"
-          class="text-lg"
-          mode="horizontal"
-          :options="menuOptions"
-        >
+        <n-menu v-if="width > 700" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions">
         </n-menu>
         <n-layout v-else has-sider>
-          <button
-            ref="menuButton"
-            @click="triggerCollapse"
-            class="absolute w-10 h-10 top-0 right-3"
-          >
+          <button ref="menuButton" @click="triggerCollapse" class="absolute w-10 h-10 top-0 right-3">
             <MenuIcon></MenuIcon>
           </button>
-          <n-layout-sider
-            ref="sidePanel"
-            bordered
-            collapse-mode="width"
-            :collapsed-width="0"
-            :width="240"
-            :collapsed="collapsed"
-            :show-trigger="false"
-            @collapse="collapsed = true"
-            @expand="collapsed = false"
-          >
-            <n-menu
-              v-model:value="activeKey"
-              :collapsed="collapsed"
-              :collapsed-width="64"
-              :collapsed-icon-size="22"
-              :options="mobileMenuOptions"
-              :on-update:value="() => (collapsed = true)"
-            />
+          <n-layout-sider ref="sidePanel" bordered collapse-mode="width" :collapsed-width="0" :width="240"
+            :collapsed="collapsed" :show-trigger="false" @collapse="collapsed = true" @expand="collapsed = false">
+            <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
+              :options="mobileMenuOptions" :on-update:value="() => (collapsed = true)" />
           </n-layout-sider>
         </n-layout>
       </nav>
       <n-back-top :right="40" :bottom="20" show>
-        <div
-          v-show="scrollButtonVisibility"
-          style="width: 50px; height: 50px; text-align: center; border-radius: 100%"
+        <div v-show="scrollButtonVisibility" style="width: 50px; height: 50px; text-align: center; border-radius: 100%"
           :style="{
             transition: 'all .3s cubic-bezier(.4, 0, .2, 1)',
-          }"
-        >
+          }">
           <chevron-top></chevron-top>
         </div>
       </n-back-top>
       <main class="px-4 py-10 min-h-screen">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">
-            <component :is="Component" :key="route.params" />
+            <component :is="Component" :key="route.fullPath" />
           </transition>
         </router-view>
       </main>

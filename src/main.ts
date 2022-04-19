@@ -18,7 +18,24 @@ const app = createApp(App)
 
 // setup up pages with layouts
 const routes = setupLayouts(generatedRoutes)
-const router = createRouter({ history: createWebHistory(), routes })
+
+const router = createRouter({
+  history: createWebHistory(), routes, scrollBehavior (to, from, savedPosition) {
+    if (to.fullPath === from.fullPath) return
+    if (savedPosition) {
+      console.log(savedPosition);
+      return (savedPosition)
+    }
+    return new Promise((resolve, reject) => {
+      const container = document.getElementById('app')
+      setTimeout(() => {
+
+        resolve(
+          { left: container!.scrollLeft = 0, top: container!.scrollTop = 0 })
+      }, 500)
+    })
+  },
+})
 app.use(router)
 
 // install all modules under `modules/`

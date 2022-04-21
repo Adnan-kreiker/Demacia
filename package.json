@@ -36,6 +36,7 @@
     "critters": "^0.0.16",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.6.0",
     "happy-dom": "^2.55.0",
     "https-localhost": "^4.7.0",
     "jsdom": "^19.0.0",

@@ -42,6 +42,7 @@ declare module 'vue' {
     SummonersTable: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SummonersTable.vue')['default']
     SummonersTableSkeleton: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SummonersTableSkeleton.vue')['default']
     SwordIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SwordIcon.vue')['default']
+    TheFooter: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/TheFooter.vue')['default']
     WarningIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/WarningIcon.vue')['default']
   }
 }

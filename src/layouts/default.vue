@@ -204,7 +204,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
           </transition>
         </router-view>
       </main>
-      <Footer></Footer>
+      <TheFooter />
     </n-config-provider>
   </div>
 </template>

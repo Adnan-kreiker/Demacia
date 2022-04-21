@@ -5,7 +5,7 @@
 // import { render, screen } from '@testing-library/vue'
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import Footer from './Footer.vue'
+import Footer from './TheFooter.vue'
 
 describe('Footer', () => {
   const pText = 'By Adnan Kreiker 🦄'

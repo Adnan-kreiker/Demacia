@@ -723,3 +723,34 @@ export interface Metadata {
 }
 
 
+// type MessageOf<T extends {message:unknown}> = T['message'] 
+
+// type MessageOf<T> = T extends { message: unknown } ? T['message'] : never;
+// does T have a property called message?
+// if so, return the type of that property
+// if not, return never
+
+// interface Email {
+//   message: string;
+// }
+
+// type ha = MessageOf<Email>
+
+// type regularFlatten<T> = T extends any[] ? T[number] : T;
+// // if T is an array, return the type of the array's elements
+// // if T is not an array, return T
+
+
+// type Flatten<T> = T extends Array<infer Type> ? Type : T;
+//explain the type above
+// if T is an array, return the type of the array
+// if T is not an array, return T
+// export function exp ({ name, age, height }: { name: any, age: any, height: any }) {
+//   return {
+//     name,
+//     age,
+//     height
+//   }
+// }
+
+

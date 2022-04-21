@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Champion, ChampionObject, FreeChampionRotations } from "~/types";
+import { Champion } from "~/types";
 import { NText } from "naive-ui/es/typography";
 import { NH1 } from "naive-ui/es/typography";
 import NCard from "naive-ui/es/card/src/Card";
@@ -7,25 +7,31 @@ import NDivider from "naive-ui/es/divider/src/Divider";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import VLazyImage from "v-lazy-image";
 import { getChampionInfoById } from "../../utils";
+import useChampions from "~/hooks/useChampions";
+import useChampionsRotations from "~/hooks/useChampionsRotations";
 
-const rotations = ref<FreeChampionRotations | null>(null);
-const champions = shallowRef<ChampionObject | null>(null);
 
-async function getChampions() {
-  const champs = await fetch(`${import.meta.env.VITE_URL}/api/get-champions`);
-  const res = await champs.json();
-  champions.value = res.data;
-}
 
-async function getChampionRotations() {
-  const response = await fetch(`${import.meta.env.VITE_URL}/api/get-champions-rotations`);
-  const data = await response.json();
-  rotations.value = data;
-}
+// const rotations = ref<FreeChampionRotations | null>(null);
+// const champions = shallowRef<ChampionObject | null>(null);
+const { champions } = useChampions()
+const { rotations } = useChampionsRotations()
 
-getChampions();
+// async function getChampions() {
+//   const champs = await fetch(`${import.meta.env.VITE_URL}/api/get-champions`);
+//   const res = await champs.json();
+//   champions.value = res.data;
+// }
 
-getChampionRotations();
+// async function getChampionRotations () {
+//   const response = await fetch(`${import.meta.env.VITE_URL}/api/get-champions-rotations`);
+//   const data = await response.json();
+//   rotations.value = data;
+// }
+
+// getChampions();
+
+// getChampionRotations();
 
 let champsArray = shallowRef<Champion[]>([]);
 
@@ -48,28 +54,13 @@ watch(
       <n-h1>
         <n-text type="primary"> Free Champions </n-text>
       </n-h1>
-      <div
-        v-if="rotations && champsArray.length > 0"
-        class="flex flex-row flex-wrap gap-2 justify-center"
-      >
-        <router-link
-          v-for="(champ, index) in rotations.freeChampionIds"
-          :key="index"
-          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`"
-          class="hover:cursor-pointer"
-        >
-          <n-card
-            content-style="padding: 0"
-            hoverable
-            class="w-[98px] h-[138.39px] justify-self-center"
-          >
+      <div v-if="rotations && champsArray.length > 0" class="flex flex-row flex-wrap gap-2 justify-center">
+        <router-link v-for="(champ, index) in rotations.freeChampionIds" :key="index"
+          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`" class="hover:cursor-pointer">
+          <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <v-lazy-image
-                height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
-                  getChampionInfoById(champsArray, champ)?.image.full
-                }`"
-              />
+              <v-lazy-image height="98" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${getChampionInfoById(champsArray, champ)?.image.full
+              }`" />
             </template>
             <h1 class="text-center py-2">
               {{
@@ -90,28 +81,13 @@ watch(
       <n-h1>
         <n-text type="primary"> Free Champions For New Players </n-text>
       </n-h1>
-      <div
-        v-if="rotations && champsArray.length > 0"
-        class="flex flex-row flex-wrap gap-2 justify-center"
-      >
-        <router-link
-          v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers"
-          :key="index"
-          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`"
-          class="hover:cursor-pointer"
-        >
-          <n-card
-            content-style="padding: 0"
-            hoverable
-            class="w-[98px] h-[138.39px] justify-self-center"
-          >
+      <div v-if="rotations && champsArray.length > 0" class="flex flex-row flex-wrap gap-2 justify-center">
+        <router-link v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers" :key="index"
+          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`" class="hover:cursor-pointer">
+          <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <v-lazy-image
-                height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
-                  getChampionInfoById(champsArray, champ)?.image.full
-                }`"
-              />
+              <v-lazy-image height="98" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${getChampionInfoById(champsArray, champ)?.image.full
+              }`" />
             </template>
             <h1 class="text-center py-2">
               {{

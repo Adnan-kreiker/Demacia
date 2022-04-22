@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import { App, Ref } from 'vue'
 import { Router, RouteRecordRaw } from 'vue-router'
 import { HeadClient } from '@vueuse/head'
 
@@ -721,6 +721,8 @@ export interface Metadata {
   matchId: string;
   participants: string[];
 }
+
+export type MaybeRef<T> = Ref<T> | T
 
 
 // type MessageOf<T extends {message:unknown}> = T['message'] 

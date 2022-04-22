@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Champion } from "~/types";
 import { NText } from "naive-ui/es/typography";
 import { NH1 } from "naive-ui/es/typography";
 import NCard from "naive-ui/es/card/src/Card";
@@ -10,42 +9,10 @@ import { getChampionInfoById } from "../../utils";
 import useChampions from "~/hooks/useChampions";
 import useChampionsRotations from "~/hooks/useChampionsRotations";
 
+const { championsArray: champsArray } = useChampions()
 
-
-// const rotations = ref<FreeChampionRotations | null>(null);
-// const champions = shallowRef<ChampionObject | null>(null);
-const { champions } = useChampions()
 const { rotations } = useChampionsRotations()
 
-// async function getChampions() {
-//   const champs = await fetch(`${import.meta.env.VITE_URL}/api/get-champions`);
-//   const res = await champs.json();
-//   champions.value = res.data;
-// }
-
-// async function getChampionRotations () {
-//   const response = await fetch(`${import.meta.env.VITE_URL}/api/get-champions-rotations`);
-//   const data = await response.json();
-//   rotations.value = data;
-// }
-
-// getChampions();
-
-// getChampionRotations();
-
-let champsArray = shallowRef<Champion[]>([]);
-
-watch(
-  champions,
-  () => {
-    if (champions.value) {
-      champsArray.value = Object.values(toRaw(champions.value));
-    }
-  },
-  {
-    immediate: true,
-  }
-);
 </script>
 
 <template>

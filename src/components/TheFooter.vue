@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <footer class="text-center text-white" style="background-color: #2f2f2f">
     <div class="pt-9">

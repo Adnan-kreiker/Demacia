@@ -7,7 +7,6 @@ import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import { Summoner, MatchInfo, SummonerRankedInfo, QueueTypes } from "~/types";
-import { unicodeToUtf8, regionParamToContinentMapper } from "../../../utils";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
@@ -16,6 +15,10 @@ import ChampionMastery from "~/components/ChampionMastery.vue";
 import LiveGame from "~/components/LiveGame.vue";
 import type { Ref } from "vue";
 import { regionStore } from "~/stores/region";
+import useMatchHistory from "~/hooks/useMatchHistory";
+import useSummoner from "~/hooks/useSummoner";
+import useSummonerRankedInfoById from "~/hooks/useSummonerRankedInfoById";
+
 
 const store = regionStore()
 
@@ -30,6 +33,8 @@ const summonerRankedInfo = ref<null | SummonerRankedInfo>(null);
 const summoner = route.params.summoner as string;
 
 const region = ref(route.query.region) as Ref<string>
+
+const { getSummonerByName } = useSummoner()
 
 watch(region, (newRegion) => {
   if (newRegion) {
@@ -60,61 +65,24 @@ const error = ref(false);
 
 const getSummonerInfo = async () => {
   try {
-    // Fetch Summoner's Info
-    const res = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}?region=${region.value}`
-    );
-    const data = (await res.json()) as Summoner;
-
-    summonerInfo.value = data;
-
-    if (summonerInfo.value.status && summonerInfo.value.status.status_code == 404) {
-      error.value = true;
+    const res = await getSummonerByName(summoner, region.value);
+    if (res) {
+      summonerInfo.value = res;
+    } else {
+      error.value = true
+      return
     }
-
-    // Get Match History Info
-    getMatchHistory();
-    // Get Champions Mastery
-
-    // Fetch Summoner's Ranked Info
-    const rankedInfo = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerInfo.value.id}?region=${region.value}`
-    );
-
-    const rankedData = (await rankedInfo.json()) as SummonerRankedInfo;
-    summonerRankedInfo.value = rankedData;
+    const { rankedData } = await useSummonerRankedInfoById(summonerInfo.value.id, region.value);
+    const { matchHistory: mh } = await useMatchHistory(summonerInfo.value.puuid, region.value);
+    // const [{ matchHistory: mh }, { rankedData }] = await Promise.all([useMatchHistory(summonerInfo.value.puuid, region.value), useSummonerRankedInfoById(summonerInfo.value.id, region.value)])
+    matchHistory.value = mh.value
+    summonerRankedInfo.value = rankedData.value;
   } catch (err) {
     console.error(err);
     error.value = true;
   }
-};
+}
 
-const getMatchHistory = async () => {
-  if (summonerInfo.value) {
-    try {
-      const matches = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-matches/${summonerInfo.value.puuid
-        }?start=0&count=10&region=${regionParamToContinentMapper(region.value)}`
-      );
-
-      const matchesId = await matches.json();
-
-      // Fetch Summoner's Matches
-      await Promise.allSettled(
-        matchesId.map(async (matchId: string) => {
-          const match = await fetch(
-            `${import.meta.env.VITE_URL}/api/get-match/${matchId}?region=${regionParamToContinentMapper(region.value)}`
-          );
-          const data = await match.json();
-          matchHistory.value.push({ ...data, show: false });
-        })
-      );
-    } catch (err) {
-      error.value = true;
-      console.log(err);
-    }
-  }
-};
 
 getSummonerInfo();
 </script>
@@ -144,7 +112,7 @@ getSummonerInfo();
               </div>
             </div>
             <!-- Match History  -->
-            <section v-if="matchHistory && matchHistory?.length > 0">
+            <section v-if="matchHistory !== undefined">
               <match-history-info :match-history="matchHistory"></match-history-info>
             </section>
             <section class="flex flex-col gap-3 justify-center items-center" v-else>

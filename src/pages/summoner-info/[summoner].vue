@@ -5,7 +5,6 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NSpace from "naive-ui/es/space/src/Space";
 import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
-import NDivider from "naive-ui/es/divider/src/Divider";
 import { QueueTypes, Summoner } from "~/types";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
@@ -85,8 +84,7 @@ getSummonerInfo()
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
 
             <div class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]">
-              <n-divider class="h-[450px] divider-class" vertical></n-divider>
-              <div class="sm:w-[35%]">
+              <div class="sm:w-[40%]">
                 <Suspense>
                   <SummonersInfo :summoner-info="summonerInfo"></SummonersInfo>
                   <template #fallback>
@@ -104,16 +102,21 @@ getSummonerInfo()
                   </template>
                 </Suspense>
               </div>
-              <n-divider class="h-[450px] divider-class" vertical></n-divider>
               <div class=" sm:w-[55%]">
-                <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 100 + '%' }">
-                  <n-select v-model:value="queueType" :options="queueOptions"></n-select>
-                </n-space>
+
                 <Suspense>
-                  <SummonersRankedInfo :summoner-info="summonerInfo" :queue-type="queueType">
-                  </SummonersRankedInfo>
+                  <section>
+                    <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 70 + '%', marginInline: 'auto' }">
+                      <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+                    </n-space>
+                    <SummonersRankedInfo :summoner-info="summonerInfo" :queue-type="queueType">
+                    </SummonersRankedInfo>
+                  </section>
                   <template #fallback>
-                    <n-skeleton class="mx-auto" height="451px" width="80%" />
+                    <section>
+                      <n-skeleton class="mx-auto my-4" height="34px" width="70%" />
+                      <n-skeleton class="mx-auto" height="451px" width="100%" />
+                    </section>
                   </template>
                 </Suspense>
               </div>
@@ -123,13 +126,11 @@ getSummonerInfo()
               <MatchHistoryInfo :summoner-info="summonerInfo"></MatchHistoryInfo>
               <template #fallback>
                 <section class="flex flex-col gap-3 justify-center items-center">
-                  <n-skeleton v-for="i in 10" :key="i" height="185px" width="80%" />
+                  <n-skeleton v-for="i in 10" :key="i" height="185px" width="840px" />
                 </section>
               </template>
             </Suspense>
-            <!-- <section class="flex flex-col gap-3 justify-center items-center" v-else>
-              <n-skeleton v-for="i in 10" :key="i" height="256px" width="70%" />
-            </section> -->
+
           </n-tab-pane>
           <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
             <ChampionMastery :summoner-info="summonerInfo"></ChampionMastery>
@@ -154,7 +155,8 @@ getSummonerInfo()
             <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
           </n-space>
           <div class="sm:w-2/3">
-            <n-skeleton class="mx-auto" height="451px" width="80%" />
+            <n-skeleton class="mx-auto my-4" height="34px" width="70%" />
+            <n-skeleton class="mx-auto" height="451px" width="70%" />
           </div>
         </section>
         <section class="flex flex-col gap-3 justify-center items-center">
@@ -171,12 +173,4 @@ getSummonerInfo()
 </template>
 
 <style scoped>
-.n-divider.n-divider--vertical {
-  height: 450px;
-  margin-inline: 5px;
-
-  @media (max-width: 626px) {
-    display: none;
-  }
-}
 </style>

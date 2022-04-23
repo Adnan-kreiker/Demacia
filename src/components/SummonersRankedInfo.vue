@@ -9,34 +9,21 @@ import { storeToRefs } from "pinia";
 import useSummonerRankedInfoById from "~/hooks/useSummonerRankedInfoById";
 
 const props = defineProps<{
-  // summonerRankedInfo: SummonerRankedInfo;
   queueType: QueueTypes;
   summonerInfo: Summoner;
 
 }>();
 
-// const isRankedInfo = (value: SummonerRankedInfo): value is SummonerHasRankedInfo => {
-//   return value && Array.isArray(value) && value.every((val) => val.queueType);
-// };
 
 const { region } = storeToRefs(regionStore());
+
 const summonerInfo = ref<Summoner>(props.summonerInfo);
-// const rankedInfo = ref<null | SummonerHasRankedInfo>(null)
+
 const { rankedData } = await useSummonerRankedInfoById(
   summonerInfo.value.id,
   region.value
 )
-// watch(summonerInfo, async (newSummonerInfo) => {
-//   if (newSummonerInfo) {
-//     if (rankedData.value && isRankedInfo(rankedData.value)) {
-//       summonerRankedInfo.value = rankedData.value
-//     }
-//   }
-// }, {
-//   immediate: true,
-// })
 
-// const rankedInfo = ref<SummonerRankedInfo>(rankedData.value);
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
   if (Array.isArray(rankedData.value)) {
@@ -49,7 +36,6 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
 <template>
   <div>
     <div class="flex items-center flex-col flex-wrap justify-evenly text-center" v-if="
-      // Array.isArray(summonerRankedInfo) &&
       summonerRankedInfo &&
       (summonerRankedInfo.queueType === 'RANKED_FLEX_SR' ||
         summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
@@ -59,12 +45,14 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
           <p class="text-lg mb-3">
             Queue Type: {{ replaceUnderscoreWithSpace(summonerRankedInfo.queueType) }}
           </p>
-          <n-statistic label="Tier" tabular-nums>{{
-              summonerRankedInfo.tier
-          }}</n-statistic>
-          <n-statistic label="Division" tabular-nums>{{
-              summonerRankedInfo.rank
-          }}</n-statistic>
+          <div class="flex flex-row gap-2">
+            <n-statistic label="Tier" tabular-nums>{{
+                summonerRankedInfo.tier
+            }}</n-statistic>
+            <n-statistic label="Division" tabular-nums>{{
+                summonerRankedInfo.rank
+            }}</n-statistic>
+          </div>
         </div>
         <img width="200" height="228" class="max-w-[200px] m-2 block object-contain"
           :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`" alt="" />
@@ -97,14 +85,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
         <n-tag v-if="summonerRankedInfo.veteran" class="mt-3 font-bold p-4" type="error">Veteran</n-tag>
       </div>
     </div>
-    <!-- <img
-        width="200"
-        height="228"
-        class="max-w-[200px] object-contain"
-        :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`"
-        alt=""
-      />
-    </div> -->
+
     <div class="flex flex-col" v-if="
       Array.isArray(summonerRankedInfo) &&
       summonerRankedInfo &&

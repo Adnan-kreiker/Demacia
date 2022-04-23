@@ -67,14 +67,14 @@ getSummonersInfo();
 
 const data = ref<
   | {
-      rank: number;
-      summoner: string;
-      tier: string;
-      lp: number;
-      level: number;
-      winRatio: number;
-      icon: number;
-    }[]
+    rank: number;
+    summoner: string;
+    tier: string;
+    lp: number;
+    level: number;
+    winRatio: number;
+    icon: number;
+  }[]
   | null
 >(null);
 
@@ -118,7 +118,7 @@ const columns: DataTableColumns = [
     key: "summoner",
     // align: "center",
     width: "200px",
-    render(row) {
+    render (row) {
       const iconId = row.icon as number;
       return h(
         RouterLink,
@@ -182,7 +182,7 @@ const columns: DataTableColumns = [
     title: "Win Ratio",
     key: "winRatio",
     align: "center",
-    render(row) {
+    render (row) {
       const winRate = row.winRatio as number;
       return h(NProgress, {
         style: {
@@ -199,15 +199,9 @@ const columns: DataTableColumns = [
 </script>
 
 <template>
-  <div>
-    <n-data-table
-      v-if="data"
-      :loading="loading"
-      :columns="columns"
-      scroll-x="800"
-      :data="data"
-      min-height="350"
-    >
+  <div class="overflow-x-scroll lg:overflow-x-hidden whitespace-nowrap">
+    <n-data-table v-if="data" :loading="loading" :columns="columns" class="min-w-[800px] " :data="data"
+      min-height="350">
     </n-data-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>

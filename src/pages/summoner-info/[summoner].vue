@@ -126,6 +126,8 @@ getSummonerInfo()
               <MatchHistoryInfo :summoner-info="summonerInfo"></MatchHistoryInfo>
               <template #fallback>
                 <section class="flex flex-col gap-3 justify-center items-center">
+                  <n-skeleton class="mx-auto my-8 " height="48px" width="263px" />
+
                   <n-skeleton v-for="i in 10" :key="i" height="185px" width="840px" />
                 </section>
               </template>
@@ -154,13 +156,14 @@ getSummonerInfo()
             <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
             <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
           </n-space>
-          <div class="sm:w-2/3">
+          <div class="sm:w-[55%]">
             <n-skeleton class="mx-auto my-4" height="34px" width="70%" />
-            <n-skeleton class="mx-auto" height="451px" width="70%" />
+            <n-skeleton class="mx-auto" height="451px" width="100%" />
           </div>
         </section>
         <section class="flex flex-col gap-3 justify-center items-center">
-          <n-skeleton v-for="i in 10" :key="i" height="185px" width="80%" />
+          <n-skeleton class="mx-auto my-8 " height="48px" width="263px" />
+          <n-skeleton v-for="i in 10" :key="i" height="185px" width="840px" />
         </section>
       </div>
     </div>

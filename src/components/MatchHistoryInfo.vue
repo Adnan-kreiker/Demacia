@@ -22,7 +22,6 @@ import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
 const props = defineProps<{
   summonerInfo: Summoner;
-  // matchHistory: MatchInfo[];
 }>();
 
 const route = useRoute();
@@ -37,7 +36,7 @@ const summoner = (participants: Participant[]): Participant | undefined => {
   );
   return participant;
 };
-// console.log(getSummonerName((route.params.summoner.toString())))
+
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
   if (show) {
     if (result) {
@@ -55,6 +54,8 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
 };
 </script>
 <template>
+  <h2 class="text-center text-2xl md:text-4xl border-t border-dark-200 pt-8 my-8 font-bold"><span
+      class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
   <section v-if="matchHistory && matchHistory.length">
     <div v-for="match in matchHistory" :key="match.metadata.matchId" :style="{
       background: matchHistoryBackground(

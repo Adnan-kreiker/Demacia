@@ -45,7 +45,7 @@ const useMatchHistory = async (puuid: string, region: string) => {
   try {
     const matches = await fetch(
       `${import.meta.env.VITE_URL}/api/get-matches/${puuid
-      }?start=0&count=10&region=${regionParamToContinentMapper(region)}`
+      }?start=0&count=5&region=${regionParamToContinentMapper(region)}`
     );
 
     const matchesIds = await matches.json() as string[]
@@ -55,8 +55,6 @@ const useMatchHistory = async (puuid: string, region: string) => {
           `${import.meta.env.VITE_URL}/api/get-match/${matchId}?region=${regionParamToContinentMapper(region)}`
         ).then((res) => res.json())
           .then((match) => matchHistory.value.push({ ...match, show: false }))
-
-
       })
     ).catch(err => console.log(err))
   } catch (err) {

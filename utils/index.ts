@@ -188,8 +188,9 @@ export function formatTime (ms: number) {
 
 
 export const getSummonerName = (summoner: string) => {
-  return summoner.replace(/\s/g, "").toLowerCase();
+  return summoner.replace(/\s+/g, "").toLowerCase();
 };
+
 
 export const unicodeToUtf8 = (str: string) => {
   return unescape(encodeURIComponent(str));

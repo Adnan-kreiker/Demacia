@@ -8,6 +8,7 @@ const props = defineProps<{
 }>();
 
 const summonerInfo = ref<Summoner | null>(props.summonerInfo);
+
 </script>
 <template>
   <div v-if="summonerInfo" class="flex flex-col justify-center">

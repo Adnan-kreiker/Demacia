@@ -30,6 +30,7 @@ declare module 'vue' {
     MatchHistoryTeam: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MatchHistoryTeam.vue')['default']
     MatchHistoryTeamDataTable: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MatchHistoryTeamDataTable.vue')['default']
     MenuIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/MenuIcon.vue')['default']
+    MobileSideBar: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/MobileSideBar.vue')['default']
     README: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/README.md')['default']
     ReloadPWA: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ReloadPWA.vue')['default']
     SearchForSummoner: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SearchForSummoner.vue')['default']

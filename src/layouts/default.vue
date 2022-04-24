@@ -4,17 +4,12 @@ import NMenu from "naive-ui/es/menu/src/Menu";
 import { darkTheme } from "naive-ui";
 import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
 import NBackTop from "naive-ui/es/back-top/src/BackTop";
-import NLayoutSider from "naive-ui/es/layout/src/LayoutSider";
-import { NIcon } from "naive-ui/es/icon/src/Icon";
-import NLayout from "naive-ui/es/layout/src/Layout";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
-import HomeIcon from "~/components/Icons/HomeIcon.vue";
-import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
-import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
-import StatsIcon from "~/components/Icons/StatsIcon.vue";
-import MenuIcon from "~/components/Icons/MenuIcon.vue";
-import type { Component } from "vue";
+const MobileSideBar = defineAsyncComponent({
+  loader: () =>
+    import("../components/MobileSideBar.vue"),
+});
 
 const activeKey = ref<string | null>(null);
 
@@ -26,10 +21,6 @@ const { width } = useWindowSize();
 
 const scrollButtonVisibility = computed(() => y.value >= 200);
 
-function renderIcon (icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) });
-}
-
 const sidePanel = ref(null);
 
 const menuButton = ref(null);
@@ -37,74 +28,6 @@ const menuButton = ref(null);
 onClickOutside(sidePanel, () => (collapsed.value = true), {
   ignore: [menuButton],
 });
-
-const mobileMenuOptions: MenuOption[] = [
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: "/",
-          },
-          activeClass: "router-active",
-        },
-        { default: () => "Home" }
-      ),
-    key: "Home",
-    icon: renderIcon(HomeIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: "/champions",
-          },
-          activeClass: "router-active",
-        },
-        { default: () => "Champions" }
-      ),
-    key: "Champions",
-    icon: renderIcon(ChampionsIcon),
-  },
-  {
-    label: "Stats",
-    key: "Stats",
-    icon: renderIcon(StatsIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: "/champion-rotations",
-          },
-          activeClass: "router-active",
-        },
-        { default: () => "Champion Rotations" }
-      ),
-    key: "Rotations",
-    icon: renderIcon(ChampionsIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: "/leaderboards",
-          },
-          activeClass: "router-active",
-        },
-        { default: () => "Leaderboards" }
-      ),
-    key: "Leaderboards",
-    icon: renderIcon(StatisticsIcon),
-  },
-];
 
 const menuOptions: MenuOption[] = [
   {
@@ -178,16 +101,12 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
       <nav class="py-3">
         <n-menu v-if="width > 700" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions">
         </n-menu>
-        <n-layout v-else has-sider>
+        <div v-else>
           <button ref="menuButton" @click="triggerCollapse" class="absolute w-10 h-10 top-0 right-3">
             <MenuIcon></MenuIcon>
           </button>
-          <n-layout-sider ref="sidePanel" bordered collapse-mode="width" :collapsed-width="0" :width="240"
-            :collapsed="collapsed" :show-trigger="false" @collapse="collapsed = true" @expand="collapsed = false">
-            <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
-              :options="mobileMenuOptions" :on-update:value="() => (collapsed = true)" />
-          </n-layout-sider>
-        </n-layout>
+          <MobileSideBar ref="sidePanel" :collapsed="collapsed" />
+        </div>
       </nav>
       <n-back-top :right="40" :bottom="20" show>
         <div v-show="scrollButtonVisibility" style="width: 50px; height: 50px; text-align: center; border-radius: 100%"

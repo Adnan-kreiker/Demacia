@@ -120,3 +120,8 @@ nav{
 .fade-leave-to {
   opacity: 0;
 }
+
+.n-layout .n-layout-scroll-container {
+  width: 240px !important;
+  top: 0;
+}

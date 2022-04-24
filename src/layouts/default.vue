@@ -3,7 +3,6 @@ import type { MenuOption } from "naive-ui";
 import NMenu from "naive-ui/es/menu/src/Menu";
 import { darkTheme } from "naive-ui";
 import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
-import NBackTop from "naive-ui/es/back-top/src/BackTop";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
 const MobileSideBar = defineAsyncComponent({
@@ -15,11 +14,7 @@ const activeKey = ref<string | null>(null);
 
 const collapsed = ref(true);
 
-const { y } = useWindowScroll();
-
 const { width } = useWindowSize();
-
-const scrollButtonVisibility = computed(() => y.value >= 200);
 
 const sidePanel = ref(null);
 
@@ -92,6 +87,23 @@ const menuOptions: MenuOption[] = [
   },
 ];
 
+
+
+const container = document.getElementById('app')
+
+const { y } = useScroll(container)
+
+const scrollButtonVisibility = computed(() => y.value >= 200);
+
+const scrollToTop = () => {
+  container!.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
+
+
 const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>
 
@@ -108,14 +120,9 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
           <MobileSideBar ref="sidePanel" :collapsed="collapsed" />
         </div>
       </nav>
-      <n-back-top :right="40" :bottom="20" show>
-        <div v-show="scrollButtonVisibility" style="width: 50px; height: 50px; text-align: center; border-radius: 100%"
-          :style="{
-            transition: 'all .3s cubic-bezier(.4, 0, .2, 1)',
-          }">
-          <chevron-top></chevron-top>
-        </div>
-      </n-back-top>
+      <button v-show="scrollButtonVisibility" @click="scrollToTop" class="fixed bottom-4   right-7 w-12 h-12">
+        <chevron-top></chevron-top>
+      </button>
       <main class="px-4 py-10 min-h-screen">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">

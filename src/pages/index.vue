@@ -4,13 +4,8 @@ import SearchForSummoner from "~/components/SearchForSummoner.vue";
 
 <template>
   <div class="flex flex-col justify-center h-full items-center">
-    <img
-      fetchpriority="high"
-      height="280"
-      class="object-cover yummi-img h-70 my-4"
-      src="/yummi.webp"
-      alt="Yummi hovering"
-    />
+    <img fetchpriority="high" height="280" class="object-cover yummi-img h-70 my-4" src="/yummi.webp"
+      alt="Yummi hovering" />
     <search-for-summoner></search-for-summoner>
   </div>
 </template>

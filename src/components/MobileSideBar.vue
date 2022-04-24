@@ -2,7 +2,6 @@
 import NLayoutSider from "naive-ui/es/layout/src/LayoutSider";
 import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import NMenu from "naive-ui/es/menu/src/Menu";
-
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
 import StatsIcon from "~/components/Icons/StatsIcon.vue";
@@ -19,13 +18,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'triggerCollapse', value: boolean): void
 }>()
-// const sidePanel = ref(null);
 
-// onClickOutside(sidePanel, () => (emit('triggerCollapse', true)));
 const activeKey = ref<string | null>(null);
-
-
-
 
 function renderIcon (icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });

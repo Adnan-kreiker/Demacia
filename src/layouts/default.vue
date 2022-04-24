@@ -87,8 +87,6 @@ const menuOptions: MenuOption[] = [
   },
 ];
 
-
-
 const container = document.getElementById('app')
 
 const { y } = useScroll(container)
@@ -101,8 +99,6 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
-
-
 
 const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>
@@ -128,7 +124,9 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
       <main class="px-4 py-10 min-h-screen">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">
+            <!-- <keep-alive> -->
             <component :is="Component" :key="route.fullPath" />
+            <!-- </keep-alive> -->
           </transition>
         </router-view>
       </main>

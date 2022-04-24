@@ -201,7 +201,7 @@ const columns: DataTableColumns = [
 <template>
   <div class="overflow-x-scroll lg:overflow-x-hidden whitespace-nowrap">
     <n-data-table v-if="data" :loading="loading" :columns="columns" class="min-w-[800px] " :data="data"
-      min-height="350">
+      min-height="850">
     </n-data-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
   </div>

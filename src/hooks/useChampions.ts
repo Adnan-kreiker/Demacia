@@ -15,6 +15,6 @@ export default function () {
   }
   return {
     champions,
-    championsArray
+    championsArray,
   }
 }

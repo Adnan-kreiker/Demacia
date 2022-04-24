@@ -114,15 +114,17 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
         <n-menu v-if="width > 700" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions">
         </n-menu>
         <div v-else>
-          <button ref="menuButton" @click="triggerCollapse" class="absolute w-10 h-10 top-0 right-3">
+          <button ref="menuButton" @click="triggerCollapse" class="absolute  w-10 h-10 top-0 right-3">
             <MenuIcon></MenuIcon>
           </button>
           <MobileSideBar ref="sidePanel" :collapsed="collapsed" />
         </div>
       </nav>
-      <button v-show="scrollButtonVisibility" @click="scrollToTop" class="fixed bottom-4   right-7 w-12 h-12">
-        <chevron-top></chevron-top>
-      </button>
+      <Transition name="fade" appear>
+        <button v-show="scrollButtonVisibility" @click="scrollToTop" class="fixed bottom-4 z-50  right-7 w-12 h-12">
+          <chevron-top class="text-gray-300"></chevron-top>
+        </button>
+      </Transition>
       <main class="px-4 py-10 min-h-screen">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">

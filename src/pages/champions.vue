@@ -11,10 +11,11 @@ const { champions } = useChampions();
     <h1 class="text-white text-3xl font-bold mb-12 underline-green-500 underline-2 underline">
       Champions
     </h1>
-    <div v-if="champions" class="flex  flex-row flex-wrap sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-3 justify-center">
+    <div v-if="champions" class="flex flex-row flex-wrap sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-3 justify-center">
       <router-link v-for="(champ, index) in champions" :key="index" :to="`/champion-info/${champ.id}`"
         class="hover:cursor-pointer">
-        <div class="w-[98px] h-[138.39px] relative justify-self-center border border-dark-200">
+        <div
+          class="w-[98px] h-[138.39px] hover:bg-dark-50 transition ease duration-500 relative justify-self-center border border-dark-200 :hover:border-green-500">
           <div>
             <v-lazy-image height="98"
               :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${champ.id}.png`" />
@@ -24,7 +25,7 @@ const { champions } = useChampions();
               </p>
             </div>
           </div>
-          <h2 class="text-center py-2">
+          <h2 class="text-center font-bold font-mono py-2">
             {{ champ.name }}
           </h2>
         </div>

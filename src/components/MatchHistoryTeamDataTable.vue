@@ -19,6 +19,7 @@ const tableColor = (team: number): string => {
     return "#3e213b";
   }
 };
+
 </script>
 
 <template>
@@ -32,24 +33,17 @@ const tableColor = (team: number): string => {
       <th>CS</th>
       <th>items</th>
     </tr>
-    <tr
-      v-for="participant in props.participants.filter(
-        (participant) => participant.teamId == props.team
-      )"
-      :key="participant.championName"
-    >
+    <tr v-for="participant in props.participants.filter(
+      (participant) => participant.teamId == props.team
+    )" :key="participant.championName">
       <th class="flex flex-row items-center">
         <div class="mr-2">
-          <img
-            height="40"
-            width="40"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
-              participant.championName
-            )}.png`"
-          />
+          <img height="40" width="40" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
+            participant.championName
+          )}.png`" />
         </div>
         <span class="truncate text-xs max-w-[80px] overflow-ellipsis space-nowrap">{{
-          participant.summonerName
+            participant.summonerName
         }}</span>
       </th>
       <th>
@@ -74,56 +68,13 @@ const tableColor = (team: number): string => {
       </th>
       <th>
         <div class="flex flex-row gap-1">
-          <img
-            v-if="participant.item0 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item0}.png`"
-          />
-          <img
-            v-if="participant.item1 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item1}.png`"
-          />
-          <img
-            v-if="participant.item2 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item2}.png`"
-          />
-          <img
-            v-if="participant.item3 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item3}.png`"
-          />
-          <img
-            v-if="participant.item4 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item4}.png`"
-          />
-          <img
-            v-if="participant.item5 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item5}.png`"
-          />
-          <img
-            v-if="participant.item6 !== 0"
-            height="25"
-            width="25"
-            :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant.item6}.png`"
-          />
+          <div v-for="i in 6">
+            <img v-if="participant[(`item${i}`) as keyof Participant] !== 0" height="25" width="25"
+              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant[(`item${i}`) as keyof Participant]}.png`" />
+          </div>
         </div>
       </th>
     </tr>
   </n-table>
 </template>
 
-<style scoped>
-/* .n-table {
-  --n-th-color: red !important;
-} */
-</style>

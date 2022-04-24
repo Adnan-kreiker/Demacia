@@ -163,10 +163,12 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
                         summoner(match.info.participants).totalMinionsKilled
                     }}</span>
                     <span class="text-gray-400 ml-1">CS ({{
-                        (
-                          summoner(match.info.participants).totalMinionsKilled /
-                          secondsToMinutes(match.info.gameDuration)
-                        ).toFixed(1)
+                        isNaN(summoner(match.info.participants).totalMinionsKilled /
+                          secondsToMinutes(match.info.gameDuration)) ? 0 :
+                          (
+                            summoner(match.info.participants).totalMinionsKilled /
+                            secondsToMinutes(match.info.gameDuration)
+                          ).toFixed(1)
                     }})</span>
                     <br />
 
@@ -195,20 +197,13 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
                 </div>
               </div>
               <div class="flex flex-row flex-wrap items-center content-center max-w-[120px] gap-1">
-                <img v-if="summoner(match.info.participants).item0 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item0
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item1 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item1
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item2 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item2
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item3 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item3
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item4 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item4
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item5 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item5
-                }.png`" />
-                <img v-if="summoner(match.info.participants).item6 !== 0" height="25" width="25" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants).item6
-                }.png`" />
+
+                <div v-for="i in 6">
+                  <img v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0" height="25"
+                    width="25"
+                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
+                  <div v-else class="h-[25px] w-[25px] bg-red-500">sadf</div>
+                </div>
               </div>
             </div>
             <!-- Red and Blue Teams -->

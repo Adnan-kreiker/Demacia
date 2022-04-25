@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NTable from "naive-ui/es/table/src/Table";
-import { Participant } from "~/types";
+import type { Participant } from "~/types";
 import { toLowerCase } from "../../utils";
 
 const props = defineProps<{

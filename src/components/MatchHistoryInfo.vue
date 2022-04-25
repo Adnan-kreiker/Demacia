@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Participant, Summoner } from "~/types";
+import type { Participant, Summoner } from "~/types";
 import NSpace from "naive-ui/es/space/src/Space";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";

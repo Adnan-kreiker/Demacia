@@ -202,7 +202,9 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
                   <img v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0" height="25"
                     width="25"
                     :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
-                  <div v-else class="h-[25px] w-[25px] bg-red-500">sadf</div>
+                  <div v-else class="h-[25px] w-[25px] "
+                    :style="{ backgroundColor: summoner(match.info.participants)?.win ? '#12499a' : '#300f3a' }">
+                  </div>
                 </div>
               </div>
             </div>

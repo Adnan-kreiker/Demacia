@@ -17,7 +17,6 @@ const useMatchHistory = (puuid: string, region: string, start: Ref<number>) => {
         }?start=${start.value}&count=5&region=${regionParamToContinentMapper(region)}`
       );
       const matchesIds = await matches.json() as string[]
-      console.log(matchesIds);
       await Promise.allSettled(
         matchesIds.map(async (matchId: string) => {
           return fetch(

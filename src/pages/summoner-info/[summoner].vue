@@ -59,11 +59,12 @@ const error = ref(false);
 const getSummonerInfo = async () => {
   try {
     const res = await getSummonerByName(summoner, region.value);
-    if (res) {
-      summonerInfo.value = res;
-    } else {
+    if (res?.status && res.status.status_code === 404) {
       error.value = true
       return
+    }
+    else if (res) {
+      summonerInfo.value = res;
     }
 
   } catch (err) {
@@ -72,6 +73,10 @@ const getSummonerInfo = async () => {
   }
 }
 getSummonerInfo()
+
+onErrorCaptured(() => {
+  error.value = true;
+})
 
 </script>
 
@@ -168,9 +173,9 @@ getSummonerInfo()
       </div>
     </div>
     <div v-if="error" class="flex flex-col justify-start items-center">
-      <error-component :status="'404'" :imageUrl="'/garenNotFound.png'"
-        :description="'Make sure you have to correct name'" :title="'Summoner Not Found! &#128373'"></error-component>
-      <search-for-summoner></search-for-summoner>
+      <ErrorComponent :status="'404'" :imageUrl="'/garenNotFound.png'"
+        :description="'Make sure you have to correct name'" :title="'Summoner Not Found! &#128373'"></ErrorComponent>
+      <SearchForSummoner></SearchForSummoner>
     </div>
   </div>
 </template>

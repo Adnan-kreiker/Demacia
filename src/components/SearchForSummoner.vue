@@ -23,7 +23,7 @@ const navigate = () =>
     query: { region: region.value },
   });
 
-const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
+const servers = ["EUW", "NA", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
 const selectOptions = servers.map((server) => {
   return {
@@ -34,28 +34,12 @@ const selectOptions = servers.map((server) => {
 </script>
 
 <template>
-  <n-input
-    v-model:value="summonerName"
-    class="sm:max-w-2/3 md:max-w-1/2 relative"
-    size="large"
-    type="text"
-    placeholder="Summoner name"
-    @keydown.enter="navigate"
-  >
+  <n-input v-model:value="summonerName" class="sm:max-w-2/3 md:max-w-1/2 relative" size="large" type="text"
+    placeholder="Summoner name" @keydown.enter="navigate">
     <template #suffix>
-      <n-select
-        r
-        v-model:value="region"
-        class="absolute right-20 text-xs"
-        style="width: 50px !important"
-        placeholder="EUW"
-        :options="selectOptions"
-      />
-      <n-button
-        @click="navigate"
-        :disabled="!(summonerName.length > 0)"
-        class="bg-blue-500 text-white font-bold"
-      >
+      <n-select r v-model:value="region" class="absolute right-20 text-xs" style="width: 50px !important"
+        placeholder="EUW" :options="selectOptions" />
+      <n-button @click="navigate" :disabled="!(summonerName.length > 0)" class="bg-blue-500 text-white font-bold">
         GO
       </n-button>
     </template>
@@ -74,10 +58,7 @@ const selectOptions = servers.map((server) => {
   padding-inline: 2px;
 }
 
-.n-base-selection
-  .n-base-selection-label
-  .n-base-selection-input
-  .n-base-selection-input__content {
+.n-base-selection .n-base-selection-label .n-base-selection-input .n-base-selection-input__content {
   white-space: normal;
   text-overflow: inherit;
   overflow: visible;

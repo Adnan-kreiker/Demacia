@@ -99,11 +99,7 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
-const route = useRoute()
-watch(() => route.fullPath
-  , () => {
-    triggerCollapse()
-  })
+
 
 const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>

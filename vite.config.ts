@@ -157,7 +157,7 @@ export default ({ mode }: { mode: string }) => {
         srcDir: "src",
         registerType: 'autoUpdate',
 
-        filename: "sw.ts",
+        // filename: "sw.ts",
         includeAssets: ["/favicon.png"],
         strategies: "injectManifest",
         manifest: {

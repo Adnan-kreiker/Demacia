@@ -39,7 +39,7 @@ const rankOptions = [
   },
 ];
 
-const servers = ["EUW", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
+const servers = ["EUW", "NA", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
 
 const regionOptions = servers.map((server) => {
   return {
@@ -76,11 +76,10 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithIndex[] | []>(() =>
 
 const page = ref(1);
 
-async function getChallengerPlayers() {
+async function getChallengerPlayers () {
   challengerPlayers.value = [];
   const res = await fetch(
-    `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${rank.value}/${
-      queue.value
+    `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${rank.value}/${queue.value
     }?region=${regionVal.value}`
   );
   const data = (await res.json()) as ChallengerPlayers;
@@ -112,41 +111,18 @@ const updatePage = (pageNumber: number) => {
         <n-text type="success"> Choose queue type </n-text>
       </n-h3>
       <div class="flex flex-row flex-wrap flex-grow">
-        <n-select
-          class="pr-5 min-w-36 max-w-[170px] my-1"
-          v-model:value="queue"
-          :options="queueOptions"
-        />
-        <n-select
-          class="max-w-[150px] min-w-20 my-1 pr-5"
-          v-model:value="rank"
-          :options="rankOptions"
-        />
-        <n-select
-          class="max-w-[40px] min-w-20 my-1"
-          v-model:value="regionVal"
-          :options="regionOptions"
-        />
+        <n-select class="pr-5 min-w-36 max-w-[170px] my-1" v-model:value="queue" :options="queueOptions" />
+        <n-select class="max-w-[150px] min-w-20 my-1 pr-5" v-model:value="rank" :options="rankOptions" />
+        <n-select class="max-w-[40px] min-w-20 my-1" v-model:value="regionVal" :options="regionOptions" />
       </div>
     </div>
-    <summoners-table
-      :rank="rank"
-      v-if="challengerPlayers && challengerPlayers.length > 0"
-      :challenger-players="sortedChallengerPlayers"
-      :key="summonersTableKey"
-      :page="page"
-      :region="regionVal"
-    >
+    <summoners-table :rank="rank" v-if="challengerPlayers && challengerPlayers.length > 0"
+      :challenger-players="sortedChallengerPlayers" :key="summonersTableKey" :page="page" :region="regionVal">
     </summoners-table>
     <summoners-table-skeleton v-else></summoners-table-skeleton>
     <div class="flex justify-center mt-5">
-      <n-pagination
-        v-if="challengerPlayers && challengerPlayers.length > 0"
-        v-model="page"
-        :default-page="1"
-        :page-count="Math.ceil(challengerPlayers.length / 10)"
-        v-on:update-page="updatePage($event)"
-      ></n-pagination>
+      <n-pagination v-if="challengerPlayers && challengerPlayers.length > 0" v-model="page" :default-page="1"
+        :page-count="Math.ceil(challengerPlayers.length / 10)" v-on:update-page="updatePage($event)"></n-pagination>
     </div>
   </div>
 </template>

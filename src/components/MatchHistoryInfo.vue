@@ -3,6 +3,7 @@ import type { Participant, Summoner } from "~/types";
 import NSpace from "naive-ui/es/space/src/Space";
 import NCollapseTransition from "naive-ui/es/collapse-transition/src/CollapseTransition";
 import NTag from "naive-ui/es/tag/src/Tag";
+import NButton from 'naive-ui/es/button/src/Button';
 import { NDivider } from "naive-ui";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
@@ -26,8 +27,11 @@ const props = defineProps<{
 
 const route = useRoute();
 
+const start = ref(0)
+
 const { region } = storeToRefs(regionStore());
-const { matchHistory } = await useMatchHistory(props.summonerInfo.puuid, region.value)
+const { matchHistory, getMatchHistory, loading } = useMatchHistory(props.summonerInfo.puuid, region.value, start)
+await getMatchHistory()
 const summoner = (participants: Participant[]): Participant | undefined => {
   const participant = participants.find(
     (participant) =>
@@ -52,11 +56,17 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
     }
   }
 };
+
+watch(() => route.fullPath, () => {
+  start.value = 0;
+}, {
+  immediate: true,
+})
 </script>
 <template>
-  <h2 class="text-center text-2xl md:text-4xl border-t border-dark-200 pt-8 my-8 font-bold"><span
-      class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
   <section v-if="matchHistory && matchHistory.length">
+    <h2 class="text-center text-2xl md:text-4xl border-t border-dark-200 pt-8 my-8 font-bold"><span
+        class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
     <div v-for="match in matchHistory" :key="match.metadata.matchId" :style="{
       background: matchHistoryBackground(
         summoner(match.info.participants)?.win,
@@ -231,6 +241,11 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
         </div>
       </div>
     </div>
+    <n-space justify="center">
+      <n-button tertiary type="info" @click="start += 5" :loading="loading" class="mt-8">Load
+        More</n-button>
+    </n-space>
+
   </section>
 </template>
 

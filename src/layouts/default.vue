@@ -110,7 +110,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
         <n-menu v-if="width > 700" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions">
         </n-menu>
         <div v-else>
-          <button ref="menuButton" @click="triggerCollapse" class="absolute  w-10 h-10 top-0 right-3">
+          <button ref="menuButton" @click="triggerCollapse" class="absolute  w-10 h-10 top-3 right-3">
             <MenuIcon></MenuIcon>
           </button>
           <MobileSideBar ref="sidePanel" :collapsed="collapsed" />

@@ -28,17 +28,15 @@ router.get('/get-summoner/:name', async (req, res) => {
 
 router.get('/get-matches/:id', cache('2 minutes'), async (req, res) => {
   const params = new URLSearchParams({
-    // ...url.parse(req.url, true).query,
     [api_key_name]: api_key,
   })
   const { region } = req.query
   const { count } = req.query
+  const { start } = req.query
   const matchesUrl = `https://${region}.api.riotgames.com/lol/match/v5/matches/by-puuid/`
-
   try {
-
     const id = req.params.id
-    const result = await needle('get', `${matchesUrl}${id}/ids?${params}&count=${count}`)
+    const result = await needle('get', `${matchesUrl}${id}/ids?${params}&count=${count}&start=${start}`)
     const data = result.body
     res.status(200).json(data)
   }

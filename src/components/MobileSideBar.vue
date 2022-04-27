@@ -92,6 +92,12 @@ const mobileMenuOptions: MenuOption[] = [
   },
 ];
 
+// const route = useRoute()
+
+// watch(() => route.fullPath, () => {
+//   emit('triggerCollapse', true)
+// })
+
 defineExpose({
   emit
 })
@@ -102,8 +108,8 @@ defineExpose({
   <n-layout has-sider>
     <n-layout-sider bordered collapse-mode="width" :collapsed-width="0" :width="240" :collapsed="props.collapsed"
       :show-trigger="false" @collapse="emit('triggerCollapse', true)" @expand="emit('triggerCollapse', false)">
-      <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
-        :options="mobileMenuOptions" :on-update:value="() => emit('triggerCollapse', true)" />
+      <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="0" :collapsed-icon-size="0"
+        :options="mobileMenuOptions" />
     </n-layout-sider>
   </n-layout>
 </template>

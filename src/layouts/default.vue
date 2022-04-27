@@ -99,6 +99,11 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+const route = useRoute()
+watch(() => route.fullPath
+  , () => {
+    triggerCollapse()
+  })
 
 const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>
@@ -113,7 +118,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
           <button ref="menuButton" @click="triggerCollapse" class="absolute  w-10 h-10 top-3 right-3">
             <MenuIcon></MenuIcon>
           </button>
-          <MobileSideBar ref="sidePanel" :collapsed="collapsed" />
+          <MobileSideBar @trigger-collapse="(val) => collapsed = val" ref="sidePanel" :collapsed="collapsed" />
         </div>
       </nav>
       <Transition name="fade" appear>

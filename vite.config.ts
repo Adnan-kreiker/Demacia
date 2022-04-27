@@ -152,12 +152,10 @@ export default ({ mode }: { mode: string }) => {
       }),
       // https://github.com/antfu/vite-plugin-pwa
       VitePWA({
-
         base: "/",
         srcDir: "src",
         registerType: 'autoUpdate',
-
-        // filename: "sw.ts",
+        filename: "sw.ts",
         includeAssets: ["/favicon.png"],
         strategies: "injectManifest",
         manifest: {

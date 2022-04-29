@@ -38,19 +38,6 @@ await getMatchHistory()
 
 const currentFilter = ref('All Matches')
 
-const filterQueue = () => {
-  switch (currentFilter.value) {
-    case 'All Matches':
-      return true
-    case 'Ranked Solo':
-      return 420
-    case 'Normal':
-      return 430 || 400
-    case 'Aram':
-      return 450
-  }
-}
-
 const filterOptions = [
   {
     id: 1,
@@ -71,12 +58,16 @@ const filterOptions = [
 ]
 
 const filteredMatchHistory = computed(() => {
-  if (currentFilter.value === 'All Matches') {
-    return matchHistory.value
+  if (currentFilter.value === 'Ranked Solo') {
+    return matchHistory.value.filter(match => match.info.queueId === 420)
   }
-  return matchHistory.value.filter(match => {
-    return match.info.queueId == filterQueue()
-  })
+  if (currentFilter.value === 'Normal') {
+    return matchHistory.value.filter(match => match.info.queueId === 430 || match.info.queueId === 400)
+  }
+  if (currentFilter.value === 'Aram') {
+    return matchHistory.value.filter(match => match.info.queueId === 450)
+  }
+  return matchHistory.value
 })
 
 const summoner = (participants: Participant[]): Participant | undefined => {
@@ -118,25 +109,17 @@ onClickOutside(filterDiv, () => {
   showFilterList.value = false
 })
 
-// const queueMapper = computed(() => {
-//   return queueTypes.map(queue => {
-//     return {
-//       queueId: queue.queueId,
-//       description: queue.description
-//     }
-//   })
-// })
 const handleClick = (e: Event) => {
   const event = e.target as HTMLElement
   currentFilter.value = event.innerText
 }
 </script>
 <template>
-  <section v-if="matchHistory && matchHistory.length">
+  <section class="min-h-[230px]" v-if="matchHistory && matchHistory.length">
     <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
       <h2 class="text-center text-2xl md:text-4xl   my-8 font-bold"><span
           class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
-      <div ref="filterDiv" class=" mt-2 relative  w-[150px] ">
+      <div ref="filterDiv" class=" mt-2 relative   w-[150px] ">
         <div @click="showFilterList = !showFilterList" class="flex flex-row items-center hover:cursor-pointer">
           <span class="py-2 text-center  px-3 w-[110px] inline-block  t rounded-sm bg-dark-100 text-white ">{{
               currentFilter
@@ -146,7 +129,7 @@ const handleClick = (e: Event) => {
         </div>
         <Transition name="fade" appear>
           <ul v-show="showFilterList"
-            class="my-4 absolute top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl">
+            class="my-4 absolute z-30 h-max top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl">
             <li :class="{ 'text-green-400 font-bold': currentFilter === option.name }"
               @click="handleClick($event), showFilterList = false"
               class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer" v-for="option in filterOptions" :key="option.id"

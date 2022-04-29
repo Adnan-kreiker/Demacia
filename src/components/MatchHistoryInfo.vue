@@ -31,7 +31,43 @@ const start = ref(0)
 
 const { region } = storeToRefs(regionStore());
 const { matchHistory, getMatchHistory, loading } = useMatchHistory(props.summonerInfo.puuid, region.value, start)
+
 await getMatchHistory()
+
+const currentFilter = ref('All Matches')
+
+const filterQueue = () => {
+  switch (currentFilter.value) {
+    case 'All Matches':
+      return true
+    case 'Ranked Solo':
+      return 420
+    case 'Aram':
+      return 450
+  }
+}
+
+const filterOptions = [
+  {
+    id: 1,
+    name: 'All Matches',
+  },
+  {
+    id: 2,
+    name: 'Ranked Solo'
+  },
+  {
+    id: 3,
+    name: 'Aram'
+  }
+]
+
+const filteredMatchHistory = computed(() => {
+  return matchHistory.value.filter(match => {
+    return match.info.queueId == filterQueue()
+  })
+})
+
 const summoner = (participants: Participant[]): Participant | undefined => {
   const participant = participants.find(
     (participant) =>
@@ -62,12 +98,44 @@ watch(() => route.fullPath, () => {
 }, {
   immediate: true,
 })
+
+const showFilterList = ref(false)
+
+const filterDiv = ref(null)
+
+onClickOutside(filterDiv, () => {
+  showFilterList.value = false
+})
+
+
+const handleClick = (e: Event) => {
+  const event = e.target as HTMLElement
+  currentFilter.value = event.innerText
+}
 </script>
 <template>
   <section v-if="matchHistory && matchHistory.length">
     <h2 class="text-center text-2xl md:text-4xl border-t border-dark-200 pt-8 my-8 font-bold"><span
         class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
-    <div v-for="match in matchHistory" :key="match.metadata.matchId" :style="{
+    <div ref="filterDiv" class="my-8 relative w-[140px] ">
+      <div @click="showFilterList = !showFilterList" class="flex flex-row items-center hover:cursor-pointer">
+        <span class="py-2  px-9.9  t rounded-sm bg-dark-100 text-white ">Filter
+        </span>
+        <ChevronTop class="h-5 w-5 ml-2   text-light-900" />
+      </div>
+      <Transition name="fade" appear>
+        <ul v-show="showFilterList"
+          class="my-4 absolute top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl">
+          <li @click="handleClick($event)" class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer"
+            v-for="option in filterOptions" :key="option.id" :value="option.name">
+            {{
+                option.name
+            }}
+          </li>
+        </ul>
+      </Transition>
+    </div>
+    <div v-for="match in filteredMatchHistory" :key="match.metadata.matchId" :style="{
       background: matchHistoryBackground(
         summoner(match.info.participants)?.win,
         match.show

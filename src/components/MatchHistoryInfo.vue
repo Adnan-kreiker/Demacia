@@ -7,7 +7,7 @@ import NButton from 'naive-ui/es/button/src/Button';
 import { NDivider } from "naive-ui";
 import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
-import ChevronTop from "./Icons/ChevronTop.vue";
+import ChevronRight from "./Icons/ChevronRight.vue";
 import {
   getSummonerName,
   formatTime,
@@ -126,8 +126,8 @@ const handleClick = (e: Event) => {
           <span class="py-2 text-center  px-3 w-[110px] inline-block  t rounded-sm bg-dark-100 text-white ">{{
               currentFilter
           }}</span>
-          <ChevronTop class="h-5 w-5 ml-2 transform rotate-90 text-light-900 ease duration-200"
-            :class="{ 'rotate-180': showFilterList }" />
+          <ChevronRight class="h-5 w-5 ml-2 transform  text-light-900  ease duration-200"
+            :class="{ 'rotate-90': showFilterList }" />
         </div>
         <Transition name="fade" appear>
           <ul v-show="showFilterList"

@@ -16,6 +16,7 @@ declare module 'vue' {
     ChampionInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ChampionInfo.vue')['default']
     ChampionMastery: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ChampionMastery.vue')['default']
     CheckMark: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/CheckMark.vue')['default']
+    ChevronRight: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ChevronRight.vue')['default']
     ChevronTop: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ChevronTop.vue')['default']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ErrorComponent: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ErrorComponent.vue')['default']

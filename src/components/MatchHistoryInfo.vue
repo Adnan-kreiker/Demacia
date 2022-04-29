@@ -42,6 +42,8 @@ const filterQueue = () => {
       return true
     case 'Ranked Solo':
       return 420
+    case 'Normal':
+      return 430 || 400
     case 'Aram':
       return 450
   }
@@ -58,6 +60,10 @@ const filterOptions = [
   },
   {
     id: 3,
+    name: 'Normal'
+  },
+  {
+    id: 4,
     name: 'Aram'
   }
 ]

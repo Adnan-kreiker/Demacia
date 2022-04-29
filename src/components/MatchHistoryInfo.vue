@@ -63,6 +63,9 @@ const filterOptions = [
 ]
 
 const filteredMatchHistory = computed(() => {
+  if (currentFilter.value === 'All Matches') {
+    return matchHistory.value
+  }
   return matchHistory.value.filter(match => {
     return match.info.queueId == filterQueue()
   })
@@ -115,25 +118,31 @@ const handleClick = (e: Event) => {
 </script>
 <template>
   <section v-if="matchHistory && matchHistory.length">
-    <h2 class="text-center text-2xl md:text-4xl border-t border-dark-200 pt-8 my-8 font-bold"><span
-        class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
-    <div ref="filterDiv" class="my-8 relative w-[140px] ">
-      <div @click="showFilterList = !showFilterList" class="flex flex-row items-center hover:cursor-pointer">
-        <span class="py-2  px-9.9  t rounded-sm bg-dark-100 text-white ">Filter
-        </span>
-        <ChevronTop class="h-5 w-5 ml-2   text-light-900" />
+    <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
+      <h2 class="text-center text-2xl md:text-4xl   my-8 font-bold"><span
+          class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
+      <div ref="filterDiv" class=" mt-2 relative  w-[150px] ">
+        <div @click="showFilterList = !showFilterList" class="flex flex-row items-center hover:cursor-pointer">
+          <span class="py-2 text-center  px-3 w-[110px] inline-block  t rounded-sm bg-dark-100 text-white ">{{
+              currentFilter
+          }}</span>
+          <ChevronTop class="h-5 w-5 ml-2 transform rotate-90 text-light-900 ease duration-200"
+            :class="{ 'rotate-180': showFilterList }" />
+        </div>
+        <Transition name="fade" appear>
+          <ul v-show="showFilterList"
+            class="my-4 absolute top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl">
+            <li :class="{ 'text-green-400 font-bold': currentFilter === option.name }"
+              @click="handleClick($event), showFilterList = false"
+              class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer" v-for="option in filterOptions" :key="option.id"
+              :value="option.name">
+              {{
+                  option.name
+              }}
+            </li>
+          </ul>
+        </Transition>
       </div>
-      <Transition name="fade" appear>
-        <ul v-show="showFilterList"
-          class="my-4 absolute top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl">
-          <li @click="handleClick($event)" class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer"
-            v-for="option in filterOptions" :key="option.id" :value="option.name">
-            {{
-                option.name
-            }}
-          </li>
-        </ul>
-      </Transition>
     </div>
     <div v-for="match in filteredMatchHistory" :key="match.metadata.matchId" :style="{
       background: matchHistoryBackground(
@@ -308,6 +317,13 @@ const handleClick = (e: Event) => {
           </n-space>
         </div>
       </div>
+    </div>
+    <div v-if="filteredMatchHistory.length === 0">
+      <p class="text-center text-lg font-bold border-1 text-orange-400 border-red-300 w-max mx-auto px-2 py-1">No
+        matches
+        to show, load
+        more
+        matches </p>
     </div>
     <n-space justify="center">
       <n-button tertiary type="info" @click="start += 5" :loading="loading" class="mt-8">Load

@@ -17,6 +17,7 @@ import {
   idToRunes,
   secondsToHrsMinsSecs,
   secondsToMinutes,
+  queueIdtoDescriptionMapper,
 } from "../../utils";
 import useMatchHistory from "~/hooks/useMatchHistory";
 import { regionStore } from "~/stores/region";
@@ -24,6 +25,7 @@ import { storeToRefs } from "pinia";
 const props = defineProps<{
   summonerInfo: Summoner;
 }>();
+
 
 const route = useRoute();
 
@@ -116,7 +118,14 @@ onClickOutside(filterDiv, () => {
   showFilterList.value = false
 })
 
-
+// const queueMapper = computed(() => {
+//   return queueTypes.map(queue => {
+//     return {
+//       queueId: queue.queueId,
+//       description: queue.description
+//     }
+//   })
+// })
 const handleClick = (e: Event) => {
   const event = e.target as HTMLElement
   currentFilter.value = event.innerText
@@ -162,7 +171,8 @@ const handleClick = (e: Event) => {
             <!-- Game Information -->
             <div class="flex flex-row flex-1 text-center">
               <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
-                <p class="my-1 font-bold">{{ match.info.gameMode }}</p>
+                <p class="my-1 font-bold">{{ queueIdtoDescriptionMapper(match.info.queueId) }}</p>
+
                 <p class="text-xs text-gray-300">
                   {{ timeToDaysAgo(match.info.gameCreation) }}
                 </p>

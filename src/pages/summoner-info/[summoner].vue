@@ -72,11 +72,8 @@ const getSummonerInfo = async () => {
     error.value = true;
   }
 }
-getSummonerInfo()
 
-onErrorCaptured(() => {
-  error.value = true;
-})
+getSummonerInfo()
 
 </script>
 

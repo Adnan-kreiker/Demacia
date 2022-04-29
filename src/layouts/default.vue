@@ -122,7 +122,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value);
           <chevron-top class="text-gray-300"></chevron-top>
         </button>
       </Transition>
-      <main class="px-4 py-6 min-h-screen">
+      <main class="px-4 py-10 min-h-screen">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">
             <!-- <keep-alive> -->

@@ -290,7 +290,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                 <div v-for="i in 6">
                   <img v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0" height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}}/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
+                    :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
                   <div v-else class="h-[25px] w-[25px] "
                     :style="{ backgroundColor: summoner(match.info.participants)?.win ? '#12499a' : '#300f3a' }">
                   </div>

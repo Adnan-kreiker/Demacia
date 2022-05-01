@@ -131,8 +131,8 @@ const columns: DataTableColumns = [
           style: {
             display: "flex",
             alignItems: "center",
+            key: row.summoner,
           },
-          key: row.summoner,
         },
         {
           default: () => {

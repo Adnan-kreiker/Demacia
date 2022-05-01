@@ -116,10 +116,10 @@ const updatePage = (pageNumber: number) => {
         <n-select class="max-w-[40px] min-w-20 my-1" v-model:value="regionVal" :options="regionOptions" />
       </div>
     </div>
-    <summoners-table :rank="rank" v-if="challengerPlayers && challengerPlayers.length > 0"
+    <SummonersTable :rank="rank" v-if="challengerPlayers && challengerPlayers.length > 0"
       :challenger-players="sortedChallengerPlayers" :key="summonersTableKey" :page="page" :region="regionVal">
-    </summoners-table>
-    <summoners-table-skeleton v-else></summoners-table-skeleton>
+    </SummonersTable>
+    <SummonersTableSkeleton v-else></SummonersTableSkeleton>
     <div class="flex justify-center mt-5">
       <n-pagination v-if="challengerPlayers && challengerPlayers.length > 0" v-model="page" :default-page="1"
         :page-count="Math.ceil(challengerPlayers.length / 10)" v-on:update-page="updatePage($event)"></n-pagination>

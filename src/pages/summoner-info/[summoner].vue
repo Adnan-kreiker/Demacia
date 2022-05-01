@@ -5,7 +5,7 @@ import NSelect from "naive-ui/es/select/src/Select";
 import NSpace from "naive-ui/es/space/src/Space";
 import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
-import { QueueTypes, Summoner } from "~/types";
+import type { QueueTypes, Summoner } from "~/types";
 import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
 import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";

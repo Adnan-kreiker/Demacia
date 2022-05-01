@@ -138,7 +138,7 @@ const columns: DataTableColumns = [
           default: () => {
             return [
               h("img", {
-                src: `https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${iconId}.png`,
+                src: `https://ddragon.leagueoflegends.com/cdn/${import.meta.env.VITE_PATCH_VERSION}/img/profileicon/${iconId}.png`,
                 height: "40",
                 width: "40",
                 style: {

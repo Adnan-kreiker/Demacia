@@ -20,6 +20,8 @@ const tableColor = (team: number): string => {
   }
 };
 
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+
 </script>
 
 <template>
@@ -38,7 +40,7 @@ const tableColor = (team: number): string => {
     )" :key="participant.championName">
       <th class="flex flex-row items-center">
         <div class="mr-2">
-          <img height="40" width="40" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
+          <img height="40" width="40" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
             participant.championName
           )}.png`" />
         </div>
@@ -70,7 +72,7 @@ const tableColor = (team: number): string => {
         <div class="flex flex-row gap-1">
           <div v-for="i in 6">
             <img v-if="participant[(`item${i}`) as keyof Participant] !== 0" height="25" width="25"
-              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${participant[(`item${i}`) as keyof Participant]}.png`" />
+              :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/item/${participant[(`item${i}`) as keyof Participant]}.png`" />
           </div>
         </div>
       </th>

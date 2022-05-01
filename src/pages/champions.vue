@@ -4,6 +4,8 @@ import useChampions from "~/hooks/useChampions";
 import VLazyImage from "v-lazy-image";
 
 const { champions } = useChampions();
+
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const { champions } = useChampions();
           class="w-[98px] h-[138.39px] hover:bg-dark-50 transition ease duration-500 relative justify-self-center border border-dark-200 :hover:border-green-500">
           <div>
             <v-lazy-image height="98"
-              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${champ.id}.png`" />
+              :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${champ.id}.png`" />
             <div class="bottom-10.5 absolute right-0">
               <p v-for="(tag, i) in champ.tags" :key="i" class="bg-dark-500 text-white text-xs p-0">
                 {{ tag }}
@@ -29,20 +31,6 @@ const { champions } = useChampions();
             {{ champ.name }}
           </h2>
         </div>
-        <!-- <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
-          <template #cover>
-            <v-lazy-image height="98"
-              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${champ.id}.png`" />
-            <div class="bottom-10.5 absolute right-0">
-              <p v-for="(tag, i) in champ.tags" :key="i" class="bg-dark-500 text-white text-xs p-0">
-                {{ tag }}
-              </p>
-            </div>
-          </template>
-          <h2 class="text-center py-2">
-            {{ champ.name }}
-          </h2>
-        </n-card> -->
       </router-link>
     </div>
     <div class="flex flex-row flex-wrap gap-2 justify-center" v-else>

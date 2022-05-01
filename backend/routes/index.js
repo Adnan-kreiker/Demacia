@@ -6,8 +6,8 @@ const router = express.Router()
 const needle = require('needle')
 const api_key = process.env.API_KEY
 const api_key_name = process.env.API_KEY_NAME
-const championsUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion.json'
-const itemUrl = 'https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/'
+const championsUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VERSION}/data/en_US/champion.json`
+const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VERSION}/img/item/`
 
 // Init cache
 const cache = apicache.middleware

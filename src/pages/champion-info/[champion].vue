@@ -13,9 +13,12 @@ const route = useRoute();
 
 const champion = ref<null | ChampionInfo>(null);
 
-async function getChampion() {
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+
+
+async function getChampion () {
   const res = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/12.7.1/data/en_US/champion/${route.params.champion}.json`
+    `https://ddragon.leagueoflegends.com/cdn/${patchVersion}/data/en_US/champion/${route.params.champion}.json`
   );
   const champ = await res.json();
   champion.value = Object.values(champ.data)[0] as ChampionInfo;
@@ -23,7 +26,7 @@ async function getChampion() {
 
 getChampion();
 
-function quotesRemover(input: string) {
+function quotesRemover (input: string) {
   return input.replaceAll('"', "");
 }
 
@@ -59,21 +62,12 @@ watch(champion, () => {
     <h1 class="text-3xl font-bold text-center mb-6">
       {{ champion.name }} the {{ champion.title }}
     </h1>
-    <div
-      class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 border-green-500 p-3"
-    >
+    <div class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 border-green-500 p-3">
       <div class="h-full min-w-[98px] relative">
-        <img
-          class="my-auto"
-          height="98"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${champion.id}.png`"
-        />
+        <img class="my-auto" height="98"
+          :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${champion.id}.png`" />
         <div class="absolute bottom-1 right-0">
-          <p
-            v-for="(tag, i) in champion.tags"
-            :key="i"
-            class="bg-dark-500 text-white text-xs p-0"
-          >
+          <p v-for="(tag, i) in champion.tags" :key="i" class="bg-dark-500 text-white text-xs p-0">
             {{ tag }}
           </p>
         </div>
@@ -90,10 +84,7 @@ watch(champion, () => {
             <AttackIcon class="h-5 w-5"></AttackIcon>
             <p class="text-base md:text-lg mx-2 capitalize">Attack</p>
           </div>
-          <div
-            :style="{ width: champion.info.attack * 10 + '%', maxWidth: 70 + '%' }"
-            class="bg-red-500 h-4"
-          ></div>
+          <div :style="{ width: champion.info.attack * 10 + '%', maxWidth: 70 + '%' }" class="bg-red-500 h-4"></div>
         </div>
 
         <div class="flex flex-row items-center">
@@ -101,10 +92,7 @@ watch(champion, () => {
             <ShieldIcon class="h-5 w-5"></ShieldIcon>
             <p class="text-base md:text-lg mx-2 capitalize">Defense</p>
           </div>
-          <div
-            :style="{ width: champion.info.defense * 10 + '%', maxWidth: 70 + '%' }"
-            class="bg-green-500 h-4"
-          ></div>
+          <div :style="{ width: champion.info.defense * 10 + '%', maxWidth: 70 + '%' }" class="bg-green-500 h-4"></div>
         </div>
 
         <div class="flex flex-row items-center">
@@ -112,10 +100,7 @@ watch(champion, () => {
             <MagicIcon class="h-5 w-5"></MagicIcon>
             <p class="text-base md:text-lg mx-2 capitalize">Magic</p>
           </div>
-          <div
-            :style="{ width: champion.info.magic * 10 + '%', maxWidth: 70 + '%' }"
-            class="bg-purple-500 h-4"
-          ></div>
+          <div :style="{ width: champion.info.magic * 10 + '%', maxWidth: 70 + '%' }" class="bg-purple-500 h-4"></div>
         </div>
 
         <div class="flex flex-row items-center">
@@ -123,10 +108,8 @@ watch(champion, () => {
             <BrainIcon class="h-5 w-5"></BrainIcon>
             <p class="text-base md:text-lg mx-2 capitalize">Difficulty</p>
           </div>
-          <div
-            :style="{ width: champion.info.difficulty * 10 + '%', maxWidth: 70 + '%' }"
-            class="bg-pink-500 h-4"
-          ></div>
+          <div :style="{ width: champion.info.difficulty * 10 + '%', maxWidth: 70 + '%' }" class="bg-pink-500 h-4">
+          </div>
         </div>
       </section>
     </div>
@@ -137,11 +120,7 @@ watch(champion, () => {
       </h2>
 
       <ul>
-        <li
-          v-for="tip in champion.allytips"
-          :key="tip"
-          class="text-base py-2 flex flex-row items-start"
-        >
+        <li v-for="tip in champion.allytips" :key="tip" class="text-base py-2 flex flex-row items-start">
           <div class="h-4 w-6 mt-1 mr-1">
             <CheckMark></CheckMark>
           </div>
@@ -156,11 +135,7 @@ watch(champion, () => {
       </h2>
 
       <ul>
-        <li
-          v-for="tip in champion.enemytips"
-          :key="tip"
-          class="text-base flex flex-row items-start py-2"
-        >
+        <li v-for="tip in champion.enemytips" :key="tip" class="text-base flex flex-row items-start py-2">
           <div class="h-4 w-6 mt-1 mr-1">
             <WarningIcon></WarningIcon>
           </div>
@@ -170,19 +145,11 @@ watch(champion, () => {
     </div>
 
     <div class="flex flex-row flex-wrap">
-      <n-data-table
-        :columns="tableColumns"
-        :data="champStats"
-        :max-height="250"
-        virtual-scroll
-        class="my-8 md:w-1/2"
-      >
+      <n-data-table :columns="tableColumns" :data="champStats" :max-height="250" virtual-scroll class="my-8 md:w-1/2">
       </n-data-table>
       <div class="md:w-1/2 mt-8 md:h-[300px]">
-        <img
-          class="mx-auto h-full object-cover"
-          :src="`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`"
-        />
+        <img class="mx-auto h-full object-cover"
+          :src="`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`" />
       </div>
     </div>
 
@@ -191,19 +158,10 @@ watch(champion, () => {
         Abilities
       </h2>
       <div>
-        <div
-          v-for="spell in spells"
-          :key="spell.name"
-          class="flex flex-row my-6 border-1 border-white p-3"
-        >
+        <div v-for="spell in spells" :key="spell.name" class="flex flex-row my-6 border-1 border-white p-3">
           <div class="min-w-[60px]">
-            <img
-              height="50"
-              width="50"
-              class=""
-              :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${spell.image.full}`"
-              alt=""
-            />
+            <img height="50" width="50" class=""
+              :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${spell.image.full}`" alt="" />
           </div>
           <div>
             <h2 class="text-base font-bold">

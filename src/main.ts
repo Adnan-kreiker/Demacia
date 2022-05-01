@@ -16,6 +16,9 @@ import 'virtual:windi-devtools'
 
 const app = createApp(App)
 
+app.config.globalProperties.patchVersion = '12.8.1'
+
+
 // setup up pages with layouts
 const routes = setupLayouts(generatedRoutes)
 

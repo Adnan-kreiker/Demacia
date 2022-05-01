@@ -113,6 +113,9 @@ const handleClick = (e: Event) => {
   const event = e.target as HTMLElement
   currentFilter.value = event.innerText
 }
+
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+
 </script>
 <template>
   <section class="min-h-[230px]" v-if="matchHistory && matchHistory.length">
@@ -179,7 +182,7 @@ const handleClick = (e: Event) => {
               <div class="flex flex-row">
                 <div class="px-4 flex flex-col mt-8 text-center justify-center">
                   <div class="relative">
-                    <img class="rounded-sm" height="70" width="70" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${toLowerCase(
+                    <img class="rounded-sm" height="70" width="70" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
                       summoner(match.info.participants).championName
                     )}.png`" />
                     <span
@@ -196,10 +199,10 @@ const handleClick = (e: Event) => {
                 <!-- Summoner's spells -->
                 <div class="flex flex-col justify-center items-center">
                   <div class="flex gap-1">
-                    <img height="32" width="32" class="w-8 rounded-sm h-8" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
+                    <img height="32" width="32" class="w-8 rounded-sm h-8" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
                       summoner(match.info.participants).summoner1Id.toString()
                     )}.png`" />
-                    <img height="32" width="32" class="w-8 h-8 rounded-sm" :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/spell/${mapSpellKeyToName(
+                    <img height="32" width="32" class="w-8 h-8 rounded-sm" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
                       summoner(match.info.participants).summoner2Id.toString()
                     )}.png`" />
                   </div>
@@ -287,7 +290,7 @@ const handleClick = (e: Event) => {
                 <div v-for="i in 6">
                   <img v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0" height="25"
                     width="25"
-                    :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
+                    :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}}/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`" />
                   <div v-else class="h-[25px] w-[25px] "
                     :style="{ backgroundColor: summoner(match.info.participants)?.win ? '#12499a' : '#300f3a' }">
                   </div>

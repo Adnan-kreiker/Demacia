@@ -39,8 +39,7 @@ const getChampionsMastery = async () => {
   if (props.summonerInfo) {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${
-          props.summonerInfo.id
+        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${props.summonerInfo.id
         }?region=${region.value}`
       );
       const data = await res.json();
@@ -55,26 +54,19 @@ const getChampionsMastery = async () => {
 };
 
 getChampionsMastery();
+
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+
 </script>
 
 <template>
-  <div
-    class="flex flex-wrap flex-row justify-center"
-    v-if="champsArray.length && championsMastery"
-  >
-    <router-link
-      :to="`/champion-info/${getChampionInfoById(champsArray, champ.championId)?.name}`"
+  <div class="flex flex-wrap flex-row justify-center" v-if="champsArray.length && championsMastery">
+    <router-link :to="`/champion-info/${getChampionInfoById(champsArray, champ.championId)?.name}`"
       class="hover:cursor-pointer hover:scale-105 transform transition-all duration-500 ease"
-      v-for="champ in championsMastery"
-      :key="champ.championId"
-    >
+      v-for="champ in championsMastery" :key="champ.championId">
       <div class="h-[130px] w-70 my-3 border-1 border-gray-500 mx-3 flex flex-row">
-        <v-lazy-image
-          height="h-[130px] object-cover"
-          :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/champion/${
-            getChampionInfoById(champsArray, champ.championId)?.image.full
-          }`"
-        />
+        <v-lazy-image height="h-[130px] object-cover" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(champsArray, champ.championId)?.image.full
+        }`" />
         <section class="text-gray-300 text-md py-1 px-3">
           <p class="text-lg font-bold">
             {{ getChampionInfoById(champsArray, champ.championId)?.name }}

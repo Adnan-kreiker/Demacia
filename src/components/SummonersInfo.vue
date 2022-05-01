@@ -9,6 +9,9 @@ const props = defineProps<{
 
 const summonerInfo = ref<Summoner | null>(props.summonerInfo);
 
+const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+
+
 </script>
 <template>
   <div v-if="summonerInfo" class="flex flex-row gap-4 ">
@@ -17,7 +20,7 @@ const summonerInfo = ref<Summoner | null>(props.summonerInfo);
     <div class="flex-grow">
       <img height="220" fetchpriority="high" width="240"
         class="object-contain mx-auto rounded-md hover:scale-110 transform transition-all duration-500"
-        :src="`https://ddragon.leagueoflegends.com/cdn/12.7.1/img/profileicon/${summonerInfo.profileIconId}.png`" />
+        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/profileicon/${summonerInfo.profileIconId}.png`" />
       <p class="text-4xl font-bold text-center text-true-gray-200 mt-3">
         {{ summonerInfo.name }}
       </p>

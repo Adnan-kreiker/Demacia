@@ -116,7 +116,6 @@ const columns: DataTableColumns = [
   {
     title: "Summoner",
     key: "summoner",
-    // align: "center",
     width: "200px",
     render (row) {
       const iconId = row.icon as number;
@@ -127,11 +126,11 @@ const columns: DataTableColumns = [
           props: {
             custom: true,
             vSlot: "navigate",
+            key: row.summoner,
           },
           style: {
             display: "flex",
             alignItems: "center",
-            key: row.summoner,
           },
         },
         {
@@ -152,7 +151,7 @@ const columns: DataTableColumns = [
                     marginLeft: "15px",
                   },
                 },
-                row.summoner
+                `${row.summoner}`
               ),
             ];
           },

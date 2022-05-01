@@ -2,14 +2,13 @@
 import type { DataTableColumns } from "naive-ui";
 import NDataTable from "naive-ui/es/data-table/src/DataTable";
 import NProgress from "naive-ui/es/progress/src/Progress";
-
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import {
   ChallengerPlayerWithIndex,
   ChallengerPlayerWithAdditionalData,
   Summoner,
   Ranks,
 } from "~/types";
-import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import { unicodeToUtf8 } from "../../utils";
 import { RouterLink } from "vue-router";
 
@@ -202,6 +201,14 @@ const columns: DataTableColumns = [
     <n-data-table v-if="data" :loading="loading" :columns="columns" class="min-w-[800px] " :data="data"
       min-height="850">
     </n-data-table>
-    <summoners-table-skeleton v-else></summoners-table-skeleton>
+    <div v-else>
+      <n-skeleton class="mx-auto" height="40px" width="92%" />
+      <div class="my-4" v-for="n in 10" :key="n">
+        <div class="flex justify-center">
+          <n-skeleton class="mr-4" height="50px" circle />
+          <n-skeleton height="50px" width="85%" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>

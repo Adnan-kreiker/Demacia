@@ -29,5 +29,3 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
   </div>
 </template>
 
-<style scoped>
-</style>

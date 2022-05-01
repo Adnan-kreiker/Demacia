@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useChampions from "~/hooks/useChampions";
-import { Champion, ChampionMastery, Summoner } from "~/types";
+import { ChampionMastery, Summoner } from "~/types";
 import { getChampionInfoById, formatNumber } from "../../utils";
 import VLazyImage from "v-lazy-image";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
@@ -15,25 +15,11 @@ const props = defineProps<{
   summonerInfo: Summoner;
 }>();
 
-const { champions } = useChampions();
+const { championsArray: champsArray } = useChampions();
 
 const error = ref(false);
 
 const championsMastery = ref<null | ChampionMastery[]>(null);
-
-let champsArray = shallowRef<Champion[]>([]);
-
-watch(
-  champions,
-  () => {
-    if (champions.value) {
-      champsArray.value = Object.values(toRaw(champions.value));
-    }
-  },
-  {
-    immediate: true,
-  }
-);
 
 const getChampionsMastery = async () => {
   if (props.summonerInfo) {
@@ -60,7 +46,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 </script>
 
 <template>
-  <div class="flex flex-wrap flex-row justify-center" v-if="champsArray.length && championsMastery">
+  <div class="flex flex-wrap flex-row justify-center" v-if="champsArray && championsMastery">
     <router-link :to="`/champion-info/${getChampionInfoById(champsArray, champ.championId)?.name}`"
       class="hover:cursor-pointer hover:scale-105 transform transition-all duration-500 ease"
       v-for="champ in championsMastery" :key="champ.championId">

@@ -3,10 +3,9 @@ import {
   LiveGame,
   ParticipantLiveGame,
   Summoner,
-  SummonerRankedInfo,
   SummonerRankedInfoInterface,
 } from "~/types";
-import { unicodeToUtf8, capitalize } from "../../utils";
+import { capitalize } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import BannedChampions from "~/components/BannedChampions.vue";
 import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
@@ -14,6 +13,7 @@ import { NH1, NText } from "naive-ui";
 import useChampions from "~/hooks/useChampions";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
+import useSummoner from "~/hooks/useSummoner";
 
 const store = regionStore();
 
@@ -25,8 +25,6 @@ const summonersNames = ref<string[]>([]);
 
 const summonersData = ref<null | Summoner[]>();
 
-const summonersIds = ref<string[]>([]);
-
 const summonersRankedData = ref<SummonerRankedInfoInterface | null>(null);
 
 const props = defineProps<{
@@ -37,13 +35,24 @@ const gameData = ref<null | LiveGame>(null);
 
 const error = ref(false);
 
-const initialSummonersData: Summoner[] = [];
+const teams: {
+  id: number;
+  value: 100 | 200;
+}[] = [
+    {
+      id: 1,
+      value: 100,
+    },
+    {
+      id: 2,
+      value: 200,
+    },
+  ];
 
 const getActiveGame = async (): Promise<void> => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}?region=${
-        region.value
+      `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}?region=${region.value
       }`
     );
 
@@ -59,68 +68,22 @@ const getActiveGame = async (): Promise<void> => {
       (participant: ParticipantLiveGame) => participant.summonerName
     );
 
-    await getSummonersInfoByName();
+    const { getSummonersByName, summonersIdsArray, getSummonersRankedInfoById, summonersRankedData: summonersRankedDataFromComposable, summonersData: summonersDataFromComposable } = useSummoner()
 
-    if (summonersData.value) {
-      summonersIds.value = summonersData.value?.map((summoner: Summoner) => summoner.id);
-    }
-    summonersData.value = initialSummonersData;
-    await getSummonersRankedInfoById();
+    await getSummonersByName(summonersNames.value, region.value)
+    summonersData.value = summonersDataFromComposable.value
+
+    await getSummonersRankedInfoById(summonersIdsArray, region.value)
+    summonersRankedData.value = summonersRankedDataFromComposable.value
+
   } catch (err) {
     console.error(err);
     error.value = true;
   }
 };
 
-const teams: {
-  id: number;
-  value: 100 | 200;
-}[] = [
-  {
-    id: 1,
-    value: 100,
-  },
-  {
-    id: 2,
-    value: 200,
-  },
-];
-
-const getSummonersInfoByName = async () => {
-  await Promise.allSettled(
-    summonersNames.value.map(async (summoner) => {
-      const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summoner)}?region=${
-          region.value
-        }`
-      );
-      const summonerData = (await res.json()) as Summoner;
-      initialSummonersData.push(summonerData);
-    })
-  );
-  summonersData.value = initialSummonersData;
-};
-
-const getSummonersRankedInfoById = async () => {
-  const initialRankedData: SummonerRankedInfoInterface = [];
-  await Promise.allSettled(
-    summonersIds.value.map(async (summonerId) => {
-      const rankedInfo = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}?region=${
-          region.value
-        }`
-      );
-      const data = (await rankedInfo.json()) as SummonerRankedInfo;
-      initialRankedData.push({
-        summonerId,
-        rankedInfo: data,
-      });
-    })
-  );
-  summonersRankedData.value = initialRankedData;
-};
-
 getActiveGame();
+
 </script>
 
 <template>
@@ -131,29 +94,15 @@ getActiveGame();
         Game
       </n-text>
     </n-h1>
-    <banned-champions
-      v-if="championsArray"
-      :champions-array="championsArray"
-      :banned-champions="gameData.bannedChampions"
-    ></banned-champions>
+    <BannedChampions v-if="championsArray" :champions-array="championsArray"
+      :banned-champions="gameData.bannedChampions"></BannedChampions>
     <div v-if="championsArray">
-      <LiveGameTeamInfo
-        v-for="team in teams"
-        :champions-array="championsArray"
-        :game-data="gameData"
-        :key="team.id"
-        :region="region"
-        :summoners-ranked-data="summonersRankedData"
-        :team="team.value"
-      ></LiveGameTeamInfo>
+      <LiveGameTeamInfo v-for="team in teams" :champions-array="championsArray" :game-data="gameData" :key="team.id"
+        :region="region" :summoners-ranked-data="summonersRankedData" :team="team.value"></LiveGameTeamInfo>
     </div>
   </div>
   <div v-if="error" class="flex flex-row justify-center">
-    <ErrorComponent
-      title="No Game Found!"
-      status="404"
-      description="Summoner is not in an active game!"
-      :show-return-home-button="false"
-    />
+    <ErrorComponent title="No Game Found!" status="404" description="Summoner is not in an active game!"
+      :show-return-home-button="false" />
   </div>
 </template>

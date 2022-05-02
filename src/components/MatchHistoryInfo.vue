@@ -305,13 +305,13 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
             <keep-alive>
               <n-collapse-transition class="bg-dark-600" v-if="match.show" :show="match.show" appear>
                 <div class="flex justify-center mt-4">
-                  <match-history-team-data-table :participants="match.info.participants" :team="200">
-                  </match-history-team-data-table>
+                  <MatchHistoryTeamDataTable :participants="match.info.participants" :team="200">
+                  </MatchHistoryTeamDataTable>
                 </div>
                 <n-divider dashed />
                 <div class="flex flex-row justify-center">
-                  <match-history-team-data-table :participants="match.info.participants" :team="100">
-                  </match-history-team-data-table>
+                  <MatchHistoryTeamDataTable :participants="match.info.participants" :team="100">
+                  </MatchHistoryTeamDataTable>
                 </div>
               </n-collapse-transition>
               <template v-else></template>

@@ -5,7 +5,6 @@ import {
   ChallengerPlayerWithIndex,
   Ranks,
 } from "../../src/types";
-import SummonersTableSkeleton from "~/components/SummonersTableSkeleton.vue";
 import SummonersTable from "~/components/SummonersTable.vue";
 import NSelect from "naive-ui/es/select/src/Select";
 import NPagination from "naive-ui/es/pagination/src/Pagination";

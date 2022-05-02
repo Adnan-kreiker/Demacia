@@ -140,7 +140,9 @@ getSummonerInfo()
             <ChampionMastery :summoner-info="summonerInfo"></ChampionMastery>
           </n-tab-pane>
           <n-tab-pane name="liveGame" tab="Live Game">
-            <LiveGame :summoner-id="summonerInfo.id"></LiveGame>
+            <Suspense>
+              <LiveGame :summoner-id="summonerInfo.id"></LiveGame>
+            </Suspense>
           </n-tab-pane>
         </n-tabs>
       </div>

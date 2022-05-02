@@ -197,18 +197,26 @@ const columns: DataTableColumns = [
 </script>
 
 <template>
-  <div class="overflow-x-scroll lg:overflow-x-hidden whitespace-nowrap">
-    <n-data-table v-if="data" :loading="loading" :columns="columns" class="min-w-[800px] " :data="data"
-      min-height="850">
+  <div class="overflow-x-scroll whitespace-nowrap">
+    <n-data-table v-if="data && data.length > 0" :loading="loading" :columns="columns" class="min-w-[800px] "
+      :data="data" min-height="850">
     </n-data-table>
     <div v-else>
-      <n-skeleton class="mx-auto" height="40px" width="92%" />
+      <n-skeleton class="mx-auto" height="40px" width="97%" />
       <div class="my-4" v-for="n in 10" :key="n">
         <div class="flex justify-center">
           <n-skeleton class="mr-4" height="50px" circle />
-          <n-skeleton height="50px" width="85%" />
+          <n-skeleton height="50px" width="90%" />
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+@media(min-width: 830px) {
+  .overflow-x-scroll {
+    overflow-x: hidden !important;
+  }
+}
+</style>

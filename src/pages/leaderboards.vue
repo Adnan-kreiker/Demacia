@@ -115,8 +115,8 @@ const updatePage = (pageNumber: number) => {
         <n-select class="max-w-[40px] min-w-20 my-1" v-model:value="regionVal" :options="regionOptions" />
       </div>
     </div>
-    <SummonersTable :rank="rank" v-if="challengerPlayers && challengerPlayers.length > 0"
-      :challenger-players="sortedChallengerPlayers" :key="summonersTableKey" :page="page" :region="regionVal">
+    <SummonersTable :rank="rank" :challenger-players="sortedChallengerPlayers" :key="summonersTableKey" :page="page"
+      :region="regionVal">
     </SummonersTable>
     <div class="flex justify-center mt-5">
       <n-pagination v-if="challengerPlayers && challengerPlayers.length > 0" v-model="page" :default-page="1"
@@ -130,6 +130,7 @@ const updatePage = (pageNumber: number) => {
   margin-top: 7px;
 }
 </style>
+
 <route lang="yaml">
 meta:
   layout: default

@@ -24,7 +24,6 @@ const router = createRouter({
   history: createWebHistory(), routes, scrollBehavior (to, from, savedPosition) {
     if (to.fullPath === from.fullPath) return
     if (savedPosition) {
-      console.log(savedPosition);
       return (savedPosition)
     }
     return new Promise((resolve, reject) => {

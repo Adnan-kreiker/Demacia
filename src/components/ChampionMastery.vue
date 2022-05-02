@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import useChampions from "~/hooks/useChampions";
-import { ChampionMastery, Summoner } from "~/types";
+import { Summoner } from "~/types";
 import { getChampionInfoById, formatNumber } from "../../utils";
 import VLazyImage from "v-lazy-image";
-import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
+import useChampionMasteryBySummonerId from '../hooks/useChampionMasterybySummonerId'
 
 const store = regionStore();
 
@@ -17,29 +17,7 @@ const props = defineProps<{
 
 const { championsArray: champsArray } = useChampions();
 
-const error = ref(false);
-
-const championsMastery = ref<null | ChampionMastery[]>(null);
-
-const getChampionsMastery = async () => {
-  if (props.summonerInfo) {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_URL}/api/get-champions-mastery/${props.summonerInfo.id
-        }?region=${region.value}`
-      );
-      const data = await res.json();
-      championsMastery.value = data;
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        error.value = true;
-      }
-      console.log(err);
-    }
-  }
-};
-
-getChampionsMastery();
+const { championsMastery } = await useChampionMasteryBySummonerId(props.summonerInfo.id, region.value);
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
@@ -65,7 +43,5 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       </div>
     </router-link>
   </div>
-  <section class="flex flex-row flex-wrap gap-3 justify-center" v-else>
-    <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />
-  </section>
+
 </template>

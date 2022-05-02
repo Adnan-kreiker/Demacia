@@ -137,7 +137,14 @@ getSummonerInfo()
 
           </n-tab-pane>
           <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
-            <ChampionMastery :summoner-info="summonerInfo"></ChampionMastery>
+            <Suspense>
+              <ChampionMastery :summoner-info="summonerInfo"></ChampionMastery>
+              <template #fallback>
+                <section class="flex flex-row flex-wrap gap-3 justify-center">
+                  <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />
+                </section>
+              </template>
+            </Suspense>
           </n-tab-pane>
           <n-tab-pane name="liveGame" tab="Live Game">
             <Suspense>

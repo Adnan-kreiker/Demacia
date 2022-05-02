@@ -9,7 +9,6 @@ import MatchHistoryTeam from "./MatchHistoryTeam.vue";
 import MatchHistoryTeamDataTable from "./MatchHistoryTeamDataTable.vue";
 import ChevronRight from "./Icons/ChevronRight.vue";
 import {
-  getSummonerName,
   formatTime,
   timeToDaysAgo,
   toLowerCase,
@@ -22,16 +21,17 @@ import {
 import useMatchHistory from "~/hooks/useMatchHistory";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
+
 const props = defineProps<{
   summonerInfo: Summoner;
 }>();
-
 
 const route = useRoute();
 
 const start = ref(0)
 
 const { region } = storeToRefs(regionStore());
+
 const { matchHistory, getMatchHistory, loading } = useMatchHistory(props.summonerInfo.puuid, region.value, start)
 
 await getMatchHistory()
@@ -73,12 +73,10 @@ const filteredMatchHistory = computed(() => {
 const summoner = (participants: Participant[]): Participant | undefined => {
   const participant = participants.find(
     (participant) =>
-      getSummonerName(participant.summonerName) ===
-      getSummonerName((route.params.summoner) as string)
+      participant.summonerId === props.summonerInfo.id
   );
   return participant;
 };
-
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
   if (show) {
     if (result) {
@@ -118,7 +116,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
 </script>
 <template>
-  <section class="min-h-[230px]" v-if="matchHistory && matchHistory.length">
+  <section class="min-h-[230px]" v-if="matchHistory && matchHistory.length > 0">
     <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
       <h2 class="text-center text-2xl md:text-4xl   my-8 font-bold"><span
           class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span></h2>
@@ -151,7 +149,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
         match.show
       ),
     }" class="rounded p-3 my-3 max-w-4xl mx-auto">
-      <div class="overflow-x-scroll scroll-div">
+      <div v-if="summoner(match.info.participants)" class="overflow-x-scroll scroll-div">
         <div class="min-w-[840px]">
           <section class="flex text-white flex-row w-full">
             <!-- Game Information -->
@@ -166,7 +164,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                   ⏳ {{ secondsToHrsMinsSecs(match.info.gameDuration) }}
                 </p>
                 <h2 v-else>⏳ {{ formatTime(match.info.gameDuration) }}</h2>
-                <n-tag class="my-2 font-bold" :type="summoner(match.info.participants).win ? 'info' : 'error'">
+                <n-tag class="my-2 font-bold" :type="summoner(match.info.participants)?.win ? 'info' : 'error'">
                   <span>{{
                       summoner(match.info.participants).win ? "Victory" : "Defeat"
                   }}</span>
@@ -183,7 +181,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                 <div class="px-4 flex flex-col mt-8 text-center justify-center">
                   <div class="relative">
                     <img class="rounded-sm" height="70" width="70" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-                      summoner(match.info.participants).championName
+                      summoner(match.info.participants)?.championName
                     )}.png`" />
                     <span
                       class="text-sm px-[2px] rounded-sm bg-blue-gray-800 absolute top-12 w-min text-white right-0.5">
@@ -298,7 +296,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
               </div>
             </div>
             <!-- Red and Blue Teams -->
-            <match-history-team :participants="match.info.participants"></match-history-team>
+            <MatchHistoryTeam :participants="match.info.participants"></MatchHistoryTeam>
           </section>
           <!-- More Info Switch and DataTables -->
           <n-space class="mx-3" vertical>

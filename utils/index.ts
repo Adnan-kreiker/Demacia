@@ -332,6 +332,6 @@ export const queueIdtoDescriptionMapper = (queueId: number) => {
 }
 
 
-export const removeGamesString = (string: string) => {
+const removeGamesString = (string: string) => {
   return string.replace('games', '')
 }

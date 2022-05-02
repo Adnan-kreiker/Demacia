@@ -1,6 +1,6 @@
 import { regionParamToContinentMapper } from "../../utils";
 import { MatchInfo } from "~/types";
-import { Ref } from "vue";
+import type { Ref } from "vue";
 
 
 const error = ref(false)
@@ -23,6 +23,7 @@ const useMatchHistory = (puuid: string, region: string, start: Ref<number>) => {
             `${import.meta.env.VITE_URL}/api/get-match/${matchId}?region=${regionParamToContinentMapper(region)}`
           ).then((res) => res.json())
             .then((match) => matchHistory.value.push({ ...match, show: false }))
+            .catch(er => console.log(er))
         })
       ).catch(err => console.log(err))
       loading.value = false

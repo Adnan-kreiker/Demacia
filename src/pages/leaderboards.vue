@@ -118,7 +118,6 @@ const updatePage = (pageNumber: number) => {
     <SummonersTable :rank="rank" v-if="challengerPlayers && challengerPlayers.length > 0"
       :challenger-players="sortedChallengerPlayers" :key="summonersTableKey" :page="page" :region="regionVal">
     </SummonersTable>
-    <SummonersTableSkeleton v-else></SummonersTableSkeleton>
     <div class="flex justify-center mt-5">
       <n-pagination v-if="challengerPlayers && challengerPlayers.length > 0" v-model="page" :default-page="1"
         :page-count="Math.ceil(challengerPlayers.length / 10)" v-on:update-page="updatePage($event)"></n-pagination>

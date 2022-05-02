@@ -5,7 +5,7 @@ import {
   Summoner,
   SummonerRankedInfoInterface,
 } from "~/types";
-import { capitalize } from "../../utils";
+import { capitalize, queueIdtoDescriptionMapper } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import BannedChampions from "~/components/BannedChampions.vue";
 import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
@@ -93,6 +93,7 @@ getActiveGame();
         {{ capitalize(gameData.gameMode) }}
         Game
       </n-text>
+      <p>{{ queueIdtoDescriptionMapper(gameData.gameQueueConfigId) }}</p>
     </n-h1>
     <BannedChampions v-if="championsArray" :champions-array="championsArray"
       :banned-champions="gameData.bannedChampions"></BannedChampions>

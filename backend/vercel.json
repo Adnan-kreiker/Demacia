@@ -1,11 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "./index.ts",
-      "use": "npx tsc"
-    }
-  ],
+
   "routes": [
     {
       "src": "/(.*)",

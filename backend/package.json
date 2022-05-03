@@ -2,13 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts", 
   "scripts": {
     "build": "npx tsc",
-    "start2": "node dist/index.js",
-    "start": "vercel dev",
-    "deploy" : "vercel deploy --prod",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "start": "npx tsc -w",
+    "dev": "npx nodemon" 
   },
   "author": "",
   "license": "ISC",

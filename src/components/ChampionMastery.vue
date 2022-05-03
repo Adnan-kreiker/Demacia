@@ -2,10 +2,10 @@
 import useChampions from "~/hooks/useChampions";
 import type { Summoner } from "~/types";
 import { getChampionInfoById, formatNumber } from "../../utils";
-import VLazyImage from "v-lazy-image";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
-import useChampionMasteryBySummonerId from '../hooks/useChampionMasterybySummonerId'
+import VLazyImage from "v-lazy-image";
+import useChampionMasteryBySummonerId from '../hooks/useChampionMasteryBySummonerId'
 
 const store = regionStore();
 
@@ -20,7 +20,6 @@ const { championsArray: champsArray } = useChampions();
 const { championsMastery } = await useChampionMasteryBySummonerId(props.summonerInfo.id, region.value);
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
-
 </script>
 
 <template>
@@ -43,5 +42,4 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       </div>
     </router-link>
   </div>
-
 </template>

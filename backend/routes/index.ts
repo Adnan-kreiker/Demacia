@@ -1,11 +1,13 @@
-const express = require('express')
-const url = require('url')
+// const express = require('express')
+import express, { Request, Response } from 'express';
+// const app: Express = express();
+import url from 'url';
 require('dotenv').config()
-const apicache = require('apicache')
+import apicache from 'apicache';
 const router = express.Router()
-const needle = require('needle')
-const api_key = process.env.API_KEY
-const api_key_name = process.env.API_KEY_NAME
+import needle from 'needle';
+const api_key = process.env.API_KEY as string
+const api_key_name = process.env.API_KEY_NAME as string
 const championsUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VERSION}/data/en_US/champion.json`
 const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VERSION}/img/item/`
 
@@ -13,7 +15,7 @@ const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VER
 const cache = apicache.middleware
 
 
-router.get('/get-summoner/:name', async (req, res) => {
+router.get('/get-summoner/:name', async (req: Request, res: Response) => {
   try {
     const summonerName = req.params.name
     const { region } = req.query
@@ -26,7 +28,7 @@ router.get('/get-summoner/:name', async (req, res) => {
   }
 })
 
-router.get('/get-matches/:id', cache('2 minutes'), async (req, res) => {
+router.get('/get-matches/:id', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -45,7 +47,7 @@ router.get('/get-matches/:id', cache('2 minutes'), async (req, res) => {
   }
 })
 
-router.get('/get-match/:id', cache('2 minutes'), async (req, res) => {
+router.get('/get-match/:id', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -64,7 +66,7 @@ router.get('/get-match/:id', cache('2 minutes'), async (req, res) => {
   }
 })
 
-router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) => {
+router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -81,7 +83,7 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req, res) 
   }
 })
 
-router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req, res) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -99,7 +101,7 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async
   }
 })
 
-router.get('/get-champions', cache('1000 minutes'), async (req, res) => {
+router.get('/get-champions', cache('1000 minutes'), async (req: Request, res: Response) => {
   try {
     const result = await needle('get', `${championsUrl}`)
     const data = result.body
@@ -110,7 +112,7 @@ router.get('/get-champions', cache('1000 minutes'), async (req, res) => {
   }
 })
 
-router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) => {
+router.get('/get-champions-rotations', cache('1000 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -125,7 +127,7 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async (req, res) =
   }
 })
 
-router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
+router.get('/get-item-img/:item', cache('1000 minutes'), async (req: Request, res: Response) => {
   const { item } = req.params
   try {
     const result = await needle('get', `${itemUrl}/${item}.png`)
@@ -137,7 +139,7 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async (req, res) => {
   }
 })
 
-router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req, res) => {
+router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -154,7 +156,7 @@ router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (re
   }
 })
 
-router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req, res) => {
+router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })

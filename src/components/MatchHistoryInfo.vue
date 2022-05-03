@@ -319,9 +319,12 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       </div>
     </div>
     <div v-if="filteredMatchHistory.length === 0">
-      <p class="text-center text-lg font-bold border-1 text-orange-400 border-red-300 w-max mx-auto px-2 py-1">No
+      <p
+        class="text-center whitespace-normal text-lg font-bold border-1 text-orange-400 border-red-300  mx-auto px-2 py-1">
+        No
+        {{ currentFilter }} games were played within the last {{ start + 5 }}
         matches
-        to show, load
+        , try load
         more
         matches </p>
     </div>

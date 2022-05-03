@@ -8,7 +8,7 @@ import {
 import { capitalize, queueIdtoDescriptionMapper } from "../../utils";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import BannedChampions from "~/components/BannedChampions.vue";
-import LiveGameTeamInfo from "./LiveGameTeamInfo.vue";
+import LiveGameTeamInfo from "~/components/LiveGameTeamInfo.vue";
 import { NH1, NText } from "naive-ui";
 import useChampions from "~/hooks/useChampions";
 import { regionStore } from "~/stores/region";

@@ -14,7 +14,6 @@ const props = defineProps<{
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
-
 </script>
 
 <template>
@@ -45,5 +44,3 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
   </div>
 </template>
 
-<style scoped>
-</style>

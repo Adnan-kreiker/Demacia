@@ -6,8 +6,8 @@ import NSpace from "naive-ui/es/space/src/Space";
 import NTabs from "naive-ui/es/tabs/src/Tabs";
 import NTabPane from "naive-ui/es/tabs/src/TabPane";
 import type { QueueTypes, Summoner } from "~/types";
-import SummonersRankedInfo from "../../components/SummonersRankedInfo.vue";
-import MatchHistoryInfo from "../../components/MatchHistoryInfo.vue";
+import SummonersRankedInfo from "~/components/SummonersRankedInfo.vue";
+import MatchHistoryInfo from "~/components/MatchHistoryInfo.vue";
 import ErrorComponent from "~/components/ErrorComponent.vue";
 import SearchForSummoner from "~/components/SearchForSummoner.vue";
 import ChampionMastery from "~/components/ChampionMastery.vue";
@@ -84,8 +84,8 @@ getSummonerInfo()
       <div v-if="summonerInfo">
         <n-tabs animated size="large" type="card">
           <n-tab-pane name="summonerInfo" tab="Summoner Info">
-
             <div class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]">
+              <!-- Summoners Name and Image -->
               <div class="sm:w-[40%]">
                 <Suspense>
                   <SummonersInfo :summoner-info="summonerInfo"></SummonersInfo>
@@ -105,7 +105,7 @@ getSummonerInfo()
                 </Suspense>
               </div>
               <div class=" sm:w-[55%]">
-
+                <!-- Ranked Info Section -->
                 <Suspense>
                   <section>
                     <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 70 + '%', marginInline: 'auto' }">
@@ -134,7 +134,7 @@ getSummonerInfo()
                 </section>
               </template>
             </Suspense>
-
+            <!-- Champions Mastery -->
           </n-tab-pane>
           <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
             <Suspense>
@@ -146,6 +146,7 @@ getSummonerInfo()
               </template>
             </Suspense>
           </n-tab-pane>
+          <!-- Live Game -->
           <n-tab-pane name="liveGame" tab="Live Game">
             <Suspense>
               <LiveGame :summoner-id="summonerInfo.id"></LiveGame>
@@ -153,7 +154,7 @@ getSummonerInfo()
           </n-tab-pane>
         </n-tabs>
       </div>
-
+      <!-- Skeletons -->
       <div v-else>
         <section class="flex flex-row justify-start gap-2 mb-8">
           <n-skeleton height="42px" width="143px" :sharp="false" />
@@ -178,6 +179,7 @@ getSummonerInfo()
         </section>
       </div>
     </div>
+    <!-- Error Component -->
     <div v-if="error" class="flex flex-col justify-start items-center">
       <ErrorComponent :status="'404'" :imageUrl="'/garenNotFound.png'"
         :description="'Make sure you typed the correct name'" :title="'Summoner Not Found! &#128373'"></ErrorComponent>

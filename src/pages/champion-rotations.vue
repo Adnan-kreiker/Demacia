@@ -9,7 +9,7 @@ import { getChampionInfoById } from "../../utils";
 import useChampions from "~/hooks/useChampions";
 import useChampionsRotations from "~/hooks/useChampionsRotations";
 
-const { championsArray: champsArray } = useChampions()
+const { championsArray } = useChampions()
 
 const { rotations } = useChampionsRotations()
 
@@ -23,17 +23,17 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       <n-h1>
         <n-text type="primary"> Free Champions </n-text>
       </n-h1>
-      <div v-if="rotations && champsArray" class="flex flex-row flex-wrap gap-2 justify-center">
+      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-2 justify-center">
         <router-link v-for="(champ, index) in rotations.freeChampionIds" :key="index"
-          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`" class="hover:cursor-pointer">
+          :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <v-lazy-image height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(champsArray, champ)?.image.full
+              <VLazyImage height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
               }`" />
             </template>
             <h1 class="text-center py-2">
               {{
-                  getChampionInfoById(champsArray, champ)?.image.full.replace(".png", "")
+                  getChampionInfoById(championsArray, champ)?.image.full.replace(".png", "")
               }}
             </h1>
           </n-card>
@@ -50,17 +50,17 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       <n-h1>
         <n-text type="primary"> Free Champions For New Players </n-text>
       </n-h1>
-      <div v-if="rotations && champsArray" class="flex flex-row flex-wrap gap-2 justify-center">
+      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-2 justify-center">
         <router-link v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers" :key="index"
-          :to="`/champion-info/${getChampionInfoById(champsArray, champ)?.name}`" class="hover:cursor-pointer">
+          :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <v-lazy-image height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(champsArray, champ)?.image.full
+              <VLazyImage height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
               }`" />
             </template>
             <h1 class="text-center py-2">
               {{
-                  getChampionInfoById(champsArray, champ)?.image?.full.replace(".png", "")
+                  getChampionInfoById(championsArray, champ)?.image?.full.replace(".png", "")
               }}
             </h1>
           </n-card>

@@ -92,8 +92,6 @@ const mobileMenuOptions: MenuOption[] = [
   },
 ];
 
-
-
 defineExpose({
   emit
 })

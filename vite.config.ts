@@ -37,8 +37,6 @@ export default ({ mode }: { mode: string }) => {
       target: 'modules',
       assetsInlineLimit: 4096,
       cssCodeSplit: true,
-
-
       minify: 'esbuild',
       sourcemap: false,
       rollupOptions: {
@@ -217,7 +215,7 @@ export default ({ mode }: { mode: string }) => {
       ],
       exclude: [
         'vue-demi',
-        'vue'
+        'vue',
       ],
     },
 

@@ -1,7 +1,5 @@
 import { SummonerRankedInfo } from "~/types";
 
-
-
 const useSummonerRankedInfoById = async (id: string, region: string) => {
   const rankedData = ref<SummonerRankedInfo | null>(null)
   try {

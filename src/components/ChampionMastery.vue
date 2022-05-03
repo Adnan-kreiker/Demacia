@@ -5,7 +5,7 @@ import { getChampionInfoById, formatNumber } from "../../utils";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
 import VLazyImage from "v-lazy-image";
-import useChampionMasteryBySummonerId from '~/hooks/useChampionMasteryBySummonerId'
+import useChampionMastery from '~/hooks/useChampionMastery'
 
 const store = regionStore();
 
@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const { championsArray: champsArray } = useChampions();
 
-const { championsMastery } = await useChampionMasteryBySummonerId(props.summonerInfo.id, region.value);
+const { championsMastery } = await useChampionMastery(props.summonerInfo.id, region.value);
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 </script>

@@ -13,3 +13,5 @@ node_modules
 .eslintrc
 .eslintignore
 data.json
+.vercel
+coverage

@@ -5,7 +5,7 @@ import { getChampionInfoById, formatNumber } from "../../utils";
 import { regionStore } from "~/stores/region";
 import { storeToRefs } from "pinia";
 import VLazyImage from "v-lazy-image";
-import useChampionMasteryBySummonerId from '../hooks/useChampionMasteryBySummonerId'
+import useChampionMasteryBySummonerId from '~/hooks/useChampionMasteryBySummonerId'
 
 const store = regionStore();
 

@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start2": "node dist/index.js",
+    "start2": "node api/index.js",
     "start": "vercel dev",
     "deploy" : "vercel deploy --prod",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q api/index.js\""
   },
   "author": "",
   "license": "ISC",

@@ -4,6 +4,7 @@ const useHighEloPlayers = (rank: MaybeRef<string>, queue: MaybeRef<string>, regi
   const challengerPlayers = ref<ChallengerPlayer[] | null>(null)
 
   const getHighEloPlayers = () => {
+    challengerPlayers.value = null
     fetch(
       `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${unref(rank)}/${unref(queue)}?region=${unref(region)}`
     ).then(res => res.json() as Promise<ChallengerPlayers>)

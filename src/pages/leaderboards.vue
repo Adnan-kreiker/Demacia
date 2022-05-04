@@ -75,9 +75,7 @@ const page = ref(1);
 const summonersTableKey = ref(0);
 
 watch([queue, rank, regionVal], () => {
-  summonersTableKey.value++;
   page.value = 1;
-  console.log('changetriggerd')
 });
 
 

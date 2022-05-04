@@ -198,8 +198,8 @@ const columns: DataTableColumns = [
 
 <template>
   <div class="overflow-x-scroll whitespace-nowrap">
-    <n-data-table v-if="data != null" :loading="loading" :columns="columns" class="min-w-[800px] " :data="data"
-      min-height="850">
+    <n-data-table v-if="data != null && data.length > 0" :loading="loading" :columns="columns" class="min-w-[800px] "
+      :data="data" min-height="850">
     </n-data-table>
     <div v-else>
       <n-skeleton class="mx-auto" height="40px" width="97%" />

@@ -16,6 +16,7 @@ const useHighEloPlayers = (rank: MaybeRef<string>, queue: MaybeRef<string>, regi
   watch([rank, queue, region], () => {
     getHighEloPlayers()
   })
+
   return {
     challengerPlayers
   }

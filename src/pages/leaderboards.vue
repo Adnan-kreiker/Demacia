@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {
-  ChallengerPlayers,
-  ChallengerPlayer,
   ChallengerPlayerWithIndex,
   Ranks,
 } from "../../src/types";
@@ -11,6 +9,7 @@ import NPagination from "naive-ui/es/pagination/src/Pagination";
 import { NText } from "naive-ui/es/typography";
 import { NH3 } from "naive-ui/es/typography";
 import { regionToRegionParamMapper } from "../../utils";
+import useHighEloPlayers from "~/hooks/useHighEloPlayers";
 
 const queueOptions = [
   {
@@ -53,9 +52,7 @@ const queue = ref("RANKED_SOLO_5x5");
 
 const rank = ref<Ranks>("challengerleagues");
 
-const challengerPlayers = ref<ChallengerPlayer[] | []>([]);
-
-getChallengerPlayers();
+const { challengerPlayers } = useHighEloPlayers(rank, queue, regionVal);
 
 const sortedChallengerPlayers = computed<ChallengerPlayerWithIndex[] | []>(() => {
   let start = page.value * 10;
@@ -75,25 +72,16 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithIndex[] | []>(() =>
 
 const page = ref(1);
 
-async function getChallengerPlayers () {
-  challengerPlayers.value = [];
-  const res = await fetch(
-    `${import.meta.env.VITE_URL}/api/get-leaderboards-players/${rank.value}/${queue.value
-    }?region=${regionVal.value}`
-  );
-  const data = (await res.json()) as ChallengerPlayers;
-  challengerPlayers.value = data.entries;
-  summonersTableKey.value++;
-}
-
 const summonersTableKey = ref(0);
 
 watch([queue, rank, regionVal], () => {
-  getChallengerPlayers();
+  summonersTableKey.value++;
   page.value = 1;
+  console.log('changetriggerd')
 });
 
-watch(page, () => {
+
+watch([page, challengerPlayers], () => {
   summonersTableKey.value++;
 });
 
@@ -119,7 +107,7 @@ const updatePage = (pageNumber: number) => {
       :region="regionVal">
     </SummonersTable>
     <div class="flex justify-center mt-5">
-      <n-pagination v-if="challengerPlayers && challengerPlayers.length > 0" v-model="page" :default-page="1"
+      <n-pagination v-if="challengerPlayers" v-model="page" :default-page="1" :page="page"
         :page-count="Math.ceil(challengerPlayers.length / 10)" v-on:update-page="updatePage($event)"></n-pagination>
     </div>
   </div>

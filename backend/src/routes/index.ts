@@ -1,7 +1,4 @@
-// const express = require('express')
 import express, { Request, Response } from 'express';
-// const app: Express = express();
-import url from 'url';
 require('dotenv').config()
 import apicache from 'apicache';
 const router = express.Router()
@@ -13,7 +10,6 @@ const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VER
 
 // Init cache
 const cache = apicache.middleware
-
 
 router.get('/get-summoner/:name', async (req: Request, res: Response) => {
   try {
@@ -173,7 +169,5 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request
     console.error(error)
   }
 })
-
-
 
 module.exports = router

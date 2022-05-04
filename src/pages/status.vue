@@ -52,7 +52,7 @@ const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
         <div v-else>No incidents were detected</div>
       </div>
     </div>
-    <div v-else class="flex flex-row flex-wrap gap-4 justify-center">
+    <div v-else class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
       <n-skeleton v-for="n in 11" :key="n" height="175px" width="270px" />
     </div>
   </div>

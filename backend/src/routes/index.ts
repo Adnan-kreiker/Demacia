@@ -170,4 +170,23 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request
   }
 })
 
+router.get('/get-server-status/:region', cache('2 minutes'), async (req: Request, res: Response) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { region } = req.params
+
+  const serverStatus = `https://${region}.api.riotgames.com/lol/status/v4/platform-data`
+
+  try {
+    const result = await needle('get', `${serverStatus}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
+
 module.exports = router

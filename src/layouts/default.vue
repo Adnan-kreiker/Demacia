@@ -5,6 +5,7 @@ import { darkTheme } from "naive-ui";
 import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
+
 const MobileSideBar = defineAsyncComponent({
   loader: () =>
     import("../components/MobileSideBar.vue"),
@@ -54,8 +55,18 @@ const menuOptions: MenuOption[] = [
     key: "Champions",
   },
   {
-    label: "Stats",
-    key: "Stats",
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/status",
+          },
+          activeClass: "router-active",
+        },
+        { default: () => "Status" }
+      ),
+    key: "Status",
   },
   {
     label: () =>

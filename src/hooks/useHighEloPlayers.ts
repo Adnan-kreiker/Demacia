@@ -1,4 +1,4 @@
-import { ChallengerPlayer, ChallengerPlayers, MaybeRef } from './../types';
+import type { ChallengerPlayer, ChallengerPlayers, MaybeRef } from './../types';
 
 const useHighEloPlayers = (rank: MaybeRef<string>, queue: MaybeRef<string>, region: MaybeRef<string>) => {
   const challengerPlayers = ref<ChallengerPlayer[] | null>(null)

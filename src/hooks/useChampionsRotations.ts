@@ -1,4 +1,4 @@
-import { FreeChampionRotations } from "~/types";
+import type { FreeChampionRotations } from "~/types";
 
 const rotations = ref<FreeChampionRotations | null>(null);
 

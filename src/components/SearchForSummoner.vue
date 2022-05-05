@@ -5,6 +5,7 @@ import NSelect from "naive-ui/es/select/src/Select";
 import { useRouter } from "vue-router";
 import { regionToRegionParamMapper } from "../../utils";
 import { regionStore } from "~/stores/region";
+
 const summonerName = ref("");
 
 const router = useRouter();

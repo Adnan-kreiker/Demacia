@@ -1,5 +1,5 @@
 import { MaybeRef, SummonerRankedInfoInterface } from './../types';
-import { Summoner, SummonerRankedInfo } from "~/types";
+import type { Summoner, SummonerRankedInfo } from "~/types";
 import { unicodeToUtf8 } from "../../utils";
 
 const errorSingleSummoner = ref(false);

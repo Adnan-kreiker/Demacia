@@ -1,5 +1,4 @@
-import { Champion } from './../types';
-
+import type { Champion } from './../types';
 
 const champions = shallowRef<null | Champion[]>(null)
 const championsArray = shallowRef<null | Champion[]>(null)

@@ -1,4 +1,4 @@
-import { ChampionMastery, MaybeRef } from './../types';
+import type { ChampionMastery, MaybeRef } from './../types';
 
 const error = ref(false)
 

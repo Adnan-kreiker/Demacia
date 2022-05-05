@@ -11,7 +11,6 @@ const summonerInfo = ref<Summoner | null>(props.summonerInfo);
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
-
 </script>
 <template>
   <div v-if="summonerInfo" class="flex flex-row gap-4 ">

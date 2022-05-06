@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import useChampions from "~/hooks/useChampions";
-
 import ChampionCard from "~/components/ChampionCard.vue";
 
 const { width } = useWindowSize()

@@ -23,7 +23,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       <n-h1>
         <n-text type="primary"> Free Champions </n-text>
       </n-h1>
-      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-2 justify-center">
+      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-5 justify-center">
         <router-link v-for="(champ, index) in rotations.freeChampionIds" :key="index"
           :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
@@ -39,7 +39,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
           </n-card>
         </router-link>
       </div>
-      <section class="flex flex-row flex-wrap gap-2 justify-center" v-else>
+      <section class="flex flex-row flex-wrap gap-5 justify-center" v-else>
         <n-skeleton v-for="n in 16" :key="n" height="138px" width="98px" />
       </section>
     </section>
@@ -50,7 +50,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       <n-h1>
         <n-text type="primary"> Free Champions For New Players </n-text>
       </n-h1>
-      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-2 justify-center">
+      <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-5 justify-center">
         <router-link v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers" :key="index"
           :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
@@ -66,7 +66,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
           </n-card>
         </router-link>
       </div>
-      <section class="flex flex-wrap flex-row gap-2 justify-center" v-else>
+      <section class="flex flex-wrap flex-row gap-5 justify-center" v-else>
         <n-skeleton v-for="n in 10" :key="n" height="138px" width="98px" />
       </section>
     </section>

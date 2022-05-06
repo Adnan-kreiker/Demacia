@@ -4,7 +4,6 @@ import { NH1 } from "naive-ui/es/typography";
 import NCard from "naive-ui/es/card/src/Card";
 import NDivider from "naive-ui/es/divider/src/Divider";
 import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
-import VLazyImage from "v-lazy-image";
 import { getChampionInfoById } from "../../utils";
 import useChampions from "~/hooks/useChampions";
 import useChampionsRotations from "~/hooks/useChampionsRotations";
@@ -28,7 +27,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
           :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <VLazyImage height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
+              <img loading="lazy" height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
               }`" />
             </template>
             <h1 class="text-center py-2">
@@ -55,7 +54,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
           :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`" class="hover:cursor-pointer">
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
             <template #cover>
-              <VLazyImage height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
+              <img loading="lazy" height="98" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
               }`" />
             </template>
             <h1 class="text-center py-2">

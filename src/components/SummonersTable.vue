@@ -142,6 +142,7 @@ const columns: DataTableColumns = [
                 style: {
                   borderRadius: "50%",
                 },
+                loading: "lazy",
               }),
               h(
                 "span",

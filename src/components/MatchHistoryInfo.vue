@@ -326,7 +326,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
       </div>
     </div>
     <div v-if="filteredMatchHistory.length === 0">
-      <p
+      <p v-if="!loading"
         class="text-center whitespace-normal text-lg font-bold border-1 text-orange-400 border-red-300  mx-auto px-2 py-1">
         No
         {{ currentFilter }} games were played within the last {{ start + 5 }}
@@ -334,6 +334,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
         , try load
         more
         matches </p>
+      <p v-else>Loading...</p>
     </div>
     <n-space justify="center">
       <n-button tertiary type="info" @click="start += 5" :loading="loading" class="mt-8">Load

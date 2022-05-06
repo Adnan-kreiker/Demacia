@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import useChampions from "~/hooks/useChampions";
 
 import ChampionCard from "~/components/ChampionCard.vue";
@@ -47,14 +47,14 @@ const { championsArray } = useChampions()
     <h1 class="text-white text-3xl font-bold mb-12 underline-green-500 underline-2 underline">
       Champions
     </h1>
-    <div v-if="championsArray?.length">
+    <div v-if="championsArray">
       <RecycleScroller class="scroll-class" :items="championsArray" :item-size="itemSize" key-field="id">
         <template v-slot="{ item }">
           <ChampionCard :champ="item"></ChampionCard>
         </template>
       </RecycleScroller>
     </div>
-    <div class="flex flex-row flex-wrap gap-2 justify-center" v-else>
+    <div class="flex flex-row flex-wrap gap-6 justify-center" v-else>
       <n-skeleton v-for="skeleton in 70" :key="skeleton" height="138px" width="98px">
       </n-skeleton>
     </div>

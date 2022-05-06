@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Champion } from '~/types';
-// import VLazyImage from "v-lazy-image";
 
 const props = defineProps<{
   champ: Champion

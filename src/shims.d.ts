@@ -21,5 +21,7 @@ declare module 'rollup-plugin-analyzer' {
 
 // declare module 'vue-virtual-scroller' {
 
-
+declare module 'vue-virtual-scroller' {
+  export const RecycleScroller: any
+}
 // }

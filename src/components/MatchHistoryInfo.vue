@@ -77,6 +77,37 @@ const summoner = (participants: Participant[]): Participant | undefined => {
   );
   return participant;
 };
+
+const summonerHasMultipleKills = (participantData: Participant) => {
+  if (participantData.doubleKills || participantData.tripleKills || participantData.quadraKills || participantData.pentaKills) {
+    return true
+  } else {
+    return false
+  }
+
+}
+
+const isNaNCheckerAndDecimalPrefixer = (value: number) => {
+  if (isNaN(value)) {
+    return 0
+  }
+  return value.toFixed(2)
+}
+
+const summonerMultipleKillsText = (participantData: Participant) => {
+  if (participantData.pentaKills) {
+    return `Penta Kills: ${participantData.doubleKills}`
+  }
+  if (participantData.quadraKills) {
+    return `Quadra Kills: ${participantData.doubleKills}`
+  }
+  if (participantData.tripleKills) {
+    return `Triple Kills: ${participantData.doubleKills}`
+  }
+  if (participantData.doubleKills) {
+    return `Double Kills: ${participantData.doubleKills}`
+  }
+}
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
   if (show) {
     if (result) {
@@ -228,18 +259,9 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                 </div>
                 <p>
                   <span class="text-orange-400">
-                    {{
-                        isNaN(
-                          (summoner(match.info.participants).kills +
-                            summoner(match.info.participants).assists) /
-                          summoner(match.info.participants).deaths
-                        )
-                          ? 0
-                          : (
-                            (summoner(match.info.participants).kills +
-                              summoner(match.info.participants).assists) /
-                            summoner(match.info.participants).deaths
-                          ).toFixed(2)
+                    {{ isNaNCheckerAndDecimalPrefixer((summoner(match.info.participants).kills +
+                        summoner(match.info.participants).assists) /
+                        summoner(match.info.participants).deaths)
                     }}
                   </span>
                   <span class="text-gray-400 ml-1 text-sm">KDA</span>
@@ -250,12 +272,8 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                         summoner(match.info.participants).totalMinionsKilled
                     }}</span>
                     <span class="text-gray-400 ml-1">CS ({{
-                        isNaN(summoner(match.info.participants).totalMinionsKilled /
-                          secondsToMinutes(match.info.gameDuration)) ? 0 :
-                          (
-                            summoner(match.info.participants).totalMinionsKilled /
-                            secondsToMinutes(match.info.gameDuration)
-                          ).toFixed(1)
+                        isNaNCheckerAndDecimalPrefixer(summoner(match.info.participants).totalMinionsKilled /
+                          secondsToMinutes(match.info.gameDuration))
                     }})</span>
                     <br />
 
@@ -264,21 +282,10 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
                     <span class="text-sm ml-1 text-gray-400">vision</span>
                   </div>
                   <n-tag v-if="
-                    summoner(match.info.participants).pentaKills ||
-                    summoner(match.info.participants).quadraKills ||
-                    summoner(match.info.participants).tripleKills ||
-                    summoner(match.info.participants).doubleKills
+                    summonerHasMultipleKills(summoner(match.info.participants))
                   " class="my-3" :color="{ color: '#ee5a52', textColor: 'white', borderColor: 'red' }">
                     {{
-                        summoner(match.info.participants).pentaKills
-                          ? "Penta Kill"
-                          : summoner(match.info.participants).quadraKills
-                            ? "Quadra Kill"
-                            : summoner(match.info.participants).tripleKills
-                              ? "Triple Kill"
-                              : summoner(match.info.participants).doubleKills
-                                ? "Double Kill"
-                                : ""
+                        summonerMultipleKillsText(summoner(match.info.participants))
                     }}
                   </n-tag>
                 </div>

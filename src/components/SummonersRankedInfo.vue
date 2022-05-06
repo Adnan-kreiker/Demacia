@@ -24,7 +24,6 @@ const { rankedData } = await useSummonerRankedInfoById(
   region.value
 )
 
-
 const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
   if (Array.isArray(rankedData.value)) {
     return rankedData.value.filter((info) => info?.queueType === props.queueType)[0];
@@ -33,6 +32,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
   }
 });
 </script>
+
 <template>
   <div>
     <div class="flex items-center flex-col flex-wrap justify-evenly text-center" v-if="

@@ -13,6 +13,7 @@ declare module 'vue' {
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonScooter: typeof import('~icons/carbon/scooter')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
+    ChampionCard: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ChampionCard.vue')['default']
     ChampionInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ChampionInfo.vue')['default']
     ChampionMastery: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/ChampionMastery.vue')['default']
     CheckMark: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/CheckMark.vue')['default']

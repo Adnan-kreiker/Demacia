@@ -8,13 +8,44 @@ import AttackIcon from "~/components/Icons/AttackIcon.vue";
 import ShieldIcon from "~/components/Icons/ShieldIcon.vue";
 import MagicIcon from "~/components/Icons/MagicIcon.vue";
 import BrainIcon from "~/components/Icons/BrainIcon.vue";
+import championsSpells from '../../../championsSpells.json'
 
 const route = useRoute();
 
 const champion = ref<null | ChampionInfo>(null);
 
+const spells2 = ref<null | any[]>(null);
+
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
+const findCurrentChampion = (championsSpells: {
+  [key: string]: any[];
+}) => {
+  const championName = route.params.champion.toString()
+  console.log(championName);
+  return championsSpells[championName]
+}
+
+const currentChampionSpells = computed(() => {
+  return findCurrentChampion(championsSpells)
+})
+console.log(currentChampionSpells);
+
+const spellsDict = Object.assign({}, ...currentChampionSpells.value)
+
+const spellsDictKeys = Object.keys(spellsDict)
+
+const replaceVarsWithCorrectSpellsValues = (currentChampionSpells: string) => {
+  let removedStaches = mustacheRemover(currentChampionSpells)
+  for (let i = 0; i < spellsDictKeys.length; i++) {
+    removedStaches = removedStaches.replaceAll(spellsDictKeys[i], spellsDict[spellsDictKeys[i]])
+  }
+  return removedStaches
+}
+
+function mustacheRemover (str: string) {
+  return str.replaceAll('{{ ', '').replaceAll(' }}', '')
+}
 
 async function getChampion () {
   const res = await fetch(
@@ -22,13 +53,14 @@ async function getChampion () {
   );
   const champ = await res.json();
   champion.value = Object.values(champ.data)[0] as ChampionInfo;
+  spells2.value = champion.value.spells.map(spell => {
+    return {
+      tip: spell.tooltip
+    }
+  })
 }
 
 getChampion();
-
-function quotesRemover (input: string) {
-  return input.replaceAll('"', "");
-}
 
 type Stats = {
   [key: string]: string | number;
@@ -158,7 +190,7 @@ watch(champion, () => {
         Abilities
       </h2>
       <div>
-        <div v-for="spell in spells" :key="spell.name" class="flex flex-row my-6 border-1 border-white p-3">
+        <div v-for="(spell, i) in spells" :key="i" class="flex flex-row my-6 border-1 border-white p-3">
           <div class="min-w-[60px]">
             <img height="50" width="50" class=""
               :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${spell.image.full}`" alt="" />
@@ -168,9 +200,10 @@ watch(champion, () => {
               {{ spell.name }}
             </h2>
             <p v-html="spell.description"></p>
-            <p v-html="quotesRemover(spell.tooltip)"></p>
+            <p v-if="spells2" v-html="replaceVarsWithCorrectSpellsValues(spells2[i].tip)"></p>
           </div>
         </div>
+
       </div>
     </section>
   </div>

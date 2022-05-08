@@ -31,6 +31,7 @@ declare module 'vue' {
     ShieldIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/ShieldIcon.vue')['default']
     StatisticsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/StatisticsIcon.vue')['default']
     StatsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/StatsIcon.vue')['default']
+    StatusIcon: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/Icons/StatusIcon.vue')['default']
     SummonersInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SummonersInfo.vue')['default']
     SummonersRankedInfo: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SummonersRankedInfo.vue')['default']
     SummonersTable: typeof import('C:/Users/Adnan Kreiker/Documents/lol/my-vitespa-app/src/components/SummonersTable.vue')['default']

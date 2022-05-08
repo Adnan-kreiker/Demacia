@@ -4,7 +4,7 @@ import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import NMenu from "naive-ui/es/menu/src/Menu";
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
-import StatsIcon from "~/components/Icons/StatsIcon.vue";
+import StatusIcon from "~/components/Icons/StatusIcon.vue";
 import { NIcon } from "naive-ui/es/icon/src/Icon";
 import type { MenuOption } from "naive-ui";
 import type { Component } from "vue";
@@ -56,9 +56,19 @@ const mobileMenuOptions: MenuOption[] = [
     icon: renderIcon(ChampionsIcon),
   },
   {
-    label: "Stats",
-    key: "Stats",
-    icon: renderIcon(StatsIcon),
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/status",
+          },
+          activeClass: "router-active",
+        },
+        { default: () => "Status" }
+      ),
+    key: "Status",
+    icon: renderIcon(StatusIcon),
   },
   {
     label: () =>

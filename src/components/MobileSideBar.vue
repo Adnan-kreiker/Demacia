@@ -4,6 +4,7 @@ import HomeIcon from "~/components/Icons/HomeIcon.vue";
 import NMenu from "naive-ui/es/menu/src/Menu";
 import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
 import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
+import YummiIcon from "~/components/Icons/YummiIcon.vue";
 import StatusIcon from "~/components/Icons/StatusIcon.vue";
 import { NIcon } from "naive-ui/es/icon/src/Icon";
 import type { MenuOption } from "naive-ui";
@@ -106,9 +107,21 @@ defineExpose({
   emit
 })
 
+const layoutSiderWidth = computed(() => {
+  if (props.collapsed) {
+    return 0;
+  }
+  return '240px'
+})
+
 </script>
 
 <template>
+  <router-link to="/">
+    <button class="px-2 pt-1">
+      <YummiIcon class="h-8.5 w-8.5" />
+    </button>
+  </router-link>
   <n-layout has-sider>
     <n-layout-sider bordered collapse-mode="width" :collapsed-width="0" :width="240" :collapsed="props.collapsed"
       :show-trigger="false" @collapse="emit('triggerCollapse', true)" @expand="emit('triggerCollapse', false)">
@@ -117,3 +130,10 @@ defineExpose({
     </n-layout-sider>
   </n-layout>
 </template>
+
+<style>
+.n-layout .n-layout-scroll-container {
+  width: v-bind(layoutSiderWidth) !important;
+  top: 0;
+}
+</style>

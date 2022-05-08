@@ -5,7 +5,6 @@ import { darkTheme } from "naive-ui";
 import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
 import { RouterLink } from "vue-router";
 import ChevronTop from "~/components/Icons/ChevronTop.vue";
-
 const MobileSideBar = defineAsyncComponent({
   loader: () =>
     import("../components/MobileSideBar.vue"),
@@ -110,7 +109,6 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
-
 
 const triggerCollapse = () => (collapsed.value = !collapsed.value);
 </script>

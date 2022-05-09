@@ -22,14 +22,12 @@ const findCurrentChampion = (championsSpells: {
   [key: string]: any[];
 }) => {
   const championName = route.params.champion.toString()
-  console.log(championName);
   return championsSpells[championName]
 }
 
 const currentChampionSpells = computed(() => {
   return findCurrentChampion(championsSpells)
 })
-console.log(currentChampionSpells);
 
 const spellsDict = Object.assign({}, ...currentChampionSpells.value)
 

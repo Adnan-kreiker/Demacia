@@ -16,6 +16,8 @@ const champion = ref<null | ChampionInfo>(null);
 
 const spells2 = ref<null | any[]>(null);
 
+const effects = ref<null | any[]>(null);
+
 const patchVersion = import.meta.env.VITE_PATCH_VERSION;
 
 const findCurrentChampion = (championsSpells: {
@@ -33,16 +35,46 @@ const spellsDict = Object.assign({}, ...currentChampionSpells.value)
 
 const spellsDictKeys = Object.keys(spellsDict)
 
+console.log(spellsDictKeys);
+
 const replaceVarsWithCorrectSpellsValues = (currentChampionSpells: string) => {
-  let removedStaches = mustacheRemover(currentChampionSpells)
+  let removedStaches = currentChampionSpells
   for (let i = 0; i < spellsDictKeys.length; i++) {
-    removedStaches = removedStaches.replaceAll(spellsDictKeys[i], spellsDict[spellsDictKeys[i]])
+    removedStaches = removedStaches.replaceAll(mustacheAdder(spellsDictKeys[i]), spellsDict[spellsDictKeys[i]])
   }
   return removedStaches
 }
 
-function mustacheRemover (str: string) {
-  return str.replaceAll('{{ ', '').replaceAll(' }}', '')
+
+
+function mustacheAdder (str: string) {
+  return `{{ ${str} }}`
+}
+
+function effectsValueExtractor (effects: any[]) {
+  // const unrefs = unref(effects)
+  // const raw = toRaw(effects)
+  // console.log(unrefs, 'unrefs');
+  // console.log(raw, 'raw');
+  console.log(effects, 'effects');
+  const res = effects.map((innerArr: any[]) => {
+    const convertedArr = Object.values(innerArr)[0]
+    return {
+      e1: convertedArr[1][0],
+      e2: convertedArr[1][1],
+      e3: convertedArr[1][2],
+      e4: convertedArr[1][3],
+      e5: convertedArr[1][4],
+      e6: convertedArr[1][5],
+      e7: convertedArr[1][6],
+      e8: convertedArr[1][7],
+      e9: convertedArr[1][8],
+      e10: convertedArr[1][9],
+      e11: convertedArr[1][10],
+    }
+  })
+  console.log({ res });
+  return res
 }
 
 async function getChampion () {
@@ -54,6 +86,11 @@ async function getChampion () {
   spells2.value = champion.value.spells.map(spell => {
     return {
       tip: spell.tooltip
+    }
+  })
+  effects.value = champion.value.spells.map(spell => {
+    return {
+      effect: spell.effect
     }
   })
 }
@@ -85,6 +122,13 @@ watch(champion, () => {
     spells.value = champion.value.spells;
   }
 });
+watch(effects, () => {
+  if (effects.value) {
+    console.log(effects.value);
+  }
+}, {
+  immediate: true
+})
 </script>
 
 <template>
@@ -199,6 +243,7 @@ watch(champion, () => {
             </h2>
             <p v-html="spell.description"></p>
             <p v-if="spells2" v-html="replaceVarsWithCorrectSpellsValues(spells2[i].tip)"></p>
+            <!-- <p v-if="effects">{{ effectsValueExtractor(effects)[i] s}}</p> -->
           </div>
         </div>
 

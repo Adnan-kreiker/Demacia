@@ -52,28 +52,28 @@ function mustacheAdder (str: string) {
 }
 
 function effectsValueExtractor (effects: any[]) {
-  // const unrefs = unref(effects)
-  // const raw = toRaw(effects)
-  // console.log(unrefs, 'unrefs');
-  // console.log(raw, 'raw');
   console.log(effects, 'effects');
-  const res = effects.map((innerArr: any[]) => {
-    const convertedArr = Object.values(innerArr)[0]
-    return {
-      e1: convertedArr[1][0],
-      e2: convertedArr[1][1],
-      e3: convertedArr[1][2],
-      e4: convertedArr[1][3],
-      e5: convertedArr[1][4],
-      e6: convertedArr[1][5],
-      e7: convertedArr[1][6],
-      e8: convertedArr[1][7],
-      e9: convertedArr[1][8],
-      e10: convertedArr[1][9],
-      e11: convertedArr[1][10],
-    }
+  const res = effects.map((innerArr: any[], i) => {
+    const convertedArr = Object.values(innerArr)
+    console.log(convertedArr, 'convertedArr ' + i);
+    const data = convertedArr.map(arr => {
+      return {
+      e1: [...arr[1]],
+      e2: [...arr[2]],
+      e3: [...arr[3]],
+      e4: [...arr[4]],
+      e5: [...arr[5]],
+      e6: [...arr[6]],
+      e7: [...arr[7]],
+      e8: [...arr[8]],
+      e9: [...arr[9]],
+      e10: [...arr[10]],
+      }
+    })
+    console.log(data, 'data');
+    return data
   })
-  console.log({ res });
+  console.log( res, 'res' );
   return res
 }
 
@@ -243,7 +243,7 @@ watch(effects, () => {
             </h2>
             <p v-html="spell.description"></p>
             <p v-if="spells2" v-html="replaceVarsWithCorrectSpellsValues(spells2[i].tip)"></p>
-            <!-- <p v-if="effects">{{ effectsValueExtractor(effects)[i] s}}</p> -->
+            <p v-if="effects">{{ effectsValueExtractor(effects)[i] }}</p>
           </div>
         </div>
 

@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts", 
+  "main": "src/index.ts",
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsc -w",
-    "dev": "npx nodemon" 
+    "dev": "npx nodemon"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/apicache": "^1.6.1",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/needle": "^2.5.3",
     "@types/node": "^17.0.31",

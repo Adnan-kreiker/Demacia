@@ -204,7 +204,7 @@ watch(effects, () => {
       </section>
     </div>
 
-    <div v-if="champion.allytips" class="border border-green-500 my-3 p-3">
+    <div v-if="champion.allytips.length" class="border border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Ally tips
       </h2>
@@ -219,7 +219,7 @@ watch(effects, () => {
       </ul>
     </div>
 
-    <div v-if="champion.enemytips" class="border border-green-500 my-3 p-3">
+    <div v-if="champion.enemytips.length" class="border border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Enemy Tip
       </h2>

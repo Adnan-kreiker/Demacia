@@ -35,45 +35,60 @@ const spellsDict = Object.assign({}, ...currentChampionSpells.value)
 
 const spellsDictKeys = Object.keys(spellsDict)
 
-console.log(spellsDictKeys);
-
 const replaceVarsWithCorrectSpellsValues = (currentChampionSpells: string) => {
-  let removedStaches = currentChampionSpells
+  let removedMustaches = currentChampionSpells
   for (let i = 0; i < spellsDictKeys.length; i++) {
-    removedStaches = removedStaches.replaceAll(mustacheAdder(spellsDictKeys[i]), spellsDict[spellsDictKeys[i]])
+    removedMustaches = removedMustaches.replaceAll(mustacheAdder(spellsDictKeys[i]), spellsDict[spellsDictKeys[i]])
   }
-  return removedStaches
+  return removedMustaches
 }
 
-
+const replaceEffectsWithValues = (currentChampionSpells: string, i: number) => {
+  const eff = effectsValueExtractor(effects.value!)[i]
+  const currentKeys = Object.keys(eff[0])
+  const regex = new RegExp(currentKeys.join('|'), 'gi')
+  currentChampionSpells = currentChampionSpells.replace(regex, function (matched) {
+    return eff[0][matched as keyof EffectsValues]
+  })
+  return currentChampionSpells
+}
 
 function mustacheAdder (str: string) {
   return `{{ ${str} }}`
 }
 
+interface EffectsValues {
+  '{{ e1 }}': string;
+  '{{ e2 }}': string;
+  '{{ e3 }}': string;
+  '{{ e4 }}': string;
+  '{{ e5 }}': string;
+  '{{ e6 }}': string;
+  '{{ e7 }}': string;
+  '{{ e8 }}': string;
+  '{{ e9 }}': string;
+  '{{ e10 }}': string;
+}
+
 function effectsValueExtractor (effects: any[]) {
-  console.log(effects, 'effects');
   const res = effects.map((innerArr: any[], i) => {
     const convertedArr = Object.values(innerArr)
-    console.log(convertedArr, 'convertedArr ' + i);
-    const data = convertedArr.map(arr => {
+    const data: EffectsValues[] = convertedArr.map(arr => {
       return {
-      e1: [...arr[1]],
-      e2: [...arr[2]],
-      e3: [...arr[3]],
-      e4: [...arr[4]],
-      e5: [...arr[5]],
-      e6: [...arr[6]],
-      e7: [...arr[7]],
-      e8: [...arr[8]],
-      e9: [...arr[9]],
-      e10: [...arr[10]],
+        '{{ e1 }}': [...new Set([...arr[1]])].toString().split(',').join('/'),
+        '{{ e2 }}': [...new Set([...arr[2]])].toString().split(',').join('/'),
+        '{{ e3 }}': [...new Set([...arr[3]])].toString().split(',').join('/'),
+        '{{ e4 }}': [...new Set([...arr[4]])].toString().split(',').join('/'),
+        '{{ e5 }}': [...new Set([...arr[5]])].toString().split(',').join('/'),
+        '{{ e6 }}': [...new Set([...arr[6]])].toString().split(',').join('/'),
+        '{{ e7 }}': [...new Set([...arr[7]])].toString().split(',').join('/'),
+        '{{ e8 }}': [...new Set([...arr[8]])].toString().split(',').join('/'),
+        '{{ e9 }}': [...new Set([...arr[9]])].toString().split(',').join('/'),
+        '{{ e10 }}': [...new Set([...arr[10]])].toString().split(',').join('/'),
       }
     })
-    console.log(data, 'data');
     return data
   })
-  console.log( res, 'res' );
   return res
 }
 
@@ -122,13 +137,14 @@ watch(champion, () => {
     spells.value = champion.value.spells;
   }
 });
+
 watch(effects, () => {
   if (effects.value) {
-    console.log(effects.value);
   }
 }, {
   immediate: true
 })
+
 </script>
 
 <template>
@@ -188,7 +204,7 @@ watch(effects, () => {
       </section>
     </div>
 
-    <div class="border border-green-500 my-3 p-3">
+    <div v-if="champion.allytips" class="border border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Ally tips
       </h2>
@@ -203,7 +219,7 @@ watch(effects, () => {
       </ul>
     </div>
 
-    <div class="border border-green-500 my-3 p-3">
+    <div v-if="champion.enemytips" class="border border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Enemy Tip
       </h2>
@@ -242,8 +258,8 @@ watch(effects, () => {
               {{ spell.name }}
             </h2>
             <p v-html="spell.description"></p>
-            <p v-if="spells2" v-html="replaceVarsWithCorrectSpellsValues(spells2[i].tip)"></p>
-            <p v-if="effects">{{ effectsValueExtractor(effects)[i] }}</p>
+            <p v-if="spells2" v-html="replaceEffectsWithValues(replaceVarsWithCorrectSpellsValues(spells2[i].tip), i)">
+            </p>
           </div>
         </div>
 

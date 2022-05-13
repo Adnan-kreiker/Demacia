@@ -51,6 +51,7 @@ const replaceEffectsWithValues = (currentChampionSpells: string, i: number) => {
   currentChampionSpells = currentChampionSpells.replace(regex, function (matched) {
     return eff[0][matched as keyof EffectsValues]
   })
+  currentChampionSpells = currentChampionSpells.replace('{{ e0 }}%', eff[0]['{{ e10 }}'] + '%')
   return currentChampionSpells
 }
 
@@ -261,6 +262,7 @@ watch(effects, () => {
             <p v-html="spell.description"></p>
             <p v-if="spells2" v-html="replaceEffectsWithValues(replaceVarsWithCorrectSpellsValues(spells2[i].tip), i)">
             </p>
+            <!-- <p v-if="effects">{{ effectsValueExtractor(effects)[i] }}</p> -->
           </div>
         </div>
 

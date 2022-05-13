@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { DataTableColumns } from "naive-ui";
 import NDataTable from "naive-ui/es/data-table/src/DataTable";
+import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
 import type { ChampionInfo, Spell } from "~/types";
 import CheckMark from "~/components/Icons/CheckMark.vue";
 import WarningIcon from "~/components/Icons/WarningIcon.vue";
@@ -265,6 +266,18 @@ watch(effects, () => {
 
       </div>
     </section>
+  </div>
+  <div class="flex flex-col gap-2 mt-8 " v-else>
+    <n-skeleton class="mx-auto" height="36px" width="50%" />
+    <n-skeleton height="150px" width="100%" />
+    <n-skeleton height="28px" width="70%" />
+    <n-skeleton height="28px" width="40%" />
+    <n-skeleton height="28px" width="30%" />
+    <n-skeleton height="28px" width="60%" />
+    <n-skeleton height="198px" width="100%" />
+    <n-skeleton height="140px" width="100%" />
+    <n-skeleton height="363px" width="100%" />
+    <n-skeleton height="681px" width="100%" />
   </div>
 </template>
 

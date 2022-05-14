@@ -165,7 +165,7 @@ watch(champion, () => {
       </p>
     </div>
 
-    <div class="my-6">
+    <div v-if="champion.info.attack && champion.info.defense" class="my-6">
       <section>
         <div class="flex flex-row flex-nowrap items-center">
           <div class="flex min-w-26 flex-row items-center">

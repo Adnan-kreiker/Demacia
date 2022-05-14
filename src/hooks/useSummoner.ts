@@ -11,7 +11,6 @@ const useSummoner = () => {
   const summonersRankedData = ref<SummonerRankedInfoInterface | null>(null);
   const summonersData = ref<Summoner[]>([]);
 
-
   const getSummonerByName = async (summonerName: string, region: string) => {
     errorSingleSummoner.value = false
     try {
@@ -19,8 +18,6 @@ const useSummoner = () => {
         `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summonerName)}?region=${region}`
       );
       const data = (await res.json()) as Summoner;
-
-
       if (data.status && data.status.status_code == 404) {
         errorSingleSummoner.value = true;
       }

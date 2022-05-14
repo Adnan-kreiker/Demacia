@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "leageue of legends wikis",
+  "name": "Demacia",
   "scripts": {
     "dev": "vite --port 3333 --open",
     "build": "vite build",

@@ -1,31 +1,35 @@
 <script setup lang="ts">
-import { Summoner } from "~/types";
-import NDivider from "naive-ui/es/divider/src/Divider";
-import { unixToDate } from "../../utils";
+import NDivider from 'naive-ui/es/divider/src/Divider'
+import { unixToDate } from '../../utils'
+import { Summoner } from '~/types'
 
 const props = defineProps<{
-  summonerInfo: Summoner | null;
-}>();
+  summonerInfo: Summoner | null
+}>()
 
-const summonerInfo = ref<Summoner | null>(props.summonerInfo);
+const summonerInfo = ref<Summoner | null>(props.summonerInfo)
 
-const patchVersion = import.meta.env.VITE_PATCH_VERSION;
+const patchVersion = import.meta.env.VITE_PATCH_VERSION
 
 </script>
 <template>
   <div v-if="summonerInfo" class="flex flex-row gap-4 ">
-    <n-divider class="h-[400px] divider-class" vertical></n-divider>
+    <n-divider class="h-[400px] divider-class" vertical />
 
     <div class="flex-grow">
-      <img height="220" fetchpriority="high" width="240"
+      <img
+        height="220"
+        fetchpriority="high"
+        width="240"
         class="object-contain mx-auto rounded-md hover:scale-110 transform transition-all duration-500"
-        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/profileicon/${summonerInfo.profileIconId}.png`" />
+        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/profileicon/${summonerInfo.profileIconId}.png`"
+      >
       <p class="text-4xl font-bold text-center text-true-gray-200 mt-3">
         {{ summonerInfo.name }}
       </p>
       <div class="w-[240px] text-center mx-auto flex-col flex justify-center">
         <span class="mt-4 border-2 w-max self-center p-1 text-green-300 border-green-700 rounded-sm">Level: {{
-            summonerInfo.summonerLevel
+          summonerInfo.summonerLevel
         }}</span>
         <p type="info" class="mt-4 border-2 w-max self-center p-1 text-cyan-300 border-cyan-700 rounded-sm">
           Last Activity :
@@ -33,8 +37,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION;
         </p>
       </div>
     </div>
-    <n-divider class="h-[400px] divider-class" vertical></n-divider>
-
+    <n-divider class="h-[400px] divider-class" vertical />
   </div>
 </template>
 

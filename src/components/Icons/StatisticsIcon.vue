@@ -16,7 +16,7 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></rect>
+    />
     <rect
       x="288"
       y="224"
@@ -29,7 +29,7 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></rect>
+    />
     <rect
       x="400"
       y="112"
@@ -42,7 +42,7 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></rect>
+    />
     <rect
       x="176"
       y="32"
@@ -55,12 +55,12 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></rect>
+    />
   </svg>
 </template>
 
 <script lang="ts">
 export default {
-  name: "StatisticsIcon",
-};
+  name: 'StatisticsIcon',
+}
 </script>

@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import NLayoutSider from "naive-ui/es/layout/src/LayoutSider";
-import HomeIcon from "~/components/Icons/HomeIcon.vue";
-import NMenu from "naive-ui/es/menu/src/Menu";
-import ChampionsIcon from "~/components/Icons/ChampionInfo.vue";
-import StatisticsIcon from "~/components/Icons/StatisticsIcon.vue";
-import YummiIcon from "~/components/Icons/YummiIcon.vue";
-import StatusIcon from "~/components/Icons/StatusIcon.vue";
-import { NIcon } from "naive-ui/es/icon/src/Icon";
-import type { MenuOption } from "naive-ui";
-import type { Component } from "vue";
-import NLayout from "naive-ui/es/layout/src/Layout";
-import { RouterLink } from "vue-router";
+import NLayoutSider from 'naive-ui/es/layout/src/LayoutSider'
+import NMenu from 'naive-ui/es/menu/src/Menu'
+import { NIcon } from 'naive-ui/es/icon/src/Icon'
+import type { MenuOption } from 'naive-ui'
+import type { Component } from 'vue'
+import NLayout from 'naive-ui/es/layout/src/Layout'
+import { RouterLink } from 'vue-router'
+import StatusIcon from '~/components/Icons/StatusIcon.vue'
+import StatisticsIcon from '~/components/Icons/StatisticsIcon.vue'
+import YummiIcon from '~/components/Icons/YummiIcon.vue'
+import ChampionsIcon from '~/components/Icons/ChampionInfo.vue'
+import HomeIcon from '~/components/Icons/HomeIcon.vue'
 
 const props = defineProps<{
-  collapsed: boolean;
+  collapsed: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'triggerCollapse', value: boolean): void
 }>()
 
-const activeKey = ref<string | null>(null);
+const activeKey = ref<string | null>(null)
 
-function renderIcon (icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) });
+function renderIcon(icon: Component) {
+  return () => h(NIcon, null, { default: () => h(icon) })
 }
 const mobileMenuOptions: MenuOption[] = [
   {
@@ -32,13 +32,13 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/",
+            path: '/',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Home" }
+        { default: () => 'Home' },
       ),
-    key: "Home",
+    key: 'Home',
     icon: renderIcon(HomeIcon),
   },
   {
@@ -47,13 +47,13 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/champions",
+            path: '/champions',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Champions" }
+        { default: () => 'Champions' },
       ),
-    key: "Champions",
+    key: 'Champions',
     icon: renderIcon(ChampionsIcon),
   },
   {
@@ -62,13 +62,13 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/status",
+            path: '/status',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Status" }
+        { default: () => 'Status' },
       ),
-    key: "Status",
+    key: 'Status',
     icon: renderIcon(StatusIcon),
   },
   {
@@ -77,13 +77,13 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/champion-rotations",
+            path: '/champion-rotations',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Champion Rotations" }
+        { default: () => 'Champion Rotations' },
       ),
-    key: "Rotations",
+    key: 'Rotations',
     icon: renderIcon(ChampionsIcon),
   },
   {
@@ -92,25 +92,25 @@ const mobileMenuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/leaderboards",
+            path: '/leaderboards',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Leaderboards" }
+        { default: () => 'Leaderboards' },
       ),
-    key: "Leaderboards",
+    key: 'Leaderboards',
     icon: renderIcon(StatisticsIcon),
   },
-];
+]
 
 defineExpose({
-  emit
+  emit,
 })
 
 const layoutSiderWidth = computed(() => {
-  if (props.collapsed) {
-    return 0;
-  }
+  if (props.collapsed)
+    return 0
+
   return '240px'
 })
 
@@ -123,10 +123,24 @@ const layoutSiderWidth = computed(() => {
     </button>
   </router-link>
   <n-layout has-sider>
-    <n-layout-sider bordered collapse-mode="width" :collapsed-width="0" :width="240" :collapsed="props.collapsed"
-      :show-trigger="false" @collapse="emit('triggerCollapse', true)" @expand="emit('triggerCollapse', false)">
-      <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="0" :collapsed-icon-size="0"
-        :options="mobileMenuOptions" @update:value="() => emit('triggerCollapse', true)" />
+    <n-layout-sider
+      bordered
+      collapse-mode="width"
+      :collapsed-width="0"
+      :width="240"
+      :collapsed="props.collapsed"
+      :show-trigger="false"
+      @collapse="emit('triggerCollapse', true)"
+      @expand="emit('triggerCollapse', false)"
+    >
+      <n-menu
+        v-model:value="activeKey"
+        :collapsed="collapsed"
+        :collapsed-width="0"
+        :collapsed-icon-size="0"
+        :options="mobileMenuOptions"
+        @update:value="() => emit('triggerCollapse', true)"
+      />
     </n-layout-sider>
   </n-layout>
 </template>

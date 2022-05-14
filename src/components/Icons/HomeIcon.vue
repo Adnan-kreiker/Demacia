@@ -11,7 +11,7 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></path>
+    />
     <path
       d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256"
       fill="none"
@@ -19,7 +19,7 @@
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="32"
-    ></path>
+    />
     <path
       fill="none"
       stroke="currentColor"
@@ -27,11 +27,11 @@
       stroke-linejoin="round"
       stroke-width="32"
       d="M400 179V64h-48v69"
-    ></path>
+    />
   </svg>
 </template>
 <script lang="ts">
 export default {
-  name: "HomeIcon",
-};
+  name: 'HomeIcon',
+}
 </script>

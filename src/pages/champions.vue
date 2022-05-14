@@ -1,38 +1,37 @@
 <script setup lang="ts">
-import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
-import useChampions from "~/hooks/useChampions";
-import ChampionCard from "~/components/ChampionCard.vue";
+import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import useChampions from '~/hooks/useChampions'
+import ChampionCard from '~/components/ChampionCard.vue'
 
 const { width } = useWindowSize()
 
 const itemSize = computed(() => {
-  if (width.value < 252) {
+  if (width.value < 252)
     return 75
-  }
-  if (width.value <= 365) {
+
+  if (width.value <= 365)
     return 80
-  }
-  if (width.value < 480) {
+
+  if (width.value < 480)
     return 55
-  }
-  if (width.value < 594) {
+
+  if (width.value < 594)
     return 40
-  }
-  if (width.value < 708) {
+
+  if (width.value < 708)
     return 35
-  }
-  if (width.value < 886) {
+
+  if (width.value < 886)
     return 30
-  }
-  if (width.value < 1000) {
+
+  if (width.value < 1000)
     return 25
-  }
-  if (width.value < 1228) {
+
+  if (width.value < 1228)
     return 20
-  }
-  if (width.value > 1680) {
+
+  if (width.value > 1680)
     return 12
-  }
 
   return 15
 })
@@ -48,18 +47,16 @@ const { championsArray } = useChampions()
     </h1>
     <div v-if="championsArray">
       <RecycleScroller class="scroll-class" :items="championsArray" :item-size="itemSize" key-field="id">
-        <template v-slot="{ item }">
-          <ChampionCard :champ="item"></ChampionCard>
+        <template #default="{ item }">
+          <ChampionCard :champ="item" />
         </template>
       </RecycleScroller>
     </div>
-    <div class="flex flex-row flex-wrap gap-6 justify-center" v-else>
-      <n-skeleton v-for="skeleton in 70" :key="skeleton" height="138px" width="98px">
-      </n-skeleton>
+    <div v-else class="flex flex-row flex-wrap gap-6 justify-center">
+      <n-skeleton v-for="skeleton in 70" :key="skeleton" height="138px" width="98px" />
     </div>
   </div>
 </template>
-
 
 <style >
 .vue-recycle-scroller.ready .vue-recycle-scroller__item-view {

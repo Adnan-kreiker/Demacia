@@ -1,46 +1,58 @@
 <script lang="ts" setup>
-import NInput from "naive-ui/es/input/src/Input";
-import NButton from "naive-ui/es/button/src/Button";
-import NSelect from "naive-ui/es/select/src/Select";
-import { useRouter } from "vue-router";
-import { regionToRegionParamMapper } from "../../utils";
-import { regionStore } from "~/stores/region";
+import NInput from 'naive-ui/es/input/src/Input'
+import NButton from 'naive-ui/es/button/src/Button'
+import NSelect from 'naive-ui/es/select/src/Select'
+import { useRouter } from 'vue-router'
+import { regionToRegionParamMapper } from '../../utils'
+import { regionStore } from '~/stores/region'
 
-const summonerName = ref("");
+const summonerName = ref('')
 
-const router = useRouter();
+const router = useRouter()
 
-const store = regionStore();
+const store = regionStore()
 
-const region = ref("euw1");
+const region = ref('euw1')
 
 watch(region, (newVal) => {
-  store.setRegion(newVal);
-});
+  store.setRegion(newVal)
+})
 
 const navigate = () =>
   router.push({
     path: `/summoner-info/${summonerName.value}`,
     query: { region: region.value },
-  });
+  })
 
-const servers = ["EUW", "NA", "KR", "EUNE", "JP", "BR", "LAN", "LAS"];
+const servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
 
 const selectOptions = servers.map((server) => {
   return {
     label: server,
     value: regionToRegionParamMapper(server),
-  };
-});
+  }
+})
 </script>
 
 <template>
-  <n-input v-model:value="summonerName" class="sm:max-w-2/3 md:max-w-1/2 relative" size="large" type="text"
-    placeholder="Summoner name" @keydown.enter="navigate">
+  <n-input
+    v-model:value="summonerName"
+    class="sm:max-w-2/3 md:max-w-1/2 relative"
+    size="large"
+    type="text"
+    placeholder="Summoner name"
+    @keydown.enter="navigate"
+  >
     <template #suffix>
-      <n-select r v-model:value="region" class="absolute right-20 text-xs" style="width: 50px !important"
-        placeholder="EUW" :options="selectOptions" />
-      <n-button @click="navigate" :disabled="!(summonerName.length > 0)" class="bg-blue-500 text-white font-bold">
+      <n-select
+        v-model:value="region"
+        r
+        class="absolute right-20 text-xs"
+        style="width: 50px !important"
+        placeholder="EUW"
+        :options="selectOptions"
+      />
+      <n-button :disabled="!(summonerName.length > 0)" class="bg-blue-500 text-white font-bold" @click="navigate">
         GO
       </n-button>
     </template>

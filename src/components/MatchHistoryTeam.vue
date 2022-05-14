@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Participant, TeamType } from "~/types";
-import MatchHistorySummoners from "./MatchHistorySummoners.vue";
+import MatchHistorySummoners from './MatchHistorySummoners.vue'
+import { Participant, TeamType } from '~/types'
 const props = defineProps<{
-  participants: Participant[];
-}>();
+  participants: Participant[]
+}>()
 
 const teams: TeamType[] = [
   {
@@ -14,7 +14,7 @@ const teams: TeamType[] = [
     id: 2,
     val: 200,
   },
-];
+]
 </script>
 <template>
   <div class="flex flex-row">
@@ -23,7 +23,6 @@ const teams: TeamType[] = [
       :key="team.id"
       :team="team.val"
       :participants="props.participants"
-    >
-    </MatchHistorySummoners>
+    />
   </div>
 </template>

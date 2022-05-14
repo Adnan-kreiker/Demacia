@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import NButton from "naive-ui/es/button/src/Button";
-import { ErrorStatusCode } from "~/types";
+import NButton from 'naive-ui/es/button/src/Button'
+import { ErrorStatusCode } from '~/types'
 
 interface Props {
-  status?: ErrorStatusCode;
-  title: string;
-  showReturnHomeButton?: boolean;
-  description: string;
-  imageUrl?: string;
+  status?: ErrorStatusCode
+  title: string
+  showReturnHomeButton?: boolean
+  description: string
+  imageUrl?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  status: "404",
+  status: '404',
   showReturnHomeButton: true,
-  imageUrl: "/notFound.png",
-});
+  imageUrl: '/notFound.png',
+})
 
-const router = useRouter();
+const router = useRouter()
 
-const navigateHome = () => router.push("/");
+const navigateHome = () => router.push('/')
 </script>
 
 <template>
@@ -32,14 +32,19 @@ const navigateHome = () => router.push("/");
         class="h-[300px] object-cover"
         :src="props.imageUrl"
         alt=""
-      />
+      >
       <div class="md:my-3 text-xl">
         <p>{{ props.status }}</p>
         <p>{{ props.title }}</p>
         <p>{{ props.description }}</p>
-        <n-button v-if="showReturnHomeButton" class="mt-4" @click="navigateHome" ghost
-          >Return Home</n-button
+        <n-button
+          v-if="showReturnHomeButton"
+          class="mt-4"
+          ghost
+          @click="navigateHome"
         >
+          Return Home
+        </n-button>
       </div>
     </div>
   </main>

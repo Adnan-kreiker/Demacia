@@ -6,7 +6,7 @@ const useSummonerRankedInfoById = async (id: string, region: string) => {
     const res = await fetch(
       `${import.meta.env.VITE_URL}/api/get-ranked-info/${id}?region=${region}`
     )
-    const data = await res.json()
+    const data = await res.json() as SummonerRankedInfo
     rankedData.value = data
   } catch (err) {
     console.log(err);

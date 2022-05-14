@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {watch} from 'vue'
-import { DataTableColumns } from 'naive-ui'
+import { watch } from 'vue'
+import { DataTableColumns, NCarousel, NCarouselItem } from 'naive-ui'
 import NDataTable from 'naive-ui/es/data-table/src/DataTable'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import championsSpells from '../../../championsSpells.json'
@@ -277,14 +277,30 @@ watch(champion, () => {
           </div>
         </div>
       </div>
+      <h2 class="text-4xl font-bold text-center text-green-400 my-8">
+        Skins
+      </h2>
       <div class="flex flex-row">
-      <div
-      v-for="skin in champion.skins" :key="skin.id"
-      >
-        <img  :src="`https://ddragon.canisback.com/img/champion/loading/${champion.id}_${skin.num}.jpg`" :alt="skin.name">
-        <p>{{skin.name}}</p>
-      </div>
-
+        <div>
+          <n-carousel
+            effect="card"
+            prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
+            next-slide-style="transform: translateX(50%) translateZ(-800px);"
+            style="height: 440px; width: 100%"
+            draggable
+          >
+            <n-carousel-item
+              v-for="skin in champion.skins"
+              :key="skin.id"
+              :style="{ width: '80%' }"
+            >
+              <img :src="`https://ddragon.canisback.com/img/champion/loading/${champion.id}_${skin.num}.jpg`" :alt="skin.name">
+              <p class="font-mono text-center text-base overflow-visible mt-2">
+                {{ skin.name.replace(champion.id, '') }}
+              </p>
+            </n-carousel-item>
+          </n-carousel>
+        </div>
       </div>
     </section>
   </div>
@@ -302,6 +318,23 @@ watch(champion, () => {
   </div>
 </template>
 
+<style>
+.n-carousel {
+  width: 100vw !important;
+}
+.carousel-img {
+  width: auto;
+  height: 240px;
+  object-fit: cover;
+}
+.n-carousel.n-carousel--card .n-carousel__slides {
+    perspective: 3252px;
+}
+
+.n-carousel .n-carousel__slides .n-carousel__slide {
+  width: 200px !important;
+}
+</style>
 <route lang="yaml">
 meta:
   layout: default

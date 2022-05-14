@@ -41,7 +41,7 @@ const isRankedInfo = (value: SummonerRankedInfo): value is SummonerHasRankedInfo
 const summonersRankedInfo = (
   summonerId: string,
 ):
-| { soloQInfo: RankedData | undefined; flexInfo: RankedData | undefined }
+| { soloQInfo: RankedData | null; flexInfo: RankedData | null }
 | undefined => {
   if (Array.isArray(props.summonersRankedData) && props.summonersRankedData.length > 0) {
     const rankedData = props.summonersRankedData.find(
@@ -57,9 +57,9 @@ const summonersRankedInfo = (
       return {
         soloQInfo:
           filtered.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0]
-          || undefined,
+          || null,
         flexInfo:
-          filtered.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] || undefined,
+          filtered.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] || null,
       }
     }
   }

@@ -1,8 +1,8 @@
-import type { FreeChampionRotations } from "~/types";
+import type { FreeChampionRotations } from '~/types'
 
-const rotations = ref<FreeChampionRotations | null>(null);
+const rotations = ref<FreeChampionRotations | null>(null)
 
-export default function useChampionsRotations () {
+export default function useChampionsRotations() {
   if (!rotations.value) {
     fetch(`${import.meta.env.VITE_URL}/api/get-champions-rotations`)
       .then(res => res.json())
@@ -11,6 +11,6 @@ export default function useChampionsRotations () {
   }
 
   return {
-    rotations
+    rotations,
   }
 }

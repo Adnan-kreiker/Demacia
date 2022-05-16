@@ -1,26 +1,30 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { toLowerCase } from '../../utils'
-import { Participant } from '~/types'
+import { getChampionInfoById, toLowerCase } from '../../utils'
+import type { Participant } from '~/types'
 import { regionStore } from '~/stores/region'
-
-const store = regionStore()
-const { region } = storeToRefs(store)
+import useChampions from '~/hooks/useChampions'
 
 const props = defineProps<{
   participants: Participant[]
   team: 100 | 200
 }>()
 
-const patchVersion = import.meta.env.VITE_PATCH_VERSION
+const { championsArray } = useChampions()
+const store = regionStore()
+const { region } = storeToRefs(store)
 
+const patchVersion = import.meta.env.VITE_PATCH_VERSION
 </script>
 
 <template>
-  <div class="flex flex-col self-end p-2 text-gray-300 w-[150px] p-4">
+  <div
+    v-if="championsArray"
+    class="flex flex-col self-end p-2 text-gray-300 w-[150px] p-4"
+  >
     <div
       v-for="participant in props.participants.filter(
-        (participant) => participant.teamId === props.team
+        (participant) => participant.teamId === props.team,
       )"
       :key="participant.championName"
       class="mb-1"
@@ -31,14 +35,14 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           height="25"
           width="25"
           :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-            participant.championName
-          )}.png`"
+            participant.championName ?? toLowerCase(getChampionInfoById(championsArray, participant.championId)?.name,
+            ))}.png`"
         >
         <router-link
           class="truncate overflow-ellipsis space-nowrap"
           :to="{
             path: `/summoner-info/${participant.summonerName}`,
-            query: { region: region },
+            query: { region },
           }"
         >
           <div class="group">

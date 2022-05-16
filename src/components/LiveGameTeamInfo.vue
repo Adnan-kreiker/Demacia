@@ -2,20 +2,20 @@
 import NTag from 'naive-ui/es/tag/src/Tag'
 import { NDivider } from 'naive-ui'
 import {
-  getChampionInfoById,
   capitalize,
-  queueNameMapper,
+  getChampionInfoById,
   idToRunes,
   mapSpellKeyToName,
+  queueNameMapper,
 } from '../../utils'
-import {
-  ParticipantLiveGame,
-  LiveGame,
-  SummonerRankedInfoInterface,
-  RankedData,
-  SummonerRankedInfo,
-  SummonerHasRankedInfo,
+import type {
   Champion,
+  LiveGame,
+  ParticipantLiveGame,
+  RankedData,
+  SummonerHasRankedInfo,
+  SummonerRankedInfo,
+  SummonerRankedInfoInterface,
 } from '~/types'
 
 const props = defineProps<{
@@ -68,10 +68,13 @@ const summonersRankedInfo = (
 }
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
+
 <template>
-  <section v-if="props.gameData" class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5">
+  <section
+    v-if="props.gameData"
+    class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5"
+  >
     <div
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
@@ -104,7 +107,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           width="42"
           class="object-cover -mt-1"
           :src="`https://ddragon.canisback.com/img/${idToRunes(
-            participant.perks.perkIds[0]
+            participant.perks.perkIds[0],
           )}`"
         >
         <img
@@ -112,7 +115,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           width="32"
           class="w-8 h-8 mr-2 ml-1"
           :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
-            participant.spell1Id.toString()
+            participant.spell1Id.toString(),
           )}.png`"
         >
         <img
@@ -120,7 +123,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           width="32"
           class="w-8 h-8"
           :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
-            participant.spell2Id.toString()
+            participant.spell2Id.toString(),
           )}.png`"
         >
       </div>
@@ -134,7 +137,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 height="50"
                 class="max-w-[200px] object-cover"
                 :src="`/emblems/Emblem_${capitalize(
-                  summonersRankedInfo(participant.summonerId).soloQInfo.tier
+                  summonersRankedInfo(participant.summonerId).soloQInfo.tier,
                 )}.webp`"
                 alt=""
               >
@@ -152,7 +155,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 <p class="text-sm text-gray-400">
                   ({{
                     queueNameMapper(
-                      summonersRankedInfo(participant.summonerId)?.soloQInfo?.queueType
+                      summonersRankedInfo(participant.summonerId)?.soloQInfo?.queueType,
                     )
                   }})
                 </p>
@@ -164,16 +167,16 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 Win Rate
                 {{
                   Math.round(
-                    (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins /
-                      (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins +
-                        summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses)) *
-                      100
+                    (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
+                      / (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
+                        + summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses))
+                      * 100,
                   )
                 }}%
                 <span>
                   ({{
-                    summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses +
-                      summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
+                    summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses
+                      + summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
                   }}
                   Played)
                 </span>
@@ -182,13 +185,22 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           </section>
         </div>
         <section class="flex flex-row flex-wrap gap-3 justify-center">
-          <n-tag v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.hotStreak" type="error">
+          <n-tag
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.hotStreak"
+            type="error"
+          >
             Hot Streak
           </n-tag>
-          <n-tag v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.veteran" type="warning">
+          <n-tag
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.veteran"
+            type="warning"
+          >
             Veteran
           </n-tag>
-          <n-tag v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.freshBlood" type="default">
+          <n-tag
+            v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo?.freshBlood"
+            type="default"
+          >
             Waking Up
           </n-tag>
         </section>

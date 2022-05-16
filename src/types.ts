@@ -11,7 +11,6 @@ interface AppContext<HasRouter extends boolean = true> {
 
 export type UserModule = (ctx: AppContext) => void
 
-
 export interface ChampionObject {
   [key: string]: Champion
 }
@@ -41,7 +40,6 @@ export interface Champion {
   partype: string
   stats: { [key: string]: number }
 }
-
 
 export interface Leveltip {
   label: string[]
@@ -158,42 +156,40 @@ export type SummonerRankedInfo = SummonerHasRankedInfo | [] | Error
 
 export type SummonerHasRankedInfo = (RankedData | RankedDataTFT)[]
 
-export type SummonerRankedInfoInterface = { summonerId: string, rankedInfo: SummonerRankedInfo }[]
+export type SummonerRankedInfoInterface = { summonerId: string; rankedInfo: SummonerRankedInfo }[]
 export interface RankedDataTFT {
   freshBlood: boolean
   hotStreak: boolean
   inactive: boolean
   leaguePoints: number
   losses: number
-  queueType: "RANKED_TFT_PAIRS"
+  queueType: 'RANKED_TFT_PAIRS'
   summonerId: string
   summonerName: string
   veteran: false
   wins: number
 }
 export interface RankedData {
-  leagueId: string;
-  queueType: 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR';
-  tier: string;
-  rank: string;
-  summonerId: string;
-  summonerName: string;
-  leaguePoints: number;
-  wins: number;
-  losses: number;
-  veteran: boolean;
-  inactive: boolean;
-  freshBlood: boolean;
-  hotStreak: boolean;
+  leagueId: string
+  queueType: 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR'
+  tier: string
+  rank: string
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
 }
-
 
 export interface FreeChampionRotations {
-  freeChampionIds: number[];
-  freeChampionIdsForNewPlayers: number[];
-  maxNewPlayerLevel: number;
+  freeChampionIds: number[]
+  freeChampionIdsForNewPlayers: number[]
+  maxNewPlayerLevel: number
 }
-
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_TFT_PAIRS'
 
@@ -201,66 +197,51 @@ export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues'
 
 export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 
-
-
 export interface ChallengerPlayers {
-  tier: string;
-  leagueId: string;
-  queue: string;
-  name: string;
-  entries: ChallengerPlayer[];
+  tier: string
+  leagueId: string
+  queue: string
+  name: string
+  entries: ChallengerPlayer[]
 }
 
 export interface ChallengerPlayer {
-  summonerId: string;
-  summonerName: string;
-  leaguePoints: number;
-  rank: string;
-  wins: number;
-  losses: number;
-  veteran: boolean;
-  inactive: boolean;
-  freshBlood: boolean;
-  hotStreak: boolean;
-}
-
-export interface ChallengerPlayer {
-  summonerId: string;
-  summonerName: string;
-  leaguePoints: number;
-  rank: string;
-  wins: number;
-  losses: number;
-  veteran: boolean;
-  inactive: boolean;
-  freshBlood: boolean;
-  hotStreak: boolean;
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
 }
 
 export interface ChallengerPlayerWithIndex {
-  summonerId: string;
-  summonerName: string;
-  leaguePoints: number;
-  rank: string;
-  wins: number;
-  losses: number;
-  veteran: boolean;
-  inactive: boolean;
-  freshBlood: boolean;
-  hotStreak: boolean;
-  idx: number;
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
+  idx: number
 }
 export interface ChallengerPlayerWithAdditionalData {
-  summonerId: string;
-  summonerName: string;
-  leaguePoints: number;
-  rank: string;
-  wins: number;
-  losses: number;
-  veteran: boolean;
-  inactive: boolean;
-  freshBlood: boolean;
-  hotStreak: boolean;
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
   id: string
   accountId: string
   puuid: string
@@ -271,33 +252,32 @@ export interface ChallengerPlayerWithAdditionalData {
   idx: number
 }
 
-export type ErrorStatusCode = "500" | "error" | "info" | "success" | "warning" | "404" | "403" | "418" | undefined
+export type ErrorStatusCode = '500' | 'error' | 'info' | 'success' | 'warning' | '404' | '403' | '418' | undefined
 
 export interface ChampionMastery {
-  championId: number;
-  championLevel: number;
-  championPoints: number;
-  lastPlayTime: number;
-  championPointsSinceLastLevel: number;
-  championPointsUntilNextLevel: number;
-  chestGranted: boolean;
-  tokensEarned: number;
-  summonerId: string;
+  championId: number
+  championLevel: number
+  championPoints: number
+  lastPlayTime: number
+  championPointsSinceLastLevel: number
+  championPointsUntilNextLevel: number
+  chestGranted: boolean
+  tokensEarned: number
+  summonerId: string
 }
 
-
 export interface LiveGame {
-  gameId: number;
-  mapId: number;
-  gameMode: string;
-  gameType: string;
-  gameQueueConfigId: number;
-  participants: ParticipantLiveGame[];
-  observers: Observers;
-  platformId: string;
-  bannedChampions: BannedChampion[];
-  gameStartTime: number;
-  gameLength: number;
+  gameId: number
+  mapId: number
+  gameMode: string
+  gameType: string
+  gameQueueConfigId: number
+  participants: ParticipantLiveGame[]
+  observers: Observers
+  platformId: string
+  bannedChampions: BannedChampion[]
+  gameStartTime: number
+  gameLength: number
   status?: {
     status_code: number
     message: string
@@ -305,242 +285,237 @@ export interface LiveGame {
 }
 
 export interface BannedChampion {
-  championId: number;
-  teamId: number;
-  pickTurn: number;
+  championId: number
+  teamId: number
+  pickTurn: number
 }
 
 export interface Observers {
-  encryptionKey: string;
+  encryptionKey: string
 }
-
 
 export interface ParticipantLiveGame {
-  teamId: number;
-  spell1Id: number;
-  spell2Id: number;
-  championId: number;
-  profileIconId: number;
-  summonerName: string;
-  bot: boolean;
-  summonerId: string;
-  gameCustomizationObjects: any[];
-  perks: Perks;
+  teamId: number
+  spell1Id: number
+  spell2Id: number
+  championId: number
+  profileIconId: number
+  summonerName: string
+  bot: boolean
+  summonerId: string
+  gameCustomizationObjects: any[]
+  perks: PerksLiveGame
 }
 
-export interface Perks {
-  perkIds: number[];
-  perkStyle: number;
-  perkSubStyle: number;
+export interface PerksLiveGame {
+  perkIds: number[]
+  perkStyle: number
+  perkSubStyle: number
 }
-
 
 export interface TeamType {
-  id: number,
+  id: number
   val: 100 | 200
 }
 
-
-
 export interface MatchInfo {
-  metadata: Metadata;
-  info: MatchInformation;
+  metadata: Metadata
+  info: MatchInformation
   show: boolean
 }
 
 export interface MatchInformation {
-  gameCreation: number;
-  gameDuration: number;
-  gameEndTimestamp: number;
-  gameId: number;
-  gameMode: string;
-  gameName: string;
-  gameStartTimestamp: number;
-  gameType: string;
-  gameVersion: string;
-  mapId: number;
-  participants: Participant[];
-  platformId: string;
-  queueId: number;
-  teams: Team[];
-  tournamentCode: string;
+  gameCreation: number
+  gameDuration: number
+  gameEndTimestamp: number
+  gameId: number
+  gameMode: string
+  gameName: string
+  gameStartTimestamp: number
+  gameType: string
+  gameVersion: string
+  mapId: number
+  participants: Participant[]
+  platformId: string
+  queueId: number
+  teams: Team[]
+  tournamentCode: string
 }
 
 export interface Participant {
-  assists: number;
-  baronKills: number;
-  bountyLevel: number;
-  challenges: { [key: string]: number };
-  champExperience: number;
-  champLevel: number;
-  championId: number;
-  championName: string;
-  championTransform: number;
-  consumablesPurchased: number;
-  damageDealtToBuildings: number;
-  damageDealtToObjectives: number;
-  damageDealtToTurrets: number;
-  damageSelfMitigated: number;
-  deaths: number;
-  detectorWardsPlaced: number;
-  doubleKills: number;
-  dragonKills: number;
-  eligibleForProgression: boolean;
-  firstBloodAssist: boolean;
-  firstBloodKill: boolean;
-  firstTowerAssist: boolean;
-  firstTowerKill: boolean;
-  gameEndedInEarlySurrender: boolean;
-  gameEndedInSurrender: boolean;
-  goldEarned: number;
-  goldSpent: number;
-  individualPosition: string;
-  inhibitorKills: number;
-  inhibitorTakedowns: number;
-  inhibitorsLost: number;
-  item0: number;
-  item1: number;
-  item2: number;
-  item3: number;
-  item4: number;
-  item5: number;
-  item6: number;
-  itemsPurchased: number;
-  killingSprees: number;
-  kills: number;
-  lane: string;
-  largestCriticalStrike: number;
-  largestKillingSpree: number;
-  largestMultiKill: number;
-  longestTimeSpentLiving: number;
-  magicDamageDealt: number;
-  magicDamageDealtToChampions: number;
-  magicDamageTaken: number;
-  neutralMinionsKilled: number;
-  nexusKills: number;
-  nexusLost: number;
-  nexusTakedowns: number;
-  objectivesStolen: number;
-  objectivesStolenAssists: number;
-  participantId: number;
-  pentaKills: number;
-  perks: Perks;
-  physicalDamageDealt: number;
-  physicalDamageDealtToChampions: number;
-  physicalDamageTaken: number;
-  profileIcon: number;
-  puuid: string;
-  quadraKills: number;
-  riotIdName: string;
-  riotIdTagline: string;
-  role: string;
-  sightWardsBoughtInGame: number;
-  spell1Casts: number;
-  spell2Casts: number;
-  spell3Casts: number;
-  spell4Casts: number;
-  summoner1Casts: number;
-  summoner1Id: number;
-  summoner2Casts: number;
-  summoner2Id: number;
-  summonerId: string;
-  summonerLevel: number;
-  summonerName: string;
-  teamEarlySurrendered: boolean;
-  teamId: number;
-  teamPosition: string;
-  timeCCingOthers: number;
-  timePlayed: number;
-  totalDamageDealt: number;
-  totalDamageDealtToChampions: number;
-  totalDamageShieldedOnTeammates: number;
-  totalDamageTaken: number;
-  totalHeal: number;
-  totalHealsOnTeammates: number;
-  totalMinionsKilled: number;
-  totalTimeCCDealt: number;
-  totalTimeSpentDead: number;
-  totalUnitsHealed: number;
-  tripleKills: number;
-  trueDamageDealt: number;
-  trueDamageDealtToChampions: number;
-  trueDamageTaken: number;
-  turretKills: number;
-  turretTakedowns: number;
-  turretsLost: number;
-  unrealKills: number;
-  visionScore: number;
-  visionWardsBoughtInGame: number;
-  wardsKilled: number;
-  wardsPlaced: number;
-  win: boolean;
+  assists: number
+  baronKills: number
+  bountyLevel: number
+  challenges: { [key: string]: number }
+  champExperience: number
+  champLevel: number
+  championId: number
+  championName: string
+  championTransform: number
+  consumablesPurchased: number
+  damageDealtToBuildings: number
+  damageDealtToObjectives: number
+  damageDealtToTurrets: number
+  damageSelfMitigated: number
+  deaths: number
+  detectorWardsPlaced: number
+  doubleKills: number
+  dragonKills: number
+  eligibleForProgression: boolean
+  firstBloodAssist: boolean
+  firstBloodKill: boolean
+  firstTowerAssist: boolean
+  firstTowerKill: boolean
+  gameEndedInEarlySurrender: boolean
+  gameEndedInSurrender: boolean
+  goldEarned: number
+  goldSpent: number
+  individualPosition: string
+  inhibitorKills: number
+  inhibitorTakedowns: number
+  inhibitorsLost: number
+  item0: number
+  item1: number
+  item2: number
+  item3: number
+  item4: number
+  item5: number
+  item6: number
+  itemsPurchased: number
+  killingSprees: number
+  kills: number
+  lane: string
+  largestCriticalStrike: number
+  largestKillingSpree: number
+  largestMultiKill: number
+  longestTimeSpentLiving: number
+  magicDamageDealt: number
+  magicDamageDealtToChampions: number
+  magicDamageTaken: number
+  neutralMinionsKilled: number
+  nexusKills: number
+  nexusLost: number
+  nexusTakedowns: number
+  objectivesStolen: number
+  objectivesStolenAssists: number
+  participantId: number
+  pentaKills: number
+  perks: Perks
+  physicalDamageDealt: number
+  physicalDamageDealtToChampions: number
+  physicalDamageTaken: number
+  profileIcon: number
+  puuid: string
+  quadraKills: number
+  riotIdName: string
+  riotIdTagline: string
+  role: string
+  sightWardsBoughtInGame: number
+  spell1Casts: number
+  spell2Casts: number
+  spell3Casts: number
+  spell4Casts: number
+  summoner1Casts: number
+  summoner1Id: number
+  summoner2Casts: number
+  summoner2Id: number
+  summonerId: string
+  summonerLevel: number
+  summonerName: string
+  teamEarlySurrendered: boolean
+  teamId: number
+  teamPosition: string
+  timeCCingOthers: number
+  timePlayed: number
+  totalDamageDealt: number
+  totalDamageDealtToChampions: number
+  totalDamageShieldedOnTeammates: number
+  totalDamageTaken: number
+  totalHeal: number
+  totalHealsOnTeammates: number
+  totalMinionsKilled: number
+  totalTimeCCDealt: number
+  totalTimeSpentDead: number
+  totalUnitsHealed: number
+  tripleKills: number
+  trueDamageDealt: number
+  trueDamageDealtToChampions: number
+  trueDamageTaken: number
+  turretKills: number
+  turretTakedowns: number
+  turretsLost: number
+  unrealKills: number
+  visionScore: number
+  visionWardsBoughtInGame: number
+  wardsKilled: number
+  wardsPlaced: number
+  win: boolean
 }
 
 export interface Perks {
-  statPerks: StatPerks;
-  styles: Style[];
+  statPerks: StatPerks
+  styles: Style[]
 }
 
 export interface StatPerks {
-  defense: number;
-  flex: number;
-  offense: number;
+  defense: number
+  flex: number
+  offense: number
 }
 
 export interface Style {
-  description: Description;
-  selections: Selection[];
-  style: number;
+  description: Description
+  selections: Selection[]
+  style: number
 }
 
 export enum Description {
-  PrimaryStyle = "primaryStyle",
-  SubStyle = "subStyle",
+  PrimaryStyle = 'primaryStyle',
+  SubStyle = 'subStyle',
 }
 
 export interface Selection {
-  perk: number;
-  var1: number;
-  var2: number;
-  var3: number;
+  perk: number
+  var1: number
+  var2: number
+  var3: number
 }
 
 export interface Team {
-  bans: Ban[];
-  objectives: Objectives;
-  teamId: number;
-  win: boolean;
+  bans: Ban[]
+  objectives: Objectives
+  teamId: number
+  win: boolean
 }
 
 export interface Ban {
-  championId: number;
-  pickTurn: number;
+  championId: number
+  pickTurn: number
 }
 
 export interface Objectives {
-  baron: Baron;
-  champion: Baron;
-  dragon: Baron;
-  inhibitor: Baron;
-  riftHerald: Baron;
-  tower: Baron;
+  baron: Baron
+  champion: Baron
+  dragon: Baron
+  inhibitor: Baron
+  riftHerald: Baron
+  tower: Baron
 }
 
 export interface Baron {
-  first: boolean;
-  kills: number;
+  first: boolean
+  kills: number
 }
 
 export interface Metadata {
-  dataVersion: string;
-  matchId: string;
-  participants: string[];
+  dataVersion: string
+  matchId: string
+  participants: string[]
 }
 
 export type MaybeRef<T> = Ref<T> | T
 
-
-// type MessageOf<T extends {message:unknown}> = T['message'] 
+// type MessageOf<T extends {message:unknown}> = T['message']
 
 // type MessageOf<T> = T extends { message: unknown } ? T['message'] : never;
 // does T have a property called message?
@@ -557,9 +532,8 @@ export type MaybeRef<T> = Ref<T> | T
 // // if T is an array, return the type of the array's elements
 // // if T is not an array, return T
 
-
 // type Flatten<T> = T extends Array<infer Type> ? Type : T;
-//explain the type above
+// explain the type above
 // if T is an array, return the type of the array
 // if T is not an array, return T
 // export function exp ({ name, age, height }: { name: any, age: any, height: any }) {
@@ -571,36 +545,75 @@ export type MaybeRef<T> = Ref<T> | T
 // }
 
 export interface ServerStatusData {
-  id: string;
-  name: string;
-  locales: string[];
-  maintenances: Maintenance[] | [];
-  incidents: Maintenance[] | [];
+  id: string
+  name: string
+  locales: string[]
+  maintenances: Maintenance[] | []
+  incidents: Maintenance[] | []
 }
 
 export interface Maintenance {
-  maintenance_status: 'scheduled' | 'in_progress' | 'complete';
-  titles: Title[];
-  platforms: ['windows', 'macos', 'android', 'ios', 'ps4', 'xbone', 'switch'];
-  updates: Update[];
-  archive_at: null | string;
-  incident_severity: 'info' | 'warning' | 'critical' | null;
-  updated_at: null | string;
-  id: number;
-  created_at: string | null;
+  maintenance_status: 'scheduled' | 'in_progress' | 'complete'
+  titles: Title[]
+  platforms: ['windows', 'macos', 'android', 'ios', 'ps4', 'xbone', 'switch']
+  updates: Update[]
+  archive_at: null | string
+  incident_severity: 'info' | 'warning' | 'critical' | null
+  updated_at: null | string
+  id: number
+  created_at: string | null
 }
 
 export interface Title {
-  locale: string;
-  content: string;
+  locale: string
+  content: string
 }
 
 export interface Update {
-  publish: boolean;
-  publish_locations: string[];
-  translations: Title[];
-  id: number;
-  author: string;
-  created_at: string;
-  updated_at: string;
+  publish: boolean
+  publish_locations: string[]
+  translations: Title[]
+  id: number
+  author: string
+  created_at: string
+  updated_at: string
+}
+
+export interface FeaturedGames {
+  gameList: GameList[]
+  clientRefreshInterval: number
+}
+
+export interface GameList {
+  gameId: number
+  mapId: number
+  gameMode: string
+  gameType: string
+  gameQueueConfigId: number
+  participants: ParticipantFeaturedGames[]
+  observers: ObserversFeaturedGames
+  platformId: string
+  bannedChampions: BannedChampionFeaturedGames[]
+  gameStartTime: number
+  gameLength: number
+}
+
+export interface BannedChampionFeaturedGames {
+  championId: number
+  teamId: number
+  pickTurn: number
+}
+
+export interface ObserversFeaturedGames {
+  encryptionKey: string
+}
+
+export interface ParticipantFeaturedGames {
+  teamId: number
+  spell1Id: number
+  spell2Id: number
+  championId: number
+  profileIconId: number
+  summonerName: string
+  bot: boolean
 }

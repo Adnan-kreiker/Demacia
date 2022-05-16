@@ -70,12 +70,12 @@ const filteredMatchHistory = computed(() => {
   return matchHistory.value
 })
 
-const summoner = (participants: Participant[]): Participant | undefined => {
+const summoner = (participants: Participant[]): Participant => {
   const participant = participants.find(
     participant =>
       participant.summonerId === props.summonerInfo.id,
   )
-  return participant
+  return participant!
 }
 
 const summonerHasMultipleKills = (participantData: Participant) => {
@@ -106,6 +106,7 @@ const summonerMultipleKillsText = (participantData: Participant) => {
   if (participantData.doubleKills)
     return `Double Kills: ${participantData.doubleKills}`
 }
+
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
   if (show) {
     if (result)
@@ -189,7 +190,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
       :key="match.metadata.matchId"
       :style="{
         background: matchHistoryBackground(
-          summoner(match.info.participants)?.win,
+          summoner(match.info.participants)!.win,
           match.show
         ),
       }"
@@ -237,17 +238,17 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       height="70"
                       width="70"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-                        summoner(match.info.participants)?.championName
+                        summoner(match.info.participants).championName
                       )}.png`"
                     >
                     <span
                       class="text-sm px-[2px] rounded-sm bg-blue-gray-800 absolute top-12 w-min text-white right-0.5"
                     >
-                      {{ summoner(match.info.participants)?.champLevel }}
+                      {{ summoner(match.info.participants).champLevel }}
                     </span>
                   </div>
                   <p class="text-center">
-                    {{ summoner(match.info.participants)?.championName }}
+                    {{ summoner(match.info.participants).championName }}
                   </p>
 
                   <br>
@@ -342,7 +343,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 </div>
               </div>
               <div class="flex flex-row flex-wrap items-center content-center max-w-[120px] gap-1">
-                <div v-for="i in 6">
+                <div v-for="i in 6" :key="i">
                   <img
                     v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0"
                     height="25"

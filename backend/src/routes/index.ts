@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response } from 'express'
+import apicache from 'apicache'
+import needle from 'needle'
 require('dotenv').config()
-import apicache from 'apicache';
 const router = express.Router()
-import needle from 'needle';
 const api_key = process.env.API_KEY as string
 const api_key_name = process.env.API_KEY_NAME as string
 const championsUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VERSION}/data/en_US/champion.json`
@@ -11,7 +11,7 @@ const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VER
 // Init cache
 const cache = apicache.middleware
 
-router.get('/get-summoner/:name', async (req: Request, res: Response) => {
+router.get('/get-summoner/:name', async(req: Request, res: Response) => {
   try {
     const summonerName = req.params.name
     const { region } = req.query
@@ -24,7 +24,7 @@ router.get('/get-summoner/:name', async (req: Request, res: Response) => {
   }
 })
 
-router.get('/get-matches/:id', cache('2 minutes'), async (req: Request, res: Response) => {
+router.get('/get-matches/:id', cache('2 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -43,7 +43,7 @@ router.get('/get-matches/:id', cache('2 minutes'), async (req: Request, res: Res
   }
 })
 
-router.get('/get-match/:id', cache('2 minutes'), async (req: Request, res: Response) => {
+router.get('/get-match/:id', cache('2 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -62,7 +62,7 @@ router.get('/get-match/:id', cache('2 minutes'), async (req: Request, res: Respo
   }
 })
 
-router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req: Request, res: Response) => {
+router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -79,7 +79,7 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req: Reque
   }
 })
 
-router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req: Request, res: Response) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -97,7 +97,7 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async
   }
 })
 
-router.get('/get-champions', cache('1000 minutes'), async (req: Request, res: Response) => {
+router.get('/get-champions', cache('1000 minutes'), async(req: Request, res: Response) => {
   try {
     const result = await needle('get', `${championsUrl}`)
     const data = result.body
@@ -108,11 +108,11 @@ router.get('/get-champions', cache('1000 minutes'), async (req: Request, res: Re
   }
 })
 
-router.get('/get-champions-rotations', cache('1000 minutes'), async (req: Request, res: Response) => {
+router.get('/get-champions-rotations', cache('1000 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
-  const championsRotationsUrl = `https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations`
+  const championsRotationsUrl = 'https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations'
   try {
     const result = await needle('get', `${championsRotationsUrl}?${params}`)
     const data = result.body
@@ -123,7 +123,7 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async (req: Reques
   }
 })
 
-router.get('/get-item-img/:item', cache('1000 minutes'), async (req: Request, res: Response) => {
+router.get('/get-item-img/:item', cache('1000 minutes'), async(req: Request, res: Response) => {
   const { item } = req.params
   try {
     const result = await needle('get', `${itemUrl}/${item}.png`)
@@ -135,7 +135,7 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async (req: Request, re
   }
 })
 
-router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req: Request, res: Response) => {
+router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -152,7 +152,7 @@ router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (re
   }
 })
 
-router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request, res: Response) => {
+router.get('/get-live-game/:summonerId', cache('1 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -170,7 +170,7 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request
   }
 })
 
-router.get('/get-server-status/:region', cache('2 minutes'), async (req: Request, res: Response) => {
+router.get('/get-server-status/:region', cache('2 minutes'), async(req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -188,5 +188,22 @@ router.get('/get-server-status/:region', cache('2 minutes'), async (req: Request
   }
 })
 
+router.get('/get-featured-games/:region', async(req: Request, res: Response) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { region } = req.params
+
+  const featuredGames = `https://${region}.api.riotgames.com/lol/spectator/v4/featured-games`
+
+  try {
+    const result = await needle('get', `${featuredGames}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
 
 module.exports = router

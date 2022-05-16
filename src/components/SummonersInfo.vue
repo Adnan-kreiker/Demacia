@@ -15,7 +15,6 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
 <template>
   <div v-if="summonerInfo" class="flex flex-row gap-4 ">
     <n-divider class="h-[400px] divider-class" vertical />
-
     <div class="flex-grow">
       <img
         height="220"

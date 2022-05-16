@@ -38,10 +38,11 @@ const isRankedInfo = (value: SummonerRankedInfo): value is SummonerHasRankedInfo
   return value && Array.isArray(value) && value.every(val => val.queueType)
 }
 
+// TODO: fix this
 const summonersRankedInfo = (
   summonerId: string,
 ):
-| { soloQInfo: RankedData | null; flexInfo: RankedData | null }
+| { soloQInfo: RankedData | undefined; flexInfo: RankedData | undefined }
 | undefined => {
   if (Array.isArray(props.summonersRankedData) && props.summonersRankedData.length > 0) {
     const rankedData = props.summonersRankedData.find(
@@ -53,13 +54,14 @@ const summonersRankedInfo = (
           // TODO: WHY DIDN'T FILTER YIELD THE CORRECT RESULT?
           return info
         }
+        return undefined
       })
       return {
         soloQInfo:
           filtered.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0]
-          || null,
+          || undefined,
         flexInfo:
-          filtered.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] || null,
+          filtered.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] || undefined,
       }
     }
   }
@@ -124,7 +126,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
       </div>
       <n-divider />
       <section v-if="summonersRankedInfo(participant.summonerId)">
-        <div v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo">
+        <div v-if="summonersRankedInfo(participant.summonerId).soloQInfo">
           <section class="">
             <div class="flex gap-2 items-center flex-row">
               <img
@@ -132,7 +134,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 height="50"
                 class="max-w-[200px] object-cover"
                 :src="`/emblems/Emblem_${capitalize(
-                  summonersRankedInfo(participant.summonerId)?.soloQInfo?.tier
+                  summonersRankedInfo(participant.summonerId).soloQInfo.tier
                 )}.webp`"
                 alt=""
               >

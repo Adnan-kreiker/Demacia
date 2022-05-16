@@ -37,7 +37,6 @@ const itemSize = computed(() => {
 })
 
 const { championsArray } = useChampions()
-
 </script>
 
 <template>
@@ -85,6 +84,7 @@ const { championsArray } = useChampions()
   }
 }
 </style>
+
 <route lang="yaml">
 meta:
   layout: default

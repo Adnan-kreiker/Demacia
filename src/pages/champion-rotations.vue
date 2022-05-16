@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NText, NH1 } from 'naive-ui/es/typography'
+import { NH1, NText } from 'naive-ui/es/typography'
 import NCard from 'naive-ui/es/card/src/Card'
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
@@ -12,7 +12,6 @@ const { championsArray } = useChampions()
 const { rotations } = useChampionsRotations()
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
 
 <template>
@@ -78,7 +77,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
             </template>
             <h1 class="text-center py-2">
               {{
-                getChampionInfoById(championsArray, champ)?.image?.full.replace(".png", "")
+                getChampionInfoById(championsArray, champ).image.full.replace(".png", "")
               }}
             </h1>
           </n-card>

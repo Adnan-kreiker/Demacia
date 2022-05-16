@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
-import { NText, NH1 } from 'naive-ui/es/typography'
+import { NH1, NText } from 'naive-ui/es/typography'
 import useServerStatus from '~/hooks/useServerStatus'
-import { Maintenance } from '~/types'
+import type { Maintenance } from '~/types'
 
 const { status } = useServerStatus()
 
@@ -17,7 +17,6 @@ const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
   else
     return 'border-red-400'
 }
-
 </script>
 
 <template>

@@ -1,80 +1,77 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-import NSkeleton from "naive-ui/es/skeleton/src/Skeleton";
-import NSelect from "naive-ui/es/select/src/Select";
-import NSpace from "naive-ui/es/space/src/Space";
-import NTabs from "naive-ui/es/tabs/src/Tabs";
-import NTabPane from "naive-ui/es/tabs/src/TabPane";
-import type { QueueTypes, Summoner } from "~/types";
-import SummonersRankedInfo from "~/components/SummonersRankedInfo.vue";
-import MatchHistoryInfo from "~/components/MatchHistoryInfo.vue";
-import ErrorComponent from "~/components/ErrorComponent.vue";
-import SearchForSummoner from "~/components/SearchForSummoner.vue";
-import ChampionMastery from "~/components/ChampionMastery.vue";
-import LiveGame from "~/components/LiveGame.vue";
-import type { Ref } from "vue";
-import { regionStore } from "~/stores/region";
-import useSummoner from "~/hooks/useSummoner";
-
+import { useRoute } from 'vue-router'
+import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import NSelect from 'naive-ui/es/select/src/Select'
+import NSpace from 'naive-ui/es/space/src/Space'
+import NTabs from 'naive-ui/es/tabs/src/Tabs'
+import NTabPane from 'naive-ui/es/tabs/src/TabPane'
+import type { Ref } from 'vue'
+import type { QueueTypes, Summoner } from '~/types'
+import SummonersRankedInfo from '~/components/SummonersRankedInfo.vue'
+import MatchHistoryInfo from '~/components/MatchHistoryInfo.vue'
+import ErrorComponent from '~/components/ErrorComponent.vue'
+import SearchForSummoner from '~/components/SearchForSummoner.vue'
+import ChampionMastery from '~/components/ChampionMastery.vue'
+import LiveGame from '~/components/LiveGame.vue'
+import { regionStore } from '~/stores/region'
+import useSummoner from '~/hooks/useSummoner'
 
 const store = regionStore()
 
-const route = useRoute();
+const route = useRoute()
 
-const summonerInfo = ref<null | Summoner>(null);
+const summonerInfo = ref<null | Summoner>(null)
 
-const summoner = route.params.summoner as string;
+const summoner = route.params.summoner as string
 
 const region = ref(route.query.region) as Ref<string>
 
 const { getSummonerByName } = useSummoner()
 
 watch(region, (newRegion) => {
-  if (newRegion) {
-    store.setRegion(newRegion);
-  }
+  if (newRegion)
+    store.setRegion(newRegion)
 }, {
   immediate: true,
 })
 
 const queueOptions = [
   {
-    label: "RANKED FLEX SR",
-    value: "RANKED_FLEX_SR",
+    label: 'RANKED FLEX SR',
+    value: 'RANKED_FLEX_SR',
   },
   {
-    label: "RANKED SOLO 5x5",
-    value: "RANKED_SOLO_5x5",
+    label: 'RANKED SOLO 5x5',
+    value: 'RANKED_SOLO_5x5',
   },
   {
-    label: "RANKED TFT PAIRS",
-    value: "RANKED_TFT_PAIRS",
+    label: 'RANKED TFT PAIRS',
+    value: 'RANKED_TFT_PAIRS',
   },
-];
+]
 
-const queueType = ref<QueueTypes>("RANKED_SOLO_5x5");
+const queueType = ref<QueueTypes>('RANKED_SOLO_5x5')
 
-const error = ref(false);
+const error = ref(false)
 
 const getSummonerInfo = async () => {
   try {
-    const res = await getSummonerByName(summoner, region.value);
+    const res = await getSummonerByName(summoner, region.value)
     if (res?.status && res.status.status_code === 404) {
       error.value = true
       return
     }
     else if (res) {
-      summonerInfo.value = res;
+      summonerInfo.value = res
     }
-
-  } catch (err) {
-    console.error(err);
-    error.value = true;
+  }
+  catch (err) {
+    console.error(err)
+    error.value = true
   }
 }
 
 getSummonerInfo()
-
 </script>
 
 <template>
@@ -88,7 +85,7 @@ getSummonerInfo()
               <!-- Summoners Name and Image -->
               <div class="sm:w-[40%]">
                 <Suspense>
-                  <SummonersInfo :summoner-info="summonerInfo"></SummonersInfo>
+                  <SummonersInfo :summoner-info="summonerInfo" />
                   <template #fallback>
                     <section class="flex flex-row justify-start gap-2 mb-8">
                       <n-skeleton height="42px" width="143px" :sharp="false" />
@@ -108,11 +105,10 @@ getSummonerInfo()
                 <!-- Ranked Info Section -->
                 <Suspense>
                   <section>
-                    <n-space :item-style="{ marginBottom: 20 + 'px', minWidth: 70 + '%', marginInline: 'auto' }">
-                      <n-select v-model:value="queueType" :options="queueOptions"></n-select>
+                    <n-space :item-style="{ marginBottom: `${20}px`, minWidth: `${70}%`, marginInline: 'auto' }">
+                      <n-select v-model:value="queueType" :options="queueOptions" />
                     </n-space>
-                    <SummonersRankedInfo :summoner-info="summonerInfo" :queue-type="queueType">
-                    </SummonersRankedInfo>
+                    <SummonersRankedInfo :summoner-info="summonerInfo" :queue-type="queueType" />
                   </section>
                   <template #fallback>
                     <section>
@@ -125,7 +121,7 @@ getSummonerInfo()
             </div>
             <!-- Match History  -->
             <Suspense>
-              <MatchHistoryInfo :summoner-info="summonerInfo"></MatchHistoryInfo>
+              <MatchHistoryInfo :summoner-info="summonerInfo" />
               <template #fallback>
                 <section class="flex flex-col gap-3 justify-center items-center">
                   <n-skeleton class="mx-auto my-8 " height="48px" width="263px" />
@@ -138,7 +134,7 @@ getSummonerInfo()
           </n-tab-pane>
           <n-tab-pane name="summonerChampInfo" tab="Champions Mastery">
             <Suspense>
-              <ChampionMastery :summoner-info="summonerInfo"></ChampionMastery>
+              <ChampionMastery :summoner-info="summonerInfo" />
               <template #fallback>
                 <section class="flex flex-row flex-wrap gap-3 justify-center">
                   <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />
@@ -149,7 +145,7 @@ getSummonerInfo()
           <!-- Live Game -->
           <n-tab-pane name="liveGame" tab="Live Game">
             <Suspense>
-              <LiveGame :summoner-id="summonerInfo.id"></LiveGame>
+              <LiveGame :summoner-id="summonerInfo.id" />
             </Suspense>
           </n-tab-pane>
         </n-tabs>
@@ -181,9 +177,11 @@ getSummonerInfo()
     </div>
     <!-- Error Component -->
     <div v-if="error" class="flex flex-col justify-start items-center">
-      <ErrorComponent :status="'404'" :imageUrl="'/garenNotFound.png'"
-        :description="'Make sure you typed the correct name'" :title="'Summoner Not Found! &#128373'"></ErrorComponent>
-      <SearchForSummoner></SearchForSummoner>
+      <ErrorComponent
+        status="404" image-url="/garenNotFound.png"
+        description="Make sure you typed the correct name" title="Summoner Not Found! 🕵"
+      />
+      <SearchForSummoner />
     </div>
   </div>
 </template>

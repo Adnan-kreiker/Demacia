@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import NSelect from 'naive-ui/es/select/src/Select'
 import NPagination from 'naive-ui/es/pagination/src/Pagination'
-import { NText, NH3 } from 'naive-ui/es/typography'
-import {
+import { NH3, NText } from 'naive-ui/es/typography'
+import type {
   ChallengerPlayerWithIndex,
   Ranks,
 } from '../../src/types'

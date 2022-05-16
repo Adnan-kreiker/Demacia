@@ -5,11 +5,11 @@ import NProgress from 'naive-ui/es/progress/src/Progress'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import { RouterLink } from 'vue-router'
 import { unicodeToUtf8 } from '../../utils'
-import {
-  ChallengerPlayerWithIndex,
+import type {
   ChallengerPlayerWithAdditionalData,
-  Summoner,
+  ChallengerPlayerWithIndex,
   Ranks,
+  Summoner,
 } from '~/types'
 
 const props = defineProps<{
@@ -41,11 +41,11 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithAdditionalData[]>((
   return []
 })
 
-const getSummonersInfo = async() => {
+const getSummonersInfo = async () => {
   if (props.challengerPlayers) {
     const result: ChallengerPlayerWithAdditionalData[] = []
     await Promise.allSettled(
-      props.challengerPlayers.map(async(player) => {
+      props.challengerPlayers.map(async (player) => {
         const res = await fetch(
           `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(
             player.summonerName,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue'
-import { DataTableColumns, NCarousel, NCarouselItem } from 'naive-ui'
+import type { DataTableColumns } from 'naive-ui'
+import { NCarousel, NCarouselItem } from 'naive-ui'
 import NDataTable from 'naive-ui/es/data-table/src/DataTable'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import championsSpells from '../../../championsSpells.json'
@@ -22,9 +23,7 @@ const effects = ref<null | any[]>(null)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 
-const findCurrentChampion = (championsSpells: {
-  [key: string]: any[]
-}) => {
+const findCurrentChampion = (championsSpells: Record<string, any[]>) => {
   const championName = route.params.champion.toString()
   return championsSpells[championName]
 }
@@ -115,9 +114,7 @@ async function getChampion() {
 
 getChampion()
 
-type Stats = {
-  [key: string]: string | number
-}
+type Stats = Record<string, string | number>
 
 const tableColumns: DataTableColumns<Stats> = [
   { title: 'Skill', key: 'Skill', align: 'center' },
@@ -139,7 +136,6 @@ watch(champion, () => {
     spells.value = champion.value.spells
   }
 })
-
 </script>
 
 <template>
@@ -174,7 +170,7 @@ watch(champion, () => {
               Attack
             </p>
           </div>
-          <div :style="{ width: champion.info.attack * 10 + '%', maxWidth: 70 + '%' }" class="bg-red-500 h-4" />
+          <div :style="{ width: `${champion.info.attack * 10}%`, maxWidth: `${70}%` }" class="bg-red-500 h-4" />
         </div>
 
         <div class="flex flex-row items-center">
@@ -184,7 +180,7 @@ watch(champion, () => {
               Defense
             </p>
           </div>
-          <div :style="{ width: champion.info.defense * 10 + '%', maxWidth: 70 + '%' }" class="bg-green-500 h-4" />
+          <div :style="{ width: `${champion.info.defense * 10}%`, maxWidth: `${70}%` }" class="bg-green-500 h-4" />
         </div>
 
         <div class="flex flex-row items-center">
@@ -194,7 +190,7 @@ watch(champion, () => {
               Magic
             </p>
           </div>
-          <div :style="{ width: champion.info.magic * 10 + '%', maxWidth: 70 + '%' }" class="bg-purple-500 h-4" />
+          <div :style="{ width: `${champion.info.magic * 10}%`, maxWidth: `${70}%` }" class="bg-purple-500 h-4" />
         </div>
 
         <div class="flex flex-row items-center">
@@ -204,7 +200,7 @@ watch(champion, () => {
               Difficulty
             </p>
           </div>
-          <div :style="{ width: champion.info.difficulty * 10 + '%', maxWidth: 70 + '%' }" class="bg-pink-500 h-4" />
+          <div :style="{ width: `${champion.info.difficulty * 10}%`, maxWidth: `${70}%` }" class="bg-pink-500 h-4" />
         </div>
       </section>
     </div>
@@ -294,9 +290,9 @@ watch(champion, () => {
               :key="skin.id"
               :style="{ width: '80%' }"
             >
-              <img :src="`https://ddragon.canisback.com/img/champion/loading/${champion.id}_${skin.num}.jpg`" :alt="skin.name">
+              <img :src="`https://ddragon.canisback.com/img/champion/loading/${champion!.id}_${skin.num}.jpg`" :alt="skin.name">
               <p class="font-mono text-center text-base overflow-visible mt-2">
-                {{ skin.name.replace(champion.id, '') }}
+                {{ skin.name }}
               </p>
             </n-carousel-item>
           </n-carousel>
@@ -335,6 +331,7 @@ watch(champion, () => {
   width: 200px !important;
 }
 </style>
+
 <route lang="yaml">
 meta:
   layout: default

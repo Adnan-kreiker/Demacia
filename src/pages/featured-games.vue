@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import useFeaturedGames from '~/hooks/useFeaturedGames'
-import useChampions from '~/hooks/useChampions'
 
-const { championsArray } = useChampions()
 const { featuredGames } = useFeaturedGames('euw1')
 </script>
 

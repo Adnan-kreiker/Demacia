@@ -11,7 +11,8 @@
     "test:ui": "vitest --ui",
     "coverage": "vitest --coverage",
     "preview-https": "serve dist",
-    "lint": "eslint \"**/*.{vue,ts,js}\""
+    "lint": "eslint \"**/*.{vue,ts,js}\"",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@vueuse/components": "^8.5.0",
@@ -28,9 +29,10 @@
     "@antfu/eslint-config": "0.23.0",
     "@iconify/json": "^1.1.461",
     "@intlify/vite-plugin-vue-i18n": "^2.5.0",
+    "@rushstack/eslint-patch": "^1.1.0",
     "@testing-library/vue": "^6.5.1",
     "@types/nprogress": "^0.2.0",
-    "@vitejs/plugin-vue": "^1.10.2",
+    "@vitejs/plugin-vue": "^2.3.3",
     "@vitest/ui": "^0.9.4",
     "@vue/compiler-sfc": "^3.2.33",
     "@vue/eslint-config-typescript": "^10.0.0",

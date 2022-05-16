@@ -2,6 +2,8 @@
   "recommendations": [
     "antfu.vite",
     "lokalise.i18n-ally",
+    "dbaeumer.vscode-eslint",
+    "vue.volar",
     "antfu.iconify",
     "dbaeumer.vscode-eslint",
     "voorjaar.windicss-intellisense",

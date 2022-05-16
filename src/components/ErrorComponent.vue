@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NButton from 'naive-ui/es/button/src/Button'
-import { ErrorStatusCode } from '~/types'
+import type { ErrorStatusCode } from '~/types'
 
 interface Props {
   status?: ErrorStatusCode

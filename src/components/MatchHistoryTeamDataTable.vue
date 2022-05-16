@@ -21,7 +21,6 @@ const tableColor = (team: number): string => {
 }
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
     </tr>
     <tr
       v-for="participant in props.participants.filter(
-        (participant) => participant.teamId == props.team
+        (participant) => participant.teamId === props.team,
       )"
       :key="participant.championName"
     >
@@ -47,7 +46,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
             height="40"
             width="40"
             :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-              participant.championName
+              participant.championName,
             )}.png`"
           >
         </div>

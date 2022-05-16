@@ -113,7 +113,6 @@ const layoutSiderWidth = computed(() => {
 
   return '240px'
 })
-
 </script>
 
 <template>

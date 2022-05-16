@@ -6,15 +6,28 @@ const { featuredGames } = useFeaturedGames('euw1')
 
 <template>
   <div v-if="featuredGames">
-    <div v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId" class="my-4">
+    <div
+      v-for="featuredGame in featuredGames.gameList"
+      :key="featuredGame.gameId"
+      class="my-4"
+    >
       {{ featuredGame }}
       <p>{{ featuredGame.gameMode }}</p>
       <ul>
-        <li v-for="participant in featuredGame.participants" :key="participant.summonerName">
+        <li
+          v-for="participant in featuredGame.participants"
+          :key="participant.summonerName"
+        >
           {{ participant.summonerName }}
         </li>
-        <MatchHistorySummoners :participants="featuredGame.participants" :team="100" />
-        <MatchHistorySummoners :participants="featuredGame.participants" :team="200" />
+        <MatchHistorySummoners
+          :participants="featuredGame.participants"
+          :team="100"
+        />
+        <MatchHistorySummoners
+          :participants="featuredGame.participants"
+          :team="200"
+        />
       </ul>
     </div>
   </div>

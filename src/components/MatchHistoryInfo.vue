@@ -7,13 +7,13 @@ import { NDivider } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import {
   formatTime,
-  timeToDaysAgo,
-  toLowerCase,
-  mapSpellKeyToName,
   idToRunes,
+  mapSpellKeyToName,
+  queueIdtoDescriptionMapper,
   secondsToHrsMinsSecs,
   secondsToMinutes,
-  queueIdtoDescriptionMapper,
+  timeToDaysAgo,
+  toLowerCase,
 } from '../../utils'
 import MatchHistoryTeam from './MatchHistoryTeam.vue'
 import MatchHistoryTeamDataTable from './MatchHistoryTeamDataTable.vue'
@@ -144,8 +144,8 @@ const handleClick = (e: Event) => {
 }
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
+
 <template>
   <section v-if="matchHistory && matchHistory.length > 0" class="min-h-[230px]">
     <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
@@ -191,7 +191,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
       :style="{
         background: matchHistoryBackground(
           summoner(match.info.participants)!.win,
-          match.show
+          match.show,
         ),
       }"
       class="rounded p-3 my-3 max-w-4xl mx-auto"
@@ -238,7 +238,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       height="70"
                       width="70"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-                        summoner(match.info.participants).championName
+                        summoner(match.info.participants).championName,
                       )}.png`"
                     >
                     <span
@@ -261,7 +261,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       width="32"
                       class="w-8 rounded-sm h-8"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
-                        summoner(match.info.participants).summoner1Id.toString()
+                        summoner(match.info.participants).summoner1Id.toString(),
                       )}.png`"
                     >
                     <img
@@ -269,7 +269,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       width="32"
                       class="w-8 h-8 rounded-sm"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
-                        summoner(match.info.participants).summoner2Id.toString()
+                        summoner(match.info.participants).summoner2Id.toString(),
                       )}.png`"
                     >
                   </div>
@@ -280,7 +280,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       class="rounded-sm"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
                         summoner(match.info.participants).perks.styles[0].selections[0]
-                          .perk
+                          .perk,
                       )}`"
                     >
                     <img
@@ -289,7 +289,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       class="mx-auto rounded-sm object-contain"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
                         summoner(match.info.participants).perks.styles[1].selections[1]
-                          .perk
+                          .perk,
                       )}`"
                     >
                   </div>
@@ -307,9 +307,9 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 </div>
                 <p>
                   <span class="text-orange-400">
-                    {{ isNaNCheckerAndDecimalPrefixer((summoner(match.info.participants).kills +
-                      summoner(match.info.participants).assists) /
-                      summoner(match.info.participants).deaths)
+                    {{ isNaNCheckerAndDecimalPrefixer((summoner(match.info.participants).kills
+                      + summoner(match.info.participants).assists)
+                      / summoner(match.info.participants).deaths)
                     }}
                   </span>
                   <span class="text-gray-400 ml-1 text-sm">KDA</span>
@@ -320,8 +320,8 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       summoner(match.info.participants).totalMinionsKilled
                     }}</span>
                     <span class="text-gray-400 ml-1">CS ({{
-                      isNaNCheckerAndDecimalPrefixer(summoner(match.info.participants).totalMinionsKilled /
-                        secondsToMinutes(match.info.gameDuration))
+                      isNaNCheckerAndDecimalPrefixer(summoner(match.info.participants).totalMinionsKilled
+                        / secondsToMinutes(match.info.gameDuration))
                     }})</span>
                     <br>
 

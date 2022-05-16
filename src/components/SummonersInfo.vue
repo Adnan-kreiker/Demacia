@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import { unixToDate } from '../../utils'
-import { Summoner } from '~/types'
+import type { Summoner } from '~/types'
 
 const props = defineProps<{
   summonerInfo: Summoner | null
@@ -10,8 +10,8 @@ const props = defineProps<{
 const summonerInfo = ref<Summoner | null>(props.summonerInfo)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
+
 <template>
   <div v-if="summonerInfo" class="flex flex-row gap-4 ">
     <n-divider class="h-[400px] divider-class" vertical />

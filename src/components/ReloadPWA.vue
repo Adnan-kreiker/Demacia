@@ -6,7 +6,7 @@ export default defineComponent({
   name: 'ReloadPWA',
   setup() {
     const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
-    const close = async() => {
+    const close = async () => {
       offlineReady.value = false
       needRefresh.value = false
     }
@@ -20,6 +20,7 @@ export default defineComponent({
   },
 })
 </script>
+
 <template>
   <div v-if="offlineReady || needRefresh" class="flex flex-wrap" role="alert">
     <div class="message mt-1">

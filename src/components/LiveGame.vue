@@ -2,7 +2,7 @@
 import { NH1, NText } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { capitalize, queueIdtoDescriptionMapper } from '../../utils'
-import {
+import type {
   LiveGame,
   ParticipantLiveGame,
   Summoner,
@@ -15,6 +15,10 @@ import useChampions from '~/hooks/useChampions'
 import { regionStore } from '~/stores/region'
 import useSummoner from '~/hooks/useSummoner'
 
+const props = defineProps<{
+  summonerId: string
+}>()
+
 const store = regionStore()
 
 const { region } = storeToRefs(store)
@@ -26,10 +30,6 @@ const summonersNames = ref<string[]>([])
 const summonersData = ref<null | Summoner[]>()
 
 const summonersRankedData = ref<SummonerRankedInfoInterface | null>(null)
-
-const props = defineProps<{
-  summonerId: string
-}>()
 
 const gameData = ref<null | LiveGame>(null)
 
@@ -49,7 +49,7 @@ const teams: {
   },
 ]
 
-const getActiveGame = async(): Promise<void> => {
+const getActiveGame = async (): Promise<void> => {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_URL}/api/get-live-game/${props.summonerId}?region=${region.value
@@ -83,7 +83,6 @@ const getActiveGame = async(): Promise<void> => {
 }
 
 getActiveGame()
-
 </script>
 
 <template>
@@ -100,7 +99,7 @@ getActiveGame()
       :champions-array="championsArray"
       :banned-champions="gameData.bannedChampions"
     />
-    <div v-if="championsArray">
+    <div v-if="championsArray && summonersRankedData">
       <LiveGameTeamInfo
         v-for="team in teams"
         :key="team.id"

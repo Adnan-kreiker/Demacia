@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { getChampionInfoById, formatNumber } from '../../utils'
+import { formatNumber, getChampionInfoById } from '../../utils'
 import useChampions from '~/hooks/useChampions'
 import type { Summoner } from '~/types'
 import { regionStore } from '~/stores/region'
 import useChampionMastery from '~/hooks/useChampionMastery'
 
-const store = regionStore()
-
-const { region } = storeToRefs(store)
-
 const props = defineProps<{
   summonerInfo: Summoner
 }>()
+
+const store = regionStore()
+
+const { region } = storeToRefs(store)
 
 const { championsArray: champsArray } = useChampions()
 

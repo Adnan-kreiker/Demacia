@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MatchHistorySummoners from './MatchHistorySummoners.vue'
-import { Participant, TeamType } from '~/types'
+import type { Participant, TeamType } from '~/types'
 const props = defineProps<{
   participants: Participant[]
 }>()
@@ -16,6 +16,7 @@ const teams: TeamType[] = [
   },
 ]
 </script>
+
 <template>
   <div class="flex flex-row">
     <MatchHistorySummoners

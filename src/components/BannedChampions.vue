@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { NH2, NText } from 'naive-ui'
 import { getChampionInfoById } from '../../utils'
-import { BannedChampion, Champion } from '~/types'
+import type { BannedChampion, Champion } from '~/types'
 
 const props = defineProps<{
   bannedChampions: BannedChampion[]
   championsArray: Champion[]
 }>()
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
-
 </script>
+
 <template>
-  <div v-if="props.bannedChampions" class="mt-3">
+  <div v-if="props.bannedChampions.length" class="mt-3">
     <n-h2>
       <n-text> Banned Champions </n-text>
     </n-h2>

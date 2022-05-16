@@ -20,7 +20,7 @@ import type {
 
 const props = defineProps<{
   gameData: null | LiveGame
-  summonersRankedData: null | SummonerRankedInfoInterface
+  summonersRankedData: [] | SummonerRankedInfoInterface
   team: 100 | 200
   championsArray: Champion[]
   region: string
@@ -42,29 +42,24 @@ const isRankedInfo = (value: SummonerRankedInfo): value is SummonerHasRankedInfo
 const summonersRankedInfo = (
   summonerId: string,
 ):
-| { soloQInfo: RankedData | undefined; flexInfo: RankedData | undefined }
-| undefined => {
+| { soloQInfo: RankedData | null; flexInfo: RankedData | null }
+| null => {
   if (Array.isArray(props.summonersRankedData) && props.summonersRankedData.length > 0) {
     const rankedData = props.summonersRankedData.find(
       summoner => summoner.summonerId === summonerId,
     )
-    if (rankedData != null && isRankedInfo(rankedData.rankedInfo)) {
-      const filtered = rankedData.rankedInfo.map((info) => {
-        if (info.queueType !== 'RANKED_TFT_PAIRS') {
-          // TODO: WHY DIDN'T FILTER YIELD THE CORRECT RESULT?
-          return info
-        }
-        return undefined
-      })
+    if (isRankedInfo(rankedData!.rankedInfo)) {
+      const soloQInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0] as RankedData
+      const flexInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] as RankedData
+
       return {
-        soloQInfo:
-          filtered.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0]
-          || undefined,
-        flexInfo:
-          filtered.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] || undefined,
+        soloQInfo,
+        flexInfo,
       }
     }
+    else { return null }
   }
+  else { return null }
 }
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
@@ -128,16 +123,18 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         >
       </div>
       <n-divider />
-      <section v-if="summonersRankedInfo(participant.summonerId)">
-        <div v-if="summonersRankedInfo(participant.summonerId).soloQInfo">
-          <section class="">
-            <div class="flex gap-2 items-center flex-row">
+      <section v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo">
+        <div>
+          <section>
+            <div
+              class="flex gap-2 items-center flex-row"
+            >
               <img
                 width="60"
                 height="50"
                 class="max-w-[200px] object-cover"
                 :src="`/emblems/Emblem_${capitalize(
-                  summonersRankedInfo(participant.summonerId).soloQInfo.tier,
+                  summonersRankedInfo(participant.summonerId)!.soloQInfo!.tier,
                 )}.webp`"
                 alt=""
               >
@@ -147,7 +144,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                   {{ summonersRankedInfo(participant.summonerId)?.soloQInfo?.rank }}
                   <span class="text-sm text-gray-400">
                     {{
-                      summonersRankedInfo(participant.summonerId)?.soloQInfo?.leaguePoints
+                      summonersRankedInfo(participant.summonerId)!.soloQInfo!.leaguePoints
                     }}
                     LP
                   </span>
@@ -155,7 +152,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 <p class="text-sm text-gray-400">
                   ({{
                     queueNameMapper(
-                      summonersRankedInfo(participant.summonerId)?.soloQInfo?.queueType,
+                      summonersRankedInfo(participant.summonerId)!.soloQInfo!.queueType,
                     )
                   }})
                 </p>
@@ -167,16 +164,16 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 Win Rate
                 {{
                   Math.round(
-                    (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
-                      / (summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
-                        + summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses))
+                    (summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins
+                      / (summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins
+                        + summonersRankedInfo(participant.summonerId)!.soloQInfo!.losses))
                       * 100,
                   )
                 }}%
                 <span>
                   ({{
-                    summonersRankedInfo(participant.summonerId)?.soloQInfo?.losses
-                      + summonersRankedInfo(participant.summonerId)?.soloQInfo?.wins
+                    summonersRankedInfo(participant.summonerId)!.soloQInfo!.losses
+                      + summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins
                   }}
                   Played)
                 </span>

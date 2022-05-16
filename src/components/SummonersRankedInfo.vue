@@ -3,8 +3,8 @@ import NStatistic from 'naive-ui/es/statistic/src/Statistic'
 import NNumberAnimation from 'naive-ui/es/number-animation/src/NumberAnimation'
 import NTag from 'naive-ui/es/tag/src/Tag'
 import { storeToRefs } from 'pinia'
-import { replaceUnderscoreWithSpace, capitalize } from '../../utils'
-import { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
+import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
+import type { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
 import { regionStore } from '~/stores/region'
 import useSummonerRankedInfoById from '~/hooks/useSummonerRankedInfoById'
 
@@ -36,9 +36,9 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
   <div>
     <div
       v-if="
-        summonerRankedInfo &&
-          (summonerRankedInfo.queueType === 'RANKED_FLEX_SR' ||
-            summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
+        summonerRankedInfo
+          && (summonerRankedInfo.queueType === 'RANKED_FLEX_SR'
+            || summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
       "
       class="flex items-center flex-col flex-wrap justify-evenly text-center"
     >
@@ -102,9 +102,9 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
             ref="numberAnimationInstRef"
             :from="0"
             :to="
-              (summonerRankedInfo.wins /
-                (summonerRankedInfo.losses + summonerRankedInfo.wins)) *
-                100
+              (summonerRankedInfo.wins
+                / (summonerRankedInfo.losses + summonerRankedInfo.wins))
+                * 100
             "
             :active="true"
             :precision="0"
@@ -124,10 +124,10 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
 
     <div
       v-if="
-        Array.isArray(summonerRankedInfo) &&
-          summonerRankedInfo &&
-          summonerRankedInfo.length > 0 &&
-          summonerRankedInfo.queueType === 'RANKED_TFT_PAIRS'
+        Array.isArray(summonerRankedInfo)
+          && summonerRankedInfo
+          && summonerRankedInfo.length > 0
+          && summonerRankedInfo.queueType === 'RANKED_TFT_PAIRS'
       "
       class="flex flex-col"
     >
@@ -169,9 +169,9 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
             ref="numberAnimationInstRef"
             :from="0"
             :to="
-              (summonerRankedInfo.wins /
-                (summonerRankedInfo.losses + summonerRankedInfo.wins)) *
-                100
+              (summonerRankedInfo.wins
+                / (summonerRankedInfo.losses + summonerRankedInfo.wins))
+                * 100
             "
             :active="true"
             :precision="0"
@@ -187,9 +187,9 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
     </div>
     <div
       v-if="
-        (Array.isArray(summonerRankedInfo) &&
-          summonerRankedInfo.length === 0) ||
-          summonerRankedInfo === undefined
+        (Array.isArray(summonerRankedInfo)
+          && summonerRankedInfo.length === 0)
+          || summonerRankedInfo === undefined
       "
       class="border-light-300 border-1"
     >

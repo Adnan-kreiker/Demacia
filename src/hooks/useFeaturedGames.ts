@@ -1,4 +1,4 @@
-import { FeaturedGames, MaybeRef } from './../types'
+import type { FeaturedGames, MaybeRef } from './../types'
 
 const useFeaturedGames = (region: MaybeRef<string>) => {
   const featuredGames = ref<null | FeaturedGames>(null)

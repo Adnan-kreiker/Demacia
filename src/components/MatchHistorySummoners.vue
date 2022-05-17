@@ -35,7 +35,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           height="25"
           width="25"
           :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
-            participant.championName ?? toLowerCase(getChampionInfoById(championsArray, participant.championId)?.name,
+            participant.championName ?? toLowerCase(getChampionInfoById(championsArray, participant.championId).image.full.replace('.png', ''),
             ))}.png`"
         >
         <router-link

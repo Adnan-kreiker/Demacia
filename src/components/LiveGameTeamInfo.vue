@@ -123,7 +123,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         >
       </div>
       <n-divider />
-      <section v-if="summonersRankedInfo(participant.summonerId)?.soloQInfo">
+      <section v-if="summonersRankedInfo(participant.summonerId) && summonersRankedInfo(participant.summonerId)?.soloQInfo">
         <div>
           <section>
             <div

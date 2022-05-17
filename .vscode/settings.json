@@ -27,5 +27,6 @@
 "[typescript]": {
   "editor.defaultFormatter": "dbaeumer.vscode-eslint"
 },
+"editor.wordWrap": "on",
 
 }

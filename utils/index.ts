@@ -1,4 +1,4 @@
-import { Champion, Tier } from './../src/types'
+import type { Champion, Tier } from './../src/types'
 
 export function idToRunes(id: number) {
   switch (id) {
@@ -132,22 +132,38 @@ export function idToRunes(id: number) {
 }
 
 export function mapSpellKeyToName(spellKey: string) {
-  if (spellKey === '4') return 'SummonerFlash'
-  else if (spellKey === '14') return 'SummonerDot'
-  else if (spellKey === '7') return 'SummonerHeal'
-  else if (spellKey === '3') return 'SummonerExhaust'
-  else if (spellKey === '12') return 'SummonerTeleport'
-  else if (spellKey === '6') return 'SummonerHaste'
-  else if (spellKey === '11') return 'SummonerSmite'
-  else if (spellKey === '1') return 'SummonerBoost'
-  else if (spellKey === '32') return 'SummonerSnowball'
-  else if (spellKey === '21') return 'SummonerBarrier'
-  else if (spellKey === '13') return 'SummonerMana'
-  else if (spellKey === '31') return 'SummonerPoroThrow'
-  else if (spellKey === '30') return 'SummonerPoroRecall'
-  else if (spellKey === '39') return 'SummonerSnowURFSnowball_Mark'
-  else if (spellKey === '54') return 'Summoner_UltBookPlaceholder'
-  else if (spellKey === '55') return 'Summoner_UltBookSmitePlaceholder'
+  if (spellKey === '4')
+    return 'SummonerFlash'
+  else if (spellKey === '14')
+    return 'SummonerDot'
+  else if (spellKey === '7')
+    return 'SummonerHeal'
+  else if (spellKey === '3')
+    return 'SummonerExhaust'
+  else if (spellKey === '12')
+    return 'SummonerTeleport'
+  else if (spellKey === '6')
+    return 'SummonerHaste'
+  else if (spellKey === '11')
+    return 'SummonerSmite'
+  else if (spellKey === '1')
+    return 'SummonerBoost'
+  else if (spellKey === '32')
+    return 'SummonerSnowball'
+  else if (spellKey === '21')
+    return 'SummonerBarrier'
+  else if (spellKey === '13')
+    return 'SummonerMana'
+  else if (spellKey === '31')
+    return 'SummonerPoroThrow'
+  else if (spellKey === '30')
+    return 'SummonerPoroRecall'
+  else if (spellKey === '39')
+    return 'SummonerSnowURFSnowball_Mark'
+  else if (spellKey === '54')
+    return 'Summoner_UltBookPlaceholder'
+  else if (spellKey === '55')
+    return 'Summoner_UltBookSmitePlaceholder'
   else return spellKey
 }
 
@@ -172,7 +188,8 @@ export const replaceUnderscoreWithSpace = (str: string) => {
 }
 
 export function toLowerCase(championName: string): string {
-  if (championName === 'FiddleSticks') return 'Fiddlesticks'
+  if (championName === 'FiddleSticks')
+    return 'Fiddlesticks'
   else return championName
 }
 
@@ -216,11 +233,9 @@ export const rankToOrderMapper = (tier: Tier) => {
   }
 }
 
-export interface ObjectOfObjects<T> {
-  [key: string]: T
-}
+export type ObjectOfObjects<T> = Record<string, T>
 
-export const convertToArrayOfObjects = <T> (objectOfObjects: ObjectOfObjects<T>): { [key: string]: T }[] => {
+export const convertToArrayOfObjects = <T> (objectOfObjects: ObjectOfObjects<T>): Record<string, T>[] => {
   return Object.entries(objectOfObjects).map(T => ({ [T[0]]: T[1] }))
 }
 
@@ -323,4 +338,14 @@ export const queueIdtoDescriptionMapper = (queueId: number) => {
     return removeGamesString(res.description)
 
   return ''
+}
+
+export const calculatedTimeFromStart = (startedSeconds: number) => {
+  const started = new Date(startedSeconds)
+  const now = new Date()
+  const diff = now.getTime() - started.getTime()
+  const hours = Math.floor(diff / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+  return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
 }

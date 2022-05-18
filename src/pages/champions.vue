@@ -41,7 +41,7 @@ const { championsArray } = useChampions()
 
 <template>
   <div class="md:px-8 h-max">
-    <h1 class="text-green-400 text-4xl font-bold mb-12 ">
+    <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-8">
       Champions
     </h1>
     <div v-if="championsArray">

@@ -22,7 +22,7 @@ onUnmounted(() => {
 
 <template>
   <div v-if="featuredGames">
-    <h1 class="text-green-300 text-4xl font-bold text-center my-4">
+    <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-4">
       Featured Games
     </h1>
     <div class="flex flex-row flex-wrap justify-center gap-6">

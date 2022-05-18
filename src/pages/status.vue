@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
-import { NH1, NText } from 'naive-ui/es/typography'
 import useServerStatus from '~/hooks/useServerStatus'
 import type { Maintenance } from '~/types'
 
@@ -21,16 +20,14 @@ const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
 
 <template>
   <div class="">
-    <n-h1>
-      <n-text type="primary" class="text-4xl">
-        Servers' Status
-      </n-text>
-    </n-h1>
+    <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-4">
+      Servers' Status
+    </h1>
     <div v-if="status.length" class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
       <div
         v-for="stat in status"
         :key="stat.id"
-        class="text-base min-w-[270px] my-4 border-1 p-4 "
+        class="text-base min-w-[270px] my-4 rounded-md border-1 p-4 "
         :class="borderColor(stat.incidents, stat.maintenances)"
       >
         <p class="font-bold text-2xl mb-4">

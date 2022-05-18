@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { NH1, NText } from 'naive-ui/es/typography'
 import NCard from 'naive-ui/es/card/src/Card'
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
@@ -17,11 +16,9 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
 <template>
   <div>
     <section>
-      <n-h1>
-        <n-text type="primary">
-          Free Champions
-        </n-text>
-      </n-h1>
+      <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-8">
+        Free Champions
+      </h1>
       <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-5 justify-center">
         <router-link
           v-for="(champ, index) in rotations.freeChampionIds"
@@ -54,11 +51,9 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
     <n-divider />
 
     <section>
-      <n-h1>
-        <n-text type="primary">
-          Free Champions For New Players
-        </n-text>
-      </n-h1>
+      <h1 class="text-green-300 text-4xl font-bold text-center my-8">
+        Free Champions For New Players
+      </h1>
       <div v-if="rotations && championsArray" class="flex flex-row flex-wrap gap-5 justify-center">
         <router-link
           v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers"

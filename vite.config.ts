@@ -12,21 +12,19 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
 // import analyze from 'rollup-plugin-analyzer'
-import visualizer from "rollup-plugin-visualizer"
-
-
+import visualizer from 'rollup-plugin-visualizer'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 export default ({ mode }: { mode: string }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') }
 
   return defineConfig({
     test: {
       api: {
-        port: 3002
+        port: 3002,
       },
-      exclude: ['**/node_modules/**', '**/vite.config.js', '**/vite.config.ts', '**/vite.config.js.map', '**/vite.config.ts.map']
+      exclude: ['**/node_modules/**', '**/vite.config.js', '**/vite.config.ts', '**/vite.config.js.map', '**/vite.config.ts.map'],
     },
     // build: {
     //   rollupOptions: {
@@ -46,7 +44,7 @@ export default ({ mode }: { mode: string }) => {
         },
         treeshake: true,
         output: {
-        }
+        },
         // output: [
         //   {
         //     format: 'es',
@@ -77,11 +75,11 @@ export default ({ mode }: { mode: string }) => {
         //   //   }
         //   // },
         // },
-        //Limit of chunk size warning
-      }
+        // Limit of chunk size warning
+      },
     },
     define: {
-      'process.env': {}
+      'process.env': {},
     },
     resolve: {
       alias: {
@@ -91,7 +89,7 @@ export default ({ mode }: { mode: string }) => {
     plugins: [
       visualizer({
         brotliSize: true,
-        gzipSize: true
+        gzipSize: true,
       }),
       Vue({
         include: [/\.vue$/, /\.md$/],
@@ -100,7 +98,6 @@ export default ({ mode }: { mode: string }) => {
       // https://github.com/hannoeru/vite-plugin-pages
       Pages({
         extensions: ['vue', 'md'],
-
 
       }),
 
@@ -150,19 +147,19 @@ export default ({ mode }: { mode: string }) => {
       }),
       // https://github.com/antfu/vite-plugin-pwa
       VitePWA({
-        base: "/",
-        srcDir: "src",
+        base: '/',
+        srcDir: 'src',
         registerType: 'autoUpdate',
-        filename: "sw.ts",
-        includeAssets: ["/favicon.png"],
-        strategies: "injectManifest",
+        filename: 'sw.ts',
+        includeAssets: ['/favicon.png'],
+        strategies: 'injectManifest',
         manifest: {
-          name: "LOL Wikis",
-          short_name: "Test",
-          theme_color: "#0f0f0f",
-          start_url: "/",
-          display: "standalone",
-          background_color: "#0f0f0f",
+          name: 'LOL Wikis',
+          short_name: 'Test',
+          theme_color: '#0f0f0f',
+          start_url: '/',
+          display: 'standalone',
+          background_color: '#0f0f0f',
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -183,7 +180,6 @@ export default ({ mode }: { mode: string }) => {
           ],
         },
       }),
-
 
       // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
       // VueI18n({

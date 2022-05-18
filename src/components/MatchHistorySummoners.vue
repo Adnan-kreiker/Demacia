@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { getChampionInfoById, toLowerCase } from '../../utils'
-import type { Participant } from '~/types'
+import type { Participant, ParticipantLiveGame } from '~/types'
 import { regionStore } from '~/stores/region'
 import useChampions from '~/hooks/useChampions'
 
 const props = defineProps<{
-  participants: Participant[]
+  participants: Participant[] | ParticipantLiveGame[]
   team: 100 | 200
 }>()
 
@@ -24,7 +24,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
   >
     <div
       v-for="participant in props.participants.filter(
-        (participant) => participant.teamId === props.team,
+        (participant: Participant | ParticipantLiveGame) => participant.teamId === props.team,
       )"
       :key="participant.championName"
       class="mb-1"

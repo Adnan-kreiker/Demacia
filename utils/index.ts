@@ -345,7 +345,11 @@ export const calculatedTimeFromStart = (startedSeconds: number) => {
   const now = new Date()
   const diff = now.getTime() - started.getTime()
   const hours = Math.floor(diff / (1000 * 60 * 60))
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+  let minutes: number | string = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  let seconds: number | string = Math.floor((diff % (1000 * 60)) / 1000)
+  if (seconds < 10)
+    seconds = `0${seconds}`
+  if (minutes < 10)
+    minutes = `0${minutes}`
   return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
 }

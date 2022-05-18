@@ -6,12 +6,12 @@ import type { MenuOption } from 'naive-ui'
 import type { Component } from 'vue'
 import NLayout from 'naive-ui/es/layout/src/Layout'
 import { RouterLink } from 'vue-router'
+import FeaturedGamesIcon from './Icons/FeaturedGamesIcon.vue'
 import StatusIcon from '~/components/Icons/StatusIcon.vue'
 import StatisticsIcon from '~/components/Icons/StatisticsIcon.vue'
 import YummiIcon from '~/components/Icons/YummiIcon.vue'
 import ChampionsIcon from '~/components/Icons/ChampionInfo.vue'
 import HomeIcon from '~/components/Icons/HomeIcon.vue'
-
 const props = defineProps<{
   collapsed: boolean
 }>()
@@ -100,6 +100,21 @@ const mobileMenuOptions: MenuOption[] = [
       ),
     key: 'Leaderboards',
     icon: renderIcon(StatisticsIcon),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/featured-games',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'Featured Games' },
+      ),
+    key: 'Featured-Games',
+    icon: renderIcon(FeaturedGamesIcon),
   },
 ]
 

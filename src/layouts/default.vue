@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import type { MenuOption } from "naive-ui";
-import NMenu from "naive-ui/es/menu/src/Menu";
-import { darkTheme } from "naive-ui";
-import NConfigProvider from "naive-ui/es/config-provider/src/ConfigProvider";
-import { RouterLink } from "vue-router";
-import ChevronTop from "~/components/Icons/ChevronTop.vue";
+import type { MenuOption } from 'naive-ui'
+import NMenu from 'naive-ui/es/menu/src/Menu'
+import { darkTheme } from 'naive-ui'
+import NConfigProvider from 'naive-ui/es/config-provider/src/ConfigProvider'
+import { RouterLink } from 'vue-router'
+import ChevronTop from '~/components/Icons/ChevronTop.vue'
 const MobileSideBar = defineAsyncComponent({
   loader: () =>
-    import("../components/MobileSideBar.vue"),
-});
+    import('../components/MobileSideBar.vue'),
+})
 
-const activeKey = ref<string | null>(null);
+const activeKey = ref<string | null>(null)
 
-const collapsed = ref(true);
+const collapsed = ref(true)
 
-const { width } = useWindowSize();
+const { width } = useWindowSize()
 
-const sidePanel = ref(null);
+const sidePanel = ref(null)
 
-const menuButton = ref(null);
+const menuButton = ref(null)
 
 onClickOutside(sidePanel, () => (collapsed.value = true), {
   ignore: [menuButton],
-});
+})
 
 const menuOptions: MenuOption[] = [
   {
@@ -31,13 +31,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/",
+            path: '/',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Home" }
+        { default: () => 'Home' },
       ),
-    key: "Home",
+    key: 'Home',
   },
   {
     label: () =>
@@ -45,13 +45,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/champions",
+            path: '/champions',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Champions" }
+        { default: () => 'Champions' },
       ),
-    key: "Champions",
+    key: 'Champions',
   },
   {
     label: () =>
@@ -59,13 +59,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/status",
+            path: '/status',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Status" }
+        { default: () => 'Status' },
       ),
-    key: "Status",
+    key: 'Status',
   },
   {
     label: () =>
@@ -73,13 +73,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/champion-rotations",
+            path: '/champion-rotations',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Champion Rotations" }
+        { default: () => 'Champion Rotations' },
       ),
-    key: "Rotations",
+    key: 'Rotations',
   },
   {
     label: () =>
@@ -87,48 +87,61 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            path: "/leaderboards",
+            path: '/leaderboards',
           },
-          activeClass: "router-active",
+          activeClass: 'router-active',
         },
-        { default: () => "Leaderboards" }
+        { default: () => 'Leaderboards' },
       ),
-    key: "Leaderboards",
+    key: 'Leaderboards',
   },
-];
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/featured-games',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'Featured Games' },
+      ),
+    key: 'Featured-Games',
+  },
+]
 
 const container = document.getElementById('app')
 
 const { y } = useScroll(container)
 
-const scrollButtonVisibility = computed(() => y.value >= 200);
+const scrollButtonVisibility = computed(() => y.value >= 200)
 
 const scrollToTop = () => {
   container!.scrollTo({
     top: 0,
-    behavior: "smooth",
-  });
-};
+    behavior: 'smooth',
+  })
+}
 
-const triggerCollapse = () => (collapsed.value = !collapsed.value);
+const triggerCollapse = () => (collapsed.value = !collapsed.value)
 </script>
 
 <template>
   <div id="layout-scroll-container" class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
     <n-config-provider :theme="darkTheme">
       <nav class="py-3">
-        <n-menu v-if="width > 700" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions">
-        </n-menu>
+        <n-menu v-if="width > 840" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions" />
         <div v-else>
-          <button ref="menuButton" @click="triggerCollapse" class="absolute  w-10 h-10 top-3 right-3">
-            <MenuIcon></MenuIcon>
+          <button ref="menuButton" class="absolute  w-10 h-10 top-3 right-3" @click="triggerCollapse">
+            <MenuIcon />
           </button>
-          <MobileSideBar @trigger-collapse="(val) => collapsed = val" ref="sidePanel" :collapsed="collapsed" />
+          <MobileSideBar ref="sidePanel" :collapsed="collapsed" @trigger-collapse="(val) => collapsed = val" />
         </div>
       </nav>
       <Transition name="fade" appear>
-        <button v-show="scrollButtonVisibility" @click="scrollToTop" class="fixed bottom-4 z-50  right-7 w-12 h-12">
-          <chevron-top class="text-gray-300"></chevron-top>
+        <button v-show="scrollButtonVisibility" class="fixed bottom-4 z-50  right-7 w-12 h-12" @click="scrollToTop">
+          <chevron-top class="text-gray-300" />
         </button>
       </Transition>
       <main class="px-4 py-10 min-h-screen">

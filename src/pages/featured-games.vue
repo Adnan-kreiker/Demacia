@@ -8,7 +8,7 @@ const { featuredGames } = useFeaturedGames('euw1')
 
 const featuredGamesTimeSlotKey = ref(0)
 
-let interval: any
+let interval: NodeJS.Timer
 onMounted(() => {
   interval = setInterval(() => {
     featuredGamesTimeSlotKey.value++

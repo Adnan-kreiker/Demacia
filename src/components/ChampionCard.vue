@@ -35,12 +35,3 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
   </div>
 </template>
 
-<style>
-/* .image_placeholder {
-  background: url('/championPlaceholder.webp') no-repeat;
-  background-size: 96px 98px;
-  height: 98px;
-  width: 96px;
-  background-position: center;
-} */
-</style>

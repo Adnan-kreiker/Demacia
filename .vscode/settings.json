@@ -13,5 +13,9 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "volar.takeOverMode.enabled": true,
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
 }

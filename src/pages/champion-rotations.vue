@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import NCard from 'naive-ui/es/card/src/Card'
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
@@ -23,7 +23,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         <router-link
           v-for="(champ, index) in rotations.freeChampionIds"
           :key="index"
-          :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`"
+          :to="`/champion-info/${getChampionInfoById(championsArray!, champ).name}`"
           class="hover:cursor-pointer"
         >
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
@@ -31,13 +31,13 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
               <img
                 loading="lazy"
                 height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
+                :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray!, champ)?.image.full
                 }`"
               >
             </template>
             <h1 class="text-center py-2">
               {{
-                getChampionInfoById(championsArray, champ)?.image.full.replace(".png", "")
+                getChampionInfoById(championsArray!, champ)?.image.full.replace(".png", "")
               }}
             </h1>
           </n-card>
@@ -58,7 +58,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         <router-link
           v-for="(champ, index) in rotations.freeChampionIdsForNewPlayers"
           :key="index"
-          :to="`/champion-info/${getChampionInfoById(championsArray, champ)?.name}`"
+          :to="`/champion-info/${getChampionInfoById(championsArray!, champ)?.name}`"
           class="hover:cursor-pointer"
         >
           <n-card content-style="padding: 0" hoverable class="w-[98px] h-[138.39px] justify-self-center">
@@ -66,13 +66,13 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
               <img
                 loading="lazy"
                 height="98"
-                :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray, champ)?.image.full
+                :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${getChampionInfoById(championsArray!, champ)?.image.full
                 }`"
               >
             </template>
             <h1 class="text-center py-2">
               {{
-                getChampionInfoById(championsArray, champ).image.full.replace(".png", "")
+                getChampionInfoById(championsArray!, champ).image.full.replace(".png", "")
               }}
             </h1>
           </n-card>

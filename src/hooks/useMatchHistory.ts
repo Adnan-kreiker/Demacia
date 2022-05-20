@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { regionParamToContinentMapper } from '../../utils'
-import { MatchInfo } from '~/types'
+import type { MatchInfo } from '~/types'
 
 const error = ref(false)
 const loading = ref(false)
@@ -8,7 +8,7 @@ const loading = ref(false)
 const useMatchHistory = (puuid: string, region: string, start: Ref<number>) => {
   const matchHistory = ref<MatchInfo[]>([])
   error.value = false
-  const getMatchHistory = async() => {
+  const getMatchHistory = async () => {
     loading.value = true
     try {
       const matches = await fetch(
@@ -17,7 +17,7 @@ const useMatchHistory = (puuid: string, region: string, start: Ref<number>) => {
       )
       const matchesIds = await matches.json() as string[]
       await Promise.allSettled(
-        matchesIds.map(async(matchId: string) => {
+        matchesIds.map(async (matchId: string) => {
           return fetch(
             `${import.meta.env.VITE_URL}/api/get-match/${matchId}?region=${regionParamToContinentMapper(region)}`,
           ).then(res => res.json())

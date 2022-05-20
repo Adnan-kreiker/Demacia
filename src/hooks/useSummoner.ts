@@ -1,5 +1,5 @@
 import { unicodeToUtf8 } from '../../utils'
-import { MaybeRef, SummonerRankedInfoInterface } from './../types'
+import type { MaybeRef, SummonerRankedInfoInterface } from './../types'
 import type { Summoner, SummonerRankedInfo } from '~/types'
 
 const errorSingleSummoner = ref(false)
@@ -11,7 +11,7 @@ const useSummoner = () => {
   const summonersRankedData = ref<SummonerRankedInfoInterface | null>(null)
   const summonersData = ref<Summoner[]>([])
 
-  const getSummonerByName = async(summonerName: string, region: string) => {
+  const getSummonerByName = async (summonerName: string, region: string) => {
     errorSingleSummoner.value = false
     try {
       const res = await fetch(
@@ -29,11 +29,11 @@ const useSummoner = () => {
     }
   }
 
-  const getSummonersByName = async(summonerNames: string[], region: string) => {
+  const getSummonersByName = async (summonerNames: string[], region: string) => {
     errorMultipleSummoners.value = false
     try {
       await Promise.allSettled(
-        summonerNames.map(async(summonerName) => {
+        summonerNames.map(async (summonerName) => {
           const res = await fetch(
             `${import.meta.env.VITE_URL}/api/get-summoner/${unicodeToUtf8(summonerName)}?region=${region}`,
           )
@@ -48,12 +48,12 @@ const useSummoner = () => {
     }
   }
 
-  const getSummonersRankedInfoById = async(summonersIds: MaybeRef<string[]>, region: MaybeRef<string>) => {
+  const getSummonersRankedInfoById = async (summonersIds: MaybeRef<string[]>, region: MaybeRef<string>) => {
     errorSummonersRankedInfo.value = false
     const initialRankedData: SummonerRankedInfoInterface = []
     try {
       await Promise.allSettled(
-        unref(summonersIds).map(async(summonerId) => {
+        unref(summonersIds).map(async (summonerId) => {
           const rankedInfo = await fetch(
             `${import.meta.env.VITE_URL}/api/get-ranked-info/${summonerId}?region=${unref(region)
             }`,

@@ -2,7 +2,7 @@ import type { ChampionMastery, MaybeRef } from './../types'
 
 const error = ref(false)
 
-const useChampionMastery = async(summonerId: string, region: MaybeRef<string>) => {
+const useChampionMastery = async (summonerId: string, region: MaybeRef<string>) => {
   error.value = false
   const championsMastery = ref<null | ChampionMastery[]>(null)
 

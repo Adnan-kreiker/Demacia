@@ -41,7 +41,7 @@ const servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
 const regionOptions = servers.map((server) => {
   return {
     label: server,
-    value: regionToRegionParamMapper(server),
+    value: regionToRegionParamMapper(server).value,
   }
 })
 

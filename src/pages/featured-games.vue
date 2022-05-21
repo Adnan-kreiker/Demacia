@@ -1,12 +1,32 @@
 <script setup lang="ts">
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 // @ts-expect-error the type is used in the template
-import type { ParticipantLiveGame } from '../types'
-import { queueIdtoDescriptionMapper } from '../../utils/index'
+import type { FilterOption, ParticipantLiveGame, Servers } from '../types'
+import { queueIdtoDescriptionMapper, regionToRegionParamMapper } from '../../utils/index'
 import useFeaturedGames from '~/hooks/useFeaturedGames'
 import FeaturedGamesTimeSlot from '~/components/FeaturedGamesTimeSlot.vue'
+import FilterComponent from '~/components/FilterComponent.vue'
 
-const { featuredGames } = useFeaturedGames('euw1')
+const currentFilter = ref('EUW')
+
+const region = ref<string>('euw1')
+
+watch(currentFilter, (value) => {
+  region.value = regionToRegionParamMapper(value).value
+})
+
+const { featuredGames } = useFeaturedGames(region)
+
+const servers: Servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
+
+const filterOptions = () => {
+  return servers.map((server, index) => {
+    return {
+      id: index,
+      name: server,
+    }
+  })
+}
 
 const featuredGamesTimeSlotKey = ref(0)
 
@@ -28,6 +48,11 @@ onUnmounted(() => {
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-4">
       Featured Games
     </h1>
+    <div class="flex flex-row justify-center items-center gap-4 my-4">
+      <p class="text-2xl">
+        Server
+      </p> <FilterComponent class="" :filter-options="filterOptions()" :current-filter="currentFilter" @update-filter="currentFilter = $event" />
+    </div>
     <div v-if="featuredGames">
       <div class="flex flex-row flex-wrap justify-center gap-4">
         <div v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId" class="my-4 border-2 border-warm-gray-400 w-max p-3 rounded-md">

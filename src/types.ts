@@ -620,3 +620,5 @@ export interface FilterOption {
   id: number
   name: string
 }
+
+export type Servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']

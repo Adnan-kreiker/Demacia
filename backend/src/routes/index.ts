@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express'
+import type { Request, Response } from 'express'
+import express from 'express'
 import apicache from 'apicache'
 import needle from 'needle'
 require('dotenv').config()
@@ -11,7 +12,7 @@ const itemUrl = `https://ddragon.leagueoflegends.com/cdn/${process.env.PATCH_VER
 // Init cache
 const cache = apicache.middleware
 
-router.get('/get-summoner/:name', async(req: Request, res: Response) => {
+router.get('/get-summoner/:name', async (req: Request, res: Response) => {
   try {
     const summonerName = req.params.name
     const { region } = req.query
@@ -24,7 +25,7 @@ router.get('/get-summoner/:name', async(req: Request, res: Response) => {
   }
 })
 
-router.get('/get-matches/:id', cache('2 minutes'), async(req: Request, res: Response) => {
+router.get('/get-matches/:id', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -43,7 +44,7 @@ router.get('/get-matches/:id', cache('2 minutes'), async(req: Request, res: Resp
   }
 })
 
-router.get('/get-match/:id', cache('2 minutes'), async(req: Request, res: Response) => {
+router.get('/get-match/:id', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -62,7 +63,7 @@ router.get('/get-match/:id', cache('2 minutes'), async(req: Request, res: Respon
   }
 })
 
-router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async(req: Request, res: Response) => {
+router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -79,7 +80,7 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async(req: Reques
   }
 })
 
-router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async(req: Request, res: Response) => {
+router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -97,7 +98,7 @@ router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async
   }
 })
 
-router.get('/get-champions', cache('1000 minutes'), async(req: Request, res: Response) => {
+router.get('/get-champions', cache('1000 minutes'), async (req: Request, res: Response) => {
   try {
     const result = await needle('get', `${championsUrl}`)
     const data = result.body
@@ -108,7 +109,7 @@ router.get('/get-champions', cache('1000 minutes'), async(req: Request, res: Res
   }
 })
 
-router.get('/get-champions-rotations', cache('1000 minutes'), async(req: Request, res: Response) => {
+router.get('/get-champions-rotations', cache('1000 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -123,7 +124,7 @@ router.get('/get-champions-rotations', cache('1000 minutes'), async(req: Request
   }
 })
 
-router.get('/get-item-img/:item', cache('1000 minutes'), async(req: Request, res: Response) => {
+router.get('/get-item-img/:item', cache('1000 minutes'), async (req: Request, res: Response) => {
   const { item } = req.params
   try {
     const result = await needle('get', `${itemUrl}/${item}.png`)
@@ -135,7 +136,7 @@ router.get('/get-item-img/:item', cache('1000 minutes'), async(req: Request, res
   }
 })
 
-router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async(req: Request, res: Response) => {
+router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -152,7 +153,7 @@ router.get('/get-champions-mastery/:summonerId', cache('100 minutes'), async(req
   }
 })
 
-router.get('/get-live-game/:summonerId', cache('1 minutes'), async(req: Request, res: Response) => {
+router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -170,7 +171,7 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async(req: Request,
   }
 })
 
-router.get('/get-server-status/:region', cache('2 minutes'), async(req: Request, res: Response) => {
+router.get('/get-server-status/:region', cache('2 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })
@@ -188,7 +189,7 @@ router.get('/get-server-status/:region', cache('2 minutes'), async(req: Request,
   }
 })
 
-router.get('/get-featured-games/:region', async(req: Request, res: Response) => {
+router.get('/get-featured-games/:region', async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })

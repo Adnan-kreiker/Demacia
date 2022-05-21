@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
-import NSelect from 'naive-ui/es/select/src/Select'
-import NSpace from 'naive-ui/es/space/src/Space'
-import NTabs from 'naive-ui/es/tabs/src/Tabs'
-import NTabPane from 'naive-ui/es/tabs/src/TabPane'
+import { NSelect, NSkeleton, NSpace, NTabPane, NTabs } from 'naive-ui'
 import type { Ref } from 'vue'
 import type { QueueTypes, Summoner } from '~/types'
 import SummonersRankedInfo from '~/components/SummonersRankedInfo.vue'
@@ -184,6 +180,3 @@ getSummonerInfo()
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

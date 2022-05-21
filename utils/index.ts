@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import type { Champion, Tier } from './../src/types'
 
 export function idToRunes(id: number) {
@@ -281,32 +282,32 @@ export const secondsToMinutes = (seconds: number) => {
   return mins
 }
 
-export const regionToRegionParamMapper = (region: string): string => {
+export const regionToRegionParamMapper = (region: string): Ref<string> => {
   switch (region) {
     case 'EUW':
-      return 'euw1'
+      return ref('euw1')
     case 'NA':
-      return 'na1'
+      return ref('na1')
     case 'BR':
-      return 'br1'
+      return ref('br1')
     case 'EUNE':
-      return 'eun1'
+      return ref('eun1')
     case 'JP':
-      return 'jp1'
+      return ref('jp1')
     case 'KR':
-      return 'kr'
+      return ref('kr')
     case 'LAN':
-      return 'la1'
+      return ref('la1')
     case 'LAS':
-      return 'la2'
+      return ref('la2')
     case 'OCE':
-      return 'oc1'
+      return ref('oc1')
     case 'RU':
-      return 'ru'
+      return ref('ru')
     case 'TR':
-      return 'tr1'
+      return ref('tr1')
     default:
-      return 'euw1'
+      return ref('euw1')
   }
 }
 

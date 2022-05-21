@@ -125,7 +125,6 @@ getSummonerInfo()
               <template #fallback>
                 <section class="flex flex-col gap-3 justify-center items-center">
                   <n-skeleton class="mx-auto my-8 " height="48px" width="263px" />
-
                   <n-skeleton v-for="i in 5" :key="i" height="185px" width="840px" />
                 </section>
               </template>

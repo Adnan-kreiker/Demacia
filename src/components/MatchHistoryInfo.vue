@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import NSpace from 'naive-ui/es/space/src/Space'
-import NCollapseTransition from 'naive-ui/es/collapse-transition/src/CollapseTransition'
-import NTag from 'naive-ui/es/tag/src/Tag'
-import NButton from 'naive-ui/es/button/src/Button'
-import { NDivider } from 'naive-ui'
+import { NButton, NCollapseTransition, NDivider, NSpace, NTag } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import {
   formatTime,
@@ -17,10 +13,11 @@ import {
 } from '../../utils'
 import MatchHistoryTeam from './MatchHistoryTeam.vue'
 import MatchHistoryTeamDataTable from './MatchHistoryTeamDataTable.vue'
-import ChevronRight from './Icons/ChevronRight.vue'
+// import ChevronRight from './Icons/ChevronRight.vue'
+import FilterComponent from './FilterComponent.vue'
 import useMatchHistory from '~/hooks/useMatchHistory'
 import { regionStore } from '~/stores/region'
-import type { Participant, Summoner } from '~/types'
+import type { FilterOption, Participant, Summoner } from '~/types'
 
 const props = defineProps<{
   summonerInfo: Summoner
@@ -38,7 +35,7 @@ await getMatchHistory()
 
 const currentFilter = ref('All Matches')
 
-const filterOptions = [
+const filterOptions: FilterOption[] = [
   {
     id: 1,
     name: 'All Matches',
@@ -105,6 +102,8 @@ const summonerMultipleKillsText = (participantData: Participant) => {
 
   if (participantData.doubleKills)
     return `Double Kills: ${participantData.doubleKills}`
+
+  return null
 }
 
 const matchHistoryBackground = (result: boolean, show: boolean): string => {
@@ -130,60 +129,18 @@ watch(() => route.fullPath, () => {
   immediate: true,
 })
 
-const showFilterList = ref(false)
-
-const filterDiv = ref(null)
-
-onClickOutside(filterDiv, () => {
-  showFilterList.value = false
-})
-
-const handleClick = (e: Event) => {
-  const event = e.target as HTMLElement
-  currentFilter.value = event.innerText
-}
-
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 </script>
 
 <template>
   <section v-if="matchHistory && matchHistory.length > 0" class="min-h-[230px]">
     <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
-      <h2 class="text-center text-2xl md:text-4xl   my-8 font-bold">
+      <h2 class="text-center text-2xl md:text-4xl my-8 font-bold">
         <span
           class="border-l-6 pl-4 rounded-sm border-green-600"
         >Match History</span>
       </h2>
-      <div ref="filterDiv" class=" mt-2 relative   w-[150px] ">
-        <div class="flex flex-row items-center hover:cursor-pointer" @click="showFilterList = !showFilterList">
-          <span class="py-2 text-center  px-3 w-[110px] inline-block  t rounded-sm bg-dark-100 text-white ">{{
-            currentFilter
-          }}</span>
-          <ChevronRight
-            class="h-5 w-5 ml-2 transform  text-light-900  ease duration-200"
-            :class="{ 'rotate-90': showFilterList }"
-          />
-        </div>
-        <Transition name="fade" appear>
-          <ul
-            v-show="showFilterList"
-            class="my-4 absolute z-30 h-max top-5.5 text-center bg-dark-100 w-[110px]  rounded-sm shadow-2xl drop-shadow-2xl"
-          >
-            <li
-              v-for="option in filterOptions"
-              :key="option.id"
-              :class="{ 'text-green-400 font-bold': currentFilter === option.name }"
-              class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer"
-              :value="option.name"
-              @click="handleClick($event), showFilterList = false"
-            >
-              {{
-                option.name
-              }}
-            </li>
-          </ul>
-        </Transition>
-      </div>
+      <FilterComponent :current-filter="currentFilter" :filter-options="filterOptions" @update-filter="currentFilter = $event" />
     </div>
     <div
       v-for="match in filteredMatchHistory"

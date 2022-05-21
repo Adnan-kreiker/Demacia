@@ -17,6 +17,7 @@ declare module 'vue' {
     ErrorComponent: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/ErrorComponent.vue')['default']
     FeaturedGamesIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/FeaturedGamesIcon.vue')['default']
     FeaturedGamesTimeSlot: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/FeaturedGamesTimeSlot.vue')['default']
+    FilterComponent: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/FilterComponent.vue')['default']
     HomeIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/HomeIcon.vue')['default']
     LiveGame: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/LiveGame.vue')['default']
     LiveGameTeamInfo: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/LiveGameTeamInfo.vue')['default']

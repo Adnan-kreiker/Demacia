@@ -1,6 +1,6 @@
-import { App, Ref } from 'vue'
-import { Router, RouteRecordRaw } from 'vue-router'
-import { HeadClient } from '@vueuse/head'
+import type { App, Ref } from 'vue'
+import type { RouteRecordRaw, Router } from 'vue-router'
+import type { HeadClient } from '@vueuse/head'
 
 interface AppContext<HasRouter extends boolean = true> {
   app: App<Element>
@@ -11,9 +11,7 @@ interface AppContext<HasRouter extends boolean = true> {
 
 export type UserModule = (ctx: AppContext) => void
 
-export interface ChampionObject {
-  [key: string]: Champion
-}
+export type ChampionObject = Record<string, Champion>
 export interface Champion {
   version: string
   id: string
@@ -38,7 +36,7 @@ export interface Champion {
   }
   tags: string[]
   partype: string
-  stats: { [key: string]: number }
+  stats: Record<string, number>
 }
 
 export interface Leveltip {
@@ -113,7 +111,7 @@ export interface ChampionInfo {
   tags: string[]
   partype: string
   info: Info
-  stats: { [key: string]: number }
+  stats: Record<string, number>
   spells: Spell[]
   passive: {
     name: string
@@ -346,7 +344,7 @@ export interface Participant {
   assists: number
   baronKills: number
   bountyLevel: number
-  challenges: { [key: string]: number }
+  challenges: Record<string, number>
   champExperience: number
   champLevel: number
   championId: number
@@ -616,4 +614,9 @@ export interface ParticipantFeaturedGames {
   profileIconId: number
   summonerName: string
   bot: boolean
+}
+
+export interface FilterOption {
+  id: number
+  name: string
 }

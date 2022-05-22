@@ -110,6 +110,16 @@ nav{
   visibility: visible;
 }
 
+.fadeMenu-enter-active,
+.fadeMenu-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fadeMenu-enter-from,
+.fadeMenu-leave-to {
+  opacity: 0;
+}
+
 
 .fade-enter-active,
 .fade-leave-active {

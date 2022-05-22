@@ -36,26 +36,24 @@ onClickOutside(filterDiv, () => {
         :class="{ 'rotate-90': showFilterList }"
       />
     </div>
-    <Transition name="fade" appear>
-      <div>
-        <ul
-          v-show="showFilterList"
-          class="my-4 absolute z-30 h-max top-5.5 text-center bg-dark-100 w-[110px] rounded-sm shadow-2xl drop-shadow-2xl"
+    <Transition name="fadeMenu" appear>
+      <ul
+        v-show="showFilterList"
+        class="my-4 absolute z-30 h-max top-5.5 text-center bg-dark-100 w-[110px] rounded-sm shadow-2xl drop-shadow-2xl"
+      >
+        <li
+          v-for="option in props.filterOptions"
+          :key="option.id"
+          :class="{ 'text-green-400 font-bold': currentFilter === option.name }"
+          class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer"
+          :value="option.name"
+          @click="updateCurrentFilter($event), showFilterList = false"
         >
-          <li
-            v-for="option in props.filterOptions"
-            :key="option.id"
-            :class="{ 'text-green-400 font-bold': currentFilter === option.name }"
-            class="p-2 hover:bg-warm-gray-500 hover:cursor-pointer"
-            :value="option.name"
-            @click="updateCurrentFilter($event), showFilterList = false"
-          >
-            {{
-              option.name
-            }}
-          </li>
-        </ul>
-      </div>
+          {{
+            option.name
+          }}
+        </li>
+      </ul>
     </Transition>
   </div>
 </template>

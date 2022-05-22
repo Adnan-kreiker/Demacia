@@ -29,6 +29,7 @@ declare module 'vue' {
     MenuIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/MenuIcon.vue')['default']
     MobileSideBar: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/MobileSideBar.vue')['default']
     OkIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/OkIcon.vue')['default']
+    RefreshIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/RefreshIcon.vue')['default']
     ReloadPWA: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/ReloadPWA.vue')['default']
     SearchForSummoner: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/SearchForSummoner.vue')['default']
     ShieldIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/ShieldIcon.vue')['default']

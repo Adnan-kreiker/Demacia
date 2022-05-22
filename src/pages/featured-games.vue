@@ -6,6 +6,7 @@ import { queueIdtoDescriptionMapper, regionToRegionParamMapper } from '../../uti
 import useFeaturedGames from '~/hooks/useFeaturedGames'
 import FeaturedGamesTimeSlot from '~/components/FeaturedGamesTimeSlot.vue'
 import FilterComponent from '~/components/FilterComponent.vue'
+// import RefreshIcon from '~/components/Icons/RefreshIcon.vue'
 
 const currentFilter = ref('EUW')
 
@@ -38,6 +39,8 @@ onMounted(() => {
   }, 1000)
 })
 
+// const loadNewGames = () => useFeaturedGames(region)
+
 onUnmounted(() => {
   clearInterval(interval)
 })
@@ -51,11 +54,24 @@ onUnmounted(() => {
     <div class="flex flex-row justify-center items-center gap-4 my-4">
       <p class="text-2xl">
         Server
-      </p> <FilterComponent class="" :filter-options="filterOptions()" :current-filter="currentFilter" @update-filter="currentFilter = $event" />
+      </p>
+      <FilterComponent
+        class="" :filter-options="filterOptions()" :current-filter="currentFilter"
+        @update-filter="currentFilter = $event"
+      />
+      <!-- <div class="flex flex-row justify-center items-center gap-3">
+        <p class="text-xl">
+          Load Other Games
+        </p>
+        <RefreshIcon class="h-10 w-10" @click="loadNewGames" />
+      </div> -->
     </div>
     <div v-if="featuredGames">
       <div class="flex flex-row flex-wrap justify-center gap-4">
-        <div v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId" class="my-4 border-2 border-warm-gray-400 w-max p-3 rounded-md">
+        <div
+          v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId"
+          class="my-4 border-2 border-warm-gray-400 w-max p-3 rounded-md"
+        >
           <div class="flex flex-row text-base font-bold">
             <div>
               <p>{{ queueIdtoDescriptionMapper(featuredGame.gameQueueConfigId) }}</p>
@@ -72,10 +88,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-    <div
-      v-else
-      class="flex flex-row flex-wrap justify-center gap-6"
-    >
+    <div v-else class="flex flex-row flex-wrap justify-center gap-6">
       <n-skeleton v-for="n in 5" :key="n" height="249px" width="324px" :sharp="false" />
     </div>
   </div>

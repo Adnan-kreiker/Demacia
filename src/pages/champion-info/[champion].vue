@@ -139,11 +139,11 @@ watch(champion, () => {
 </script>
 
 <template>
-  <div v-if="champion">
+  <div v-if="champion" class="max-w-[1000px] mx-auto">
     <h1 class="text-3xl font-bold text-center mb-6">
       {{ champion.name }} the {{ champion.title }}
     </h1>
-    <div class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 border-green-500 p-3">
+    <div class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 rounded-md border-green-500 p-3">
       <div class="h-full min-w-[98px] relative">
         <img
           class="my-auto"
@@ -205,7 +205,7 @@ watch(champion, () => {
       </section>
     </div>
 
-    <div v-if="champion.allytips.length" class="border border-green-500 my-3 p-3">
+    <div v-if="champion.allytips.length" class="border rounded-md border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Ally tips
       </h2>
@@ -220,7 +220,7 @@ watch(champion, () => {
       </ul>
     </div>
 
-    <div v-if="champion.enemytips.length" class="border border-green-500 my-3 p-3">
+    <div v-if="champion.enemytips.length" class="border rounded-md border-green-500 my-3 p-3">
       <h2 class="text-lg font-bold underline underline-green-500 underline-2">
         Enemy Tip
       </h2>
@@ -235,7 +235,7 @@ watch(champion, () => {
       </ul>
     </div>
 
-    <div class="flex flex-row flex-wrap">
+    <div class="flex flex-row flex-wrap gap-1 justify-center">
       <n-data-table :columns="tableColumns" :data="champStats" :max-height="250" virtual-scroll class="my-8 md:w-1/2" />
       <div class="md:w-1/2 mt-8 md:h-[300px]">
         <img
@@ -246,7 +246,7 @@ watch(champion, () => {
     </div>
 
     <section>
-      <h2 class="text-lg font-bold underline underline-green-500 underline-2">
+      <h2 class="text-4xl font-bold text-center text-green-400 my-8">
         Abilities
       </h2>
       <div>
@@ -276,7 +276,7 @@ watch(champion, () => {
       <h2 class="text-4xl font-bold text-center text-green-400 my-8">
         Skins
       </h2>
-      <div class="flex flex-row">
+      <div class="flex flex-row justify-center">
         <div>
           <n-carousel
             effect="card"

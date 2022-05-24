@@ -73,7 +73,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
     <div
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
-      class="w-[250px] min-w-[250px] bg-dark-50 bg-opacity-40 p-2"
+      class="w-[250px] min-w-[250px] min-h-[350px] bg-dark-50 bg-opacity-40 p-2"
     >
       <router-link
         :to="{
@@ -201,6 +201,12 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
             Waking Up
           </n-tag>
         </section>
+      </section>
+      <section v-else>
+        <h2 class="text-center">
+          Unranked
+        </h2>
+        <img height="90" width="90" class="h-[90px] w-[90px] mx-auto" src="/unranked.png" alt="">
       </section>
     </div>
   </section>

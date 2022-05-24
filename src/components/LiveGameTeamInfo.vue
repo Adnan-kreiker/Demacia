@@ -67,7 +67,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
 
 <template>
   <section
-    v-if="props.gameData"
+    v-if="props.gameData && props.gameData.participants.length"
     class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-5"
   >
     <div

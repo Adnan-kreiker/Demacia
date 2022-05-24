@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NH1, NText } from 'naive-ui'
+import { NH1, NSkeleton, NText } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { capitalize, queueIdtoDescriptionMapper } from '../../utils'
 import type {
@@ -109,6 +109,14 @@ getActiveGame()
         :summoners-ranked-data="summonersRankedData"
         :team="team.value"
       />
+    </div>
+    <div v-else>
+      <div
+        v-for="i in 2" :key="i"
+        class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-2"
+      >
+        <n-skeleton v-for="n in 5 " :key="n" class="mr-4 min-w-[250px]" height="355px" width="250px" :sharp="false" />
+      </div>
     </div>
   </div>
   <div v-if="error" class="flex flex-row justify-center">

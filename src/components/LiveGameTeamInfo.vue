@@ -206,7 +206,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         <h2 class="text-center">
           Unranked
         </h2>
-        <img height="90" width="90" class="h-[90px] w-[90px] mx-auto" src="/unranked.png" alt="">
+        <img height="90" width="90" class="h-[90px] w-[90px] mx-auto" src="/unranked.png" alt="unranked">
       </section>
     </div>
   </section>

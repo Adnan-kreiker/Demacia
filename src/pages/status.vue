@@ -2,7 +2,7 @@
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import useServerStatus from '~/hooks/useServerStatus'
-import type { Maintenance } from '~/types'
+import type { Maintenance, Title } from '~/types'
 
 const { status } = useServerStatus()
 
@@ -16,6 +16,8 @@ const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
   else
     return 'border-red-400'
 }
+
+const findEnglishTranslation = (translations: Title[]) => translations.find(translation => translation.locale === 'en_US')
 </script>
 
 <template>
@@ -39,7 +41,7 @@ const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
           </p>
           <div v-for="incident in stat.maintenances" :key="incident.id">
             <p v-for="description in incident.updates" :key="description.id">
-              {{ description.translations[0].content }}
+              {{ findEnglishTranslation(description.translations)?.content }}
             </p>
           </div>
         </div>

@@ -86,7 +86,7 @@ getActiveGame()
 </script>
 
 <template>
-  <div class="h-screen">
+  <div class="min-h-screen">
     <div v-if="!error && gameData">
       <n-h1 prefix="bar">
         <n-text type="primary">

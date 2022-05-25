@@ -130,7 +130,7 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value)
 <template>
   <div id="layout-scroll-container" class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
     <n-config-provider :theme="darkTheme">
-      <nav class="py-3">
+      <nav class="py-3 bg-dark-900">
         <n-menu v-if="width > 840" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions" />
         <div v-else>
           <button ref="menuButton" class="absolute  w-10 h-10 top-3 right-3" @click="triggerCollapse">

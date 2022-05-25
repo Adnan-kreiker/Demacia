@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center text-white" style="background-color: #2f2f2f">
+  <footer class="text-center text-white bg-dark-900">
     <div class="pt-9">
       <div data-testid="svg-container" class="flex justify-center mb-9">
         <a href="https://twitter.com/AdnanKreiker" target="_blank" class="mr-9 text-white hover:text-green-500">

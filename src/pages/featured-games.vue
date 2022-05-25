@@ -81,7 +81,7 @@ onUnmounted(() => {
               {{ featuredGame.platformId.replace(/\d+/g, '') }}
             </p>
           </div>
-          <div class="flex flex-row h-[177px] w-[300px]">
+          <div class="flex flex-row h-[177px] w-[280px] sm:w-[300px]">
             <MatchHistorySummoners :participants="featuredGame.participants as ParticipantLiveGame[]" :team="100" />
             <MatchHistorySummoners :participants="featuredGame.participants as ParticipantLiveGame[]" :team="200" />
           </div>

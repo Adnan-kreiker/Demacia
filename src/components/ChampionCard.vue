@@ -28,7 +28,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           {{ tag }}
         </p>
       </div>
-      <h2 class="text-center absolute bottom-0 w-full font-bold font-mono py-2 bg-dark-900">
+      <h2 class="text-center absolute bottom-0 w-full font-bold font-mono py-2 h-10 bg-dark-900">
         {{ champ.name }}
       </h2>
     </router-link>

@@ -12,7 +12,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
   <div
     v-if="props.champ"
     :style="{ background: `url(${imageUrl}) no-repeat`, backgroundSize: `${96}px ${98}px`, backgroundPosition: 'top' }"
-    class="w-[98px] h-[138.39px] hover:bg-dark-50 transition ease duration-500 relative justify-self-center border border-dark-200 :hover:border-green-500"
+    class="w-[98px] h-[138.39px] relative justify-self-center border border-dark-200"
   >
     <router-link
       :to="`/champion-info/${champ.id}`"
@@ -28,7 +28,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           {{ tag }}
         </p>
       </div>
-      <h2 class="text-center font-bold font-mono py-2">
+      <h2 class="text-center absolute bottom-0 w-full font-bold font-mono py-2 bg-dark-900">
         {{ champ.name }}
       </h2>
     </router-link>

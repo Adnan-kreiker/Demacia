@@ -29,7 +29,7 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
       <div
         v-for="stat in status"
         :key="stat.id"
-        class="text-base min-w-[270px] my-4 rounded-md border-1 p-4 "
+        class="text-base min-w-[270px] bg-dark-900 my-4 rounded-md border-1 p-4 "
         :class="borderColor(stat.incidents, stat.maintenances)"
       >
         <p class="font-bold text-2xl mb-4">

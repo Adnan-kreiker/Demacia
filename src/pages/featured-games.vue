@@ -70,7 +70,7 @@ onUnmounted(() => {
       <div class="flex flex-row flex-wrap justify-center gap-4">
         <div
           v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId"
-          class="my-4 border-2 border-warm-gray-400 w-max p-3 rounded-md"
+          class="my-4 border-2 border-warm-gray-400 w-max p-3 rounded-md bg-dark-900"
         >
           <div class="flex flex-row text-base font-bold">
             <div>

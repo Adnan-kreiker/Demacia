@@ -86,45 +86,47 @@ getActiveGame()
 </script>
 
 <template>
-  <div v-if="!error && gameData">
-    <n-h1 prefix="bar">
-      <n-text type="primary">
-        {{ capitalize(gameData.gameMode) }}
-        Game
-      </n-text>
-      <p>{{ queueIdtoDescriptionMapper(gameData.gameQueueConfigId) }}</p>
-    </n-h1>
-    <BannedChampions
-      v-if="championsArray"
-      :champions-array="championsArray"
-      :banned-champions="gameData.bannedChampions"
-    />
-    <div v-if="championsArray && summonersRankedData">
-      <LiveGameTeamInfo
-        v-for="team in teams"
-        :key="team.id"
+  <div class="h-screen">
+    <div v-if="!error && gameData">
+      <n-h1 prefix="bar">
+        <n-text type="primary">
+          {{ capitalize(gameData.gameMode) }}
+          Game
+        </n-text>
+        <p>{{ queueIdtoDescriptionMapper(gameData.gameQueueConfigId) }}</p>
+      </n-h1>
+      <BannedChampions
+        v-if="championsArray"
         :champions-array="championsArray"
-        :game-data="gameData"
-        :region="region"
-        :summoners-ranked-data="summonersRankedData"
-        :team="team.value"
+        :banned-champions="gameData.bannedChampions"
       />
-    </div>
-    <div v-else>
-      <div
-        v-for="i in 2" :key="i"
-        class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-2"
-      >
-        <n-skeleton v-for="n in 5 " :key="n" class="mr-4 min-w-[250px]" height="355px" width="250px" :sharp="false" />
+      <div v-if="championsArray && summonersRankedData">
+        <LiveGameTeamInfo
+          v-for="team in teams"
+          :key="team.id"
+          :champions-array="championsArray"
+          :game-data="gameData"
+          :region="region"
+          :summoners-ranked-data="summonersRankedData"
+          :team="team.value"
+        />
+      </div>
+      <div v-else>
+        <div
+          v-for="i in 2" :key="i"
+          class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-2"
+        >
+          <n-skeleton v-for="n in 5 " :key="n" class="mr-4 min-w-[250px]" height="355px" width="250px" :sharp="false" />
+        </div>
       </div>
     </div>
-  </div>
-  <div v-if="error" class="flex flex-row justify-center">
-    <ErrorComponent
-      title="No Game Found!"
-      status="404"
-      description="Summoner is not in an active game!"
-      :show-return-home-button="false"
-    />
+    <div v-if="error" class="flex flex-row justify-center">
+      <ErrorComponent
+        title="No Game Found!"
+        status="404"
+        description="Summoner is not in an active game!"
+        :show-return-home-button="false"
+      />
+    </div>
   </div>
 </template>

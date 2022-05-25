@@ -16,23 +16,24 @@ import 'virtual:windi-devtools'
 
 const app = createApp(App)
 
-
 // setup up pages with layouts
 const routes = setupLayouts(generatedRoutes)
 
 const router = createRouter({
-  history: createWebHistory(), routes, scrollBehavior (to, from, savedPosition) {
-    if (to.fullPath === from.fullPath) return
-    if (savedPosition) {
+  history: createWebHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.fullPath === from.fullPath)
+      return
+    if (savedPosition)
       return (savedPosition)
-    }
-    return new Promise((resolve, reject) => {
+
+    return new Promise((resolve, _reject) => {
       const container = document.getElementById('app')
       setTimeout(() => {
-
         resolve(
           { left: container!.scrollLeft = 0, top: container!.scrollTop = 0 })
-      }, 400)
+      }, 200)
     })
   },
 })

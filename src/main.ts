@@ -33,7 +33,7 @@ const router = createRouter({
       setTimeout(() => {
         resolve(
           { left: container!.scrollLeft = 0, top: container!.scrollTop = 0 })
-      }, 200)
+      }, 100)
     })
   },
 })

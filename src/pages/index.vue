@@ -3,12 +3,12 @@ import SearchForSummoner from '~/components/SearchForSummoner.vue'
 </script>
 
 <template>
-  <div>
+  <div class="pb-8">
     <h2 class="text-center text-4xl mb-6 font-mono font-bold">
       Demacia
     </h2>
     <div class="sm:max-w-[90%] md:max-w-[70%] lg:max-w-[50%] mx-auto">
-      <div class="flex flex-col justify-center items-center py-4 border-2 bg-dark-200 border-gray-600 w-full">
+      <div class="flex flex-col justify-center items-center pt-4 pb-7 border-2 bg-dark-200 border-gray-600 w-full">
         <img
           fetchpriority="high"
           height="280"

@@ -144,7 +144,7 @@ watch(champion, () => {
       <h1 class="text-3xl font-bold text-center mb-6">
         {{ champion.name }} the {{ champion.title }}
       </h1>
-      <div class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 rounded-md border-green-500 p-3">
+      <div class="flex flex-row items-center justify-center flex-wrap sm:flex-nowrap border-1 rounded-md border-dark-200 p-3 bg-dark-900">
         <div class="h-full min-w-[98px] relative">
           <img
             class="my-auto"
@@ -152,7 +152,7 @@ watch(champion, () => {
             :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${champion.id}.png`"
           >
           <div class="absolute bottom-1 right-0">
-            <p v-for="(tag, i) in champion.tags" :key="i" class="bg-dark-500 text-white text-xs p-0">
+            <p v-for="(tag, i) in champion.tags" :key="i" class="bg-dark-500 rounded-md text-white text-xs p-0">
               {{ tag }}
             </p>
           </div>
@@ -162,7 +162,7 @@ watch(champion, () => {
         </p>
       </div>
 
-      <div v-if="champion.info.attack && champion.info.defense" class="my-6">
+      <div v-if="champion.info.attack && champion.info.defense" class="my-6 bg-dark-900 p-3 border-1 border-dark-200">
         <section>
           <div class="flex flex-row flex-nowrap items-center">
             <div class="flex min-w-26 flex-row items-center">
@@ -206,7 +206,7 @@ watch(champion, () => {
         </section>
       </div>
 
-      <div v-if="champion.allytips.length" class="border rounded-md border-green-500 my-3 p-3">
+      <div v-if="champion.allytips.length" class="border rounded-md bg-dark-900 border-dark-200 my-3 p-3">
         <h2 class="text-lg font-bold underline underline-green-500 underline-2">
           Ally tips
         </h2>
@@ -221,7 +221,7 @@ watch(champion, () => {
         </ul>
       </div>
 
-      <div v-if="champion.enemytips.length" class="border rounded-md border-green-500 my-3 p-3">
+      <div v-if="champion.enemytips.length" class="border rounded-md bg-dark-900 border-dark-200 my-3 p-3">
         <h2 class="text-lg font-bold underline underline-green-500 underline-2">
           Enemy Tip
         </h2>
@@ -251,7 +251,7 @@ watch(champion, () => {
           Abilities
         </h2>
         <div>
-          <div v-for="(spell, i) in spells" :key="i" class="flex flex-row my-6 border-1 border-white p-3">
+          <div v-for="(spell, i) in spells" :key="i" class="flex flex-row my-6 border-1 bg-dark-900 border-dark-200 p-3">
             <div class="min-w-[60px]">
               <img
                 height="50"

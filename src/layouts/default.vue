@@ -140,11 +140,11 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value)
         </div>
       </nav>
       <Transition name="fade" appear>
-        <button v-show="scrollButtonVisibility" class="fixed bottom-4 z-50  right-7 w-12 h-12" @click="scrollToTop">
+        <button v-show="scrollButtonVisibility" class="fixed bottom-4 z-50 right-7 w-12 h-12" @click="scrollToTop">
           <chevron-top class="text-gray-300" />
         </button>
       </Transition>
-      <main class="px-4 py-10 min-h-screen">
+      <main class="px-4 py-10">
         <router-view v-slot="{ Component, route }">
           <transition mode="out-in" name="fade">
             <!-- <keep-alive> -->

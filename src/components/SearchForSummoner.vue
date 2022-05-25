@@ -35,28 +35,30 @@ const selectOptions = servers.map((server) => {
 </script>
 
 <template>
-  <n-input
-    v-model:value="summonerName"
-    class="sm:max-w-2/3 md:max-w-1/2 relative"
-    size="large"
-    type="text"
-    placeholder="Summoner name"
-    @keydown.enter="navigate"
-  >
-    <template #suffix>
-      <n-select
-        v-model:value="region"
-        r
-        class="absolute right-20 text-xs"
-        style="width: 50px !important"
-        placeholder="EUW"
-        :options="selectOptions"
-      />
-      <n-button :disabled="!(summonerName.length > 0)" class="bg-blue-500 text-white font-bold" @click="navigate">
-        GO
-      </n-button>
-    </template>
-  </n-input>
+  <div class="px-3 w-full flex justify-center">
+    <n-input
+      v-model:value="summonerName"
+      class="relative md:max-w-[500px]"
+      size="large"
+      type="text"
+      placeholder="Summoner name"
+      @keydown.enter="navigate"
+    >
+      <template #suffix>
+        <n-select
+          v-model:value="region"
+          r
+          class="absolute right-20 text-xs"
+          style="width: 50px !important"
+          placeholder="EUW"
+          :options="selectOptions"
+        />
+        <n-button :disabled="!(summonerName.length > 0)" class="bg-blue-500 text-white font-bold" @click="navigate">
+          GO
+        </n-button>
+      </template>
+    </n-input>
+  </div>
 </template>
 
 <style>

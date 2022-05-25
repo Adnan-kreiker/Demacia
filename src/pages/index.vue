@@ -3,15 +3,23 @@ import SearchForSummoner from '~/components/SearchForSummoner.vue'
 </script>
 
 <template>
-  <div class="flex flex-col justify-center h-full items-center">
-    <img
-      fetchpriority="high"
-      height="280"
-      class="object-cover yummi-img h-70 my-4"
-      src="/yummi.webp"
-      alt="Yummi hovering"
-    >
-    <SearchForSummoner />
+  <div>
+    <h2 class="text-center text-4xl mb-6 font-mono font-bold">
+      Demacia
+    </h2>
+    <div class="sm:max-w-[90%] md:max-w-[70%] lg:max-w-[50%] mx-auto">
+      <div class="flex flex-col justify-center items-center py-4 border-2 bg-dark-200 border-gray-600 w-full">
+        <img
+          fetchpriority="high"
+          height="280"
+          width="250"
+          class="object-cover yummi-img h-70 w-[250px] my-4 mx-auto"
+          src="/yummi.webp"
+          alt="Yummi hovering"
+        >
+        <SearchForSummoner />
+      </div>
+    </div>
   </div>
 </template>
 

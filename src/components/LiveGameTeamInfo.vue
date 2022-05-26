@@ -96,7 +96,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         }
       `"
       >
-      <div class="flex flex-row justify-center">
+      <div class="flex flex-row justify-center mt-4 -mb-4">
         <img
           height="38"
           width="42"

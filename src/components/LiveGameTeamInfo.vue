@@ -48,7 +48,7 @@ const summonersRankedInfo = (
     const rankedData = props.summonersRankedData.find(
       summoner => summoner.summonerId === summonerId,
     )
-    if (isRankedInfo(rankedData!.rankedInfo)) {
+    if (rankedData?.rankedInfo && isRankedInfo(rankedData!.rankedInfo)) {
       const soloQInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0] as RankedData
       const flexInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] as RankedData
 

@@ -40,6 +40,7 @@ declare module 'vue' {
     SummonersRankedInfo: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/SummonersRankedInfo.vue')['default']
     SummonersTable: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/SummonersTable.vue')['default']
     TheFooter: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/TheFooter.vue')['default']
+    VercelLogo: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/VercelLogo.vue')['default']
     WarningIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/WarningIcon.vue')['default']
     YummiIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/YummiIcon.vue')['default']
   }

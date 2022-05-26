@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import SearchForSummoner from '~/components/SearchForSummoner.vue'
+import VercelLogo from '~/components/Icons/VercelLogo.vue'
 </script>
 
 <template>
@@ -18,6 +19,10 @@ import SearchForSummoner from '~/components/SearchForSummoner.vue'
           alt="Yummi hovering"
         >
         <SearchForSummoner />
+      </div>
+      <div class="flex flex-row items-center justify-center">
+        <span class="text-lg mr-4 text-gray-400">Powered by </span>
+        <VercelLogo class="h-27 w-27" />
       </div>
     </div>
   </div>

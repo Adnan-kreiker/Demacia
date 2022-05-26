@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+  name: 'MagicIcon',
+}
+</script>
 
 <template>
   <svg width="1em" height="1em" viewBox="0 0 128 128"><linearGradient
@@ -73,9 +78,3 @@
     gradientunits="userSpaceOnUse"
   ><stop offset="0" stopColor="#FFEE58" stopOpacity="0" /><stop offset="1" stopColor="#FDD835" /></radialGradient><path fill="url(#IconifyId17f7a7595e4cb384f691)" d="M67.78 35.64c-11.25 2.62-24.16-5-36.08-3.66c-4.55.6-6.42 6.04-2.05 14.66c8.58 14.77 21.1 23.49 25.72 28.9c-6.21-3.48-18.97-12.65-27.84-21.28c-13.35-12.8-10.88-28.8 1.5-28.75c4.15-.4 12.18 1.6 15.54 2.83c3.31 1.33 14.58 6.24 23.21 7.3z" /></svg>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'MagicIcon',
-}
-</script>

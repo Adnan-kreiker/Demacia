@@ -25,7 +25,7 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-4">
       Servers' Status
     </h1>
-    <div v-if="status.length" class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
+    <div v-if="status && status.length" class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
       <div
         v-for="stat in status"
         :key="stat.id"

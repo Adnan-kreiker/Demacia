@@ -20,7 +20,7 @@
     "@vueuse/head": "^0.6.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
-    "vue": "^3.2.33",
+    "vue": "^3.2.36",
     "vue-demi": "^0.11.4",
     "vue-router": "^4.0.15",
     "vue-virtual-scroller": "^2.0.0-alpha.1"
@@ -40,6 +40,7 @@
     "critters": "^0.0.16",
     "cross-env": "^7.0.3",
     "eslint": "8.15.0",
+    "eslint-plugin-vue": "^8.0.1",
     "happy-dom": "^2.55.0",
     "https-localhost": "^4.7.1",
     "jsdom": "^19.0.0",

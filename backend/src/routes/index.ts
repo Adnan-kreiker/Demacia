@@ -171,7 +171,7 @@ router.get('/get-live-game/:summonerId', cache('1 minutes'), async (req: Request
   }
 })
 
-router.get('/get-server-status/:region', cache('2 minutes'), async (req: Request, res: Response) => {
+router.get('/get-server-status/:region', cache('5 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,
   })

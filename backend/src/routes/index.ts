@@ -2,6 +2,7 @@ import type { Request, Response } from 'express'
 import express from 'express'
 import apicache from 'apicache'
 import needle from 'needle'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config()
 const router = express.Router()
 const api_key = process.env.API_KEY as string

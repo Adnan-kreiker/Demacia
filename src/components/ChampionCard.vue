@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import imageUrl from '../../public/championPlaceholder.webp'
+import imageUrl from '/championPlaceholder.webp'
 import type { Champion } from '~/types'
 const props = defineProps<{
   champ: Champion

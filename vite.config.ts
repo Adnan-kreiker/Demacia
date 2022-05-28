@@ -21,6 +21,11 @@ export default ({ mode }: { mode: string }) => {
 
   return defineConfig({
     test: {
+      environment: 'happy-dom',
+      globals: true,
+      coverage: {
+        enabled: true,
+      },
       api: {
         port: 3002,
       },

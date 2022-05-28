@@ -8,7 +8,7 @@ import { mount } from '@vue/test-utils'
 import Footer from './TheFooter.vue'
 
 describe('Footer', () => {
-  const pText = 'By Adnan Kreiker 🦄'
+  const pText = 'By Adnan Kreiker 🚀 🦄'
 
   it('Renders a paragraph with the content of pText', async () => {
     const wrapper = mount(Footer)

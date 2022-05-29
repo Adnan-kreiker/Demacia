@@ -19,7 +19,7 @@ describe('ChampionCard', () => {
         champ: champProps,
       },
     })
-    expect(wrapper.find('p').text()).toEqual('Fighter')
+    expect(wrapper.find('h2').text()).toEqual('Darius')
     const image = wrapper.find('img')
     expect(image.attributes('src')).toEqual(`https://ddragon.leagueoflegends.com/cdn/${process.env.VITE_PATCH_VERSION}/img/champion/Darius.png`)
     const paragraphs = wrapper.findAll('p')

@@ -22,9 +22,15 @@ const navigateHome = () => router.push('/')
     <div class="flex flex-row justify-center flex-wrap items-center">
       <img height="300" width="300" class="h-[300px] object-cover" :src="imageUrl" alt="">
       <div class="md:my-3 text-xl">
-        <p>{{ status }}</p>
-        <p>{{ title }}</p>
-        <p>{{ description }}</p>
+        <p data-testid="status-p">
+          {{ status }}
+        </p>
+        <p data-testid="title-p">
+          {{ title }}
+        </p>
+        <p data-testid="description-p">
+          {{ description }}
+        </p>
         <n-button v-if="showReturnHomeButton" class="mt-4" ghost @click="navigateHome">
           Return Home
         </n-button>

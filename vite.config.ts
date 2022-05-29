@@ -98,6 +98,8 @@ export default ({ mode }: { mode: string }) => {
       }),
       Vue({
         include: [/\.vue$/, /\.md$/],
+        reactivityTransform: true,
+
       }),
 
       // https://github.com/hannoeru/vite-plugin-pages

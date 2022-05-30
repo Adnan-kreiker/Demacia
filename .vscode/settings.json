@@ -19,7 +19,15 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "editor.fontLigatures": true,
-  // "editor.fontFamily": "Dank Mono",
+  "editor.fontFamily": "Dank Mono",
   "bracketPairColorizer.forceIterationColorCycle": true,
+  "bracketPairColorizer.activeScopeCSS": [
+
+    "borderStyle : solid",
+    "borderWidth : 1px",
+    "borderColor : {color}; opacity: 0.5"
+  ],
+  "terminal.integrated.fontWeight": "normal",
+  "editor.fontSize": 15,
 
 }

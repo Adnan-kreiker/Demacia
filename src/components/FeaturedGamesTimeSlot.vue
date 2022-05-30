@@ -8,7 +8,3 @@ const props = defineProps<{
 <template>
   <p>{{ calculatedTimeFromStart(props.gameStartTime) }}</p>
 </template>
-
-<style scoped>
-
-</style>

@@ -58,31 +58,7 @@ const { championsArray } = useChampions()
 </template>
 
 <style >
-.vue-recycle-scroller.ready .vue-recycle-scroller__item-view {
-  width: 100px !important;
-  transform: none !important;
-  height: 140px !important;
-}
 
-.scroll-class {
-  height: 100% !important;
-}
-
-.vue-recycle-scroller.direction-vertical .vue-recycle-scroller__item-wrapper {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(98px, 1fr)) !important;
-  justify-items: center !important;
-
-  min-width: 100% !important;
-  gap: 1rem !important;
-  height: 130px !important;
-}
-
-@media(max-width:400px) {
-  .vue-recycle-scroller.direction-vertical .vue-recycle-scroller__item-wrapper {
-    gap: 0.5rem !important;
-  }
-}
 </style>
 
 <route lang="yaml">

@@ -17,5 +17,9 @@
   "volar.takeOverMode.enabled": true,
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  }
+  },
+  "editor.fontLigatures": true,
+  // "editor.fontFamily": "Dank Mono",
+  "bracketPairColorizer.forceIterationColorCycle": true,
+
 }

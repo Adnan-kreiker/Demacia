@@ -27,8 +27,8 @@ onClickOutside(filterDiv, () => {
 
 <template>
   <div ref="filterDiv" class=" mt-2 relative w-[150px] ">
-    <div class="flex flex-row items-center hover:cursor-pointer" @click="showFilterList = !showFilterList">
-      <span class="py-2 text-center  px-3 w-[110px] inline-block rounded-sm bg-dark-100 text-white ">{{
+    <div data-testid="filter-button" class="flex flex-row items-center hover:cursor-pointer" @click="showFilterList = !showFilterList">
+      <span data-testid="filter-span" class="py-2 text-center  px-3 w-[110px] inline-block rounded-sm bg-dark-100 text-white ">{{
         props.currentFilter
       }}</span>
       <ChevronRight
@@ -39,6 +39,7 @@ onClickOutside(filterDiv, () => {
     <Transition name="fadeMenu" appear>
       <ul
         v-show="showFilterList"
+        data-testid="filter-list"
         class="my-4 absolute z-30 h-max top-5.5 text-center bg-dark-100 w-[110px] rounded-sm shadow-2xl drop-shadow-2xl"
       >
         <li

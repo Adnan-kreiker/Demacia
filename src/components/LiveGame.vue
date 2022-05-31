@@ -62,6 +62,7 @@ const getActiveGame = async (): Promise<void> => {
       error.value = true
       return
     }
+
     gameData.value = data
 
     summonersNames.value = data.participants.map(

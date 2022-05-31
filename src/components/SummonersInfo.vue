@@ -23,11 +23,11 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         class="object-contain mx-auto rounded-md hover:scale-110 transform transition-all duration-500"
         :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/profileicon/${summonerInfo.profileIconId}.png`"
       >
-      <p class="text-4xl font-bold text-center text-true-gray-200 mt-3">
+      <p data-testid="summoner-name" class="text-4xl font-bold text-center text-true-gray-200 mt-3">
         {{ summonerInfo.name }}
       </p>
       <div class="w-[240px] text-center mx-auto flex-col flex justify-center">
-        <span class="mt-4 border-2 w-max self-center p-1 text-green-300 border-green-700 rounded-sm">Level: {{
+        <span data-testid="summoner-level" class="mt-4 border-2 w-max self-center p-1 text-green-300 border-green-700 rounded-sm">Level: {{
           summonerInfo.summonerLevel
         }}</span>
         <p type="info" class="mt-4 border-2 w-max self-center p-1 text-cyan-300 border-cyan-700 rounded-sm">

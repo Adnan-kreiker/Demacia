@@ -5,7 +5,6 @@ import {
   CategoryScale,
   Chart as ChartJS,
   Legend,
-  // Plugin,
   Title,
   Tooltip,
 } from 'chart.js'
@@ -26,10 +25,15 @@ const chartData = {
   ],
 }
 
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+}
+
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 </script>
 
 <template>
-  <Doughnut ref="doughnut" :chart-data="chartData" :width="400" :height="400" />
+  <Doughnut :chart-data="chartData" :chart-options="chartOptions" :width="250" :height="250" />
 </template>
 

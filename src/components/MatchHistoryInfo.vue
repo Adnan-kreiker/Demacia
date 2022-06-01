@@ -152,14 +152,16 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
 
 <template>
   <section v-if="matchHistory && matchHistory.length" class="min-h-[230px]">
-    <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
-      <MatchHistoryChart :key="matchHistoryChartKey" :wins-and-losses="winsAndLossesCalculator(filteredMatchHistory)" />
-      <h2 class="text-center text-2xl md:text-4xl my-8 font-bold">
-        <span
-          class="border-l-6 pl-4 rounded-sm border-green-600"
-        >Match History</span>
-      </h2>
-      <FilterComponent :current-filter="currentFilter" :filter-options="filterOptions" @update-filter="currentFilter = $event" />
+    <div class="flex flex-row justify-evenly gap-4 items-center border-t border-dark-200 flex-wrap">
+      <div>
+        <h2 class="text-center text-2xl md:text-4xl my-8 font-bold">
+          <span
+            class="border-l-6 pl-4 rounded-sm border-green-600"
+          >Match History</span>
+        </h2>
+        <FilterComponent :current-filter="currentFilter" :filter-options="filterOptions" @update-filter="currentFilter = $event" />
+      </div>
+      <MatchHistoryChart :key="matchHistoryChartKey" class="my-4" :wins-and-losses="winsAndLossesCalculator(filteredMatchHistory)" />
     </div>
     <div
       v-for="match in filteredMatchHistory"

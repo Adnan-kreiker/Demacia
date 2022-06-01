@@ -15,6 +15,7 @@ specifiers:
   '@vueuse/core': ^8.5.0
   '@vueuse/head': ^0.6.0
   c8: ^7.11.3
+  chart.js: ^3.8.0
   critters: ^0.0.16
   cross-env: ^7.0.3
   eslint: 8.15.0
@@ -40,6 +41,7 @@ specifiers:
   vite-plugin-windicss: ^1.8.4
   vitest: ^0.9.4
   vue: ^3.2.36
+  vue-chartjs: ^4.1.1
   vue-demi: ^0.11.4
   vue-router: ^4.0.15
   vue-tsc: ^0.3.0
@@ -50,9 +52,11 @@ dependencies:
   '@vueuse/components': 8.5.0_vue@3.2.36
   '@vueuse/core': 8.5.0_vue@3.2.36
   '@vueuse/head': 0.6.0_vue@3.2.36
+  chart.js: 3.8.0
   nprogress: 0.2.0
   pinia: 2.0.14_typescript@4.6.4+vue@3.2.36
   vue: 3.2.36
+  vue-chartjs: 4.1.1_chart.js@3.8.0+vue@3.2.36
   vue-demi: 0.11.4_vue@3.2.36
   vue-router: 4.0.15_vue@3.2.36
   vue-virtual-scroller: 2.0.0-alpha.1_vue@3.2.36
@@ -2647,6 +2651,10 @@ packages:
   /character-reference-invalid/1.1.4:
     resolution: {integrity: sha512-mKKUkUbhPpQlCOfIuZkvSEgktjPFIsZKRRbC6KWVEMvlzblj3i3asQv5ODsrwt0N3pHAEvjP8KTQPHkp0+6jOg==}
     dev: true
+
+  /chart.js/3.8.0:
+    resolution: {integrity: sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==}
+    dev: false
 
   /check-error/1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
@@ -6936,6 +6944,16 @@ packages:
       vscode-pug-languageservice: 0.27.24
       vscode-typescript-languageservice: 0.27.25
     dev: true
+
+  /vue-chartjs/4.1.1_chart.js@3.8.0+vue@3.2.36:
+    resolution: {integrity: sha512-rKIQ3jPrjhwxjKdNJppnYxRuBSrx4QeM3nNHsfIxEqjX6QS4Jq6e6vnZBxh2MDpURDC2uvuI2N0eIt1cWXbBVA==}
+    peerDependencies:
+      chart.js: ^3.7.0
+      vue: ^3.0.0-0 || ^2.6.0
+    dependencies:
+      chart.js: 3.8.0
+      vue: 3.2.36
+    dev: false
 
   /vue-demi/0.11.4_vue@3.2.36:
     resolution: {integrity: sha512-/3xFwzSykLW2HiiLie43a+FFgNOcokbBJ+fzvFXd0r2T8MYohqvphUyDQ8lbAwzQ3Dlcrb1c9ykifGkhSIAk6A==}

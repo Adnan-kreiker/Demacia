@@ -22,6 +22,7 @@ declare module 'vue' {
     LiveGame: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/LiveGame.vue')['default']
     LiveGameTeamInfo: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/LiveGameTeamInfo.vue')['default']
     MagicIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/MagicIcon.vue')['default']
+    MatchHistoryChart: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/MatchHistoryChart.vue')['default']
     MatchHistoryInfo: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/MatchHistoryInfo.vue')['default']
     MatchHistorySummoners: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/MatchHistorySummoners.vue')['default']
     MatchHistoryTeam: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/MatchHistoryTeam.vue')['default']

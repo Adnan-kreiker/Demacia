@@ -13,11 +13,12 @@ import {
 } from '../../utils'
 import MatchHistoryTeam from './MatchHistoryTeam.vue'
 import MatchHistoryTeamDataTable from './MatchHistoryTeamDataTable.vue'
-// import ChevronRight from './Icons/ChevronRight.vue'
 import FilterComponent from './FilterComponent.vue'
+import MatchHistoryChart from '~/components/MatchHistoryChart.vue'
+// import ChevronRight from './Icons/ChevronRight.vue'
 import useMatchHistory from '~/hooks/useMatchHistory'
 import { regionStore } from '~/stores/region'
-import type { FilterOption, Participant, Summoner } from '~/types'
+import type { FilterOption, MatchInfo, Participant, Summoner } from '~/types'
 
 const props = defineProps<{
   summonerInfo: Summoner
@@ -123,18 +124,36 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
   }
 }
 
+const winsAndLossesCalculator = (matchHistory: MatchInfo[]): [ wins: number, slosses: number ] => {
+  let wins = 0
+  let losses = 0
+  matchHistory.forEach((match) => {
+    const summoner = match.info.participants.filter(match => match.summonerId === props.summonerInfo.id)[0]
+    if (summoner.win)
+      wins++
+    else losses++
+  })
+  return [wins, losses]
+}
+
+const matchHistoryChartKey = ref(0)
+
 watch(() => route.fullPath, () => {
   start.value = 0
 }, {
   immediate: true,
 })
 
+watch(() => filteredMatchHistory.value.length, () => {
+  matchHistoryChartKey.value++
+})
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 </script>
 
 <template>
-  <section v-if="matchHistory && matchHistory.length > 0" class="min-h-[230px]">
+  <section v-if="matchHistory && matchHistory.length" class="min-h-[230px]">
     <div class="flex flex-row justify-center gap-4 items-center border-t border-dark-200">
+      <MatchHistoryChart :key="matchHistoryChartKey" :wins-and-losses="winsAndLossesCalculator(filteredMatchHistory)" />
       <h2 class="text-center text-2xl md:text-4xl my-8 font-bold">
         <span
           class="border-l-6 pl-4 rounded-sm border-green-600"

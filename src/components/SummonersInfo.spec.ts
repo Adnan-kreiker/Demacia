@@ -26,8 +26,11 @@ describe('SummonersInfo', () => {
     const wrapper = mount(SummonersInfo, {
       propsData: props,
     })
+
     expect(wrapper.find('img').attributes('src')).toBe(`https://ddragon.leagueoflegends.com/cdn/${process.env.VITE_PATCH_VERSION}/img/profileicon/${props.summonerInfo.profileIconId}.png`)
+
     expect(wrapper.find('p[data-testid=summoner-name]').text()).toBe(props.summonerInfo.name)
+
     expect(wrapper.find('span[data-testid=summoner-level]').text()).toBe(`Level: ${props.summonerInfo.summonerLevel}`)
   })
 })

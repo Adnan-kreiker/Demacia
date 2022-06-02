@@ -124,15 +124,18 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
   }
 }
 
-const winsAndLossesCalculator = (matchHistory: MatchInfo[]): [ wins: number, slosses: number ] => {
+const winsAndLossesCalculator = (matchHistory: MatchInfo[]): [ wins: number, losses: number ] => {
   let wins = 0
   let losses = 0
-  matchHistory.forEach((match) => {
-    const summoner = match.info.participants.filter(match => match.summonerId === props.summonerInfo.id)[0]
-    if (summoner.win)
-      wins++
-    else losses++
-  })
+  if (matchHistory.length) {
+    matchHistory.forEach((match) => {
+      const summoner = match.info.participants.filter(match => match.summonerId === props.summonerInfo.id)[0]
+      if (summoner.win)
+        wins++
+      else losses++
+    })
+    return [wins, losses]
+  }
   return [wins, losses]
 }
 

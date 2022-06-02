@@ -201,8 +201,3 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
   </div>
 </template>
 
-<style>
-.n-select{
-  min-width: 150px !important;
-}
-</style>

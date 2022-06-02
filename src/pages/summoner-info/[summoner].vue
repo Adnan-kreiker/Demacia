@@ -76,13 +76,13 @@ getSummonerInfo()
     <!-- Summoner's Information -->
     <div v-if="summonerInfo">
       <div class="border-b border-dark-300 mb-4">
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 0 ? 'text-green-400 bg-dark-500 border-b-3 border-b-dark-500 ' : ''" @click="currentTab = 0">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0">
           Summoner Info
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 1 ? 'text-green-400 bg-dark-500 border-b-3 border-b-dark-500 ' : ''" @click="currentTab = 1">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1">
           Champions Mastery
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 2 ? 'text-green-400 bg-dark-500 border-b-3 border-b-dark-500 ' : ''" @click="currentTab = 2">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2">
           Live Game
         </button>
       </div>
@@ -203,3 +203,8 @@ getSummonerInfo()
   </div>
 </template>
 
+<style scoped>
+.n-select{
+  min-width: 150px !important;
+}
+</style>

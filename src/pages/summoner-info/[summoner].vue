@@ -73,21 +73,22 @@ getSummonerInfo()
 
 <template>
   <div v-if="!error">
-    <!-- Summoner's Information -->
+    <!-- Tabs Panel -->
     <div v-if="summonerInfo">
-      <div class="border-b border-dark-300 mb-4">
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0">
+      <div class="border-b border-dark-300 mb-4 flex flex-row">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0">
           Summoner Info
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1">
           Champions Mastery
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-base" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2">
+        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2">
           Live Game
         </button>
       </div>
       <keep-alive>
         <div v-if="currentTab === 0">
+          <!-- Summoner's Information -->
           <Transition name="fadeMenu" appear>
             <div>
               <div class="flex flex-wrap my-8 gap-5 justify-center sm:justify-evenly min-h-[300px]">

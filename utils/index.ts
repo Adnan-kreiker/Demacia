@@ -354,3 +354,32 @@ export const calculatedTimeFromStart = (startedSeconds: number) => {
     minutes = `0${minutes}`
   return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
 }
+
+export const regionParamToRegionMapper = (regionParam: string): Ref<string> => {
+  switch (regionParam) {
+    case 'euw1':
+      return ref('EUW')
+    case 'eune1':
+      return ref('EUNE')
+    case 'br1':
+      return ref('BR')
+    case 'jp1':
+      return ref('JP')
+    case 'kr1':
+      return ref('KR')
+    case 'la1':
+      return ref('LA')
+    case 'la2':
+      return ref('LA2')
+    case 'na1':
+      return ref('NA')
+    case 'oc1':
+      return ref('OC')
+    case 'tr1':
+      return ref('TR')
+    case 'ru':
+      return ref('RU')
+    default:
+      return ref('EUW')
+  }
+}

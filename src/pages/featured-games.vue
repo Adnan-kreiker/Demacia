@@ -1,19 +1,31 @@
 <script setup lang="ts">
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { storeToRefs } from 'pinia'
 // @ts-expect-error the type is used in the template
 import type { FilterOption, ParticipantLiveGame, Servers } from '../types'
-import { queueIdtoDescriptionMapper, regionToRegionParamMapper } from '../../utils/index'
+import {
+  queueIdtoDescriptionMapper,
+  regionParamToRegionMapper,
+  regionToRegionParamMapper,
+} from '../../utils/index'
 import useFeaturedGames from '~/hooks/useFeaturedGames'
 import FeaturedGamesTimeSlot from '~/components/FeaturedGamesTimeSlot.vue'
 import FilterComponent from '~/components/FilterComponent.vue'
+import { regionStore } from '~/stores/region'
 // import RefreshIcon from '~/components/Icons/RefreshIcon.vue'
 
-const currentFilter = ref('EUW')
+const store = regionStore()
 
-const region = ref<string>('euw1')
+const { region } = storeToRefs(store)
 
-watch(currentFilter, (value) => {
-  region.value = regionToRegionParamMapper(value).value
+const updateStore = (newRegion: string) => {
+  store.setRegion(newRegion)
+}
+
+const currentFilter = ref(regionParamToRegionMapper(region.value))
+
+watch(currentFilter, (newRegion) => {
+  store.setRegion(regionToRegionParamMapper(newRegion).value)
 })
 
 const { featuredGames } = useFeaturedGames(region)
@@ -57,7 +69,7 @@ onUnmounted(() => {
       </p>
       <FilterComponent
         class="" :filter-options="filterOptions()" :current-filter="currentFilter"
-        @update-filter="currentFilter = $event"
+        @update-filter="currentFilter = $event, updateStore($event)"
       />
       <!-- <div class="flex flex-row justify-center items-center gap-3">
         <p class="text-xl">

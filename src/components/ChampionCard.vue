@@ -12,7 +12,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
   <div
     v-if="props.champ"
     :style="{ background: `url(${imageUrl}) no-repeat`, backgroundSize: `${96}px ${98}px`, backgroundPosition: 'top' }"
-    class="w-[98px] h-[138.39px] relative justify-self-center border border-dark-200"
+    class="w-[98px] h-[138.39px] relative justify-self-center border border-dark-200 shadow-t-md hover:shadow-green-400 transition ease-linear duration-300"
   >
     <router-link
       :to="`/champion-info/${champ.id}`"

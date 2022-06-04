@@ -6,10 +6,10 @@ export const regionStore = defineStore('region', {
     }
   },
   actions: {
-    setRegion (region: string) {
+    setRegion(region: string) {
       this.region = region
-    }
-  }
+    },
+  },
 })
 
 if (import.meta.hot)

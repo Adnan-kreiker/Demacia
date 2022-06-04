@@ -10,7 +10,13 @@ interface Props {
   imageUrl?: string
 }
 
-const { status = '404', title, showReturnHomeButton = true, description, imageUrl = '/notFound.png' } = defineProps<Props>()
+const {
+  status = '404',
+  title,
+  showReturnHomeButton = true,
+  description,
+  imageUrl = '/notFound.png',
+} = defineProps<Props>()
 
 const router = useRouter()
 

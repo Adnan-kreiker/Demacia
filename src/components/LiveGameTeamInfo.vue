@@ -73,7 +73,8 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
     <div
       v-for="participant in team(props.team)"
       :key="participant.summonerId"
-      class="w-[250px] min-w-[250px] min-h-[350px] bg-dark-50 bg-opacity-40 p-2"
+      class="w-[250px] min-w-[250px] min-h-[350px] bg-dark-900 border-[0.5px] rounded-sm border-dark-100 mb-4 bg-opacity-40 p-2 shadow-md"
+      :class="props.team === 100 ? 'shadow-blue-500' : 'shadow-red-500'"
     >
       <router-link
         :to="{

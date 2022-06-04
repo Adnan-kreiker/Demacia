@@ -117,7 +117,7 @@ getActiveGame()
           v-for="i in 2" :key="i"
           class="flex mt-6 flex-row overflow-x-scroll whitespace-nowrap gap-2"
         >
-          <n-skeleton v-for="n in 5 " :key="n" class="mr-4 min-w-[250px] mb-4" height="355px" width="250px" :sharp="false" />
+          <n-skeleton v-for="n in 5 " :key="n" class="mr-4 min-w-[250px] mx-1 mt-2 mb-4" height="355px" width="250px" :sharp="false" />
         </div>
       </div>
     </div>

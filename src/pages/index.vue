@@ -9,7 +9,10 @@ import VercelLogo from '~/components/Icons/VercelLogo.vue'
       Demacia
     </h2>
     <div class="sm:max-w-[90%] md:max-w-[70%] lg:max-w-[50%] mx-auto">
-      <div class="flex flex-col justify-center items-center pt-4 pb-7 border-1 bg-dark-900 border-gray-600 w-full">
+      <div
+        class="flex flex-col justify-center items-center pt-4 pb-7 border-1 bg-dark-900
+      border-gray-600 w-full shadow-t-md  shadow-gray-400"
+      >
         <img
           fetchpriority="high"
           height="280"

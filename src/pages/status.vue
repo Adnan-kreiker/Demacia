@@ -8,13 +8,13 @@ const { status } = useServerStatus()
 
 const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
   if (!stat1.length && !stat2.length)
-    return 'border-teal-400'
+    return 'shadow-teal-400'
 
   else if (stat1.length || stat2.length)
-    return 'border-orange-400'
+    return 'shadow-orange-400'
 
   else
-    return 'border-red-400'
+    return 'shadow-red-400'
 }
 
 const findEnglishTranslation = (translations: Title[]) => translations.find(translation => translation.locale === 'en_US')
@@ -29,7 +29,7 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
       <div
         v-for="stat in status"
         :key="stat.id"
-        class="text-base min-w-[270px] bg-dark-900 my-4 rounded-md border-1 p-4 "
+        class="text-base min-w-[270px] bg-dark-900 my-4 rounded-md p-4 shadow-t-md  "
         :class="borderColor(stat.incidents, stat.maintenances)"
       >
         <p class="font-bold text-2xl mb-4">

@@ -1,5 +1,9 @@
 import type { Ref } from 'vue'
-import type { Champion, Tier } from './../src/types'
+import type { Champion, Region, RegionParam, Tier } from './../src/types'
+
+function assertUnreachable(x: never): never {
+  throw new Error(`${x} was not an expected value`)
+}
 
 export function idToRunes(id: number) {
   switch (id) {
@@ -231,6 +235,7 @@ export const rankToOrderMapper = (tier: Tier) => {
       return '08_grandmaster'
     case 'CHALLENGER':
       return '09_challenger'
+    default: assertUnreachable(tier)
   }
 }
 
@@ -282,7 +287,7 @@ export const secondsToMinutes = (seconds: number) => {
   return mins
 }
 
-export const regionToRegionParamMapper = (region: string): Ref<string> => {
+export const regionToRegionParamMapper = (region: Region): Ref<string> => {
   switch (region) {
     case 'EUW':
       return ref('euw1')
@@ -306,8 +311,7 @@ export const regionToRegionParamMapper = (region: string): Ref<string> => {
       return ref('ru')
     case 'TR':
       return ref('tr1')
-    default:
-      return ref('euw1')
+    default: assertUnreachable(region)
   }
 }
 
@@ -355,7 +359,7 @@ export const calculatedTimeFromStart = (startedSeconds: number) => {
   return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
 }
 
-export const regionParamToRegionMapper = (regionParam: string): Ref<string> => {
+export const regionParamToRegionMapper = (regionParam: RegionParam): Ref<string> => {
   switch (regionParam) {
     case 'euw1':
       return ref('EUW')
@@ -379,7 +383,7 @@ export const regionParamToRegionMapper = (regionParam: string): Ref<string> => {
       return ref('TR')
     case 'ru':
       return ref('RU')
-    default:
-      return ref('EUW')
+    default: assertUnreachable(regionParam)
   }
 }
+

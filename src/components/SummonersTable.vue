@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { DataTableColumns } from 'naive-ui'
-import NDataTable from 'naive-ui/es/data-table/src/DataTable'
-import NProgress from 'naive-ui/es/progress/src/Progress'
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { NDataTable, NProgress, NSkeleton } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { unicodeToUtf8 } from '../../utils'
 import type {

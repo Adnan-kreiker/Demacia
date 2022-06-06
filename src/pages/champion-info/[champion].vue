@@ -24,8 +24,12 @@ const effects = ref<null | any[]>(null)
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 
 const findCurrentChampion = (championsSpells: Record<string, any[]>) => {
-  const championName = route.params.champion.toString()
-  return championsSpells[championName]
+  let championName
+  if (route.params.champion) {
+    championName = route.params.champion.toString()
+    return championsSpells[championName]
+  }
+  throw new Error('No champion name was found')
 }
 
 const currentChampionSpells = computed(() => {

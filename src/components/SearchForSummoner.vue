@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import NInput from 'naive-ui/es/input/src/Input'
-import NButton from 'naive-ui/es/button/src/Button'
-import NSelect from 'naive-ui/es/select/src/Select'
+import { NButton, NInput, NSelect } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import type { Ref } from 'vue'
 import { regionToRegionParamMapper } from '../../utils'

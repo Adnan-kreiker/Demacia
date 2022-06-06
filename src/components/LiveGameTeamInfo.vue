@@ -103,7 +103,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
           width="42"
           class="object-cover -mt-1"
           :src="`https://ddragon.canisback.com/img/${idToRunes(
-            participant.perks.perkIds[0],
+            participant.perks.perkIds[0]!,
           )}`"
         >
         <img

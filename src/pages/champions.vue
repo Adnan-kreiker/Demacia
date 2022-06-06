@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { NSkeleton } from 'naive-ui'
 import useChampions from '~/hooks/useChampions'
 import ChampionCard from '~/components/ChampionCard.vue'
 

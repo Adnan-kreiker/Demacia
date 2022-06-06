@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import NLayoutSider from 'naive-ui/es/layout/src/LayoutSider'
-import NMenu from 'naive-ui/es/menu/src/Menu'
+import { NLayout, NLayoutSider, NMenu } from 'naive-ui'
 import { NIcon } from 'naive-ui/es/icon/src/Icon'
 import type { MenuOption } from 'naive-ui'
 import type { Component } from 'vue'
-import NLayout from 'naive-ui/es/layout/src/Layout'
 import { RouterLink } from 'vue-router'
 import FeaturedGamesIcon from './Icons/FeaturedGamesIcon.vue'
 import StatusIcon from '~/components/Icons/StatusIcon.vue'

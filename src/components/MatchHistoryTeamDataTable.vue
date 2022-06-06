@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NTable from 'naive-ui/es/table/src/Table'
+import { NTable } from 'naive-ui'
 import { toLowerCase } from '../../utils'
 import type { Participant } from '~/types'
 

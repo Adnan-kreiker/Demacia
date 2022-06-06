@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { NSelect, NSkeleton, NSpace } from 'naive-ui'
 import type { Ref } from 'vue'
-import type { QueueTypes, Summoner } from '~/types'
+import type { QueueTypes, RegionParam, Summoner } from '~/types'
 import SummonersRankedInfo from '~/components/SummonersRankedInfo.vue'
 import MatchHistoryInfo from '~/components/MatchHistoryInfo.vue'
 import ErrorComponent from '~/components/ErrorComponent.vue'
@@ -20,11 +20,11 @@ const summonerInfo = ref<null | Summoner>(null)
 
 const summoner = route.params.summoner as string
 
-const region = ref(route.query.region) as Ref<string>
+const region = ref(route.query.region) as Ref<RegionParam>
 
 const { getSummonerByName } = useSummoner()
 
-watch(region, (newRegion) => {
+watch(region, (newRegion: RegionParam) => {
   if (newRegion)
     store.setRegion(newRegion)
 }, {

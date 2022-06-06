@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { NSkeleton } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 // @ts-expect-error the type is used in the template
 import type { FilterOption, ParticipantLiveGame, Region, RegionParam, Servers } from '../types'

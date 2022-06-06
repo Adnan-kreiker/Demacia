@@ -130,7 +130,7 @@ const winsAndLossesCalculator = (matchHistory: MatchInfo[]): [ wins: number, los
   if (matchHistory.length) {
     matchHistory.forEach((match) => {
       const summoner = match.info.participants.filter(match => match.summonerId === props.summonerInfo.id)[0]
-      if (summoner.win)
+      if (summoner && summoner.win)
         wins++
       else losses++
     })
@@ -260,7 +260,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       width="40"
                       class="rounded-sm"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
-                        summoner(match.info.participants).perks.styles[0].selections[0]
+                        summoner(match.info.participants).perks.styles[0]!.selections[0]!
                           .perk,
                       )}`"
                     >
@@ -269,7 +269,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                       width="30"
                       class="mx-auto rounded-sm object-contain"
                       :src="`https://ddragon.canisback.com/img/${idToRunes(
-                        summoner(match.info.participants).perks.styles[1].selections[1]
+                        summoner(match.info.participants).perks.styles[1]!.selections[1]!
                           .perk,
                       )}`"
                     >

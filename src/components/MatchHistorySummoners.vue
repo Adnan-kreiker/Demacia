@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { NSkeleton } from 'naive-ui'
 import { getChampionInfoById, toLowerCase } from '../../utils'
 import type { Participant, ParticipantLiveGame } from '~/types'
 import { regionStore } from '~/stores/region'

@@ -2,7 +2,7 @@
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import { storeToRefs } from 'pinia'
 // @ts-expect-error the type is used in the template
-import type { FilterOption, ParticipantLiveGame, Servers } from '../types'
+import type { FilterOption, ParticipantLiveGame, Region, RegionParam, Servers } from '../types'
 import {
   queueIdtoDescriptionMapper,
   regionParamToRegionMapper,
@@ -18,7 +18,7 @@ const store = regionStore()
 
 const { region } = storeToRefs(store)
 
-const updateStore = (newRegion: string) => {
+const updateStore = (newRegion: RegionParam) => {
   store.setRegion(newRegion)
 }
 
@@ -30,7 +30,7 @@ watch(currentFilter, (newRegion) => {
 
 const { featuredGames } = useFeaturedGames(region)
 
-const servers: Servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
+const servers: Servers = ['EUW', 'EUNE', 'NA', 'LAN', 'LAS', 'BR', 'TR', 'RU', 'OCE', 'JP', 'KR']
 
 const filterOptions = () => {
   return servers.map((server, index) => {
@@ -69,7 +69,7 @@ onUnmounted(() => {
       </p>
       <FilterComponent
         class="" :filter-options="filterOptions()" :current-filter="currentFilter"
-        @update-filter="currentFilter = $event, updateStore($event)"
+        @update-filter="currentFilter = $event as Region, updateStore($event as RegionParam)"
       />
       <!-- <div class="flex flex-row justify-center items-center gap-3">
         <p class="text-xl">

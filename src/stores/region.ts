@@ -1,12 +1,13 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import type { RegionParam } from './../types'
 export const regionStore = defineStore('region', {
   state: () => {
     return {
-      region: 'euw1',
+      region: 'euw1' as RegionParam,
     }
   },
   actions: {
-    setRegion(region: string) {
+    setRegion(region: RegionParam) {
       this.region = region
     },
   },

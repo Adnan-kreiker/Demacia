@@ -136,7 +136,7 @@ export function idToRunes(id: number) {
   }
 }
 
-export function mapSpellKeyToName(spellKey: string) {
+export function mapSpellKeyToName(spellKey: string): string {
   if (spellKey === '4')
     return 'SummonerFlash'
   else if (spellKey === '14')
@@ -287,7 +287,80 @@ export const secondsToMinutes = (seconds: number) => {
   return mins
 }
 
-export const regionToRegionParamMapper = (region: Region): Ref<string> => {
+export const regionParamToContinentMapper = (region: string): string => {
+  const asia = ['jp1', 'kr', 'tr1']
+  const americas = ['na1', 'br1', 'la1', 'la2', 'oc1']
+  const europe = ['euw1', 'eun1', 'ru']
+
+  if (asia.includes(region))
+    return 'asia'
+
+  else if (americas.includes(region))
+    return 'americas'
+
+  else if (europe.includes(region))
+    return 'europe'
+
+  return 'europe'
+}
+
+const removeGamesString = (string: string) => {
+  return string.replace('games', '')
+}
+
+const queuesAndDescriptions = [{ queueId: 0, description: null }, { queueId: 2, description: '5v5 Blind Pick games' }, { queueId: 4, description: '5v5 Ranked Solo games' }, { queueId: 6, description: '5v5 Ranked Premade games' }, { queueId: 7, description: 'Co-op vs AI games' }, { queueId: 8, description: '3v3 Normal games' }, { queueId: 9, description: '3v3 Ranked Flex games' }, { queueId: 14, description: '5v5 Draft Pick games' }, { queueId: 16, description: '5v5 Dominion Blind Pick games' }, { queueId: 17, description: '5v5 Dominion Draft Pick games' }, { queueId: 25, description: 'Dominion Co-op vs AI games' }, { queueId: 31, description: 'Co-op vs AI Intro Bot games' }, { queueId: 32, description: 'Co-op vs AI Beginner Bot games' }, { queueId: 33, description: 'Co-op vs AI Intermediate Bot games' }, { queueId: 41, description: '3v3 Ranked Team games' }, { queueId: 42, description: '5v5 Ranked Team games' }, { queueId: 52, description: 'Co-op vs AI games' }, { queueId: 61, description: '5v5 Team Builder games' }, { queueId: 65, description: '5v5 ARAM games' }, { queueId: 67, description: 'ARAM Co-op vs AI games' }, { queueId: 70, description: 'One for All games' }, { queueId: 72, description: '1v1 Snowdown Showdown games' }, { queueId: 73, description: '2v2 Snowdown Showdown games' }, { queueId: 75, description: '6v6 Hexakill games' }, { queueId: 76, description: 'Ultra Rapid Fire games' }, { queueId: 78, description: 'One For All: Mirror Mode games' }, { queueId: 83, description: 'Co-op vs AI Ultra Rapid Fire games' }, { queueId: 91, description: 'Doom Bots Rank 1 games' }, { queueId: 92, description: 'Doom Bots Rank 2 games' }, { queueId: 93, description: 'Doom Bots Rank 5 games' }, { queueId: 96, description: 'Ascension games' }, { queueId: 98, description: '6v6 Hexakill games' }, { queueId: 100, description: '5v5 ARAM games' }, { queueId: 300, description: 'Legend of the Poro King games' }, { queueId: 310, description: 'Nemesis games' }, { queueId: 313, description: 'Black Market Brawlers games' }, { queueId: 315, description: 'Nexus Siege games' }, { queueId: 317, description: 'Definitely Not Dominion games' }, { queueId: 318, description: 'ARURF games' }, { queueId: 325, description: 'All Random games' }, { queueId: 400, description: '5v5 Draft Pick games' }, { queueId: 410, description: '5v5 Ranked Dynamic games' }, { queueId: 420, description: '5v5 Ranked Solo games' }, { queueId: 430, description: '5v5 Blind Pick games' }, { queueId: 440, description: '5v5 Ranked Flex games' }, { queueId: 450, description: '5v5 ARAM games' }, { queueId: 460, description: '3v3 Blind Pick games' }, { queueId: 470, description: '3v3 Ranked Flex games' }, { queueId: 600, description: 'Blood Hunt Assassin games' }, { queueId: 610, description: 'Dark Star: Singularity games' }, { queueId: 700, description: 'Clash games' }, { queueId: 800, description: 'Co-op vs. AI Intermediate Bot games' }, { queueId: 810, description: 'Co-op vs. AI Intro Bot games' }, { queueId: 820, description: 'Co-op vs. AI Beginner Bot games' }, { queueId: 830, description: 'Co-op vs. AI Intro Bot games' }, { queueId: 840, description: 'Co-op vs. AI Beginner Bot games' }, { queueId: 850, description: 'Co-op vs. AI Intermediate Bot games' }, { queueId: 900, description: 'ARURF games' }, { queueId: 910, description: 'Ascension games' }, { queueId: 920, description: 'Legend of the Poro King games' }, { queueId: 940, description: 'Nexus Siege games' }, { queueId: 950, description: 'Doom Bots Voting games' }, { queueId: 960, description: 'Doom Bots Standard games' }, { queueId: 980, description: 'Star Guardian Invasion: Normal games' }, { queueId: 990, description: 'Star Guardian Invasion: Onslaught games' }, { queueId: 1000, description: 'PROJECT: Hunters games' }, { queueId: 1010, description: 'Snow ARURF games' }, { queueId: 1020, description: 'One for All games' }, { queueId: 1030, description: 'Odyssey Extraction: Intro games' }, { queueId: 1040, description: 'Odyssey Extraction: Cadet games' }, { queueId: 1050, description: 'Odyssey Extraction: Crewmember games' }, { queueId: 1060, description: 'Odyssey Extraction: Captain games' }, { queueId: 1070, description: 'Odyssey Extraction: Onslaught games' }, { queueId: 1090, description: 'Teamfight Tactics games' }, { queueId: 1100, description: 'Ranked Teamfight Tactics games' }, { queueId: 1110, description: 'Teamfight Tactics Tutorial games' }, { queueId: 1111, description: 'Teamfight Tactics test games' }, { queueId: 1200, description: 'Nexus Blitz games' }, { queueId: 1300, description: 'Nexus Blitz games' }, { queueId: 1400, description: 'Ultimate Spellbook games' }, { queueId: 1900, description: 'Pick URF games' }, { queueId: 2000, description: 'Tutorial 1' }, { queueId: 2010, description: 'Tutorial 2' }, { queueId: 2020, description: 'Tutorial 3' }]
+
+export const queueIdtoDescriptionMapper = (queueId: number) => {
+  const res = queuesAndDescriptions.find(q => q.queueId === queueId)
+  if (res?.description)
+    return removeGamesString(res.description)
+
+  return ''
+}
+
+export const calculatedTimeFromStart = (startedSeconds: number) => {
+  const started = new Date(startedSeconds)
+  const now = new Date()
+  const diff = now.getTime() - started.getTime()
+  const hours = Math.floor(diff / (1000 * 60 * 60))
+  let minutes: number | string = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  let seconds: number | string = Math.floor((diff % (1000 * 60)) / 1000)
+  if (seconds < 10)
+    seconds = `0${seconds}`
+  if (minutes < 10)
+    minutes = `0${minutes}`
+  return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
+}
+
+export const regionParamToRegionMapper = (regionParam: RegionParam): Ref<Region> => {
+  switch (regionParam) {
+    case 'euw1':
+      return ref('EUW')
+    case 'eun1':
+      return ref('EUNE')
+    case 'br1':
+      return ref('BR')
+    case 'jp1':
+      return ref('JP')
+    case 'kr':
+      return ref('KR')
+    case 'la1':
+      return ref('LAN')
+    case 'la2':
+      return ref('LAS')
+    case 'na1':
+      return ref('NA')
+    case 'oc1':
+      return ref('OCE')
+    case 'tr1':
+      return ref('TR')
+    case 'ru':
+      return ref('RU')
+    default: assertUnreachable(regionParam)
+  }
+}
+
+export const regionToRegionParamMapper = (region: Region): Ref<RegionParam> => {
   switch (region) {
     case 'EUW':
       return ref('euw1')
@@ -314,76 +387,3 @@ export const regionToRegionParamMapper = (region: Region): Ref<string> => {
     default: assertUnreachable(region)
   }
 }
-
-export const regionParamToContinentMapper = (region: string): string => {
-  const asia = ['jp1', 'kr', 'tr1']
-  const americas = ['na1', 'br1', 'la1', 'la2', 'oc1']
-  const europe = ['euw1', 'eun1', 'ru']
-
-  if (asia.includes(region))
-    return 'asia'
-
-  else if (americas.includes(region))
-    return 'americas'
-
-  else if (europe.includes(region))
-    return 'europe'
-
-  return 'europe'
-}
-
-const removeGamesString = (string: string) => {
-  return string.replace('games', '')
-}
-const queuesAndDescriptions = [{ queueId: 0, description: null }, { queueId: 2, description: '5v5 Blind Pick games' }, { queueId: 4, description: '5v5 Ranked Solo games' }, { queueId: 6, description: '5v5 Ranked Premade games' }, { queueId: 7, description: 'Co-op vs AI games' }, { queueId: 8, description: '3v3 Normal games' }, { queueId: 9, description: '3v3 Ranked Flex games' }, { queueId: 14, description: '5v5 Draft Pick games' }, { queueId: 16, description: '5v5 Dominion Blind Pick games' }, { queueId: 17, description: '5v5 Dominion Draft Pick games' }, { queueId: 25, description: 'Dominion Co-op vs AI games' }, { queueId: 31, description: 'Co-op vs AI Intro Bot games' }, { queueId: 32, description: 'Co-op vs AI Beginner Bot games' }, { queueId: 33, description: 'Co-op vs AI Intermediate Bot games' }, { queueId: 41, description: '3v3 Ranked Team games' }, { queueId: 42, description: '5v5 Ranked Team games' }, { queueId: 52, description: 'Co-op vs AI games' }, { queueId: 61, description: '5v5 Team Builder games' }, { queueId: 65, description: '5v5 ARAM games' }, { queueId: 67, description: 'ARAM Co-op vs AI games' }, { queueId: 70, description: 'One for All games' }, { queueId: 72, description: '1v1 Snowdown Showdown games' }, { queueId: 73, description: '2v2 Snowdown Showdown games' }, { queueId: 75, description: '6v6 Hexakill games' }, { queueId: 76, description: 'Ultra Rapid Fire games' }, { queueId: 78, description: 'One For All: Mirror Mode games' }, { queueId: 83, description: 'Co-op vs AI Ultra Rapid Fire games' }, { queueId: 91, description: 'Doom Bots Rank 1 games' }, { queueId: 92, description: 'Doom Bots Rank 2 games' }, { queueId: 93, description: 'Doom Bots Rank 5 games' }, { queueId: 96, description: 'Ascension games' }, { queueId: 98, description: '6v6 Hexakill games' }, { queueId: 100, description: '5v5 ARAM games' }, { queueId: 300, description: 'Legend of the Poro King games' }, { queueId: 310, description: 'Nemesis games' }, { queueId: 313, description: 'Black Market Brawlers games' }, { queueId: 315, description: 'Nexus Siege games' }, { queueId: 317, description: 'Definitely Not Dominion games' }, { queueId: 318, description: 'ARURF games' }, { queueId: 325, description: 'All Random games' }, { queueId: 400, description: '5v5 Draft Pick games' }, { queueId: 410, description: '5v5 Ranked Dynamic games' }, { queueId: 420, description: '5v5 Ranked Solo games' }, { queueId: 430, description: '5v5 Blind Pick games' }, { queueId: 440, description: '5v5 Ranked Flex games' }, { queueId: 450, description: '5v5 ARAM games' }, { queueId: 460, description: '3v3 Blind Pick games' }, { queueId: 470, description: '3v3 Ranked Flex games' }, { queueId: 600, description: 'Blood Hunt Assassin games' }, { queueId: 610, description: 'Dark Star: Singularity games' }, { queueId: 700, description: 'Clash games' }, { queueId: 800, description: 'Co-op vs. AI Intermediate Bot games' }, { queueId: 810, description: 'Co-op vs. AI Intro Bot games' }, { queueId: 820, description: 'Co-op vs. AI Beginner Bot games' }, { queueId: 830, description: 'Co-op vs. AI Intro Bot games' }, { queueId: 840, description: 'Co-op vs. AI Beginner Bot games' }, { queueId: 850, description: 'Co-op vs. AI Intermediate Bot games' }, { queueId: 900, description: 'ARURF games' }, { queueId: 910, description: 'Ascension games' }, { queueId: 920, description: 'Legend of the Poro King games' }, { queueId: 940, description: 'Nexus Siege games' }, { queueId: 950, description: 'Doom Bots Voting games' }, { queueId: 960, description: 'Doom Bots Standard games' }, { queueId: 980, description: 'Star Guardian Invasion: Normal games' }, { queueId: 990, description: 'Star Guardian Invasion: Onslaught games' }, { queueId: 1000, description: 'PROJECT: Hunters games' }, { queueId: 1010, description: 'Snow ARURF games' }, { queueId: 1020, description: 'One for All games' }, { queueId: 1030, description: 'Odyssey Extraction: Intro games' }, { queueId: 1040, description: 'Odyssey Extraction: Cadet games' }, { queueId: 1050, description: 'Odyssey Extraction: Crewmember games' }, { queueId: 1060, description: 'Odyssey Extraction: Captain games' }, { queueId: 1070, description: 'Odyssey Extraction: Onslaught games' }, { queueId: 1090, description: 'Teamfight Tactics games' }, { queueId: 1100, description: 'Ranked Teamfight Tactics games' }, { queueId: 1110, description: 'Teamfight Tactics Tutorial games' }, { queueId: 1111, description: 'Teamfight Tactics test games' }, { queueId: 1200, description: 'Nexus Blitz games' }, { queueId: 1300, description: 'Nexus Blitz games' }, { queueId: 1400, description: 'Ultimate Spellbook games' }, { queueId: 1900, description: 'Pick URF games' }, { queueId: 2000, description: 'Tutorial 1' }, { queueId: 2010, description: 'Tutorial 2' }, { queueId: 2020, description: 'Tutorial 3' }]
-
-export const queueIdtoDescriptionMapper = (queueId: number) => {
-  const res = queuesAndDescriptions.find(q => q.queueId === queueId)
-  if (res?.description)
-    return removeGamesString(res.description)
-
-  return ''
-}
-
-export const calculatedTimeFromStart = (startedSeconds: number) => {
-  const started = new Date(startedSeconds)
-  const now = new Date()
-  const diff = now.getTime() - started.getTime()
-  const hours = Math.floor(diff / (1000 * 60 * 60))
-  let minutes: number | string = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  let seconds: number | string = Math.floor((diff % (1000 * 60)) / 1000)
-  if (seconds < 10)
-    seconds = `0${seconds}`
-  if (minutes < 10)
-    minutes = `0${minutes}`
-  return hours > 0 ? `${hours}h ${minutes}m ${seconds}s` : `${minutes}:${seconds}`
-}
-
-export const regionParamToRegionMapper = (regionParam: RegionParam): Ref<string> => {
-  switch (regionParam) {
-    case 'euw1':
-      return ref('EUW')
-    case 'eune1':
-      return ref('EUNE')
-    case 'br1':
-      return ref('BR')
-    case 'jp1':
-      return ref('JP')
-    case 'kr1':
-      return ref('KR')
-    case 'la1':
-      return ref('LA')
-    case 'la2':
-      return ref('LA2')
-    case 'na1':
-      return ref('NA')
-    case 'oc1':
-      return ref('OC')
-    case 'tr1':
-      return ref('TR')
-    case 'ru':
-      return ref('RU')
-    default: assertUnreachable(regionParam)
-  }
-}
-

@@ -5,6 +5,7 @@ import { NH3, NText } from 'naive-ui/es/typography'
 import type {
   ChallengerPlayerWithIndex,
   Ranks,
+  Servers,
 } from '../../src/types'
 import { regionToRegionParamMapper } from '../../utils'
 import SummonersTable from '~/components/SummonersTable.vue'
@@ -36,7 +37,7 @@ const rankOptions = [
   },
 ]
 
-const servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
+const servers: Servers = ['EUW', 'EUNE', 'NA', 'LAN', 'LAS', 'BR', 'TR', 'RU', 'OCE', 'JP', 'KR']
 
 const regionOptions = servers.map((server) => {
   return {

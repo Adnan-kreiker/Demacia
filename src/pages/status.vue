@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import NDivider from 'naive-ui/es/divider/src/Divider'
-import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
+import { NDivider, NSkeleton } from 'naive-ui'
 import useServerStatus from '~/hooks/useServerStatus'
 import type { Maintenance, Title } from '~/types'
 

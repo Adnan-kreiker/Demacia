@@ -3,8 +3,10 @@ import NInput from 'naive-ui/es/input/src/Input'
 import NButton from 'naive-ui/es/button/src/Button'
 import NSelect from 'naive-ui/es/select/src/Select'
 import { useRouter } from 'vue-router'
+import type { Ref } from 'vue'
 import { regionToRegionParamMapper } from '../../utils'
 import { regionStore } from '~/stores/region'
+import type { RegionParam, Servers } from '~/types'
 
 const summonerName = ref('')
 
@@ -12,9 +14,9 @@ const router = useRouter()
 
 const store = regionStore()
 
-const region = ref('euw1')
+const region = ref('euw1') as Ref<RegionParam>
 
-watch(region, (newVal) => {
+watch(region, (newVal: RegionParam) => {
   store.setRegion(newVal)
 })
 
@@ -24,7 +26,7 @@ const navigate = () =>
     query: { region: region.value },
   })
 
-const servers = ['EUW', 'NA', 'KR', 'EUNE', 'JP', 'BR', 'LAN', 'LAS']
+const servers: Servers = ['EUW', 'EUNE', 'NA', 'LAN', 'LAS', 'BR', 'TR', 'RU', 'OCE', 'JP', 'KR']
 
 const selectOptions = servers.map((server) => {
   return {
@@ -47,7 +49,6 @@ const selectOptions = servers.map((server) => {
       <template #suffix>
         <n-select
           v-model:value="region"
-          r
           class="absolute right-20 text-xs"
           style="width: 50px !important"
           placeholder="EUW"

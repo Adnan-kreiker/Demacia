@@ -38,20 +38,6 @@ const filterOptions = () => {
     }
   })
 }
-
-const featuredGamesTimeSlotKey = ref(0)
-
-let interval: NodeJS.Timer
-
-onMounted(() => {
-  interval = setInterval(() => {
-    featuredGamesTimeSlotKey.value++
-  }, 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(interval)
-})
 </script>
 
 <template>
@@ -70,7 +56,7 @@ onUnmounted(() => {
     </div>
     <div v-if="featuredGames">
       <div class="flex flex-row flex-wrap justify-center gap-4">
-        <FeaturedGamesCard v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId" :featured-game="featuredGame" :featured-games-time-slot-key="featuredGamesTimeSlotKey" />
+        <FeaturedGamesCard v-for="featuredGame in featuredGames.gameList" :key="featuredGame.gameId" :featured-game="featuredGame" />
       </div>
     </div>
     <div v-else class="flex flex-row flex-wrap justify-center gap-6">

@@ -4,10 +4,22 @@ import { queueIdtoDescriptionMapper } from '../../utils/index'
 import type { GameList, ParticipantLiveGame } from '~/types'
 interface Props {
   featuredGame: GameList
-  featuredGamesTimeSlotKey: number
-}
 
+}
 const props = defineProps<Props>()
+const featuredGamesTimeSlotKey = ref(0)
+
+let interval: NodeJS.Timer
+
+onMounted(() => {
+  interval = setInterval(() => {
+    featuredGamesTimeSlotKey.value++
+  }, 1000)
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
 </script>
 
 <template>
@@ -17,7 +29,7 @@ const props = defineProps<Props>()
     <div class="flex flex-row text-base font-bold">
       <div>
         <p>{{ queueIdtoDescriptionMapper(props.featuredGame.gameQueueConfigId) }}</p>
-        <FeaturedGamesTimeSlot :key="props.featuredGamesTimeSlotKey" :game-start-time="props.featuredGame.gameStartTime" />
+        <FeaturedGamesTimeSlot :key="featuredGamesTimeSlotKey" :game-start-time="props.featuredGame.gameStartTime" />
       </div>
       <p class="ml-auto">
         {{ featuredGame.platformId.replace(/\d+/g, '') }}

@@ -7,19 +7,6 @@ interface Props {
 
 }
 const props = defineProps<Props>()
-const featuredGamesTimeSlotKey = ref(0)
-
-let interval: NodeJS.Timer
-
-onMounted(() => {
-  interval = setInterval(() => {
-    featuredGamesTimeSlotKey.value++
-  }, 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(interval)
-})
 </script>
 
 <template>
@@ -29,7 +16,7 @@ onUnmounted(() => {
     <div class="flex flex-row text-base font-bold">
       <div>
         <p>{{ queueIdtoDescriptionMapper(props.featuredGame.gameQueueConfigId) }}</p>
-        <FeaturedGamesTimeSlot :key="featuredGamesTimeSlotKey" :game-start-time="props.featuredGame.gameStartTime" />
+        <FeaturedGamesTimeSlot :game-start-time="props.featuredGame.gameStartTime" />
       </div>
       <p class="ml-auto">
         {{ featuredGame.platformId.replace(/\d+/g, '') }}

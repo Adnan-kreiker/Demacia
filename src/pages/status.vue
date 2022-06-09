@@ -6,14 +6,16 @@ import type { Maintenance, Title } from '~/types'
 const { status } = useServerStatus()
 
 const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
-  if (!stat1.length && !stat2.length)
-    return 'shadow-teal-400'
+  if (Array.isArray(stat1) && Array.isArray(stat2)) {
+    if (!stat1.length && !stat2.length)
+      return 'shadow-teal-400'
 
-  else if (stat1.length || stat2.length)
-    return 'shadow-orange-400'
+    else if (stat1.length || stat2.length)
+      return 'shadow-orange-400'
 
-  else
-    return 'shadow-red-400'
+    else
+      return 'shadow-red-400'
+  }
 }
 
 const findEnglishTranslation = (translations: Title[]) => translations.find(translation => translation.locale === 'en_US')

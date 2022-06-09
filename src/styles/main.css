@@ -86,12 +86,12 @@ html {
   background-color: #666;
 }
 
-/* .router-active{
-  @apply bg-gray-600 px-4 py-2 rounded-md border border-gray-500 !important;
-} */
+.router-active{
+  @apply text-green-500 transition ease-linear duration-300 underline-green-500 !important;
+} 
 /* .n-menu .n-menu-item-content .n-menu-item-content-header a{
 
-} */
+}
 
 nav{
   @apply md:border-b md:border-dark-100;

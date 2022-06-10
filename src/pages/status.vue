@@ -1,9 +1,30 @@
 <script setup lang="ts">
 import { NDivider, NSkeleton } from 'naive-ui'
 import useServerStatus from '~/hooks/useServerStatus'
-import type { Maintenance, Title } from '~/types'
+import type { AnyElementOf, FilterOption, Maintenance, Servers, Title } from '~/types'
+import FilterComponent from '~/components/FilterComponent.vue'
 
 const { status } = useServerStatus()
+
+const servers = ['All Servers', 'EU Nordic & East', 'EU West', 'North America', 'Latin America North', 'Latin America South', 'Brazil', 'Korea', 'Russia', 'Oceania', 'Japan', 'Turkey']
+
+type AnyElementOfServers = AnyElementOf<Servers>
+
+const currentFilter = ref<AnyElementOfServers | 'All Servers'>('All Servers')
+
+const filterOptions = (): FilterOption[] => {
+  return servers.map((server, i) => ({
+    id: i,
+    name: server,
+  }))
+}
+
+const filteredServers = computed(() => {
+  if (currentFilter.value !== 'All Servers')
+    return status.value.filter(status => status.name.toLowerCase() === currentFilter.value.toLowerCase())
+
+  return status.value
+})
 
 const borderColor = (stat1: [] | Maintenance[], stat2: [] | Maintenance[]) => {
   if (Array.isArray(stat1) && Array.isArray(stat2)) {
@@ -26,9 +47,13 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-4">
       Servers' Status
     </h1>
-    <div v-if="status && status.length" class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
+    <div class="flex flex-row justify-center items-center gap-2 mb-2 mt-5">
+      <span class="text-xl">Filter by Server</span>
+      <FilterComponent class="filter-Component" :filter-options="filterOptions()" :current-filter="currentFilter" @update-filter="currentFilter = $event as AnyElementOfServers" />
+    </div>
+    <div v-if="filteredServers && filteredServers.length && status && status.length" class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
       <div
-        v-for="stat in status"
+        v-for="stat in filteredServers"
         :key="stat.id"
         class="text-base min-w-[270px] bg-dark-900 my-4 rounded-md p-4 shadow-t-md  "
         :class="borderColor(stat.incidents, stat.maintenances)"
@@ -36,7 +61,7 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
         <p class="font-bold text-2xl mb-4">
           {{ stat.name }}
         </p>
-        <div v-if="stat.maintenances.length">
+        <div v-if="stat.maintenances && stat.maintenances.length">
           <p class="text-lg font-bold">
             Maintenance:
           </p>
@@ -51,7 +76,7 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
         </div>
         <n-divider class="divider-class" />
 
-        <div v-if="stat.incidents.length">
+        <div v-if="stat.incidents && stat.incidents.length">
           <p class="text-lg font-bold">
             Incidents:
           </p>
@@ -71,3 +96,17 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
     </div>
   </div>
 </template>
+
+<style scoped>
+.filter-Component{
+  width: 200px !important;
+}
+
+.filter-Component >>> .filter-span{
+  width: 160px !important;
+}
+
+.filter-Component >>> .filter-ul{
+  width: 160px !important;
+}
+</style>

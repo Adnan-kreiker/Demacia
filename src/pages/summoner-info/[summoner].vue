@@ -86,6 +86,7 @@ getSummonerInfo()
           Live Game
         </button>
       </div>
+
       <keep-alive>
         <div v-if="currentTab === 0">
           <!-- Summoner's Information -->

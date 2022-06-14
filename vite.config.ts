@@ -120,7 +120,11 @@ export default ({ mode }: { mode: string }) => {
           '@vueuse/head',
           '@vueuse/core',
         ],
+        dirs: [
+          './src/composables',
+        ],
         dts: 'src/auto-imports.d.ts',
+
       }),
 
       // https://github.com/antfu/unplugin-vue-components

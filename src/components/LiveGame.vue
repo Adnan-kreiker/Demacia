@@ -11,9 +11,9 @@ import type {
 import ErrorComponent from '~/components/ErrorComponent.vue'
 import BannedChampions from '~/components/BannedChampions.vue'
 import LiveGameTeamInfo from '~/components/LiveGameTeamInfo.vue'
-import useChampions from '~/hooks/useChampions'
+import useChampions from '~/composables/useChampions'
 import { regionStore } from '~/stores/region'
-import useSummoner from '~/hooks/useSummoner'
+import useSummoner from '~/composables/useSummoner'
 
 const props = defineProps<{
   summonerId: string

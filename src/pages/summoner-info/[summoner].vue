@@ -10,7 +10,7 @@ import SearchForSummoner from '~/components/SearchForSummoner.vue'
 import ChampionMastery from '~/components/ChampionMastery.vue'
 import LiveGame from '~/components/LiveGame.vue'
 import { regionStore } from '~/stores/region'
-import useSummoner from '~/hooks/useSummoner'
+import useSummoner from '~/composables/useSummoner'
 
 const store = regionStore()
 

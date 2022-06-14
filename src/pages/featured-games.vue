@@ -7,7 +7,7 @@ import {
   regionParamToRegionMapper,
   regionToRegionParamMapper,
 } from '../../utils/index'
-import useFeaturedGames from '~/hooks/useFeaturedGames'
+import useFeaturedGames from '~/composables/useFeaturedGames'
 import FilterComponent from '~/components/FilterComponent.vue'
 import FeaturedGamesCard from '~/components/FeaturedGamesCard.vue'
 import { regionStore } from '~/stores/region'

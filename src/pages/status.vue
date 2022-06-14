@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { NSkeleton } from 'naive-ui'
-import useServerStatus from '~/hooks/useServerStatus'
+import useServerStatus from '~/composables/useServerStatus'
 import type { AnyElementOf, FilterOption, Servers } from '~/types'
-import FilterComponent from '~/components/FilterComponent.vue'
 
 const { status } = useServerStatus()
 

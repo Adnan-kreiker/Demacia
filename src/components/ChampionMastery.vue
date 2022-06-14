@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { formatNumber, getChampionInfoById } from '../../utils'
-import useChampions from '~/hooks/useChampions'
+import useChampions from '~/composables/useChampions'
 import type { Summoner } from '~/types'
 import { regionStore } from '~/stores/region'
-import useChampionMastery from '~/hooks/useChampionMastery'
+import useChampionMastery from '~/composables/useChampionMastery'
 
 const props = defineProps<{
   summonerInfo: Summoner

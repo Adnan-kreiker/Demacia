@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia'
 import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
 import type { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
 import { regionStore } from '~/stores/region'
-import useSummonerRankedInfoById from '~/hooks/useSummonerRankedInfoById'
+import useSummonerRankedInfoById from '~/composables/useSummonerRankedInfoById'
 
 const props = defineProps<{
   queueType: QueueTypes

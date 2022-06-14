@@ -16,7 +16,7 @@ import MatchHistoryTeamDataTable from './MatchHistoryTeamDataTable.vue'
 import FilterComponent from './FilterComponent.vue'
 import MatchHistoryChart from '~/components/MatchHistoryChart.vue'
 // import ChevronRight from './Icons/ChevronRight.vue'
-import useMatchHistory from '~/hooks/useMatchHistory'
+import useMatchHistory from '~/composables/useMatchHistory'
 import { regionStore } from '~/stores/region'
 import type { FilterOption, MatchInfo, Participant, Summoner } from '~/types'
 

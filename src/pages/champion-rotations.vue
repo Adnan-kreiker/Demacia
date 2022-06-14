@@ -2,8 +2,8 @@
 import NDivider from 'naive-ui/es/divider/src/Divider'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import { getChampionInfoById } from '../../utils'
-import useChampions from '~/hooks/useChampions'
-import useChampionsRotations from '~/hooks/useChampionsRotations'
+import useChampions from '~/composables/useChampions'
+import useChampionsRotations from '~/composables/useChampionsRotations'
 import ChampionCard from '~/components/ChampionCard.vue'
 
 const { championsArray } = useChampions()

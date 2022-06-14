@@ -9,7 +9,7 @@ import type {
 } from '../../src/types'
 import { regionToRegionParamMapper } from '../../utils'
 import SummonersTable from '~/components/SummonersTable.vue'
-import useHighEloPlayers from '~/hooks/useHighEloPlayers'
+import useHighEloPlayers from '~/composables/useHighEloPlayers'
 
 const queueOptions = [
   {

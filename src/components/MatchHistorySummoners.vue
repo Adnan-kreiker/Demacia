@@ -4,7 +4,7 @@ import { NSkeleton } from 'naive-ui'
 import { getChampionInfoById, toLowerCase } from '../../utils'
 import type { Participant, ParticipantLiveGame } from '~/types'
 import { regionStore } from '~/stores/region'
-import useChampions from '~/hooks/useChampions'
+import useChampions from '~/composables/useChampions'
 
 const props = defineProps<{
   participants: Participant[] | ParticipantLiveGame[]

@@ -35,6 +35,7 @@ declare module 'vue' {
     RefreshIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/RefreshIcon.vue')['default']
     ReloadPWA: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/ReloadPWA.vue')['default']
     SearchForSummoner: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/SearchForSummoner.vue')['default']
+    ServerStatusCard: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/ServerStatusCard.vue')['default']
     ShieldIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/ShieldIcon.vue')['default']
     StatisticsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/StatisticsIcon.vue')['default']
     StatsIcon: typeof import('C:/Users/Adnan Kreiker/Documents/Demacia/src/components/Icons/StatsIcon.vue')['default']

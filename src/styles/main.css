@@ -130,7 +130,7 @@ nav{
 
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateX(20px);
+  transform: translateY(120px);
   opacity: 0;
 }
 

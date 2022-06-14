@@ -54,45 +54,47 @@ const findEnglishTranslation = (translations: Title[]) => translations.find(tran
         <span class="text-xl">Filter by Server</span>
         <FilterComponent class="filter-Component" :filter-options="filterOptions()" :current-filter="currentFilter" @update-filter="currentFilter = $event as AnyElementOfServers" />
       </div>
-      <div class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
-        <div
-          v-for="stat in filteredServers"
-          :key="stat.id"
-          class="text-base min-w-[270px] bg-dark-900 my-4 rounded-md p-4 shadow-t-md  "
-          :class="borderColor(stat.incidents, stat.maintenances)"
-        >
-          <p class="font-bold text-2xl mb-4">
-            {{ stat.name }}
-          </p>
-          <div v-if="stat.maintenances && stat.maintenances.length">
-            <p class="text-lg font-bold">
-              Maintenance:
+      <Transition name="fadeMenu" appear>
+        <div class="flex flex-row flex-wrap gap-4 justify-center md:w-[80%] mx-auto">
+          <div
+            v-for="stat in filteredServers"
+            :key="stat.id"
+            class="text-base min-w-[270px] transition-all animate-fade-in duration-300 ease-linear bg-dark-900 my-4 rounded-md p-4 shadow-t-md"
+            :class="borderColor(stat.incidents, stat.maintenances)"
+          >
+            <p class="font-bold text-2xl mb-4">
+              {{ stat.name }}
             </p>
-            <div v-for="incident in stat.maintenances" :key="incident.id">
-              <p v-for="description in incident.updates" :key="description.id">
-                {{ findEnglishTranslation(description.translations)?.content }}
+            <div v-if="stat.maintenances && stat.maintenances.length">
+              <p class="text-lg font-bold">
+                Maintenance:
               </p>
+              <div v-for="incident in stat.maintenances" :key="incident.id">
+                <p v-for="description in incident.updates" :key="description.id">
+                  {{ findEnglishTranslation(description.translations)?.content }}
+                </p>
+              </div>
             </div>
-          </div>
-          <div v-else class="flex flex-row gap-2 items-center">
-            <span>Server is up and Running</span>
-          </div>
-          <n-divider class="divider-class" />
-          <div v-if="stat.incidents && stat.incidents.length">
-            <p class="text-lg font-bold">
-              Incidents:
-            </p>
-            <div v-for="incident in stat.incidents" :key="incident.id" class="mb-2">
-              <li v-for="description in incident.updates" :key="description.id" class="ml-4">
-                {{ description.translations[0].content }}
-              </li>
+            <div v-else class="flex flex-row gap-2 items-center">
+              <span>Server is up and Running</span>
             </div>
-          </div>
-          <div v-else>
-            No incidents were detected
+            <n-divider class="divider-class" />
+            <div v-if="stat.incidents && stat.incidents.length">
+              <p class="text-lg font-bold">
+                Incidents:
+              </p>
+              <div v-for="incident in stat.incidents" :key="incident.id" class="mb-2">
+                <li v-for="description in incident.updates" :key="description.id" class="ml-4">
+                  {{ description.translations[0].content }}
+                </li>
+              </div>
+            </div>
+            <div v-else>
+              No incidents were detected
+            </div>
           </div>
         </div>
-      </div>
+      </Transition>
     </div>
     <div v-else class=" md:w-[80%] mx-auto">
       <n-skeleton height="37px" width="320px" class="my-6 mx-auto" />

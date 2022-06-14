@@ -4,12 +4,12 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+// import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
 // import analyze from 'rollup-plugin-analyzer'
 import visualizer from 'rollup-plugin-visualizer'
@@ -116,7 +116,7 @@ export default ({ mode }: { mode: string }) => {
         imports: [
           'vue',
           'vue-router',
-          // 'vue-i18n',
+          'vue/macros',
           '@vueuse/head',
           '@vueuse/core',
         ],
@@ -124,27 +124,27 @@ export default ({ mode }: { mode: string }) => {
       }),
 
       // https://github.com/antfu/unplugin-vue-components
-      Components({
-        // allow auto load markdown components under `./src/components/`
-        extensions: ['vue', 'md'],
+      // Components({
+      //   // allow auto load markdown components under `./src/components/`
+      //   extensions: ['vue'],
 
-        // allow auto import and register components used in markdown
-        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      //   // allow auto import and register components used in markdown
+      //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
 
-        // custom resolvers
-        resolvers: [
-          // auto import icons
-          // https://github.com/antfu/unplugin-icons
-          IconsResolver({
-            componentPrefix: '',
-            // enabledCollections: ['carbon']
-          }),
-          ElementPlusResolver(),
-        ],
+      //   // custom resolvers
+      //   resolvers: [
+      //     // auto import icons
+      //     // https://github.com/antfu/unplugin-icons
+      //     IconsResolver({
+      //       componentPrefix: '',
+      //       // enabledCollections: ['carbon']
+      //     }),
+      //     ElementPlusResolver(),
+      //   ],
 
-        dts: 'src/components.d.ts',
-      }),
-
+      //   dts: 'src/components.d.ts',
+      // }),
+      Components(),
       // https://github.com/antfu/unplugin-icons
       Icons(),
 

@@ -109,6 +109,20 @@ const menuOptions: MenuOption[] = [
       ),
     key: 'Featured-Games',
   },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/about',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'About' },
+      ),
+    key: 'About',
+  },
 ]
 
 const container = document.getElementById('app')
@@ -131,12 +145,12 @@ const triggerCollapse = () => (collapsed.value = !collapsed.value)
   <div id="layout-scroll-container" class="bg-dark-500 text-gray-200 relative dark:text-gray-200">
     <n-config-provider :theme="darkTheme">
       <nav class="py-3 bg-dark-900">
-        <n-menu v-if="width > 840" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions" />
+        <n-menu v-if="width > 940" v-model="activeKey" class="text-lg" mode="horizontal" :options="menuOptions" />
         <div v-else>
           <button ref="menuButton" class="absolute  w-10 h-10 top-3 right-3" @click="triggerCollapse">
             <MenuIcon />
           </button>
-          <MobileSideBar ref="sidePanel" :collapsed="collapsed" @trigger-collapse="(val) => collapsed = val" />
+          <MobileSideBar ref="sidePanel" :collapsed="collapsed" @trigger-collapse="(val: boolean) => collapsed = val" />
         </div>
       </nav>
       <Transition name="fade" appear>

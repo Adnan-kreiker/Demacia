@@ -175,3 +175,7 @@ nav{
     gap: 0.5rem !important;
   }
 }
+
+.gradient-border{
+  @apply bg-gradient-to-r rounded-md p-[1px] rounded-sm from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]
+}

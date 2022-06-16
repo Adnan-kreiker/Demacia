@@ -10,6 +10,7 @@ import StatisticsIcon from '~/components/Icons/StatisticsIcon.vue'
 import YummiIcon from '~/components/Icons/YummiIcon.vue'
 import ChampionsIcon from '~/components/Icons/ChampionInfo.vue'
 import HomeIcon from '~/components/Icons/HomeIcon.vue'
+import AboutIcon from '~/components/Icons/AboutIcon.vue'
 const props = defineProps<{
   collapsed: boolean
 }>()
@@ -113,6 +114,21 @@ const mobileMenuOptions: MenuOption[] = [
       ),
     key: 'Featured-Games',
     icon: renderIcon(FeaturedGamesIcon),
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: '/about',
+          },
+          activeClass: 'router-active',
+        },
+        { default: () => 'About' },
+      ),
+    key: 'About',
+    icon: renderIcon(AboutIcon),
   },
 ]
 

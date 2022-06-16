@@ -16,7 +16,7 @@
         <em class="text-gray-400">You got interesting ideas for new features? feel free to contribute to this project!</em>
       </p>
     </div>
-    <img class="mx-auto w-full rounded-sm" src="/vue3.webp" alt="">
+    <img class="mx-auto w-full rounded-sm transform transition-all animate-head-shake animate-repeat-1 duration-[4s] ease-linear" src="/vue3.webp" alt="">
   </div>
 </template>
 

@@ -49,7 +49,6 @@ specifiers:
   vue-demi: ^0.11.4
   vue-router: ^4.0.15
   vue-tsc: ^0.37.8
-  vue-virtual-scroller: ^2.0.0-alpha.1
   workbox-precaching: ^6.5.3
 
 dependencies:
@@ -63,7 +62,6 @@ dependencies:
   vue-chartjs: 4.1.1_chart.js@3.8.0+vue@3.2.36
   vue-demi: 0.11.4_vue@3.2.36
   vue-router: 4.0.15_vue@3.2.36
-  vue-virtual-scroller: 2.0.0-alpha.1_vue@3.2.36
 
 devDependencies:
   '@antfu/eslint-config': 0.23.0_hcfsmds2fshutdssjqluwm76uu
@@ -5635,10 +5633,6 @@ packages:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
     dev: true
 
-  /mitt/2.1.0:
-    resolution: {integrity: sha512-ILj2TpLiysu2wkBbWjAmww7TkZb65aiQO+DkVdUTBpBXq+MHYiETENkKFMtsJZX1Lf4pe4QOrTSjIfUwN5lRdg==}
-    dev: false
-
   /mlly/0.3.19:
     resolution: {integrity: sha512-zMq5n3cOf4fOzA4WoeulxagbAgMChdev3MgP6K51k7M0u2whTXxupfIY4VVzws4vxkiWhwH1rVQcsw7zDGfRhA==}
     dev: true
@@ -7609,22 +7603,6 @@ packages:
       - supports-color
     dev: true
 
-  /vue-observe-visibility/2.0.0-alpha.1_vue@3.2.36:
-    resolution: {integrity: sha512-flFbp/gs9pZniXR6fans8smv1kDScJ8RS7rEpMjhVabiKeq7Qz3D9+eGsypncjfIyyU84saU88XZ0zjbD6Gq/g==}
-    peerDependencies:
-      vue: ^3.0.0
-    dependencies:
-      vue: 3.2.36
-    dev: false
-
-  /vue-resize/2.0.0-alpha.1_vue@3.2.36:
-    resolution: {integrity: sha512-7+iqOueLU7uc9NrMfrzbG8hwMqchfVfSzpVlCMeJQe4pyibqyoifDNbKTZvwxZKDvGkB+PdFeKvnGZMoEb8esg==}
-    peerDependencies:
-      vue: ^3.0.0
-    dependencies:
-      vue: 3.2.36
-    dev: false
-
   /vue-router/4.0.15_vue@3.2.36:
     resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==}
     peerDependencies:
@@ -7642,17 +7620,6 @@ packages:
       '@volar/vue-typescript': 0.37.8
       typescript: 4.6.4
     dev: true
-
-  /vue-virtual-scroller/2.0.0-alpha.1_vue@3.2.36:
-    resolution: {integrity: sha512-Mn5w3Qe06t7c3Imm2RHD43RACab1CCWplpdgzq+/FWJcpQtcGKd5vDep8i+nIwFtzFLsWAqEK0RzM7KrfAcBng==}
-    peerDependencies:
-      vue: ^3.0.11
-    dependencies:
-      mitt: 2.1.0
-      vue: 3.2.36
-      vue-observe-visibility: 2.0.0-alpha.1_vue@3.2.36
-      vue-resize: 2.0.0-alpha.1_vue@3.2.36
-    dev: false
 
   /vue/3.2.36:
     resolution: {integrity: sha512-5yTXmrE6gW8IQgttzHW5bfBiFA6mx35ZXHjGLDmKYzW6MMmYvCwuKybANRepwkMYeXw2v1buGg3/lPICY5YlZw==}

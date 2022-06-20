@@ -92,13 +92,13 @@ function filterStyle(role: Roles) {
       placeholder="Search"
     />
     <div class="flex gap-3 justify-center mb-5">
-      <p
+      <button
         v-for="role in roles" :key="role.name"
         class="border border-white bg-gray-600 w-min px-3 py-1 rounded-sm text-white"
         :class="filterStyle(role.name as Roles)" @click="triggerFilter(role.name as Roles)"
       >
         {{ role.name }}
-      </p>
+      </button>
     </div>
     <div v-if="championsArray" class="flex flex-row flex-wrap gap-4 justify-center">
       <ChampionCard v-for="champ in filteredChampions" :key="champ.id" :champ="champ" />

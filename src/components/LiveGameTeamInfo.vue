@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import NTag from 'naive-ui/es/tag/src/Tag'
-import { NDivider } from 'naive-ui'
+import { NDivider, NTag } from 'naive-ui'
 import {
   capitalize,
   getChampionInfoById,
@@ -51,15 +50,14 @@ const summonersRankedInfo = (
     if (rankedData?.rankedInfo && isRankedInfo(rankedData!.rankedInfo)) {
       const soloQInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_SOLO_5x5')[0] as RankedData
       const flexInfo = rankedData?.rankedInfo.filter(info => info?.queueType === 'RANKED_FLEX_SR')[0] as RankedData
-
       return {
         soloQInfo,
         flexInfo,
       }
     }
-    else { return null }
+    return null
   }
-  else { return null }
+  return null
 }
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION

@@ -60,6 +60,10 @@ const summonersRankedInfo = (
   return null
 }
 
+function winRateCalculator(wins: number, losses: number) {
+  return `${Math.round((wins / (wins + losses)) * 100)}%`
+}
+
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 </script>
 
@@ -162,13 +166,8 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
               <p>
                 Win Rate
                 {{
-                  Math.round(
-                    (summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins
-                      / (summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins
-                        + summonersRankedInfo(participant.summonerId)!.soloQInfo!.losses))
-                      * 100,
-                  )
-                }}%
+                  winRateCalculator(summonersRankedInfo(participant.summonerId)!.soloQInfo!.wins, summonersRankedInfo(participant.summonerId)!.soloQInfo!.losses)
+                }}
                 <span>
                   ({{
                     summonersRankedInfo(participant.summonerId)!.soloQInfo!.losses

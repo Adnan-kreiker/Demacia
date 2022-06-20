@@ -36,7 +36,6 @@ import VercelLogo from '~/components/Icons/VercelLogo.vue'
   overflow: hidden;
   transform: translatey(0px);
   animation: float 6s ease-in-out infinite;
-  will-change: transform;
 }
 
 @keyframes float {

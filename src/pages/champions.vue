@@ -83,7 +83,7 @@ function filterStyle(role: Roles) {
 </script>
 
 <template>
-  <div class="md:px-8 h-max">
+  <div class="md:px-8 h-max mx-auto">
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-8">
       Champions
     </h1>
@@ -91,14 +91,16 @@ function filterStyle(role: Roles) {
       v-model:value="search" type="text" clearable class="max-w-60 mx-auto block mb-6"
       placeholder="Search"
     />
-    <div class="flex gap-3 justify-center mb-5">
-      <button
-        v-for="role in roles" :key="role.name"
-        class="border border-white bg-gray-600 w-min px-3 py-1 rounded-sm text-white"
-        :class="filterStyle(role.name as Roles)" @click="triggerFilter(role.name as Roles)"
-      >
-        {{ role.name }}
-      </button>
+    <div class="overflow-x-scroll sm:overflow-hidden whitespace-nowrap w-auto mb-4">
+      <div class="flex flex-row gap-3 mx-auto justify-center w-[550px]">
+        <button
+          v-for="role in roles" :key="role.name"
+          class="border border-white bg-gray-600 w-min px-3 py-1 rounded-sm text-white mb-3"
+          :class="filterStyle(role.name as Roles)" @click="triggerFilter(role.name as Roles)"
+        >
+          {{ role.name }}
+        </button>
+      </div>
     </div>
     <div v-if="championsArray" class="flex flex-row flex-wrap gap-4 justify-center">
       <ChampionCard v-for="champ in filteredChampions" :key="champ.id" :champ="champ" />

@@ -29,5 +29,6 @@
   ],
   "terminal.integrated.fontWeight": "normal",
   "editor.fontSize": 15,
+  "html.format.wrapLineLength": 120,
 
 }

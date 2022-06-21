@@ -179,3 +179,7 @@ nav{
 .gradient-border{
   @apply bg-gradient-to-r rounded-md p-[1px] rounded-sm from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]
 }
+
+.scale-on-hover{
+  @apply transform hover:scale-125 transition-all ease-linear duration-300 hover:cursor-pointer
+}

@@ -4,7 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Icons from 'unplugin-icons/vite'
-// import IconsResolver from 'unplugin-icons/resolver'
+import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import WindiCSS from 'vite-plugin-windicss'
@@ -148,9 +148,20 @@ export default ({ mode }: { mode: string }) => {
 
       //   dts: 'src/components.d.ts',
       // }),
-      Components(),
+      Components({
+        resolvers: [
+          // auto import icons
+          // https://github.com/antfu/unplugin-icons
+          IconsResolver({
+            componentPrefix: '',
+            // enabledCollections: ['logos'],
+          }),
+        ],
+      }),
       // https://github.com/antfu/unplugin-icons
-      Icons(),
+      Icons(
+        { compiler: 'vue3' },
+      ),
 
       // https://github.com/antfu/vite-plugin-windicss
       WindiCSS({

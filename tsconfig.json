@@ -25,6 +25,7 @@
       "vite-plugin-vue-layouts/client",
       "naive-ui/volar",
       "vitest/globals",
+      "unplugin-icons/types/vue",
       "cypress"
     ],
     "paths": {

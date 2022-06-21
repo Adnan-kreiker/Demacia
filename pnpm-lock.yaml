@@ -4,6 +4,7 @@ specifiers:
   '@antfu/eslint-config': 0.23.0
   '@cypress/vite-dev-server': ^2.2.3
   '@cypress/vue': ^3.1.2
+  '@iconify-json/logos': ^1.1.5
   '@iconify/json': ^1.1.461
   '@intlify/vite-plugin-vue-i18n': ^2.5.0
   '@testing-library/vue': ^6.5.1
@@ -67,6 +68,7 @@ devDependencies:
   '@antfu/eslint-config': 0.23.0_hcfsmds2fshutdssjqluwm76uu
   '@cypress/vite-dev-server': 2.2.3_vite@2.9.9
   '@cypress/vue': 3.1.2_cypress@10.1.0+vue@3.2.36
+  '@iconify-json/logos': 1.1.5
   '@iconify/json': 1.1.461
   '@intlify/vite-plugin-vue-i18n': 2.5.0
   '@testing-library/vue': 6.5.1_kygeqgsju7opm7hi5vppxzm4vy
@@ -1501,12 +1503,22 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@iconify-json/logos/1.1.5:
+    resolution: {integrity: sha512-PVBTp7fZ7zNBDdCCqN9IqJt78jO4f8agtiNVwxWfflmEGi3+Fu95Jre0CYAPDalyy862r46DXg8AiCoNENQ3SQ==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
   /@iconify/json-tools/1.0.10:
     resolution: {integrity: sha512-LFelJDOLZ6JHlmlAkgrvmcu4hpNPB91KYcr4f60D/exzU1eNOb4/KCVHIydGHIQFaOacIOD+Xy+B7P1z812cZg==}
     dev: true
 
   /@iconify/json/1.1.461:
     resolution: {integrity: sha512-9Y41Tk9s3LDt4WI20XySNhNX6qTJ/WOBeE3O2iyoV9LJ6gFEDjp0uTPzfRU9NUx7D6VkvQ/htJEuRe9LmyMqUA==}
+    dev: true
+
+  /@iconify/types/1.1.0:
+    resolution: {integrity: sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==}
     dev: true
 
   /@intlify/bundle-utils/1.0.0:

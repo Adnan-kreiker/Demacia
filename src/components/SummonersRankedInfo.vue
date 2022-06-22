@@ -23,12 +23,23 @@ const { rankedData } = await useSummonerRankedInfoById(
   region.value,
 )
 
-const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
-  if (Array.isArray(rankedData.value))
-    return rankedData.value.filter(info => info?.queueType === props.queueType)[0]
+const summonerLeagueId = ref<null | string>(null)
 
-  else
-    return undefined
+provide('playerLeagueId', summonerLeagueId)
+
+function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | undefined): rankedInfo is RankedData {
+  return (rankedInfo as RankedData)?.leaguePoints !== undefined
+}
+
+const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
+  if (Array.isArray(rankedData.value) && rankedData.value.length) {
+    const rankedSoloInfo = rankedData.value.filter(info => info.queueType === 'RANKED_SOLO_5x5')[0]
+    if (isRankedSolo(rankedSoloInfo))
+      summonerLeagueId.value = rankedSoloInfo.leagueId
+
+    return rankedData.value.filter(info => info?.queueType === props.queueType)[0]
+  }
+  else { return undefined }
 })
 </script>
 

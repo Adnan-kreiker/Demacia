@@ -628,3 +628,24 @@ export type Region = 'EUW' | 'EUNE' | 'NA' | 'LAN' | 'LAS' | 'BR' | 'TR' | 'RU' 
 export type RegionParam = 'euw1' | 'eun1' | 'na1' | 'la1' | 'la2' | 'br1' | 'tr1' | 'ru' | 'oc1' | 'jp1' | 'kr'
 
 export type AnyElementOf<T extends any[]> = T[number]
+
+export interface SummonerLeagueInfo {
+  tier: string
+  leagueId: string
+  queue: string
+  name: string
+  entries: SummonerLeagueEntry[]
+}
+
+export interface SummonerLeagueEntry {
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
+}

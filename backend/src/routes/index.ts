@@ -208,4 +208,22 @@ router.get('/get-featured-games/:region', async (req: Request, res: Response) =>
   }
 })
 
+router.get('/get-summoner-league/:region', async (req: Request, res: Response) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { region } = req.params
+  const { leagueId } = req.query
+  const playerLeague = `https://${region}.api.riotgames.com/lol/league/v4/leagues/${leagueId}`
+
+  try {
+    const result = await needle('get', `${playerLeague}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
 module.exports = router

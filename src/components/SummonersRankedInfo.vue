@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import NStatistic from 'naive-ui/es/statistic/src/Statistic'
-import NNumberAnimation from 'naive-ui/es/number-animation/src/NumberAnimation'
-import NTag from 'naive-ui/es/tag/src/Tag'
+import { NNumberAnimation, NSkeleton, NStatistic, NTag } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
-import type { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
-import { regionStore } from '~/stores/region'
+import type { QueueTypes, RankedData, RankedDataTFT, Summoner, SummonerRankedInfo } from '../types'
+import { useRegionStore } from '~/stores/region'
+import { usePlayerLeagueIdStore } from '~/stores/playerLeagueId'
 import useSummonerRankedInfoById from '~/composables/useSummonerRankedInfoById'
 
 const props = defineProps<{
@@ -14,14 +13,13 @@ const props = defineProps<{
 
 }>()
 
-const { region } = storeToRefs(regionStore())
+const { region } = storeToRefs(useRegionStore())
+
+const summonerLeagueIdStore = usePlayerLeagueIdStore()
 
 const summonerInfo = ref<Summoner>(props.summonerInfo)
 
-const { rankedData } = await useSummonerRankedInfoById(
-  summonerInfo.value.id,
-  region.value,
-)
+const rankedData = ref<SummonerRankedInfo | null>(null)
 
 const summonerLeagueId = ref<null | string>(null)
 
@@ -35,16 +33,30 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
   if (Array.isArray(rankedData.value) && rankedData.value.length) {
     const rankedSoloInfo = rankedData.value.filter(info => info.queueType === 'RANKED_SOLO_5x5')[0]
     if (isRankedSolo(rankedSoloInfo))
-      summonerLeagueId.value = rankedSoloInfo.leagueId
+      summonerLeagueIdStore.setPlayerLeagueId(rankedSoloInfo.leagueId)
 
     return rankedData.value.filter(info => info?.queueType === props.queueType)[0]
   }
   else { return undefined }
 })
+
+onUnmounted(() => {
+  console.log('unmounted')
+})
+
+async function getRankedData() {
+  const { rankedData: fetchedRankedData } = await useSummonerRankedInfoById(
+    summonerInfo.value.id,
+    region.value,
+  )
+  rankedData.value = fetchedRankedData.value
+}
+
+getRankedData()
 </script>
 
 <template>
-  <div>
+  <div v-if="summonerRankedInfo">
     <div
       v-if="
         summonerRankedInfo
@@ -209,6 +221,12 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
         Unranked
       </p>
     </div>
+  </div>
+  <div v-else>
+    <section>
+      <n-skeleton class="mx-auto my-4" height="34px" width="70%" />
+      <n-skeleton class="mx-auto" height="451px" width="100%" />
+    </section>
   </div>
 </template>
 

@@ -12,14 +12,14 @@ import ErrorComponent from '~/components/ErrorComponent.vue'
 import BannedChampions from '~/components/BannedChampions.vue'
 import LiveGameTeamInfo from '~/components/LiveGameTeamInfo.vue'
 import useChampions from '~/composables/useChampions'
-import { regionStore } from '~/stores/region'
+import { useRegionStore } from '~/stores/region'
 import useSummoner from '~/composables/useSummoner'
 
 const props = defineProps<{
   summonerId: string
 }>()
 
-const store = regionStore()
+const store = useRegionStore()
 
 const { region } = storeToRefs(store)
 

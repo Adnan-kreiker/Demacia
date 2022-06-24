@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NDivider from 'naive-ui/es/divider/src/Divider'
+import { NDivider, NSkeleton, NSpace } from 'naive-ui'
 import { unixToDate } from '../../utils'
 import type { Summoner } from '~/types'
 
@@ -7,6 +7,7 @@ const props = defineProps<{
   summonerInfo: Summoner | null
 }>()
 
+console.log(props.summonerInfo, 'props.summonerInfo')
 const summonerInfo = ref<Summoner | null>(props.summonerInfo)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
@@ -38,6 +39,17 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
     </div>
     <n-divider class="h-[400px] divider-class" vertical />
   </div>
+  <section v-else class="flex flex-row justify-start gap-2 mb-8">
+    <n-skeleton height="42px" width="143px" :sharp="false" />
+    <n-skeleton height="42px" width="174px" :sharp="false" />
+    <n-skeleton height="42px" width="107px" :sharp="false" />
+    <n-space vertical class="sm:w-1/3 mx-auto">
+      <n-skeleton class="mx-auto" height="240px" width="240px" :sharp="false" />
+      <n-skeleton class="mx-auto" height="40px" width="50%" :sharp="false" />
+      <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
+      <n-skeleton class="mx-auto" height="30px" width="70%" :sharp="false" />
+    </n-space>
+  </section>
 </template>
 
 <style scoped>

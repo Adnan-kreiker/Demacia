@@ -212,6 +212,7 @@ declare global {
   const useStorageAsync: typeof import('@vueuse/core')['useStorageAsync']
   const useStyleTag: typeof import('@vueuse/core')['useStyleTag']
   const useSummoner: typeof import('./composables/useSummoner')['default']
+  const useSummonerLeague: typeof import('./composables/useSummonerLeague')['default']
   const useSummonerRankedInfoById: typeof import('./composables/useSummonerRankedInfoById')['default']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
   const useTemplateRefsList: typeof import('@vueuse/core')['useTemplateRefsList']

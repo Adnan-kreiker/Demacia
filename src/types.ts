@@ -649,3 +649,14 @@ export interface SummonerLeagueEntry {
   freshBlood: boolean
   hotStreak: boolean
 }
+
+export type QueueOptions = [{
+  readonly label: 'RANKED FLEX SR'
+  readonly value: 'RANKED_FLEX_SR'
+}, {
+  readonly label: 'RANKED SOLO 5x5'
+  readonly value: 'RANKED_SOLO_5x5'
+}, {
+  readonly label: 'RANKED TFT PAIRS'
+  readonly value: 'RANKED_TFT_PAIRS'
+}]

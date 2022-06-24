@@ -21,15 +21,11 @@ const summonerInfo = ref<Summoner>(props.summonerInfo)
 
 const rankedData = ref<SummonerRankedInfo | null>(null)
 
-const summonerLeagueId = ref<null | string>(null)
-
-provide('playerLeagueId', summonerLeagueId)
-
 function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | undefined): rankedInfo is RankedData {
   return (rankedInfo as RankedData)?.leaguePoints !== undefined
 }
 
-const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
+const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
   if (Array.isArray(rankedData.value) && rankedData.value.length) {
     const rankedSoloInfo = rankedData.value.filter(info => info.queueType === 'RANKED_SOLO_5x5')[0]
     if (isRankedSolo(rankedSoloInfo))
@@ -37,7 +33,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() =
 
     return rankedData.value.filter(info => info?.queueType === props.queueType)[0]
   }
-  else { return undefined }
+  else { return [] }
 })
 
 onUnmounted(() => {

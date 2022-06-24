@@ -3,26 +3,28 @@ import { storeToRefs } from 'pinia'
 import { formatNumber, getChampionInfoById } from '../../utils'
 import useChampions from '~/composables/useChampions'
 import type { Summoner } from '~/types'
-import { regionStore } from '~/stores/region'
+import { useRegionStore } from '~/stores/region'
 import useChampionMastery from '~/composables/useChampionMastery'
 
 const props = defineProps<{
   summonerInfo: Summoner
 }>()
 
-const store = regionStore()
+const summonerInfo = ref(props.summonerInfo)
+
+const store = useRegionStore()
 
 const { region } = storeToRefs(store)
 
 const { championsArray: champsArray } = useChampions()
 
-const { championsMastery } = await useChampionMastery(props.summonerInfo.id, region.value)
+const { championsMastery } = await useChampionMastery(summonerInfo.value.id, region.value)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION
 </script>
 
 <template>
-  <div v-if="champsArray && championsMastery" class="flex flex-wrap flex-row justify-center">
+  <div v-if="champsArray && championsMastery && summonerInfo" class="flex flex-wrap flex-row justify-center">
     <router-link
       v-for="champ in championsMastery"
       :key="champ.championId"

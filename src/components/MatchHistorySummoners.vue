@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import { NSkeleton } from 'naive-ui'
 import { getChampionInfoById, toLowerCase } from '../../utils'
 import type { Participant, ParticipantLiveGame } from '~/types'
-import { regionStore } from '~/stores/region'
+import { useRegionStore } from '~/stores/region'
 import useChampions from '~/composables/useChampions'
 
 const props = defineProps<{
@@ -12,7 +12,7 @@ const props = defineProps<{
 }>()
 
 const { championsArray } = useChampions()
-const store = regionStore()
+const store = useRegionStore()
 const { region } = storeToRefs(store)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION

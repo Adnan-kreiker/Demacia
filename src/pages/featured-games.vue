@@ -10,9 +10,9 @@ import {
 import useFeaturedGames from '~/composables/useFeaturedGames'
 import FilterComponent from '~/components/FilterComponent.vue'
 import FeaturedGamesCard from '~/components/FeaturedGamesCard.vue'
-import { regionStore } from '~/stores/region'
+import { useRegionStore } from '~/stores/region'
 
-const store = regionStore()
+const store = useRegionStore()
 
 const { region } = storeToRefs(store)
 

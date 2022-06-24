@@ -3,14 +3,14 @@ import { NButton, NInput, NSelect } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import type { Ref } from 'vue'
 import { regionToRegionParamMapper } from '../../utils'
-import { regionStore } from '~/stores/region'
+import { useRegionStore } from '~/stores/region'
 import type { RegionParam, Servers } from '~/types'
 
 const summonerName = ref('')
 
 const router = useRouter()
 
-const store = regionStore()
+const store = useRegionStore()
 
 const region = ref('euw1') as Ref<RegionParam>
 

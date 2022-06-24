@@ -37,3 +37,9 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
   <Doughnut :chart-data="chartData" :chart-options="chartOptions" :width="250" :height="250" />
 </template>
 
+<style>
+#doughnut-chart {
+  height: 250px !important;
+  width: 250px !important;
+}
+</style>

@@ -21,8 +21,12 @@ const summonerInfo = ref<Summoner>(props.summonerInfo)
 
 const rankedData = ref<SummonerRankedInfo | null>(null)
 
-function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | undefined): rankedInfo is RankedData {
+function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | []): rankedInfo is RankedData {
   return (rankedInfo as RankedData)?.leaguePoints !== undefined
+}
+
+function isRankedTFT(rankedInfo: RankedData | RankedDataTFT | []): rankedInfo is RankedDataTFT {
+  return (rankedInfo as RankedDataTFT).queueType === 'RANKED_TFT_PAIRS'
 }
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
@@ -31,13 +35,9 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
     if (isRankedSolo(rankedSoloInfo))
       summonerLeagueIdStore.setPlayerLeagueId(rankedSoloInfo.leagueId)
 
-    return rankedData.value.filter(info => info?.queueType === props.queueType)[0]
+    return rankedData.value.filter(info => info?.queueType === props.queueType)[0] ?? []
   }
-  else { return [] }
-})
-
-onUnmounted(() => {
-  console.log('unmounted')
+  return []
 })
 
 async function getRankedData() {
@@ -55,11 +55,10 @@ getRankedData()
   <div v-if="summonerRankedInfo">
     <div
       v-if="
-        summonerRankedInfo
+        isRankedSolo(summonerRankedInfo)
           && (summonerRankedInfo.queueType === 'RANKED_FLEX_SR'
             || summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
-      "
-      class="flex items-center flex-col flex-wrap justify-evenly text-center"
+      " class="flex items-center flex-col flex-wrap justify-evenly text-center"
     >
       <div class="flex flex-row flex-wrap items-center justify-center">
         <div class="flex flex-col items-center text-center">
@@ -80,53 +79,37 @@ getRankedData()
           </div>
         </div>
         <img
-          width="200"
-          height="228"
-          class="max-w-[200px] m-2 block object-contain"
-          :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`"
-          alt=""
+          width="200" height="228" class="max-w-[200px] m-2 block object-contain"
+          :src="`/emblems/Emblem_${capitalize(summonerRankedInfo.tier)}.webp`" alt=""
         >
       </div>
 
       <div class="flex gap-4">
         <n-statistic label="League Points" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo.leaguePoints"
-            :active="true"
-            :precision="0"
+            ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.leaguePoints"
+            :active="true" :precision="0"
           />
         </n-statistic>
         <n-statistic label="Wins" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo.wins"
-            :active="true"
+            ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.wins" :active="true"
             :precision="0"
           />
         </n-statistic>
         <n-statistic label="Losses" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo.losses"
-            :active="true"
+            ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.losses" :active="true"
             :precision="0"
           />
         </n-statistic>
         <n-statistic label="Win Rate" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="
+            ref="numberAnimationInstRef" :from="0" :to="
               (summonerRankedInfo.wins
                 / (summonerRankedInfo.losses + summonerRankedInfo.wins))
                 * 100
-            "
-            :active="true"
-            :precision="0"
+            " :active="true" :precision="0"
           />%
         </n-statistic>
       </div>
@@ -143,12 +126,8 @@ getRankedData()
 
     <div
       v-if="
-        Array.isArray(summonerRankedInfo)
-          && summonerRankedInfo
-          && summonerRankedInfo.length > 0
-          && summonerRankedInfo.queueType === 'RANKED_TFT_PAIRS'
-      "
-      class="flex flex-col"
+        isRankedTFT(summonerRankedInfo)
+      " class="flex flex-col"
     >
       <div class="flex flex-col items-center text-center">
         <p class="text-lg mb-3">
@@ -156,44 +135,31 @@ getRankedData()
         </p>
         <n-statistic label="League Points" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="summonerRankedInfo.leaguePoints"
-            :active="true"
-            :precision="0"
+            ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.leaguePoints"
+            :active="true" :precision="0"
           />
         </n-statistic>
         <div class="flex gap-3">
           <n-statistic label="Wins" tabular-nums>
             <n-number-animation
-              ref="numberAnimationInstRef"
-              :from="0"
-              :to="summonerRankedInfo.wins"
-              :active="true"
+              ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.wins" :active="true"
               :precision="0"
             />
           </n-statistic>
           <n-statistic label="Losses" tabular-nums>
             <n-number-animation
-              ref="numberAnimationInstRef"
-              :from="0"
-              :to="summonerRankedInfo.losses"
-              :active="true"
+              ref="numberAnimationInstRef" :from="0" :to="summonerRankedInfo.losses" :active="true"
               :precision="0"
             />
           </n-statistic>
         </div>
         <n-statistic label="Win Rate" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
-            :from="0"
-            :to="
+            ref="numberAnimationInstRef" :from="0" :to="
               (summonerRankedInfo.wins
                 / (summonerRankedInfo.losses + summonerRankedInfo.wins))
                 * 100
-            "
-            :active="true"
-            :precision="0"
+            " :active="true" :precision="0"
           />%
         </n-statistic>
         <n-tag v-if="summonerRankedInfo.hotStreak" class="mt-3 font-bold p-4" type="error">
@@ -208,9 +174,7 @@ getRankedData()
       v-if="
         (Array.isArray(summonerRankedInfo)
           && summonerRankedInfo.length === 0)
-          || summonerRankedInfo === undefined
-      "
-      class="border-light-300 border-1"
+      " class="border-light-300 border-1"
     >
       <img height="240" width="280" src="/unranked.png" class="w-[240px] h-[240px] mx-auto" alt="">
       <p class="text-center text-gray-300 pb-7 -mt-5 font-bold text-xl">

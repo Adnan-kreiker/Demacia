@@ -35,3 +35,9 @@ const queueType = ref<QueueTypes>('RANKED_SOLO_5x5')
     </div>
   </Transition>
 </template>
+
+<style scoped>
+.n-select{
+  min-width: 150px !important;
+}
+</style>

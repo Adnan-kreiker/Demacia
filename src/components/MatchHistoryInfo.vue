@@ -187,7 +187,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
         <div v-if="summoner(match.info.participants)" class="overflow-x-scroll scroll-div">
           <div class="min-w-[840px]">
             <section class="flex text-white flex-row w-full">
-              0            <!-- Game Information -->
+              <!-- Game Information -->
               <div class="flex flex-row flex-1 text-center">
                 <div class="flex flex-col justify-center items-center max-w-[180px] px-2">
                   <p class="my-1 font-bold">

@@ -16,7 +16,7 @@
   "editor.wordWrap": "on",
   "volar.takeOverMode.enabled": true,
   "[vue]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "editor.fontLigatures": true,
   "editor.fontFamily": "Dank Mono",

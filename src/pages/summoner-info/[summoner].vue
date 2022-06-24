@@ -112,37 +112,9 @@ getSummonerInfo()
           League Information
         </button>
       </div>
-
       <keep-alive>
-        <Suspense>
-          <component :is="currentComponent" v-bind="currentProps" />
-        </Suspense>
+        <component :is="currentComponent" v-bind="currentProps" />
       </keep-alive>
-      <!-- <keep-alive>
-        <div v-if="currentTab === 0">
-          <SummonerFirstTab :queue-options="queueOptions" :queue-type="queueType" :summoner-info="summonerInfo" />
-        </div>
-        Champion Mastery Tab -->
-      <!-- <Transition v-else-if="currentTab === 1" name="fadeMenu" appear>
-        <Suspense>
-          <ChampionMastery :summoner-info="summonerInfo" />
-          <template #fallback>
-            <section class="flex flex-row flex-wrap gap-3 justify-center">
-              <n-skeleton v-for="n in 30" :key="n" height="130px" width="280px" />
-            </section>
-          </template>
-        </Suspense>
-      </Transition> -->
-      <!-- LiveGame Tab -->
-      <!-- <Transition v-else-if="currentTab === 2" name="fadeMenu" appear> -->
-      <!-- <Suspense> -->
-      <!-- <LiveGame :summoner-id="summonerInfo.id" /> -->
-      <!-- </suspense> -->
-      <!-- </Transition>
-      <Transition v-else-if="currentTab === 3" name="fadeMenu" appear>
-        <SummonerLeagueInformation />
-      </Transition>
-      </keep-alive> -->
     </div>
 
     <!-- Skeletons -->
@@ -161,8 +133,3 @@ getSummonerInfo()
   </div>
 </template>
 
-<style scoped>
-.n-select{
-  min-width: 150px !important;
-}
-</style>

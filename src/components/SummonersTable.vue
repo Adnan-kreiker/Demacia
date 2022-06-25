@@ -4,14 +4,14 @@ import { NDataTable, NProgress, NSkeleton } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { unicodeToUtf8 } from '../../utils'
 import type {
-  ChallengerPlayerWithAdditionalData,
-  ChallengerPlayerWithIndex,
+  RankedPlayerWithAdditionalData,
+  RankedPlayerWithIndex,
   Ranks,
   Summoner,
 } from '~/types'
 
 interface Props {
-  challengerPlayers: ChallengerPlayerWithIndex[]
+  challengerPlayers: RankedPlayerWithIndex[]
   region: string
   queue?: string
   rank: Ranks
@@ -48,9 +48,9 @@ const summonersRank = computed(() => {
   }
 })
 
-const challengerPlayersWithData = ref<ChallengerPlayerWithAdditionalData[]>([])
+const challengerPlayersWithData = ref<RankedPlayerWithAdditionalData[]>([])
 
-const sortedChallengerPlayers = computed<ChallengerPlayerWithAdditionalData[]>(() => {
+const sortedChallengerPlayers = computed<RankedPlayerWithAdditionalData[]>(() => {
   if (challengerPlayersWithData.value) {
     return challengerPlayersWithData.value.sort(
       (a, b) => b.leaguePoints - a.leaguePoints,
@@ -61,7 +61,7 @@ const sortedChallengerPlayers = computed<ChallengerPlayerWithAdditionalData[]>((
 
 const getSummonersInfo = async () => {
   if (props.challengerPlayers) {
-    const result: ChallengerPlayerWithAdditionalData[] = []
+    const result: RankedPlayerWithAdditionalData[] = []
     await Promise.allSettled(
       props.challengerPlayers.map(async (player) => {
         const res = await fetch(

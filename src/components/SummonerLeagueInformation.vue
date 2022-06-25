@@ -34,10 +34,10 @@ const leagueInfoEntries = computed(() => {
   if (leagueInfo.value) {
     return leagueInfo.value.entries
       .sort((a, b) => b.leaguePoints - a.leaguePoints)
-      .map((entry, index) => {
+      .map((entry, idx) => {
         return {
           ...entry,
-          index,
+          idx: idx + 1,
         }
       })
       .slice(start - 10, start)
@@ -49,7 +49,7 @@ getSummonerLeague()
 
 <template>
   <div v-if="leagueInfo">
-    <SummonersTable :challenger-players="leagueInfoEntries" :rank="capitalize(leagueInfo.tier)" :region="region" />
+    <SummonersTable :key="summonersTableKey" :challenger-players="leagueInfoEntries" :rank="capitalize(leagueInfo.tier)" :region="region" />
     <div class="flex justify-center mt-5">
       <n-pagination
         v-model="page"

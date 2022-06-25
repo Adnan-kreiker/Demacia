@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NInput, NSkeleton } from 'naive-ui'
+import { NButton, NInput, NSkeleton } from 'naive-ui'
 import type { Champion } from '~/types'
 
 const { championsArray } = useChampions()
@@ -76,9 +76,10 @@ function triggerFilter(role: Roles) {
     pickedRole.value.push(role)
 }
 
-function filterStyle(role: Roles) {
+const tagType = (role: Roles) => {
   if (pickedRole.value.includes(role))
-    return '!bg-teal-500'
+    return 'primary'
+  return ''
 }
 </script>
 
@@ -93,13 +94,9 @@ function filterStyle(role: Roles) {
     />
     <div class="overflow-x-scroll sm:overflow-hidden whitespace-nowrap w-auto mb-4">
       <div class="flex flex-row gap-3 mx-auto justify-center w-[550px]">
-        <button
-          v-for="role in roles" :key="role.name"
-          class="border border-white bg-gray-600 w-min px-3 py-1 rounded-sm text-white mb-3"
-          :class="filterStyle(role.name as Roles)" @click="triggerFilter(role.name as Roles)"
-        >
+        <n-button v-for="role in roles" :key="role.name" role="button" :type="tagType(role.name as Roles)" class="hover:cursor-pointer rounded-sm" ghost @click="triggerFilter(role.name as Roles)">
           {{ role.name }}
-        </button>
+        </n-button>
       </div>
     </div>
     <div v-if="championsArray" class="flex flex-row flex-wrap gap-4 justify-center">

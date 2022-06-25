@@ -191,7 +191,7 @@ export interface FreeChampionRotations {
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_TFT_PAIRS'
 
-export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues'
+export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues' | string
 
 export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 
@@ -216,7 +216,7 @@ export interface ChallengerPlayer {
   hotStreak: boolean
 }
 
-export interface ChallengerPlayerWithIndex {
+export interface RankedPlayerWithIndex {
   summonerId: string
   summonerName: string
   leaguePoints: number
@@ -229,7 +229,7 @@ export interface ChallengerPlayerWithIndex {
   hotStreak: boolean
   idx: number
 }
-export interface ChallengerPlayerWithAdditionalData {
+export interface RankedPlayerWithAdditionalData {
   summonerId: string
   summonerName: string
   leaguePoints: number

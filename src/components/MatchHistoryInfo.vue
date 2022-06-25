@@ -146,8 +146,12 @@ watch(() => route.fullPath, () => {
   immediate: true,
 })
 
-watch(() => filteredMatchHistory.value.length, () => {
+const throttler = useThrottleFn(() => {
   matchHistoryChartKey.value++
+}, 2000)
+
+watch(() => filteredMatchHistory.value.length, () => {
+  throttler()
 })
 
 async function fetchMatchHistory() {

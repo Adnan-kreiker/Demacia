@@ -85,6 +85,11 @@ const currentProps = computed(() => {
       'summoner-id': summonerInfo.value?.id,
     }
   }
+  else if (currentComponent.value === SummonerLeagueInformation) {
+    return {
+      'summoner-info': summonerInfo.value,
+    }
+  }
 })
 
 const switchComponent = (newComponent: Tabs) => {

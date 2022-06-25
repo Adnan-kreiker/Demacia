@@ -14,30 +14,42 @@ watch(championsArray, () => {
 
 type Roles = 'Fighter' | 'Marksman' | 'Tank' | 'Support' | 'Mage' | 'Assassin'
 
+interface Role {
+  name: Roles
+  value: boolean
+  key: number | string
+}
+
 const roles = ref([
   {
     name: 'Fighter',
     value: false,
+    key: Math.random(),
   },
   {
     name: 'Marksman',
     value: false,
+    key: Math.random(),
   },
   {
     name: 'Tank',
     value: false,
+    key: Math.random(),
   },
   {
     name: 'Support',
     value: false,
+    key: Math.random(),
   },
   {
     name: 'Mage',
     value: false,
+    key: Math.random(),
   },
   {
     name: 'Assassin',
     value: false,
+    key: Math.random(),
   },
 ])
 
@@ -68,18 +80,22 @@ const filteredChampions = computed(() => {
   return championsArray.value
 })
 
-function triggerFilter(role: Roles) {
-  if (pickedRole.value.includes(role))
-    pickedRole.value = pickedRole.value.filter(r => r !== role)
+function triggerFilter(role: Role) {
+  role.key = Math.random()
+  if (pickedRole.value.includes(role.name))
+    pickedRole.value = pickedRole.value.filter(r => r !== role.name)
 
   else
-    pickedRole.value.push(role)
+    pickedRole.value.push(role.name)
 }
 
 const tagType = (role: Roles) => {
-  if (pickedRole.value.includes(role))
+  if (pickedRole.value.includes(role)) {
+    console.log('ran1', role)
     return 'primary'
-  return ''
+  }
+  console.log('ran2')
+  return 'default'
 }
 </script>
 
@@ -94,7 +110,7 @@ const tagType = (role: Roles) => {
     />
     <div class="overflow-x-scroll sm:overflow-hidden whitespace-nowrap w-auto mb-4">
       <div class="flex flex-row gap-3 mx-auto justify-center w-[550px]">
-        <n-button v-for="role in roles" :key="role.name" role="button" :type="tagType(role.name as Roles)" class="hover:cursor-pointer rounded-sm" ghost @click="triggerFilter(role.name as Roles)">
+        <n-button v-for="role in roles" :key="role.key" role="button" :focusable="false" :type="tagType(role.name as Roles)" class="hover:cursor-pointer rounded-sm" ghost @click="triggerFilter(role as Role)">
           {{ role.name }}
         </n-button>
       </div>

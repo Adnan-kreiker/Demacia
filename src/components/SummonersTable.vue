@@ -10,12 +10,14 @@ import type {
   Summoner,
 } from '~/types'
 
-const props = defineProps<{
+interface Props {
   challengerPlayers: ChallengerPlayerWithIndex[]
-  page: number
-  rank: Ranks
   region: string
-}>()
+  queue?: string
+  rank: Ranks
+}
+
+const props = defineProps<Props>()
 
 const summonersRank = computed(() => {
   switch (props.rank) {
@@ -25,6 +27,24 @@ const summonersRank = computed(() => {
       return 'Grandmaster'
     case 'masterleagues':
       return 'Master'
+    case 'Challenger':
+      return 'Challenger'
+    case 'Grandmaster':
+      return 'Grandmaster'
+    case 'Master':
+      return 'Master'
+    case 'Diamond':
+      return 'Diamond'
+    case 'Platinum':
+      return 'Platinum'
+    case 'Gold':
+      return 'Gold'
+    case 'Silver':
+      return 'Silver'
+    case 'Bronze':
+      return 'Bronze'
+    default:
+      return 'Unranked'
   }
 })
 

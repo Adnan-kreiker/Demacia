@@ -3,7 +3,7 @@ import NSelect from 'naive-ui/es/select/src/Select'
 import NPagination from 'naive-ui/es/pagination/src/Pagination'
 import { NH3, NText } from 'naive-ui/es/typography'
 import type {
-  ChallengerPlayerWithIndex,
+  RankedPlayerWithIndex,
   Ranks,
   Servers,
 } from '../../src/types'
@@ -56,10 +56,10 @@ const { challengerPlayers } = useHighEloPlayers(rank, queue, regionVal)
 
 const page = ref(1)
 
-const sortedChallengerPlayers = computed<ChallengerPlayerWithIndex[] | []>(() => {
+const sortedChallengerPlayers = computed<RankedPlayerWithIndex[] | []>(() => {
   const start = page.value * 10
   if (challengerPlayers.value) {
-    return ([...challengerPlayers.value] as ChallengerPlayerWithIndex[])
+    return ([...challengerPlayers.value] as RankedPlayerWithIndex[])
       .sort((a, b) => b.leaguePoints - a.leaguePoints)
       .map((player, idx) => {
         return {

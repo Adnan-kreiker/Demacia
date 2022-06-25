@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
-import { NPagination } from 'naive-ui'
+import { NH2, NPagination, NText } from 'naive-ui'
 import { capitalize } from '../../utils'
 import useSummonerLeague from '~/composables/useSummonerLeague'
 import { useRegionStore } from '~/stores/region'
 import { usePlayerLeagueIdStore } from '~/stores/playerLeagueId'
-import type { SummonerLeagueInfo } from '~/types'
+import type { Summoner, SummonerLeagueInfo } from '~/types'
+
+interface Props {
+  summonerInfo: Summoner
+}
+
+const props = defineProps<Props>()
 
 const regionStore = useRegionStore()
 const playerLeagueIdStore = usePlayerLeagueIdStore()
@@ -49,6 +55,15 @@ getSummonerLeague()
 
 <template>
   <div v-if="leagueInfo">
+    <n-h2 prefix="bar" align-text class="mx-5 mt-3">
+      <n-text type="primary">
+        Summoner:
+      </n-text>
+      <span>
+        {{ props.summonerInfo.name }}
+      </span>
+    </n-h2>
+
     <SummonersTable :key="summonersTableKey" :challenger-players="leagueInfoEntries" :rank="capitalize(leagueInfo.tier)" :region="region" />
     <div class="flex justify-center mt-5">
       <n-pagination

@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import { NNumberAnimation, NSkeleton, NStatistic, NTag } from 'naive-ui'
-import { storeToRefs } from 'pinia'
 import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
-import type { QueueTypes, RankedData, RankedDataTFT, Summoner, SummonerRankedInfo } from '../types'
-import { useRegionStore } from '~/stores/region'
+import type { QueueTypes, RankedData, RankedDataTFT, SummonerRankedInfo } from '../types'
 import { usePlayerLeagueIdStore } from '~/stores/playerLeagueId'
-import useSummonerRankedInfoById from '~/composables/useSummonerRankedInfoById'
 
 const props = defineProps<{
   queueType: QueueTypes
-  summonerInfo: Summoner
+  rankedData: SummonerRankedInfo
 
 }>()
 
-const { region } = storeToRefs(useRegionStore())
-
 const summonerLeagueIdStore = usePlayerLeagueIdStore()
 
-const summonerInfo = ref<Summoner>(props.summonerInfo)
-
-const rankedData = ref<SummonerRankedInfo | null>(null)
+const rankedData = ref<SummonerRankedInfo>(props.rankedData)
 
 function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | []): rankedInfo is RankedData {
   return (rankedInfo as RankedData)?.leaguePoints !== undefined
@@ -39,16 +32,6 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
   }
   return []
 })
-
-async function getRankedData() {
-  const { rankedData: fetchedRankedData } = await useSummonerRankedInfoById(
-    summonerInfo.value.id,
-    region.value,
-  )
-  rankedData.value = fetchedRankedData.value
-}
-
-getRankedData()
 </script>
 
 <template>

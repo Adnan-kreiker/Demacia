@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { NSelect, NSpace } from 'naive-ui'
-import type { QueueOptions, QueueTypes, Summoner } from '~/types'
+import type { QueueOptions, QueueTypes, Summoner, SummonerRankedInfo } from '~/types'
 
 interface Props {
   summonerInfo: Summoner
   queueOptions: QueueOptions
+  rankedData: SummonerRankedInfo
 }
 
 const props = defineProps<Props>()
@@ -26,7 +27,7 @@ const queueType = ref<QueueTypes>('RANKED_SOLO_5x5')
             <n-space :item-style="{ marginBottom: `${20}px`, minWidth: `${0}%`, marginInline: 'auto' }">
               <n-select v-model:value="queueType" va :options="props.queueOptions" />
             </n-space>
-            <SummonersRankedInfo :summoner-info="props.summonerInfo" :queue-type="queueType" />
+            <SummonersRankedInfo :ranked-data="props.rankedData" :queue-type="queueType" />
           </section>
         </div>
       </div>

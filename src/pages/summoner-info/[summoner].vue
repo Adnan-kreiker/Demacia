@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import type { Ref } from 'vue'
-import type { RegionParam, Summoner } from '~/types'
+import type { RegionParam, Summoner, SummonerRankedInfo } from '~/types'
 import { useRegionStore } from '~/stores/region'
 import useSummoner from '~/composables/useSummoner'
 import SummonerFirstTab from '~/components/SummonerFirstTab.vue'
@@ -15,6 +15,7 @@ const store = useRegionStore()
 const route = useRoute()
 
 const summonerInfo = ref<null | Summoner>(null)
+const rankedData = ref<SummonerRankedInfo | null>(null)
 
 const summoner = route.params.summoner as string
 
@@ -52,27 +53,12 @@ const currentComponent = ref<Tabs>(markRaw(SummonerFirstTab))
 
 const error = ref(false)
 
-const getSummonerInfo = async () => {
-  try {
-    const res = await getSummonerByName(summoner, region.value)
-    if (res?.status && res.status.status_code === 404) {
-      error.value = true
-      return
-    }
-    if (res)
-      summonerInfo.value = res
-  }
-  catch (err) {
-    console.error(err)
-    error.value = true
-  }
-}
-
 const currentProps = computed(() => {
   if (currentComponent.value === SummonerFirstTab) {
     return {
       'summoner-info': summonerInfo,
       'queue-options': queueOptions,
+      'ranked-data': rankedData,
     }
   }
   else if (currentComponent.value === ChampionMastery) {
@@ -96,7 +82,44 @@ const switchComponent = (newComponent: Tabs) => {
   currentComponent.value = markRaw(newComponent)
 }
 
-getSummonerInfo()
+const getSummonerInfo = async () => {
+  try {
+    const res = await getSummonerByName(summoner, region.value)
+    if (res?.status && res.status.status_code === 404) {
+      error.value = true
+      return
+    }
+    if (res)
+      summonerInfo.value = res
+  }
+  catch (err) {
+    console.error(err)
+    error.value = true
+  }
+}
+
+async function getRankedData() {
+  try {
+    const { rankedData: fetchedRankedData } = await useSummonerRankedInfoById(
+      summonerInfo.value!.id,
+      region.value,
+    )
+    rankedData.value = fetchedRankedData.value
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+(async () => {
+  try {
+    await getSummonerInfo()
+    await getRankedData()
+  }
+  catch (error) {
+    console.error(error)
+  }
+})()
 </script>
 
 <template>

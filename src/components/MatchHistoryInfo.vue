@@ -123,20 +123,19 @@ const matchHistoryBackground = (result: boolean, show: boolean): string => {
   }
 }
 
-const winsAndLossesCalculator = (matchHistory: MatchInfo[]): [ wins: number, losses: number ] => {
-  let wins = 0
-  let losses = 0
-  if (matchHistory.length) {
-    matchHistory.forEach((match) => {
-      const summoner = match.info.participants.filter(match => match.summonerId === summonerInfo.value.id)[0]
-      if (summoner && summoner.win)
-        wins++
-      else losses++
-    })
-    return [wins, losses]
-  }
-  return [wins, losses]
-}
+const winsAndLossesCalculator = computed(() => {
+  const wins = ref(0)
+  const losses = ref(0)
+  filteredMatchHistory.value.forEach((match, i) => {
+    const summoner = match.info.participants.filter(match => match.summonerId === summonerInfo.value.id)[0]
+    if (summoner.win)
+      wins.value++
+
+    else
+      losses.value++
+  })
+  return [wins.value, losses.value]
+})
 
 const matchHistoryChartKey = ref(0)
 
@@ -147,8 +146,9 @@ watch(() => route.fullPath, () => {
 })
 
 const throttler = useThrottleFn(() => {
-  matchHistoryChartKey.value++
-}, 2000)
+  if (filteredMatchHistory.value.length % 5 === 0)
+    matchHistoryChartKey.value++
+}, 0)
 
 watch(() => filteredMatchHistory.value.length, () => {
   throttler()
@@ -169,24 +169,22 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
       <div class="flex flex-row justify-evenly gap-4 items-center border-t border-dark-200 flex-wrap">
         <div>
           <h2 class="text-center text-2xl md:text-4xl my-8 font-bold">
-            <span
-              class="border-l-6 pl-4 rounded-sm border-green-600"
-            >Match History</span>
+            <span class="border-l-6 pl-4 rounded-sm border-green-600">Match History</span>
           </h2>
-          <FilterComponent :current-filter="currentFilter" :filter-options="filterOptions" @update-filter="currentFilter = $event" />
+          <FilterComponent
+            :current-filter="currentFilter" :filter-options="filterOptions"
+            @update-filter="currentFilter = $event"
+          />
         </div>
-        <MatchHistoryChart :key="matchHistoryChartKey" class="my-4" :wins-and-losses="winsAndLossesCalculator(filteredMatchHistory)" />
+        <MatchHistoryChart :key="matchHistoryChartKey" class="my-4" :wins-and-losses="winsAndLossesCalculator" />
       </div>
       <div
-        v-for="match in filteredMatchHistory"
-        :key="match.metadata.matchId"
-        :style="{
+        v-for="match in filteredMatchHistory" :key="match.metadata.matchId" :style="{
           background: matchHistoryBackground(
             summoner(match.info.participants)!.win,
             match.show,
           ),
-        }"
-        class="rounded p-3 my-3 max-w-4xl mx-auto"
+        }" class="rounded p-3 my-3 max-w-4xl mx-auto"
       >
         <div v-if="summoner(match.info.participants)" class="overflow-x-scroll scroll-div">
           <div class="min-w-[840px]">
@@ -224,10 +222,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                   <div class="px-4 flex flex-col mt-8 text-center justify-center">
                     <div class="relative">
                       <img
-                        class="rounded-sm"
-                        height="70"
-                        width="70"
-                        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
+                        class="rounded-sm" height="70" width="70" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/champion/${toLowerCase(
                           summoner(match.info.participants).championName,
                         )}.png`"
                       >
@@ -246,37 +241,25 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                   <div class="flex flex-col justify-center items-center">
                     <div class="flex gap-1">
                       <img
-                        height="32"
-                        width="32"
-                        class="w-8 rounded-sm h-8"
-                        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
+                        height="32" width="32" class="w-8 rounded-sm h-8" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
                           summoner(match.info.participants).summoner1Id.toString(),
                         )}.png`"
                       >
                       <img
-                        height="32"
-                        width="32"
-                        class="w-8 h-8 rounded-sm"
-                        :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
+                        height="32" width="32" class="w-8 h-8 rounded-sm" :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/spell/${mapSpellKeyToName(
                           summoner(match.info.participants).summoner2Id.toString(),
                         )}.png`"
                       >
                     </div>
                     <div class="flex justify-center items-center">
                       <img
-                        height="40"
-                        width="40"
-                        class="rounded-sm"
-                        :src="`https://ddragon.canisback.com/img/${idToRunes(
+                        height="40" width="40" class="rounded-sm" :src="`https://ddragon.canisback.com/img/${idToRunes(
                           summoner(match.info.participants).perks.styles[0]!.selections[0]!
                             .perk,
                         )}`"
                       >
                       <img
-                        height="30"
-                        width="30"
-                        class="mx-auto rounded-sm object-contain"
-                        :src="`https://ddragon.canisback.com/img/${idToRunes(
+                        height="30" width="30" class="mx-auto rounded-sm object-contain" :src="`https://ddragon.canisback.com/img/${idToRunes(
                           summoner(match.info.participants).perks.styles[1]!.selections[1]!
                             .perk,
                         )}`"
@@ -319,9 +302,7 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                     <n-tag
                       v-if="
                         summonerHasMultipleKills(summoner(match.info.participants))
-                      "
-                      class="my-3"
-                      :color="{ color: '#ee5a52', textColor: 'white', borderColor: 'red' }"
+                      " class="my-3" :color="{ color: '#ee5a52', textColor: 'white', borderColor: 'red' }"
                     >
                       {{
                         summonerMultipleKillsText(summoner(match.info.participants))
@@ -332,14 +313,12 @@ const patchVersion = import.meta.env.VITE_PATCH_VERSION
                 <div class="flex flex-row flex-wrap items-center content-center max-w-[120px] gap-1">
                   <div v-for="i in 6" :key="i">
                     <img
-                      v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0"
-                      height="25"
+                      v-if="summoner(match.info.participants)[(`item${i}`) as keyof Participant] !== 0" height="25"
                       width="25"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${patchVersion}/img/item/${summoner(match.info.participants)[(`item${i}`) as keyof Participant]}.png`"
                     >
                     <div
-                      v-else
-                      class="h-[25px] w-[25px] "
+                      v-else class="h-[25px] w-[25px] "
                       :style="{ backgroundColor: summoner(match.info.participants)?.win ? '#12499a' : '#300f3a' }"
                     />
                   </div>

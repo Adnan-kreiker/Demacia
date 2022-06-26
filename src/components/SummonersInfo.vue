@@ -7,7 +7,6 @@ const props = defineProps<{
   summonerInfo: Summoner | null
 }>()
 
-console.log(props.summonerInfo, 'props.summonerInfo')
 const summonerInfo = ref<Summoner | null>(props.summonerInfo)
 
 const patchVersion = import.meta.env.VITE_PATCH_VERSION

@@ -152,7 +152,7 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
       </div>
     </div>
     <div
-      v-else class="border-light-300 border-1"
+      v-else class="mx-auto md:mt-6 border-light-300 border-1 md:w-sm"
     >
       <img height="240" width="280" src="/unranked.png" class="w-[240px] h-[240px] mx-auto" alt="">
       <p class="text-center text-gray-300 pb-7 -mt-5 font-bold text-xl">

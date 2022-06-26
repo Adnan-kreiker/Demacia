@@ -6,7 +6,7 @@ import VercelLogo from '~/components/Icons/VercelLogo.vue'
 
 <template>
   <div class="my-auto">
-    <h2 class="text-center text-4xl mb-6 font-mono font-bold">
+    <h2 class="text-center text-4xl mb-6 font-bold">
       Demacia
     </h2>
     <div class="sm:max-w-[90%] md:max-w-[70%] lg:max-w-[50%] mx-auto">

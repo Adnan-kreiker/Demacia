@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NButton } from 'naive-ui'
 import ChevronRight from './Icons/ChevronRight.vue'
 import type { FilterOption } from '~/types'
 
@@ -28,9 +29,13 @@ onClickOutside(filterDiv, () => {
 <template>
   <div ref="filterDiv" class="mt-2 relative w-[150px] filter-component">
     <div data-testid="filter-button" class="flex flex-row items-center hover:cursor-pointer" @click="showFilterList = !showFilterList">
-      <span data-testid="filter-span" class="py-2 text-center px-3 w-[110px] inline-block rounded-sm bg-dark-100 text-white filter-span">{{
-        props.currentFilter
-      }}</span>
+      <n-button data-testid="filter-span" class="py-2 px-3 w-[110px] inline-block rounded-sm bg-dark-100 text-white filter-span">
+        <span class="mx-auto">
+          {{
+            props.currentFilter
+          }}
+        </span>
+      </n-button>
       <ChevronRight
         class="h-5 w-5 ml-2 transform  text-light-900  ease duration-200"
         :class="{ 'rotate-90': showFilterList }"

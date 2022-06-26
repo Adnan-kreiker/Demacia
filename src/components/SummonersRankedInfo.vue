@@ -52,12 +52,10 @@ getRankedData()
 </script>
 
 <template>
-  <div v-if="summonerRankedInfo">
+  <div v-if="rankedData">
     <div
       v-if="
         isRankedSolo(summonerRankedInfo)
-          && (summonerRankedInfo.queueType === 'RANKED_FLEX_SR'
-            || summonerRankedInfo.queueType === 'RANKED_SOLO_5x5')
       " class="flex items-center flex-col flex-wrap justify-evenly text-center"
     >
       <div class="flex flex-row flex-wrap items-center justify-center">
@@ -125,7 +123,7 @@ getRankedData()
     </div>
 
     <div
-      v-if="
+      v-else-if="
         isRankedTFT(summonerRankedInfo)
       " class="flex flex-col"
     >
@@ -171,10 +169,7 @@ getRankedData()
       </div>
     </div>
     <div
-      v-if="
-        (Array.isArray(summonerRankedInfo)
-          && summonerRankedInfo.length === 0)
-      " class="border-light-300 border-1"
+      v-else class="border-light-300 border-1"
     >
       <img height="240" width="280" src="/unranked.png" class="w-[240px] h-[240px] mx-auto" alt="">
       <p class="text-center text-gray-300 pb-7 -mt-5 font-bold text-xl">

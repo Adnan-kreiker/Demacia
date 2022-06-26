@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import type { Ref } from 'vue'
+import { NButton } from 'naive-ui'
 import type { RegionParam, Summoner, SummonerRankedInfo } from '~/types'
 import { useRegionStore } from '~/stores/region'
 import useSummoner from '~/composables/useSummoner'
@@ -127,18 +128,18 @@ async function getRankedData() {
     <!-- Tabs Panel -->
     <div v-if="summonerInfo">
       <div class="border-b border-dark-300 mb-4 flex flex-row">
-        <button class="tabs" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0, switchComponent(SummonerFirstTab)">
+        <n-button class="tabs" :class="currentTab === 0 ? 'open-tab' : ''" @click="currentTab = 0, switchComponent(SummonerFirstTab)">
           Summoner Info
-        </button>
-        <button class="tabs" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1, switchComponent(ChampionMastery)">
+        </n-button>
+        <n-button class="tabs" :class="currentTab === 1 ? 'open-tab' : ''" @click="currentTab = 1, switchComponent(ChampionMastery)">
           Champions Mastery
-        </button>
-        <button class="tabs" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
+        </n-button>
+        <n-button class="tabs" :class="currentTab === 2 ? 'open-tab' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
           Live Game
-        </button>
-        <button v-if="Array.isArray(rankedData) && rankedData.length" class="tabs" :class="currentTab === 3 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
+        </n-button>
+        <n-button :disabled="Array.isArray(rankedData) && !rankedData.length" class="tabs" :class="currentTab === 3 ? 'open-tab' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
           League Information
-        </button>
+        </n-button>
       </div>
       <keep-alive>
         <component :is="currentComponent" v-bind="currentProps" />

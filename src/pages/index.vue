@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import GithubButton from 'vue-github-button'
 import SearchForSummoner from '~/components/SearchForSummoner.vue'
 import VercelLogo from '~/components/Icons/VercelLogo.vue'
 </script>
 
 <template>
-  <div class="pb-8 my-auto">
+  <div class="my-auto">
     <h2 class="text-center text-4xl mb-6 font-mono font-bold">
       Demacia
     </h2>
@@ -27,9 +28,15 @@ import VercelLogo from '~/components/Icons/VercelLogo.vue'
         </div>
         <div class="flex">
           <logos-vue class="h-8 w-8 ml-7 scale-on-hover" />
-          <logos-vitejs class="h-8 w-8 ml-7 scale-on-hover" />
           <logos-typescript-icon class="h-8 w-8 ml-7 scale-on-hover" />
+          <logos-vitejs class="h-8 w-8 ml-7 scale-on-hover" />
         </div>
+      </div>
+      <div class="mx-auto flex flex-row items-center justify-center mt-8 gap-3">
+        <span class="italic text-gray-500 -mt-1">Drop us a star on GitHub</span>
+        <github-button href="https://github.com/Adnan-kreiker/demacia" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-icon="octicon-star" data-size="large" aria-label="Star Adnan-kreiker/demacia on GitHub">
+          Star
+        </github-button>
       </div>
     </div>
   </div>

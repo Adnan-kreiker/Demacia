@@ -226,7 +226,7 @@ const columns: DataTableColumns = [
       min-height="850"
     />
     <div v-else>
-      <n-skeleton class="mx-auto" height="40px" width="97%" />
+      <n-skeleton class="mx-auto" height="40px" width="100%" />
       <div v-for="n in 10" :key="n" class="my-4">
         <div class="flex justify-center">
           <n-skeleton class="mr-4" height="50px" circle />

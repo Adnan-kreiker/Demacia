@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
-import { NH2, NPagination, NText } from 'naive-ui'
+import { NH2, NPagination, NSkeleton, NText } from 'naive-ui'
 import { capitalize } from '../../utils'
 import useSummonerLeague from '~/composables/useSummonerLeague'
 import { useRegionStore } from '~/stores/region'
@@ -73,6 +73,16 @@ getSummonerLeague()
         :page-count="Math.ceil(leagueInfo.entries.length / 10)"
         @update-page="updatePage($event)"
       />
+    </div>
+  </div>
+  <div v-else>
+    <n-skeleton class="mb-4" height="36px" width="300px" />
+    <n-skeleton class="mx-auto" height="40px" width="100%" />
+    <div v-for="n in 10" :key="n" class="my-4">
+      <div class="flex justify-center">
+        <n-skeleton class="mr-4" height="50px" circle />
+        <n-skeleton height="50px" width="90%" />
+      </div>
     </div>
   </div>
 </template>

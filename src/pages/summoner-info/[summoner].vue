@@ -136,7 +136,7 @@ async function getRankedData() {
         <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
           Live Game
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 3 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
+        <button v-if="Array.isArray(rankedData) && rankedData.length" class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 3 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
           League Information
         </button>
       </div>

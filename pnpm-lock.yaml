@@ -48,6 +48,7 @@ specifiers:
   vue: ^3.2.36
   vue-chartjs: ^4.1.1
   vue-demi: ^0.11.4
+  vue-github-button: ^3.0.3
   vue-router: ^4.0.15
   vue-tsc: ^0.37.8
   workbox-precaching: ^6.5.3
@@ -62,6 +63,7 @@ dependencies:
   vue: 3.2.36
   vue-chartjs: 4.1.1_chart.js@3.8.0+vue@3.2.36
   vue-demi: 0.11.4_vue@3.2.36
+  vue-github-button: 3.0.3
   vue-router: 4.0.15_vue@3.2.36
 
 devDependencies:
@@ -4558,6 +4560,10 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
+  /github-buttons/2.21.1:
+    resolution: {integrity: sha512-n9bCQ8sj+5oX1YH5NeyWGbAclRDtHEhMBzqw2ctsWpdEHOwVgfruRu0VIVy01Ah10dd/iFajMHYU71L7IBWBOw==}
+    dev: false
+
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -7614,6 +7620,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-github-button/3.0.3:
+    resolution: {integrity: sha512-O2Kv5HxRMn1qqgt2sSy8N7y2C6WGOeICzgGj6y+JFcnLjorTTzNR8vY5abiPOYDiW03WZ/9hUIn7Gm9CG9pIuA==}
+    dependencies:
+      github-buttons: 2.21.1
+    dev: false
 
   /vue-router/4.0.15_vue@3.2.36:
     resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==}

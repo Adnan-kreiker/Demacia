@@ -127,16 +127,16 @@ async function getRankedData() {
     <!-- Tabs Panel -->
     <div v-if="summonerInfo">
       <div class="border-b border-dark-300 mb-4 flex flex-row">
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0, switchComponent(SummonerFirstTab)">
+        <button class="tabs" :class="currentTab === 0 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 0, switchComponent(SummonerFirstTab)">
           Summoner Info
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1, switchComponent(ChampionMastery)">
+        <button class="tabs" :class="currentTab === 1 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 1, switchComponent(ChampionMastery)">
           Champions Mastery
         </button>
-        <button class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
+        <button class="tabs" :class="currentTab === 2 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
           Live Game
         </button>
-        <button v-if="Array.isArray(rankedData) && rankedData.length" class="px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base" :class="currentTab === 3 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
+        <button v-if="Array.isArray(rankedData) && rankedData.length" class="tabs" :class="currentTab === 3 ? 'text-green-400 border-b-2 border-b-dark-500 bg-primary' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
           League Information
         </button>
       </div>

@@ -183,3 +183,7 @@ nav{
 .scale-on-hover{
   @apply transform hover:scale-125 transition-all ease-linear duration-300 hover:cursor-pointer
 }
+
+.tabs{
+  @apply px-3 border-dark-200 border py-1.5 -mb-0.5 bg-dark-300 mx-0.7 rounded-t-sm text-sm sm:text-base
+}

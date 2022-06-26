@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     FeaturedGamesIcon: typeof import('./src/components/Icons/FeaturedGamesIcon.vue')['default']
     FeaturedGamesTimeSlot: typeof import('./src/components/FeaturedGamesTimeSlot.vue')['default']
     FilterComponent: typeof import('./src/components/FilterComponent.vue')['default']
+    GithubStarButton: typeof import('./src/components/GithubStarButton.vue')['default']
     HomeIcon: typeof import('./src/components/Icons/HomeIcon.vue')['default']
     LiveGame: typeof import('./src/components/LiveGame.vue')['default']
     LiveGameTeamInfo: typeof import('./src/components/LiveGameTeamInfo.vue')['default']

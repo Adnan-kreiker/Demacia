@@ -5,9 +5,10 @@ import { NSkeleton, NSpace } from 'naive-ui'
 <template>
   <div>
     <section class="flex flex-row justify-start gap-2 mb-8">
-      <n-skeleton height="42px" width="143px" :sharp="false" />
-      <n-skeleton height="42px" width="174px" :sharp="false" />
-      <n-skeleton height="42px" width="107px" :sharp="false" />
+      <n-skeleton height="34px" width="133px" :sharp="false" />
+      <n-skeleton height="34px" width="162px" :sharp="false" />
+      <n-skeleton height="34px" width="97px" :sharp="false" />
+      <n-skeleton height="34px" width="163px" :sharp="false" />
     </section>
     <section class="w-full flex-grow mb-8 flex-wrap md:flex-nowrap flex gap-3 justify-center flex-col sm:flex-row">
       <n-space vertical class="sm:w-1/3 mx-auto">

@@ -15,7 +15,7 @@ declare module 'v-lazy-image' {
 
 }
 
-declare module 'rollup-plugin-analyzer' {
+declare module 'vue-github-button' {
 
 }
 

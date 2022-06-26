@@ -90,11 +90,9 @@ function triggerFilter(role: Role) {
 }
 
 const tagType = (role: Roles) => {
-  if (pickedRole.value.includes(role)) {
-    console.log('ran1', role)
+  if (pickedRole.value.includes(role))
     return 'primary'
-  }
-  console.log('ran2')
+
   return 'default'
 }
 </script>

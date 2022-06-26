@@ -51,6 +51,10 @@ const leagueInfoEntries = computed(() => {
 })
 
 getSummonerLeague()
+
+onUnmounted(() => {
+  playerLeagueIdStore.$reset()
+})
 </script>
 
 <template>

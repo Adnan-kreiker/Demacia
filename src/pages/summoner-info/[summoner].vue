@@ -105,10 +105,10 @@ const tabs = [
 
 function isSoloRanked(rankedInfo: SummonerRankedInfo | null): boolean {
   if (Array.isArray(rankedInfo) && rankedInfo.length) {
-    rankedInfo.forEach((info) => {
-      if (info.queueType === 'RANKED_SOLO_5x5')
+    for (let i = 0; i < rankedInfo.length; i++) {
+      if (rankedInfo[i].queueType === 'RANKED_SOLO_5x5')
         return true
-    })
+    }
   }
   return false
 }

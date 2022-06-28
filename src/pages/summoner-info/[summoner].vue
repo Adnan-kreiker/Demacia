@@ -79,6 +79,40 @@ const currentProps = computed(() => {
   }
 })
 
+const tabs = [
+  {
+    label: 'Summoner',
+    component: SummonerFirstTab,
+    tab: 0,
+
+  },
+  {
+    label: 'Champion Mastery',
+    component: ChampionMastery,
+    tab: 1,
+  },
+  {
+    label: 'Live Game',
+    component: LiveGame,
+    tab: 2,
+  },
+  {
+    label: 'League Information',
+    component: SummonerLeagueInformation,
+    tab: 3,
+  },
+]
+
+function isSoloRanked(rankedInfo: SummonerRankedInfo | null): boolean {
+  if (Array.isArray(rankedInfo) && rankedInfo.length) {
+    rankedInfo.forEach((info) => {
+      if (info.queueType === 'RANKED_SOLO_5x5')
+        return true
+    })
+  }
+  return false
+}
+
 const switchComponent = (newComponent: Tabs) => {
   currentComponent.value = markRaw(newComponent)
 }
@@ -128,17 +162,12 @@ async function getRankedData() {
     <!-- Tabs Panel -->
     <div v-if="summonerInfo">
       <div class="border-b border-dark-300 mb-4 flex flex-row">
-        <n-button class="tabs" :class="currentTab === 0 ? 'open-tab' : ''" @click="currentTab = 0, switchComponent(SummonerFirstTab)">
-          Summoner Info
-        </n-button>
-        <n-button class="tabs" :class="currentTab === 1 ? 'open-tab' : ''" @click="currentTab = 1, switchComponent(ChampionMastery)">
-          Champions Mastery
-        </n-button>
-        <n-button class="tabs" :class="currentTab === 2 ? 'open-tab' : ''" @click="currentTab = 2, switchComponent(LiveGame)">
-          Live Game
-        </n-button>
-        <n-button :disabled="Array.isArray(rankedData) && !rankedData.length" class="tabs" :class="currentTab === 3 ? 'open-tab' : ''" @click="currentTab = 3, switchComponent(SummonerLeagueInformation)">
-          League Information
+        <n-button
+          v-for="tab in tabs" :key="tab.label" class="tabs" :class="currentTab === tab.tab ? 'open-tab' : ''"
+          :disabled="tab.tab === 3 && !isSoloRanked(rankedData)"
+          @click="currentTab = tab.tab, switchComponent(tab.component)"
+        >
+          {{ tab.label }}
         </n-button>
       </div>
       <keep-alive>

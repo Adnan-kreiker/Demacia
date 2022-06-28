@@ -17,7 +17,7 @@ import FilterComponent from './FilterComponent.vue'
 import MatchHistoryChart from '~/components/MatchHistoryChart.vue'
 import useMatchHistory from '~/composables/useMatchHistory'
 import { useRegionStore } from '~/stores/region'
-import type { FilterOption, MatchInfo, Participant, Summoner } from '~/types'
+import type { FilterOption, Participant, Summoner } from '~/types'
 
 const props = defineProps<{
   summonerInfo: Summoner
@@ -127,12 +127,14 @@ const winsAndLossesCalculator = computed(() => {
   const wins = ref(0)
   const losses = ref(0)
   filteredMatchHistory.value.forEach((match, i) => {
-    const summoner = match.info.participants.filter(match => match.summonerId === summonerInfo.value.id)[0]
-    if (summoner.win)
-      wins.value++
+    if (match.info) {
+      const summoner = match.info.participants.filter(match => match.summonerId === summonerInfo.value.id)[0]
+      if (summoner.win)
+        wins.value++
 
-    else
-      losses.value++
+      else
+        losses.value++
+    }
   })
   return [wins.value, losses.value]
 })

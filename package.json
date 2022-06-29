@@ -2,7 +2,6 @@
   "private": true,
   "name": "Demacia",
   "packageManager": "pnpm@7.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite --port 3333 --open",
     "build": "vite build",

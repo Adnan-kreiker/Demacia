@@ -11,7 +11,7 @@
     "incremental": false,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "compilerOptions.isolatedModules": "true",
+    "isolatedModules": true,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,

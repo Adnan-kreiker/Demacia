@@ -2,6 +2,7 @@
   "private": true,
   "name": "Demacia",
   "packageManager": "pnpm@7.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite --port 3333 --open",
     "build": "vite build",
@@ -12,6 +13,7 @@
     "coverage": "vitest --coverage",
     "preview-https": "serve dist",
     "lint": "eslint \"**/*.{vue,ts,js}\"",
+    "cy:run": "cypress run",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
@@ -45,7 +47,7 @@
     "c8": "^7.11.3",
     "critters": "^0.0.16",
     "cross-env": "^7.0.3",
-    "cypress": "^10.1.0",
+    "cypress": "^10.3.0",
     "eslint": "8.15.0",
     "eslint-plugin-vue": "^8.0.1",
     "happy-dom": "^2.55.0",

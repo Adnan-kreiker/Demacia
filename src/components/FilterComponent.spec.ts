@@ -26,27 +26,6 @@ describe('FilterComponent', () => {
     expect(wrapper.find('span[data-testid=filter-span]').text()).toBe(props.currentFilter)
   })
 
-  // TODO: fix this test
-  // it('Selects the clicked filter as current Filter', async () => {
-  //   const wrapper = mount(FilterComponent, {
-  //     propsData: props,
-  //   })
 
-  //   // const testUl = wrapper.get('ul[data-testid=filter-list]')
-  //   // expect(testUl.isVisible()).toBe(false)
-
-  //   const filterDiv = wrapper.find('div[data-testid=filter-button]')
-  //   await filterDiv.trigger('click')
-  //   // expect(testUl.isVisible()).toBe(true)
-  //   const testLi = wrapper.findAll('li').filter(li => li.text() === 'test')[0]
-  //   // console.log(testLi.text())
-  //   const testSpan = wrapper.find('span[data-testid=filter-span]')
-  //   console.log(testSpan.text())
-
-  //   await testLi.trigger('click')
-  //   console.log(testSpan.text())
-
-  //   expect(testSpan.text()).toBe('test')
-  // })
 })
 

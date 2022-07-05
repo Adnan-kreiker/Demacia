@@ -3,7 +3,7 @@
   "name": "Demacia",
   "packageManager": "pnpm@7.0.0",
   "scripts": {
-    "dev": "vite --port 3333 --open",
+    "dev": "vite  --open",
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",

@@ -191,7 +191,7 @@ export interface FreeChampionRotations {
 
 export type QueueTypes = 'RANKED_SOLO_5x5' | 'RANKED_FLEX_SR' | 'RANKED_TFT_PAIRS'
 
-export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues'
+export type Ranks = 'challengerleagues' | 'grandmasterleagues' | 'masterleagues' | 'I' | 'II' | 'III' | 'IV'
 
 export type Tier = 'CHALLENGER' | 'GRANDMASTER' | 'MASTER' | 'DIAMOND' | 'PLATINUM' | 'GOLD' | 'SILVER' | 'BRONZE' | 'IRON'
 
@@ -229,7 +229,64 @@ export interface ChallengerPlayerWithIndex {
   hotStreak: boolean
   idx: number
 }
+
 export interface ChallengerPlayerWithAdditionalData {
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
+  id: string
+  accountId: string
+  puuid: string
+  name: string
+  profileIconId: number
+  revisionDate: number
+  summonerLevel: number
+  idx: number
+}
+
+export interface PlayersLambda {
+  tier: string
+  leagueId: string
+  queue: string
+  name: string
+  entries: PlayerLambda[]
+}
+
+export interface PlayerLambda {
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
+}
+
+export interface PlayerLambdaWithIndex {
+  summonerId: string
+  summonerName: string
+  leaguePoints: number
+  rank: string
+  wins: number
+  losses: number
+  veteran: boolean
+  inactive: boolean
+  freshBlood: boolean
+  hotStreak: boolean
+  idx: number
+}
+
+export interface PlayerLambdaWithAdditionalData {
   summonerId: string
   summonerName: string
   leaguePoints: number

@@ -81,6 +81,23 @@ router.get('/get-ranked-info/:summonerId', cache('2 minutes'), async (req: Reque
   }
 })
 
+router.get('/get-leaderboards-information/:leagueId', cache('100 minutes'), async (req: Request, res: Response) => {
+  const params = new URLSearchParams({
+    [api_key_name]: api_key,
+  })
+  const { region } = req.query
+  const leaderboardsUrl = `https://${region}.api.riotgames.com/lol/league/v4/leagues/`
+  try {
+    const { leagueId } = req.params
+    const result = await needle('get', `${leaderboardsUrl}${leagueId}?${params}`)
+    const data = result.body
+    res.status(200).json(data)
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
+
 router.get('/get-leaderboards-players/:rank/:queue', cache('100 minutes'), async (req: Request, res: Response) => {
   const params = new URLSearchParams({
     [api_key_name]: api_key,

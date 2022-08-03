@@ -6,12 +6,12 @@ import { storeToRefs } from 'pinia'
 import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
 import type { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
 import { regionStore } from '~/stores/region'
+import { leagueStore } from '~/stores/league'
 import useSummonerRankedInfoById from '~/hooks/useSummonerRankedInfoById'
 
 const props = defineProps<{
   queueType: QueueTypes
   summonerInfo: Summoner
-
 }>()
 
 const { region } = storeToRefs(regionStore())
@@ -22,6 +22,12 @@ const { rankedData } = await useSummonerRankedInfoById(
   summonerInfo.value.id,
   region.value,
 )
+
+const league_store = leagueStore()
+if (Array.isArray(rankedData.value) && rankedData.value[0] !== undefined) {
+  league_store.setLeague(rankedData.value[0].leagueId)
+  league_store.setRank(rankedData.value[0].rank)
+}
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT | undefined>(() => {
   if (Array.isArray(rankedData.value))

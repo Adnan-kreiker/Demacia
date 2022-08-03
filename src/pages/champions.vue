@@ -2,6 +2,21 @@
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import useChampions from '~/hooks/useChampions'
 import ChampionCard from '~/components/ChampionCard.vue'
+import {getChampionName, getChampionInfoById, getChampionInfoByName, championsArrayFiltered} from "../../utils";
+
+const state = reactive({
+  search: '',
+  tags: [
+    { title: 'Fighter' },
+    { title: 'Tank' },
+    { title: 'Assassin' },
+    { title: 'Marksman' },
+    { title: 'Support' },
+    { title: 'Mage' }
+  ]
+})
+
+const { championsArray, champions } = useChampions()
 
 const { width } = useWindowSize()
 
@@ -35,8 +50,6 @@ const itemSize = computed(() => {
 
   return 15
 })
-
-const { championsArray } = useChampions()
 </script>
 
 <template>
@@ -44,12 +57,32 @@ const { championsArray } = useChampions()
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-8">
       Champions
     </h1>
-    <div v-if="championsArray">
-      <RecycleScroller class="scroll-class" :items="championsArray" :item-size="itemSize" key-field="id">
-        <template #default="{ item }">
-          <ChampionCard :champ="item" />
-        </template>
-      </RecycleScroller>
+    <div id="search_champion">
+      <h1 class="text-green-300 text-2xl font-bold text-left mt-0 mb-2">
+        Search a champion
+      </h1>
+      <input type="text" v-model="state.search" placeholder="search champion">
+      <h1 class="text-green-300 text-2xl font-bold text-left mt-2 mb-2">
+        Filter with tag
+      </h1>
+      <div id="checkbox_tag">
+        <label v-for="tag in state.tags" :key="tag.title" class="label-checkbox" :class="{ 'checked': tag.checked }" :for="tag.title.toLowerCase()">
+          <input type="checkbox" v-model="tag.checked" class="check-tag" :id="tag.title.toLowerCase()" :value="tag.title" />
+          {{ tag.title }}
+        </label>
+      </div>
+    </div>
+<!--    <div v-if="championsArray">-->
+<!--      <RecycleScroller class="scroll-class" :items="championsArray" :item-size="itemSize" key-field="id">-->
+<!--        <template #default="{ item }">-->
+<!--          <ChampionCard :champ="item" />-->
+<!--        </template>-->
+<!--      </RecycleScroller>-->
+<!--    </div>-->
+    <div v-if="championsArray" class="flex flex-row flex-wrap gap-5 justify-center">
+      <div v-for="champName in getChampionName(championsArrayFiltered(championsArray, state.search, state.tags))" :key="champName">
+        <ChampionCard :champ="getChampionInfoByName(championsArray, champName)"/>
+      </div>
     </div>
     <div v-else class="flex flex-row flex-wrap gap-6 justify-center">
       <n-skeleton v-for="skeleton in 70" :key="skeleton" height="138px" width="98px" />
@@ -58,8 +91,50 @@ const { championsArray } = useChampions()
 </template>
 
 <style >
+#search_champion {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #000000;
+  margin: 40px;
+}
+.label-checkbox {
+  margin-right: 0.87rem;
+  margin-left: auto;
+  border: 1px solid #9ae6b4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #9ae6b4;
+}
 
+.check-tag {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.checked {
+  background: #388553;
+  color: #fff;
+}
+
+.checked::before {
+  content: "✔";
+}
 </style>
+
 
 <route lang="yaml">
 meta:

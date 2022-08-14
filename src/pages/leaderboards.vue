@@ -34,7 +34,7 @@ const rankOptions = [
   {
     label: 'MASTER',
     value: 'masterleagues',
-  },
+  }
 ]
 
 const servers: Servers = ['EUW', 'EUNE', 'NA', 'LAN', 'LAS', 'BR', 'TR', 'RU', 'OCE', 'JP', 'KR']
@@ -75,10 +75,12 @@ const sortedChallengerPlayers = computed<RankedPlayerWithIndex[] | []>(() => {
 const summonersTableKey = ref(0)
 
 watch([queue, rank, regionVal], () => {
+  console.log("watch")
   page.value = 1
 })
 
 watch([page, challengerPlayers], () => {
+  console.log("watch2")
   summonersTableKey.value++
 })
 

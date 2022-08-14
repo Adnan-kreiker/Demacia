@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { NNumberAnimation, NSkeleton, NStatistic, NTag } from 'naive-ui'
 import { capitalize, replaceUnderscoreWithSpace } from '../../utils'
-import type { QueueTypes, RankedData, RankedDataTFT, SummonerRankedInfo } from '../types'
-import { usePlayerLeagueIdStore } from '~/stores/playerLeagueId'
+import type { QueueTypes, RankedData, RankedDataTFT, Summoner } from '../types'
+import { regionStore } from '~/stores/region'
+import { leagueStore } from '~/stores/league'
+import useSummonerRankedInfoById from '~/hooks/useSummonerRankedInfoById'
 
 const props = defineProps<{
   queueType: QueueTypes
-  rankedData: SummonerRankedInfo
-
+  summonerInfo: Summoner
 }>()
 
 const summonerLeagueIdStore = usePlayerLeagueIdStore()
@@ -21,6 +22,11 @@ function isRankedSolo(rankedInfo: RankedData | RankedDataTFT | []): rankedInfo i
 function isRankedTFT(rankedInfo: RankedData | RankedDataTFT | []): rankedInfo is RankedDataTFT {
   return (rankedInfo as RankedDataTFT).queueType === 'RANKED_TFT_PAIRS'
 }
+const league_store = leagueStore()
+if (Array.isArray(rankedData.value) && rankedData.value[0] !== undefined) {
+  league_store.setLeague(rankedData.value[0].leagueId)
+  league_store.setRank(rankedData.value[0].rank)
+}
 
 const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
   if (Array.isArray(rankedData.value) && rankedData.value.length) {
@@ -30,7 +36,6 @@ const summonerRankedInfo = computed<RankedData | RankedDataTFT | []>(() => {
 
     return rankedData.value.filter(info => info?.queueType === props.queueType)[0] ?? []
   }
-  return []
 })
 </script>
 

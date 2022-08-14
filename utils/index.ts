@@ -252,6 +252,30 @@ export const getChampionInfoById = (champsArray: Champion[], champId: number) =>
   return champInfo!
 }
 
+export const getChampionInfoByName = (champsArray: Champion[], champName: string) => {
+  const champInfo = champsArray.find(champ => champ.id === champName)
+  return champInfo!
+}
+
+export const getChampionName = (champsArray: Champion[]) => {
+  var result = []
+  for (let i = 0; i < champsArray.length; i = i+1) {
+    result.push(champsArray[i].id)
+  }
+  return result!
+}
+
+export const championsArrayFiltered = (champsArray: Champion[], filter: string, tags: []) => {
+  const tagsListChecked = tags.map(({ title, checked }) => ({title, checked}))
+  const tagFiltered : string[] = tagsListChecked.filter(tags => tags.checked === true).map(el => el.title)
+  let result : Champion[] = champsArray.filter(champ => champ.id.toLowerCase().includes(filter.toLowerCase()))
+  if(tagFiltered.length !== 0){
+    result = result.filter(champ => champ.tags.some(item => tagFiltered.includes(item)));
+  }
+  console.log("result", result)
+  return result!
+}
+
 // Format numbers to have commas in them
 export const formatNumber = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')

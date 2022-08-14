@@ -57,7 +57,6 @@ const itemSize = computed(() => {
     <h1 class="text-green-300 text-4xl font-bold text-center mt-0 mb-8">
       Champions
     </h1>
-    <<<<<<< HEAD
     <n-input
       v-model:value="search" type="text" clearable class="max-w-60 mx-auto block mb-6"
       placeholder="Search"
@@ -71,7 +70,6 @@ const itemSize = computed(() => {
     </div>
     <div v-if="championsArray" class="flex flex-row flex-wrap gap-4 justify-center">
       <ChampionCard v-for="champ in filteredChampions" :key="champ.id" :champ="champ" />
-      =======
       <div id="search_champion">
         <h1 class="text-green-300 text-2xl font-bold text-left mt-0 mb-2">
           Search a champion

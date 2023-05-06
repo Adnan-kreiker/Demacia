@@ -16,7 +16,7 @@ Here are some of the features that this app provides:
 
 This web app was built using the following technologies:
 
-- **Front-end**: HTML, CSS, JavaScript, TypeScript, Vue, Pinia, Naive UI, and Vue use.
+- **Front-end**: HTML, CSS, JavaScript, TypeScript, Vue, Pinia, Naive UI, WindiCss, and Vue use.
 - **Back-end**: Express.js.
 - **APIs**: Riot Games API.
 

@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { watch } from 'vue'
 import type { DataTableColumns } from 'naive-ui'
 import { NCarousel, NCarouselItem } from 'naive-ui'
 import NDataTable from 'naive-ui/es/data-table/src/DataTable'
 import NSkeleton from 'naive-ui/es/skeleton/src/Skeleton'
 import championsSpells from '../../../championsSpells.json'
-import type { ChampionInfo, Spell } from '~/types'
-import CheckMark from '~/components/Icons/CheckMark.vue'
-import WarningIcon from '~/components/Icons/WarningIcon.vue'
 import AttackIcon from '~/components/Icons/AttackIcon.vue'
-import ShieldIcon from '~/components/Icons/ShieldIcon.vue'
-import MagicIcon from '~/components/Icons/MagicIcon.vue'
 import BrainIcon from '~/components/Icons/BrainIcon.vue'
+import CheckMark from '~/components/Icons/CheckMark.vue'
+import MagicIcon from '~/components/Icons/MagicIcon.vue'
+import ShieldIcon from '~/components/Icons/ShieldIcon.vue'
+import WarningIcon from '~/components/Icons/WarningIcon.vue'
+import type { ChampionInfo, Spell } from '~/types'
 
 const route = useRoute()
 
@@ -126,20 +125,23 @@ const tableColumns: DataTableColumns<Stats> = [
   { title: 'Value', key: 'Value', align: 'center' },
 ]
 
-const champStats = ref<Stats[]>([])
+const champStats = computed<Stats[]>(() => {
+  if (!champion.value)
+    return []
 
-const spells = ref<Spell[]>([])
+  return Object.entries(champion.value!.stats).map((stat) => {
+    return {
+      Skill: stat[0],
+      Value: stat[1],
+    }
+  })
+})
 
-watch(champion, () => {
-  if (champion.value) {
-    champStats.value = Object.entries(champion.value!.stats).map((stat) => {
-      return {
-        Skill: stat[0],
-        Value: stat[1],
-      }
-    })
-    spells.value = champion.value.spells
-  }
+const spells = computed<Spell[]>(() => {
+  if (!champion.value)
+    return []
+
+  return champion.value.spells
 })
 </script>
 

@@ -295,7 +295,7 @@ watch(champion, () => {
                 :key="skin.id"
                 :style="{ width: '80%' }"
               >
-                <img :src="`https://ddragon.canisback.com/img/champion/loading/${champion!.id}_${skin.num}.jpg`" :alt="skin.name">
+                <img :src="`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion!.id}_${skin.num}.jpg`" :alt="skin.name">
                 <p class="font-mono text-center text-base overflow-visible mt-2">
                   {{ skin.name }}
                 </p>

@@ -9,9 +9,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import WindiCSS from 'vite-plugin-windicss'
 import { VitePWA } from 'vite-plugin-pwa'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
-// import analyze from 'rollup-plugin-analyzer'
 import visualizer from 'rollup-plugin-visualizer'
 
 const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
@@ -31,11 +29,6 @@ export default ({ mode }: { mode: string }) => {
       },
       exclude: ['**/node_modules/**', '**/vite.config.js', '**/vite.config.ts', '**/vite.config.js.map', '**/vite.config.ts.map'],
     },
-    // build: {
-    //   rollupOptions: {
-    //     plugins: [analyze()],
-    //   },
-    // },
     build: {
       target: 'modules',
       assetsInlineLimit: 4096,
@@ -50,37 +43,6 @@ export default ({ mode }: { mode: string }) => {
         treeshake: true,
         output: {
         },
-        // output: [
-        //   {
-        //     format: 'es',
-
-        //     dir: 'public/module',
-        //     // preserveModules: true,
-        //     // entryFileNames: 'entry-[name].js'
-        //     // preserveModulesRoot: 'src',
-
-        //   }
-        // ]
-        // output: {
-        //   // chunkFileNames: 'static/js/[name]-[hash]. JS', // chunkfilenames will be automatically split within rollup. You can use manualchunks to specify the split explicitly.
-        //   // entryFileNames: 'static/js/[name].js',
-        //   // assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-        //   dir: 'dist',
-        //   preserveModules: true,
-
-        //   // manualChunks: (id) => {
-        //   //   if (id.includes("node_modules")) {
-        //   //     if (id.includes("naive-ui")) {
-        //   //       return "naive-ui";
-        //   //     } else if (id.includes("lodash-es")) {
-        //   //       return "lodash-es";
-        //   //     }
-
-        //   //     return "vendor"; // all other package goes here
-        //   //   }
-        //   // },
-        // },
-        // Limit of chunk size warning
       },
     },
     define: {
@@ -126,28 +88,6 @@ export default ({ mode }: { mode: string }) => {
         dts: 'src/auto-imports.d.ts',
 
       }),
-
-      // https://github.com/antfu/unplugin-vue-components
-      // Components({
-      //   // allow auto load markdown components under `./src/components/`
-      //   extensions: ['vue'],
-
-      //   // allow auto import and register components used in markdown
-      //   include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-
-      //   // custom resolvers
-      //   resolvers: [
-      //     // auto import icons
-      //     // https://github.com/antfu/unplugin-icons
-      //     IconsResolver({
-      //       componentPrefix: '',
-      //       // enabledCollections: ['carbon']
-      //     }),
-      //     ElementPlusResolver(),
-      //   ],
-
-      //   dts: 'src/components.d.ts',
-      // }),
       Components({
         resolvers: [
           // auto import icons
@@ -202,13 +142,6 @@ export default ({ mode }: { mode: string }) => {
           ],
         },
       }),
-
-      // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
-      // VueI18n({
-      //   runtimeOnly: true,
-      //   compositionOnly: true,
-      //   include: [path.resolve(__dirname, 'locales/**')],
-      // }),
 
       // https://github.com/antfu/vite-plugin-inspect
       Inspect({

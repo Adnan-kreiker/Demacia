@@ -125,13 +125,40 @@ const tableColumns: DataTableColumns<Stats> = [
   { title: 'Value', key: 'Value', align: 'center' },
 ]
 
+const skillsNames = {
+  hp: 'hp',
+  hpperlevel: 'hp per level',
+  mp: 'mana',
+  mpperlevel: 'mana per level',
+  movespeed: 'movement speed',
+  armor: 'armor',
+  armorperlevel: 'armor per level',
+  spellblock: 'magic resist',
+  spellblockperlevel: 'magic resist per level',
+  attackrange: 'attack range',
+  hpregen: 'hp regen',
+  hpregenperlevel: 'hp regen per l`evel',
+  mpregen: 'mana regen',
+  mpregenperlevel: 'mana regen per level',
+  crit: 'critical damage chance',
+  critperlevel: 'critical damage per level',
+  attackdamage: 'attack damage',
+  attackdamageperlevel: 'ad per level',
+  attackspeedperlevel: 'as per level',
+  attackspeed: 'attack speed', 
+}
+
+function skillNameMapper(skillName: string) {
+  return skillsNames[skillName].toUpperCase()
+}
+
 const champStats = computed<Stats[]>(() => {
   if (!champion.value)
     return []
 
   return Object.entries(champion.value!.stats).map((stat) => {
     return {
-      Skill: stat[0],
+      Skill: skillNameMapper(stat[0]),
       Value: stat[1],
     }
   })

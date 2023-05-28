@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <div class="max-w-[770px] mx-auto">
     <div class="gradient-border w-max mb-4 mx-auto">

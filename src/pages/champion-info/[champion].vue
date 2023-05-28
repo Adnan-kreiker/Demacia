@@ -69,7 +69,8 @@ const replaceEffectsWithValues = (currentChampionSpells: string, i: number) => {
     return eff[0][matched as keyof EffectsValues]
   })
   currentChampionSpells = currentChampionSpells.replace('{{ e0 }}%', `${eff[0]['{{ e10 }}']}%`)
-  return currentChampionSpells
+  const removedMustaches = /{{.*?}}/g
+  return currentChampionSpells.replace(removedMustaches, '')
 }
 
 function mustacheAdder(str: string) {

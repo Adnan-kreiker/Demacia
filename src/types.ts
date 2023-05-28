@@ -594,7 +594,7 @@ export interface FilterOption {
 
 export type Servers = ['EUW', 'EUNE', 'NA', 'LAN', 'LAS', 'BR', 'TR', 'RU', 'OCE', 'JP', 'KR']
 
-export type Region = 'EUW' | 'EUNE' | 'NA' | 'LAN' | 'LAS' | 'BR' | 'TR' | 'RU' | 'OCE' | 'JP' | 'KR'
+export type Region = Servers[number]
 
 export type RegionParam = 'euw1' | 'eun1' | 'na1' | 'la1' | 'la2' | 'br1' | 'tr1' | 'ru' | 'oc1' | 'jp1' | 'kr'
 
